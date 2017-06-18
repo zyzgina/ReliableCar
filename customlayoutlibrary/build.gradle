@@ -48,4 +48,6 @@ dependencies {
     compile 'com.github.zyzgina:ArrowPosition:25.3.0'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile 'com.github.zyzgina:TimeSelection:25.0.3'
+    /* 语音播报 */
+    compile 'com.github.zyzgina:voiceProject:25.0.2'
 }
