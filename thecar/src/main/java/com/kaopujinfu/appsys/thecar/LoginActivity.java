@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
@@ -155,6 +156,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     /** 保存数据 */
                     IBase.USERID = result.getUser_id();
                     IBase.SESSIONID = result.getS_id();
+                    SPUtils.put(LoginActivity.this,"loginUser",o.toString());
                     SPUtils.put(LoginActivity.this, "login_user_id", IBase.USERID);
                     SPUtils.put(LoginActivity.this, "login_s_id", IBase.SESSIONID);
 //                    clearLenderInfo();

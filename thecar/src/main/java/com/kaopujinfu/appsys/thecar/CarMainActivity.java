@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.dialog.LoadingDialog;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
@@ -26,6 +27,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseUrl;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView;
@@ -61,7 +63,6 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         EventBus.getDefault().register(this);
         initCarMain();
         setMenu();
-        initPersonalInfo();
     }
 
     private void initCarMain() {
@@ -153,6 +154,17 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         tel_slidingmenu = (TextView) findViewById(R.id.tel_slidingmenu);
         integral_slidingmenu = (TextView) findViewById(R.id.integral_slidingmenu);
         jodgrade_slidingmenu = (TextView) findViewById(R.id.jodgrade_slidingmenu);
+        String o = SPUtils.get(CarMainActivity.this, "loginUser", "").toString();
+        Loginbean user = Loginbean.getLoginbean(o);
+        if (user != null) {
+            if (GeneralUtils.isEmpty(user.getMobile())) {
+                tel_slidingmenu.setText("未绑定");
+            } else {
+                tel_slidingmenu.setText(IBaseMethod.hide(user.getMobile(), 3, 6));
+            }
+        } else {
+            tel_slidingmenu.setText("未绑定");
+        }
         logout_slidingmenu_layout = (RadioGroup) findViewById(R.id.logout_slidingmenu_layout);
         logout_slidingmenu = (RadioButton) findViewById(R.id.logout_slidingmenu);
         listAdapter = new SimpleListAdapter(this);
@@ -220,39 +232,5 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
                 id_drawerlayout.openDrawer(Gravity.LEFT);
             }
         }
-    }
-
-    /**
-     * 获取个人信息
-     */
-    private void initPersonalInfo() {
-        HttpBank.getIntence(this).getAction(IBaseUrl.ACTION_PERSONAL, IBaseUrl.USER, new CallBack<Object>() {
-            @Override
-            public void onSuccess(Object o) {
-                Result result = Result.getMcJson(o.toString());
-                LogUtils.debug(result.toString());
-                IBase.user.setUser_id(result.getUserId());
-                IBase.user.setName(result.getName());
-                IBase.user.setEmail(result.getEmail());
-                IBase.user.setMobile(result.getMobile());
-                IBase.user.setIdcard(result.getIdcard());
-                IBase.user.setHeadImg(result.getHeadImg());
-                IBase.user.setRealHeadImg(result.getRealHeadImg());
-                IBase.user.setLastLogin(result.getLastLogin());
-                IBase.user.setNickName(result.getNickName());
-                tel_slidingmenu.setText(IBaseMethod.hide(IBase.user.getMobile(), 3, 6));
-                LogUtils.debug("头像地址：http://192.168.88.129:8081" + IBase.user.getHeadImg());
-                FinalBitmap.create(CarMainActivity.this).display(avatar_slidingmenu, "http://192.168.88.129:8081" + IBase.user.getHeadImg());
-                JumpEventBus jumpEventBus = new JumpEventBus();
-                jumpEventBus.setStatus(IBase.CONSTANT_ZERO);
-                EventBus.getDefault().post(jumpEventBus);
-
-            }
-
-            @Override
-            public void onFailure(int errorNo, String strMsg) {
-
-            }
-        });
     }
 }

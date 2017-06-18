@@ -10,13 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MyListView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.ObserveScrollView;
+import com.kaopujinfu.appsys.thecar.PersonalActivity;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.MyselfMissionAdapter;
 import com.kaopujinfu.appsys.thecar.adapters.MyselfMsgAadapter;
@@ -120,7 +124,19 @@ public class MyselfActivity extends Activity {
         mAvatar = (AvatarView) findViewById(R.id.avatar_myself);
         mNameTel = (TextView) findViewById(R.id.nametel_myself);
         mJob = (TextView) findViewById(R.id.job_myself);
-        mNameTel.setText(IBaseMethod.hide(IBase.user.getMobile(), 3, 6));
+        String o = SPUtils.get(MyselfActivity.this, "loginUser", "").toString();
+        Loginbean user = Loginbean.getLoginbean(o);
+        if (user != null) {
+            if (GeneralUtils.isEmpty(user.getMobile())) {
+                mNameTel.setText(user.getName() + "(未绑定)");
+            } else {
+                mNameTel.setText(user.getName() + "(" + IBaseMethod.hide(user.getMobile(), 3, 6) + ")");
+            }
+            mJob.setText(user.getCompanyShortName() + "-" + user.getRole());
+        } else {
+            mNameTel.setText("未设置(未绑定)");
+            mJob.setText("未加入-未设置");
+        }
         mMessage = (MyGridView) findViewById(R.id.message_myself);
         msgAadapter = new MyselfMsgAadapter(this);
         mMessage.setAdapter(msgAadapter);

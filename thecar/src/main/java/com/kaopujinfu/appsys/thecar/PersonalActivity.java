@@ -11,12 +11,14 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseActivity;
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView;
 
 import net.tsz.afinal.FinalBitmap;
@@ -48,12 +50,17 @@ public class PersonalActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        if (IBase.user != null) {
-            username_personal.setText(IBase.user.getName());
-            idcode_personal.setText(IBase.user.getIdcard());
-            phone_number_personal.setText(IBaseMethod.hide(IBase.user.getMobile(), 3, 6));
-            company_personal.setText(IBase.user.getCompanyName());
-            email_personal.setText(IBase.user.getEmail());
+        String o = SPUtils.get(PersonalActivity.this, "loginUser", "").toString();
+        Loginbean user = Loginbean.getLoginbean(o);
+        if (user != null) {
+            username_personal.setText(user.getName());
+            idcode_personal.setText("");
+            if (GeneralUtils.isEmpty(user.getMobile()))
+                phone_number_personal.setText("未绑定");
+            else
+                phone_number_personal.setText(IBaseMethod.hide(user.getMobile(), 3, 6));
+            company_personal.setText(user.getCompanyLongName());
+            email_personal.setText(user.getEmail());
         }
     }
 

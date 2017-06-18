@@ -35,6 +35,7 @@ import com.kaopujinfu.appsys.thecar.service.BluetoothLeService;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
+import com.reliablel.voiceproject.VoiceUtils;
 
 import net.tsz.afinal.FinalDb;
 
@@ -61,6 +62,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
     private String taskCode;
     private double longitude, latitude;
     private MapUtils mapUtils;
+    private VoiceUtils voiceUtils;
     private Handler dHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -83,6 +85,8 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devicecontrol);
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
+        voiceUtils=new VoiceUtils();
+        voiceUtils.initialTts(this);
         initView();
     }
 
@@ -236,6 +240,9 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                                     entity.setLng(longitude + "");
                                     db.update(entity);
                                     VibratorUtil.Vibrate(DeviceControlActivity.this, 30);
+                                    voiceUtils.startSpeek("盘库成功");
+                                }else{
+                                    voiceUtils.startSpeek("该车已盘库");
                                 }
                                 List<TaskItemBean.TaskItemsEntity> finish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\"");
                                 List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
@@ -246,6 +253,8 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                                     IBaseMethod.showToast(DeviceControlActivity.this, "该车库盘库已完成", IBase.RETAIL_TWO);
                                     finish();
                                 }
+                            }else{
+                                voiceUtils.startSpeek("查询失败");
                             }
                         }
                     }
@@ -323,6 +332,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        voiceUtils.releaseSpeek();
         unregisterReceiver(mBroadcastReceiver);
         unbindService(mServiceConnection);
         mRippleTelView.stopRippleAnimation();
@@ -373,6 +383,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
         }
 
     }
+
 
 
 }
