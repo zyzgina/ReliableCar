@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/companyname_item_checkslsits"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.6"
+            android:text="东风日产" />
+
+        <LinearLayout
+            android:id="@+id/pk_item_checkslists"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/common_measure_10sp"
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/textview_color_gray_singleLine_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="盘库数量" />
+
+            <TextView
+                android:id="@+id/num_item_checkslists"
+                style="@style/textview_color_gray_singleLine_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_measure_10sp"
+                android:text="220/320" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/vincode_item_checkslists"
+            style="@style/textview_color_gray_size15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/common_measure_10sp"
+            android:layout_weight="1.7"
+            android:text="F451215411515151"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="@dimen/common_measure_130sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_measure_10sp"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/status_item_checkslists"
+                style="@style/textview_color_singleLine_white_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_green_circular"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="已盘库" />
+
+            <ImageView
+                android:id="@+id/icon_item_checkslists"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/check_icon_rfid"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/date_item_checkslists"
+        style="@style/textview_color_gray_singleLine_size17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/common_measure_20sp"
+        android:paddingLeft="@dimen/common_measure_20sp"
+        android:text="盘库时间：2107-02-12" />
+
+    <View
+        android:id="@+id/view_item_checkslists"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/plain_gray"
+        android:paddingLeft="@dimen/common_measure_20sp"
+        android:visibility="visible" />
+</LinearLayout>

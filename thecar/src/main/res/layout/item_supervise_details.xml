@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/supervisesDetailsName_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宝马X5"
+            android:textColor="@color/back"
+            android:textSize="@dimen/sp18" />
+
+        <TextView
+            android:id="@+id/supervisesDetailsVIN_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="LS18291FJFFDS182J"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/sp18" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/common_measure_20sp"
+        android:paddingLeft="@dimen/common_measure_20sp"
+        android:paddingRight="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/supervisesDetailsVINCheck_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_measure_5sp"
+            android:layout_weight="1"
+            android:background="@color/gray_light"
+            android:gravity="center"
+            android:text="VIN盘库"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+
+        <TextView
+            android:id="@+id/supervisesDetailsRFIDCheck_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_measure_5sp"
+            android:layout_weight="1"
+            android:background="@color/gray_light"
+            android:gravity="center"
+            android:text="RFID盘库"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+
+        <TextView
+            android:id="@+id/supervisesDetailsFlightCheck_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_measure_5sp"
+            android:layout_weight="1"
+            android:background="@color/gray_light"
+            android:gravity="center"
+            android:text="飞行盘库"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+
+        <TextView
+            android:id="@+id/supervisesDetailsGPSCheck_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_measure_5sp"
+            android:layout_weight="1"
+            android:background="@color/gray_light"
+            android:gravity="center"
+            android:text="GPS监管"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+
+        <TextView
+            android:id="@+id/supervisesDetailsCarCheck_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_measure_5sp"
+            android:layout_weight="1"
+            android:background="@color/gray_light"
+            android:gravity="center"
+            android:text="7x24车辆监管"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+
+        <TextView
+            android:id="@+id/supervisesDetailsDocCheck_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/gray_light"
+            android:gravity="center"
+            android:text="7x24文档监管"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/gray_light" />
+
+</LinearLayout>

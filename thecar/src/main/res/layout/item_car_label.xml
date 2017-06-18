@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/carLabel_item"
+        style="@style/textview_color_gray_singleLine_size17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_circular2_plain"
+        android:paddingBottom="@dimen/common_measure_10sp"
+        android:paddingLeft="@dimen/common_measure_15sp"
+        android:paddingRight="@dimen/common_measure_15sp"
+        android:paddingTop="@dimen/common_measure_10sp"
+        android:text="sadas" />
+</LinearLayout>

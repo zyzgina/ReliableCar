@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_checksdetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/common_measure_20sp"
+        android:paddingTop="@dimen/common_measure_20sp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/allnum_checksdetails"
+                android:layout_width="@dimen/common_measure_170sp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_measure_10sp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/common_measure_20sp">
+
+                <TextView
+                    style="@style/textview_color_gray_singleLine_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已盘库" />
+
+                <TextView
+                    android:id="@+id/yes_checksdetails"
+                    style="@style/textview_color_green_size19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_10sp"
+                    android:text="20" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/vinnum_checksdetails"
+                style="@style/textview_color_gray_size14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/allnum_checksdetails"
+                android:text="VIN盘库：20"/>
+
+            <TextView
+                android:id="@+id/rfidnum_checksdetails"
+                style="@style/textview_color_gray_size14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vinnum_checksdetails"
+                android:layout_marginTop="@dimen/common_measure_10sp"
+                android:layout_toRightOf="@id/allnum_checksdetails"
+                android:text="RFID盘库：0" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="@color/plain_gray" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_measure_10sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textview_color_gray_singleLine_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未盘库" />
+
+                <TextView
+                    android:id="@+id/no_checksdetails"
+                    style="@style/textview_color_green_size19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_10sp"
+                    android:text="20" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/checkdetails_refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll_checksdetails"
+        android:layout_marginBottom="@dimen/sp45">
+
+        <ListView
+            android:id="@+id/lists_checksdetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/common_measure_30sp"
+            android:background="@color/white"
+            android:divider="@null"
+            android:listSelector="@color/white"
+            android:paddingLeft="@dimen/common_measure_20sp" />
+
+
+        <include layout="@layout/no_date" />
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sp45"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            style="@style/textview_color_white_size17"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/yellow"
+            android:onClick="checkVINCar"
+            android:text="VIN码盘库" />
+
+        <Button
+            style="@style/textview_color_white_size17"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/red_orange"
+            android:onClick="checkRFIDar"
+            android:text="RFID盘库" />
+    </LinearLayout>
+</RelativeLayout>

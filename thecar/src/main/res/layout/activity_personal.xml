@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/plain"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/common_measure_30sp"
+            android:background="@color/plain_gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                style="@style/textview_color_back_gray_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/avatar" />
+
+            <ImageView
+                android:id="@+id/avatar_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/common_measure_20sp"
+                android:src="@drawable/easyicon" />
+
+            <com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView
+                android:id="@+id/avatar_personal"
+                android:layout_width="@dimen/sp70"
+                android:layout_height="@dimen/sp70"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/avatar_select"
+                android:scaleType="centerInside"
+                android:src="@drawable/avatar_head" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                style="@style/textview_color_back_gray_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/username" />
+
+            <EditText
+                android:id="@+id/username_personal"
+                style="@style/textview_color_gray_singleLine_size17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="right"
+                android:text="张朝阳" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                style="@style/textview_color_back_gray_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/idcord_number" />
+
+            <EditText
+                android:id="@+id/idcode_personal"
+                style="@style/textview_color_gray_singleLine_size17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="right"
+                android:text="411381199211205376" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                style="@style/textview_color_back_gray_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/phone_number" />
+
+            <EditText
+                android:id="@+id/phone_number_personal"
+                style="@style/textview_color_gray_singleLine_size17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="right"
+                android:text="157****2690" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                style="@style/textview_color_back_gray_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/company" />
+
+            <EditText
+                android:id="@+id/company_personal"
+                style="@style/textview_color_gray_singleLine_size17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="right"
+                android:text="北京靠谱君科技信息有限公司" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                style="@style/textview_color_back_gray_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/email" />
+
+            <ImageView
+                android:id="@+id/email_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/common_measure_20sp"
+                android:src="@drawable/easyicon" />
+
+            <EditText
+                android:id="@+id/email_personal"
+                style="@style/textview_color_gray_singleLine_size17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/email_select"
+                android:background="@null"
+                android:gravity="right"
+                android:text="zhangchaoyong@kaopu.com" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/plain_gray" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/car_document_time"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/newTaskLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_480sp"
+        android:background="@drawable/addition_background">
+
+        <ImageView
+            android:id="@+id/newTask"
+            android:layout_width="@dimen/common_measure_200sp"
+            android:layout_height="@dimen/common_measure_200sp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/addition_btn" />
+
+        <TextView
+            android:id="@+id/txtTask"
+            style="@style/textview_color_singleLine_white_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/newTask"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/common_measure_20sp"
+            android:text="新建文档" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/newTaskBottomLayout"
+        layout="@layout/layout_delete"
+        android:visibility="gone" />
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/refreshLayout_task"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/newTaskBottomLayout"
+        android:layout_below="@id/newTaskLayout">
+
+        <ExpandableListView
+            android:id="@+id/taskList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:listSelector="@color/trans"
+            android:scrollbars="none" />
+
+        <LinearLayout
+            android:id="@+id/TaskNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_nocontent" />
+
+            <TextView
+                android:id="@+id/TaskDaer"
+                style="@style/textview_color_gray_singleLine_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_measure_10sp"
+                android:text="亲爱的摄影师~" />
+
+            <TextView
+                android:id="@+id/TaskMsg"
+                style="@style/textview_color_gray_singleLine_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_measure_10sp"
+                android:text="没有你的任务信息哦~" />
+        </LinearLayout>
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+</RelativeLayout>

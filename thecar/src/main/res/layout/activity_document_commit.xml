@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/submit_icon_successful" />
+
+        <TextView
+            android:id="@+id/txt_documentCommit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_measure_20sp"
+            android:text="提交成功"
+            android:textColor="@color/submit_success"
+            android:textSize="@dimen/sp25" />
+
+        <TextView
+            android:id="@+id/toast_documentCommit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_measure_20sp"
+            android:text="您可点击返回列表查看更多文档"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/sp17" />
+
+        <TextView
+            android:id="@+id/sel_documentCommit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_measure_5sp"
+            android:text="或点击新建文档继续收录"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/sp17" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_80sp"
+            android:layout_marginTop="@dimen/common_measure_130sp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/nextList_documentCommit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/common_measure_50sp"
+                android:background="@drawable/button_frame30_gray_bggray"
+                android:onClick="nextIntent"
+                android:paddingLeft="@dimen/common_measure_20sp"
+                android:paddingRight="@dimen/common_measure_20sp"
+                android:text="返回列表"
+                android:textColor="@color/gray" />
+
+            <Button
+                android:id="@+id/new_documentCommit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_frame30_orange"
+                android:onClick="nextIntent"
+                android:paddingLeft="@dimen/common_measure_20sp"
+                android:paddingRight="@dimen/common_measure_20sp"
+                android:text="新建文档"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

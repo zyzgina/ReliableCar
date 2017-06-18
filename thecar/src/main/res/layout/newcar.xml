@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/txt_distributor_new"
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="经销商" />
+
+        <TextView
+            android:id="@+id/distributor_new"
+            style="@style/textview_color_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_60sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:clickable="true"
+            android:gravity="right|center_vertical"
+            android:text="--请选择--" />
+
+        <ImageView
+            android:id="@+id/distributorNewImage"
+            android:layout_width="@dimen/common_measure_45sp"
+            android:layout_height="@dimen/common_measure_45sp"
+            android:src="@drawable/easyicon" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:id="@+id/code_vin_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/txt_vin_new"
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VIN码" />
+
+        <EditText
+            android:id="@+id/vin_new"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_60sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:gravity="right|center_vertical"
+            android:hint="请输入VIN码"
+            android:textColorHint="@color/gray" />
+
+        <ImageView
+            android:id="@+id/vinScan_new"
+            android:layout_width="@dimen/common_measure_80sp"
+            android:layout_height="fill_parent"
+            android:src="@drawable/ic_vin_gray" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:id="@+id/vinVerfiyNewCar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/textview_color_white_size17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_measure_20sp"
+            android:background="@color/red"
+            android:gravity="center"
+            android:padding="@dimen/common_measure_10sp"
+            android:text="无效VIN码" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_1sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="品牌" />
+
+        <EditText
+            android:id="@+id/brandNewCar"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_60sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:gravity="right|center_vertical"
+            android:hint="请输入"
+            android:textColorHint="@color/gray" />
+
+        <ImageView
+            android:id="@+id/brandNewCarImage"
+            android:layout_width="@dimen/common_measure_80sp"
+            android:layout_height="fill_parent"
+            android:src="@drawable/ic_choice_gray" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="子品牌" />
+
+        <EditText
+            android:id="@+id/subBrandNewCar"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_60sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:gravity="right|center_vertical"
+            android:hint="请输入"
+            android:paddingRight="@dimen/common_measure_100sp"
+            android:textColorHint="@color/gray" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车型" />
+
+        <EditText
+            android:id="@+id/moduleNewCar"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_60sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:gravity="right|center_vertical"
+            android:hint="请输入"
+            android:paddingRight="@dimen/common_measure_100sp"
+            android:textColorHint="@color/gray" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:id="@+id/priceLlNewCar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/priceNewCar"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_measure_20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_1sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="实际购入价(元)" />
+
+        <EditText
+            android:id="@+id/priceBuyNewCar"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_60sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:digits="0123456789."
+            android:gravity="right|center_vertical"
+            android:hint="请输入"
+            android:inputType="number"
+            android:paddingRight="@dimen/common_measure_100sp"
+            android:textColorHint="@color/gray" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:id="@+id/caleBuyLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/calePriceBuyNewCar"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:gravity="right|center_vertical"
+            android:padding="@dimen/common_measure_20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_1sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/isTwoCar"
+        style="@style/textview_color_back_gray_singleLine_size17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/common_measure_20sp"
+        android:text="二手车" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:id="@+id/twoCarMsgNewCar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                style="@style/textview_color_back_gray_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="里程(万公里)" />
+
+            <EditText
+                android:id="@+id/mileageNewCar"
+                style="@style/textview_color_back_gray_singleLine_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/common_measure_60sp"
+                android:layout_marginLeft="@dimen/common_measure_20sp"
+                android:layout_weight="1"
+                android:background="@color/trans"
+                android:digits="0123456789."
+                android:gravity="right|center_vertical"
+                android:hint="请输入"
+                android:inputType="number"
+                android:paddingRight="@dimen/common_measure_100sp"
+                android:textColorHint="@color/gray" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_1sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                style="@style/textview_color_back_gray_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上牌时间(含)" />
+
+            <TextView
+                android:id="@+id/goDateNewCar"
+                style="@style/textview_color_back_gray_singleLine_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/common_measure_60sp"
+                android:layout_marginLeft="@dimen/common_measure_20sp"
+                android:layout_weight="1"
+                android:background="@color/trans"
+                android:gravity="right|center_vertical"
+                android:paddingRight="@dimen/common_measure_20sp"
+                android:textColorHint="@color/gray" />
+
+            <ImageView
+                android:id="@+id/goDateCarImage"
+                android:layout_width="@dimen/common_measure_80sp"
+                android:layout_height="fill_parent"
+                android:src="@drawable/ic_date_gray" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_1sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                android:id="@+id/caleDateNewCar"
+                style="@style/textview_color_back_gray_singleLine_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/common_measure_60sp"
+                android:layout_marginLeft="@dimen/common_measure_100sp"
+                android:layout_marginRight="@dimen/common_measure_20sp"
+                android:layout_weight="1"
+                android:background="@color/trans"
+                android:gravity="right|center_vertical"
+                android:text="距离现在: 不足一个月"
+                android:textColorHint="@color/gray" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_1sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+    </LinearLayout>
+
+
+    <include layout="@layout/item_extendlayout" />
+</LinearLayout>

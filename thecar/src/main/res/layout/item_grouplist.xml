@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/Layout_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/common_measure_20sp">
+
+        <RelativeLayout
+            android:id="@+id/documentDetailsLayout_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_measure_20sp">
+
+            <ImageView
+                android:id="@+id/documentDetails_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/common_measure_20sp"
+                android:src="@drawable/easyicon" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/documentContent_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/documentDetailsLayout_item"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_measure_10sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/documentDistributor_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:text="诚信二手车"
+                    android:textColor="@color/back"
+                    android:textSize="@dimen/sp18" />
+
+                <TextView
+                    android:id="@+id/documentState_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/button_green_circular"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="2dp"
+                    android:text="监管中"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/documentNum_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:text="编号：00000001"
+                    android:textSize="@dimen/sp18" />
+
+                <TextView
+                    android:id="@+id/documentVIN_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="LFB121FJ121JL21LFDSJL"
+                    android:textSize="@dimen/sp18" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/ProgressBar_item"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_15sp"
+            android:max="100"
+            android:progressDrawable="@drawable/progressbar"
+            android:layout_marginTop="@dimen/common_measure_20sp"
+            android:layout_below="@id/documentContent_item"
+            android:layout_toLeftOf="@id/documentDetailsLayout_item"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/documentLine_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+</LinearLayout>

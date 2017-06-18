@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/refreshLayout_DetailsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ListView
+            android:id="@+id/detailsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@color/trans"
+            android:divider="@null"
+            android:scrollbars="none" />
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+</RelativeLayout>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/confirmLl"
+        android:scrollbars="none">
+
+        <com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView
+            android:id="@+id/uploadTaskGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:horizontalSpacing="@dimen/common_measure_10sp"
+            android:listSelector="@color/white"
+            android:numColumns="3"
+            android:padding="@dimen/common_measure_30sp"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/common_measure_20sp" />
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/confirmLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/uploadTasknum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@color/trans"
+            android:gravity="center"
+            android:padding="@dimen/common_measure_20sp"
+            android:text="已选择0个任务"
+            android:textSize="@dimen/sp18" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <LinearLayout
+            android:id="@+id/uploadTaskConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                android:id="@+id/confirmTv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/trans"
+                android:drawableLeft="@drawable/icon_confirm"
+                android:text=" 确定"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/sp18" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/showPhotos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backtransparent"
+        android:visibility="gone">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_measure_20sp">
+            <ImageView
+                android:id="@+id/Back_showPhotos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:paddingRight="@dimen/common_measure_30sp"
+                android:paddingTop="@dimen/common_measure_10sp"
+                android:paddingBottom="@dimen/common_measure_10sp"/>
+            <TextView
+                android:id="@+id/title_showPhotos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/textview_color_white_size17"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <com.kaopujinfu.appsys.customlayoutlibrary.view.NoCacheViewPager
+            android:id="@+id/viewpage_showPhotots"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_559sp"
+            android:layout_centerInParent="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/viewpage_showPhotots"
+            android:background="#333333" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#020202"
+            android:layout_above="@+id/btnShowPhotos"/>
+        <TextView
+            android:id="@+id/size_showPhotots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textview_color_white_size17"
+            android:text="1/3"
+            android:layout_below="@id/viewpage_showPhotots"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/common_measure_20sp"/>
+        <LinearLayout
+            android:id="@+id/btnShowPhotos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/delete_showPhotos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#3D3D3D"
+                android:gravity="center"
+                android:padding="@dimen/common_measure_20sp">
+                <TextView
+                    style="@style/textview_color_white_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/display_icon_del"
+                    android:text="删除"
+                    android:drawablePadding="@dimen/common_measure_10sp"/>
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:background="#020202"/>
+            <LinearLayout
+                android:id="@+id/replace_showPhotos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#3D3D3D"
+                android:gravity="center"
+                android:padding="@dimen/common_measure_20sp">
+                <TextView
+                    style="@style/textview_color_white_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="更换"
+                    android:drawableLeft="@drawable/display_icon_replace"
+                    android:drawablePadding="@dimen/common_measure_10sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

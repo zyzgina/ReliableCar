@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_upload"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kaopujinfu.appsys.thecar.upload.UploadListActivity">
+
+    <ListView
+        android:id="@+id/uploadList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="@dimen/common_measure_20sp"
+        android:listSelector="@color/trans"
+        android:padding="@dimen/common_measure_20sp" />
+
+    <LinearLayout
+        android:id="@+id/noUploadList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_nocontent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_measure_20sp"
+            android:text="当前暂无上传任务…"
+            android:textColor="@color/plain_gray"
+            android:textSize="@dimen/sp20" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/id_drawerlayout">
+
+    <RelativeLayout
+        android:id="@+id/tbhostcar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/contentcar_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/sp60"
+            android:background="@color/white"
+            android:orientation="vertical" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/ll_carmain"
+            android:background="@color/plain_gray" />
+
+        <LinearLayout
+            android:id="@+id/ll_carmain"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sp60"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/myself_llcar"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/myself_carmain"
+                    style="@style/textview_color_back_gray_singleLine_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawablePadding="@dimen/common_measure_10sp"
+                    android:drawableTop="@drawable/tabber_icon_my"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="@string/myself_name" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/applyform_llcar"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/applyform_carmain"
+                    style="@style/textview_color_back_gray_singleLine_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:button="@null"
+                    android:drawablePadding="@dimen/common_measure_10sp"
+                    android:drawableTop="@drawable/tabber_icon_apply"
+                    android:gravity="center"
+                    android:text="@string/applyform_name" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/loanform_llcar"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/loanform_carmain"
+                    style="@style/textview_color_back_gray_singleLine_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:button="@null"
+                    android:drawablePadding="@dimen/common_measure_10sp"
+                    android:drawableTop="@drawable/tabber_icon_loan"
+                    android:gravity="center"
+                    android:text="@string/loanform_name" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/superviseform_llcar"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/superviseform_carmain"
+                    style="@style/textview_color_back_gray_singleLine_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:button="@null"
+                    android:drawablePadding="@dimen/common_measure_10sp"
+                    android:drawableTop="@drawable/tabber_icon_supervise"
+                    android:gravity="center"
+                    android:text="@string/superviseform_name" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <include layout="@layout/item_slidingmenu" />
+</android.support.v4.widget.DrawerLayout>

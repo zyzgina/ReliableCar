@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/missionlists_refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/common_measure_20sp">
+
+    <ListView
+        android:id="@+id/lists_missionlists"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:listSelector="@color/white"
+        android:paddingLeft="@dimen/common_measure_20sp" />
+
+    <include layout="@layout/no_date" />
+
+</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

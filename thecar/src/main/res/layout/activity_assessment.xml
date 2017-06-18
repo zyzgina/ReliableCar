@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView
+        android:id="@+id/assessmentGridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:numColumns="3"
+        android:horizontalSpacing="@dimen/common_measure_10sp"
+        android:verticalSpacing="@dimen/common_measure_20sp"
+        android:listSelector="@color/white"
+        android:padding="@dimen/common_measure_20sp"/>
+</LinearLayout>

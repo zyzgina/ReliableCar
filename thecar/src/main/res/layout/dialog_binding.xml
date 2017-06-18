@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/button_frame5_gray_bgwhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/sp45"
+        android:orientation="vertical"
+        android:padding="@dimen/common_measure_30sp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/common_measure_30sp"
+            android:src="@drawable/submit_icon_successful" />
+
+        <TextView
+            style="@style/textview_color_white_size19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/common_measure_10sp"
+            android:text="提交成功"
+            android:textColor="@color/green" />
+
+        <TextView
+            style="@style/textview_color_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/common_measure_10sp"
+            android:text="信息已提交成功" />
+
+        <TextView
+            style="@style/textview_color_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/common_measure_10sp"
+            android:text="请录制安装视频完成绑定" />
+
+        <TextView
+            style="@style/textview_color_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/common_measure_10sp"
+            android:text="视频时长限60秒内" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/canlce_dialog"
+        style="@style/textview_color_white_size17"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sp45"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_bottom5_yellow"
+        android:text="录制视频" />
+</RelativeLayout>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/button_frame5_gray_bgwhite"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/checkdel_bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/common_measure_20sp"
+        android:layout_marginTop="@dimen/common_measure_20sp"
+        android:src="@drawable/cancel_bluetooth" />
+
+    <ImageView
+        android:id="@+id/checkicon_bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkdel_bluetooth"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/check_icon_bluetooth" />
+
+    <TextView
+        android:id="@+id/textblue_bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkicon_bluetooth"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/common_measure_10sp"
+        android:text="蓝牙连接"
+        android:textColor="@color/car_theme"
+        android:textSize="@dimen/sp20" />
+
+
+    <LinearLayout
+        android:id="@+id/bluelists_buletooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textblue_bluetooth"
+        android:layout_marginBottom="@dimen/sp45"
+        android:layout_marginTop="@dimen/common_measure_30sp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            style="@style/textview_color_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:padding="@dimen/common_measure_20sp"
+            android:text="附近设备" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/plain_gray" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <com.kaopujinfu.appsys.customlayoutlibrary.view.MyListView
+                android:id="@+id/lists_bluetooth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/plain_gray"
+                android:dividerHeight="1dp"
+                android:listSelector="@color/white" />
+        </ScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/plain_gray" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/msg_bluetooth"
+        style="@style/textview_color_back_gray_size17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textblue_bluetooth"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:padding="@dimen/common_measure_20sp"
+        android:text="将与蓝牙设备716D9进行连接,请确认是否启动设备"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sp45"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/scanningble_bluetooth"
+            style="@style/textview_color_singleLine_white_size17"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/sp45"
+            android:layout_weight="1"
+            android:background="@drawable/button_leftbottom5_yellow"
+            android:text="重新搜索" />
+
+        <Button
+            android:id="@+id/scanning_bluetooth"
+            style="@style/textview_color_singleLine_white_size17"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/sp45"
+            android:layout_weight="1"
+            android:background="@drawable/button_rigthbottom5_redorg"
+            android:text="连接设备" />
+    </LinearLayout>
+</RelativeLayout>

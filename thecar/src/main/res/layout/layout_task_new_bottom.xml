@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/txt_documentBrand_new"
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="品牌" />
+
+        <TextView
+            android:id="@+id/documentBrand_new"
+            style="@style/textview_color_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_50sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="--请选择--" />
+
+        <ImageView
+            android:layout_width="@dimen/common_measure_45sp"
+            android:layout_height="@dimen/common_measure_45sp"
+            android:src="@drawable/easyicon" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/txt_documentSubBrand_new"
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="子品牌" />
+
+        <TextView
+            android:id="@+id/documentSubBrand_new"
+            style="@style/textview_color_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_50sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="--请选择--" />
+
+        <ImageView
+            android:layout_width="@dimen/common_measure_45sp"
+            android:layout_height="@dimen/common_measure_45sp"
+            android:src="@drawable/easyicon" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/txt_documentModels_new"
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车型" />
+
+        <TextView
+            android:id="@+id/documentModels_new"
+            style="@style/textview_color_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_50sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:text="--请选择--" />
+
+        <ImageView
+            android:layout_width="@dimen/common_measure_45sp"
+            android:layout_height="@dimen/common_measure_45sp"
+            android:src="@drawable/easyicon" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/price_addapply"
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="购入价" />
+
+        <EditText
+            android:id="@+id/buy_price_addaply"
+            style="@style/textview_color_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_50sp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:digits="0123456789."
+            android:gravity="right|center_vertical"
+            android:text="2.2" />
+
+        <TextView
+            style="@style/textview_color_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_measure_10sp"
+            android:text="万" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/pricesLineView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:id="@+id/applyPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="贷款金额" />
+
+        <EditText
+            android:id="@+id/loanprice_addaply"
+            style="@style/textview_color_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_50sp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:digits="0123456789."
+            android:gravity="right|center_vertical"
+            android:text="2.2" />
+
+        <TextView
+            style="@style/textview_color_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_measure_10sp"
+            android:text="万" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/applyPrice_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <include layout="@layout/item_extendlayout" />
+
+</LinearLayout>

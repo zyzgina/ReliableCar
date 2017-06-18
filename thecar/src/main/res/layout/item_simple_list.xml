@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/slidingmenu_lists_selector"
+    android:gravity="center_vertical"
+    android:padding="@dimen/common_measure_20sp">
+
+    <ImageView
+        android:id="@+id/image_simple_list"
+        android:layout_width="@dimen/common_measure_45sp"
+        android:layout_height="@dimen/common_measure_45sp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/text_simple_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:layout_weight="1"
+        android:textColor="@drawable/simple_lists_text_click"
+        android:textSize="@dimen/sp17" />
+
+    <TextView
+        android:id="@+id/text_verson"
+        style="@style/textview_color_white_size17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.kaopujinfu.appsys.customlayoutlibrary.view.SelfStatistics
+        android:id="@+id/myselMsg"
+        android:layout_width="@dimen/common_measure_150sp"
+        android:layout_height="@dimen/common_measure_150sp"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/mormalLl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/myselMsg"
+        android:layout_below="@id/myselMsg"
+        android:layout_marginTop="@dimen/common_measure_20sp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/normalSpot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="●"
+            android:textColor="@color/check_ok" />
+
+        <TextView
+            android:id="@+id/normalText"
+            style="@style/textview_color_back_gray_size15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_measure_10sp"
+            android:text="正常：45" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/myselMsg"
+        android:layout_below="@id/mormalLl"
+        android:layout_marginTop="@dimen/common_measure_5sp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/abnormalSpot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="●"
+            android:textColor="@color/check_error" />
+
+        <TextView
+            android:id="@+id/abnormalText"
+            style="@style/textview_color_back_gray_size15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_measure_10sp"
+            android:text="异常：45" />
+    </LinearLayout>
+</RelativeLayout>

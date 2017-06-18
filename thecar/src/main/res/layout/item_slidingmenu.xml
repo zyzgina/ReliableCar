@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/slidmenu_rel"
+    android:layout_width="@dimen/common_measure_541sp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@color/dark_gray"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_slidingmenu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_440sp"
+            android:background="@drawable/my_background">
+
+            <FrameLayout
+                android:id="@+id/flavatar_slidingmenu"
+                android:layout_width="@dimen/sp70"
+                android:layout_height="@dimen/sp70"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/common_measure_50sp">
+
+                <com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView
+                    android:id="@+id/avatar_slidingmenu"
+                    android:layout_width="@dimen/sp70"
+                    android:layout_height="@dimen/sp70"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/avatar_head" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tel_slidingmenu"
+                style="@style/textview_color_white_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/flavatar_slidingmenu"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/common_measure_24sp"
+                android:text="15173150523" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tel_slidingmenu"
+                android:layout_marginTop="@dimen/common_measure_30sp"
+                android:background="@color/transparent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/common_measure_20sp">
+
+                    <TextView
+                        style="@style/textview_color_white_size12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kaopu_integral" />
+
+                    <TextView
+                        android:id="@+id/integral_slidingmenu"
+                        style="@style/textview_color_white_size17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_measure_15sp"
+                        android:text="3250" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/common_measure_50sp"
+                    android:layout_gravity="center"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/common_measure_20sp">
+
+                    <TextView
+                        style="@style/textview_color_white_size12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/jod_grade" />
+
+                    <TextView
+                        android:id="@+id/jodgrade_slidingmenu"
+                        style="@style/textview_color_white_size15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_measure_15sp"
+                        android:background="@drawable/button_green_circular"
+                        android:paddingBottom="@dimen/common_measure_5sp"
+                        android:paddingLeft="@dimen/common_measure_15sp"
+                        android:paddingRight="@dimen/common_measure_15sp"
+                        android:paddingTop="@dimen/common_measure_5sp"
+                        android:text="新手上路" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.kaopujinfu.appsys.customlayoutlibrary.view.MyListView
+            android:id="@+id/list_slidingmenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rl_slidingmenu"
+            android:layout_marginTop="@dimen/common_measure_30sp"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null" />
+
+        <RadioGroup
+            android:id="@+id/logout_slidingmenu_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:padding="@dimen/common_measure_20sp">
+
+            <RadioButton
+                android:id="@+id/logout_slidingmenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:button="@drawable/selector_logout"
+                android:text="  注销登录"
+                android:textColor="@drawable/simple_lists_text_click"
+                android:textSize="@dimen/sp17" />
+        </RadioGroup>
+    </RelativeLayout>
+</RelativeLayout>

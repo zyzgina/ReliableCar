@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/topDistrbutor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/car_theme"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/backDistrbutor"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/common_measure_30sp"
+            android:paddingRight="@dimen/common_measure_30sp"
+            android:src="@drawable/back" />
+
+        <EditText
+            android:id="@+id/editTextDistrbutor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@drawable/button_frame5_gray_bgwhite"
+            android:hint="请输入经销商名称"
+            android:padding="@dimen/common_measure_20sp"
+            android:singleLine="true"
+            android:textColor="@color/back_gray"
+            android:textColorHint="@color/gray"
+            android:textSize="@dimen/sp18" />
+
+        <Button
+            android:id="@+id/searchDistrbutor"
+            style="@style/textview_color_white_size17"
+            android:layout_width="@dimen/common_measure_100sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/common_measure_10sp"
+            android:background="@null"
+            android:gravity="center"
+            android:text="搜 索"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <ExpandableListView
+        android:id="@+id/expandableListViewDistrbutor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_measure_30sp"
+        android:divider="@color/plain_gray"
+        android:dividerHeight="1dp" />
+
+    <com.kaopujinfu.appsys.customlayoutlibrary.view.RealIconView
+        android:id="@+id/realiconviewDistrbutor"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/common_measure_20sp" />
+
+    <ListView
+        android:id="@+id/listViewDistrbutor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_measure_30sp"
+        android:divider="@color/plain_gray"
+        android:dividerHeight="1dp" />
+
+    <include layout="@layout/no_date" />
+</LinearLayout>

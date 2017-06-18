@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:id="@+id/scrollviewTaskDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/topTaskLine"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/layout_task_new"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/taskCode"
+                    style="@style/textview_color_back_gray_singleLine_size17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/common_measure_20sp"
+                    android:text="任务编号：246131245112450" />
+
+                <LinearLayout
+                    android:id="@+id/llTaskDistributor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/common_measure_20sp">
+
+                    <TextView
+                        android:id="@+id/taskDistributor"
+                        style="@style/textview_color_back_gray_singleLine_size17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/common_measure_20sp"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/common_measure_20sp"
+                        android:text="北京北马二手车经销商" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:src="@drawable/easyicon" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/taskMsg"
+                    style="@style/textview_color_gray_singleLine_size17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/common_measure_20sp"
+                    android:text="宝马/5系/530Li" />
+
+                <TextView
+                    android:id="@+id/taskVIN"
+                    style="@style/textview_color_back_gray_singleLine_size17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/common_measure_20sp"
+                    android:paddingRight="@dimen/common_measure_20sp"
+                    android:text="VIN码：LB54655645345634" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/common_measure_30sp"
+                    android:background="@color/plain_gray" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/common_measure_30sp"
+                android:background="@color/plain_gray" />
+
+            <com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView
+                android:id="@+id/taskGridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:horizontalSpacing="@dimen/common_measure_10sp"
+                android:listSelector="@color/white"
+                android:numColumns="3"
+                android:padding="@dimen/common_measure_20sp"
+                android:verticalSpacing="@dimen/common_measure_20sp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/missionClickTask"
+        style="@style/textview_color_white_size17"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sp45"
+        android:layout_alignParentBottom="true"
+        android:background="@color/orange"
+        android:text="任务管理"
+        android:visibility="gone" />
+</RelativeLayout>

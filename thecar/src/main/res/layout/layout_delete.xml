@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:background="@color/plain_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@color/trans"
+            android:gravity="center"
+            android:padding="@dimen/common_measure_20sp"
+            android:text="已选择0个任务"
+            android:textSize="@dimen/sp18" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <LinearLayout
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/common_measure_20sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/trans"
+                android:drawableLeft="@drawable/icon_del"
+                android:text=" 删除"
+                android:textColor="#526F91"
+                android:textSize="@dimen/sp18" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

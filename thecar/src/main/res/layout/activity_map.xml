@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/mapBottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/mapDestinationAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/preview_icon_location"
+            android:drawablePadding="@dimen/common_measure_10sp"
+            android:text="北京惠通嘉华捷豹路虎认证二手车中心"
+            android:textSize="@dimen/sp18" />
+
+        <TextView
+            android:id="@+id/mapDistance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_measure_10sp"
+            android:text="距离0米"
+            android:textSize="@dimen/sp18" />
+
+        <RadioGroup
+            android:id="@+id/mapTripMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_measure_20sp"
+            android:layout_marginTop="@dimen/common_measure_20sp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/mapTripModeTaxi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="@dimen/common_measure_10sp"
+                android:drawableTop="@drawable/selector_taxi"
+                android:gravity="center"
+                android:text="0分钟"
+                android:button="@null"
+                android:textSize="@dimen/sp18" />
+
+            <RadioButton
+                android:id="@+id/mapTripModeBus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="@dimen/common_measure_10sp"
+                android:drawableTop="@drawable/selector_transit"
+                android:gravity="center"
+                android:text="0分钟"
+                android:button="@null"
+                android:textSize="@dimen/sp18" />
+
+            <RadioButton
+                android:id="@+id/mapTripModeWalk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="@dimen/common_measure_10sp"
+                android:drawableTop="@drawable/selector_walk"
+                android:gravity="center"
+                android:text="0分钟"
+                android:button="@null"
+                android:textSize="@dimen/sp18" />
+
+        </RadioGroup>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_circular5_car_theme"
+            android:text="到这里去"
+            android:onClick="goHere"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp20" />
+
+    </LinearLayout>
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/mapBottomLayout" />
+
+</RelativeLayout>

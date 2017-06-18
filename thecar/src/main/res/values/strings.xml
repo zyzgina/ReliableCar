@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">theCar</string>
+    <string name="myself_name">我的</string>
+    <string name="applyform_name">申请清单</string>
+    <string name="loanform_name">贷款清单</string>
+    <string name="superviseform_name">监管清单</string>
+    <string name="common_operations">常用操作</string>
+    <string name="mission">我的任务</string>
+    <string name="carDetailsEvaluate">这个价位就是要家用舒适，这款车就是针对中国大部分消费者提出的，油耗、空间、品牌、外形、质量，可以说都及格，在东北零下二十摄氏度的气温下也能出门。</string>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/carTestQualifiedImage_item"
+        android:layout_width="@dimen/common_measure_120sp"
+        android:layout_height="@dimen/common_measure_120sp"
+        android:layout_marginTop="@dimen/common_measure_20sp"
+        android:src="@drawable/preview_icon_seal_1" />
+
+    <TextView
+        android:id="@+id/carTestDetailsCheck_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/common_measure_20sp"
+        android:clickable="true"
+        android:text="查看详情 >"
+        android:textColor="@color/blue_light" />
+
+    <ImageView
+        android:id="@+id/carTestLogo_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_70sp"
+        android:background="@color/red_orange"
+        android:padding="@dimen/common_measure_10sp"
+        android:src="@drawable/preview_icon_logo_1" />
+
+</LinearLayout>

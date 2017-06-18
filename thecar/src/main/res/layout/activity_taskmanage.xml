@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/taskManageQrcode"
+        android:layout_width="@dimen/common_measure_473sp"
+        android:layout_height="@dimen/common_measure_473sp"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="展板二维码"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/common_measure_10sp"/>
+    <Button
+        android:id="@+id/taskManageDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查看展示详情页"
+        android:background="@drawable/button_frame5_gray_bgwhite"
+        android:layout_marginLeft="@dimen/common_measure_50sp"
+        android:layout_marginRight="@dimen/common_measure_50sp"
+        android:layout_marginTop="@dimen/common_measure_40sp"
+        style="@style/textview_color_back_gray_size17" />
+    <Button
+        android:id="@+id/taskManageCarmsgMange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="车辆信息管理"
+        android:background="@drawable/button_frame5_gray_bgwhite"
+        android:layout_marginLeft="@dimen/common_measure_50sp"
+        android:layout_marginRight="@dimen/common_measure_50sp"
+        android:layout_marginTop="@dimen/common_measure_40sp"
+        style="@style/textview_color_back_gray_size17"/>
+    <Button
+        android:id="@+id/taskManageRelease"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发       布"
+        android:background="@drawable/button_frame5_orange"
+        android:layout_marginLeft="@dimen/common_measure_50sp"
+        android:layout_marginRight="@dimen/common_measure_50sp"
+        android:layout_marginTop="@dimen/common_measure_40sp"
+        style="@style/textview_color_white_size17"/>
+</LinearLayout>

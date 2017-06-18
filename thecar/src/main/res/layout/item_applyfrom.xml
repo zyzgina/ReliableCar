@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/common_measure_20sp">
+
+        <TextView
+            android:id="@+id/applyFromDistributor_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="诚信二手车"
+            android:textColor="@color/back"
+            android:textSize="@dimen/sp18" />
+
+        <ImageView
+            android:id="@+id/applyFromDetails_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/easyicon" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_measure_30sp"
+            android:layout_toLeftOf="@id/applyFromDetails_item"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_measure_10sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/oneTitle_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="初审" />
+
+                <TextView
+                    android:id="@+id/twoTitle_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_30sp"
+                    android:layout_marginRight="@dimen/common_measure_30sp"
+                    android:layout_weight="1"
+                    android:text="高审" />
+
+                <TextView
+                    android:id="@+id/threeTitle_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="放款" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/oneNum_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp18"
+                    android:textColor="@color/back"
+                    android:text="6" />
+
+                <TextView
+                    android:id="@+id/twoNum_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_30sp"
+                    android:layout_marginRight="@dimen/common_measure_30sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp18"
+                    android:textColor="@color/back"
+                    android:text="2" />
+
+                <TextView
+                    android:id="@+id/threeNum_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp18"
+                    android:textColor="@color/green"
+                    android:text="1" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+</LinearLayout>
