@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_tools_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_measure_20sp" />
+
+    <TextView
+        android:id="@+id/num_tools_item"
+        style="@style/textview_color_green_size17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/text_tools_item"
+        style="@style/textview_color_back_gray_singleLine_size17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_measure_20sp"
+        android:layout_marginTop="@dimen/common_measure_15sp"
+        android:text="车贷计算器" />
+
+    <View
+        android:id="@+id/view_tools_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/plain_gray"
+        android:visibility="gone" />
+</LinearLayout>

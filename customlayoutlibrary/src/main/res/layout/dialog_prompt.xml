@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_dialog_below_4"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_info_prompt"
+        android:textColor="@color/back"
+        android:textSize="19sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_measure_30sp"
+        android:text="@string/app_name" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/common_measure_20sp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/b_cancel_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:background="@drawable/button_circular5_light_gray"
+            android:textColor="@color/white"
+            android:text="取消"
+            android:paddingLeft="@dimen/common_measure_40sp"
+            android:paddingRight="@dimen/common_measure_40sp"
+            android:paddingTop="@dimen/common_measure_20sp"
+            android:paddingBottom="@dimen/common_measure_20sp"/>
+
+        <TextView
+            android:id="@+id/b_ok_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_circular5_light_green"
+            android:textColor="@color/white"
+            android:text="确定"
+            android:paddingLeft="@dimen/common_measure_40sp"
+            android:paddingRight="@dimen/common_measure_40sp"
+            android:paddingTop="@dimen/common_measure_20sp"
+            android:paddingBottom="@dimen/common_measure_20sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

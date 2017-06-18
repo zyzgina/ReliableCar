@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">CustomLayoutLibrary</string>
+    <string name="unit_price">单    价:</string>
+    <string name="pay">支  付</string>
+    <string name="Product_Name">商品名称:</string>
+    <string name="External_Call">外部调用</string>
+    <string name="hint_editText">点击输入卡号</string>
+    <string name="exit">再按一次退出</string>
+    <string name="toast_momery">建议内存1GB,否则将影响使用体验</string>
+    <string name="toast_flash">当前设备不支持闪光灯</string>
+    <string name="toast_camera">无法启用相机</string>
+    <string name="only">您还可以免费使用</string>
+    <string name="time">次</string>
+    <string name="free">次</string>
+    <string name="times">次</string>
+
+    <string name="net">网络连接异常，请检查网络</string>
+    <string name="refersh">点击屏幕重新加载</string>
+
+    <string name="tel_name">请输入账号/手机号</string>
+    <string name="pass_name">请输入密码</string>
+    <string name="goto_login">登  录</string>
+    <string name="reg_code">注册账号</string>
+    <string name="forget_pass">忘记密码</string>
+    <string name="getverification">获取验证码</string>
+    <string name="inputverification">请输入验证码</string>
+    <string name="oldpassone">请输入旧密码</string>
+    <string name="passone_name">请输入6-15位密码</string>
+    <string name="passtwo_name">请再次输入密码</string>
+    <string name="commit_register">提  交</string>
+    <string name="determine">确  定</string>
+    <string name="kaopu_integral">靠谱积分</string>
+    <string name="jod_grade">职业等级</string>
+
+    <string name="avatar">头像</string>
+    <string name="email">邮箱</string>
+    <string name="username">姓名</string>
+    <string name="idcord_number">身份证号码</string>
+    <string name="phone_number">手机号码</string>
+    <string name="company">公司</string>
+</resources>

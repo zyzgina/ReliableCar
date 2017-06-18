@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="@dimen/common_measure_20sp"
+    android:id="@+id/textviewLinear">
+
+    <TextView
+        android:id="@+id/textview"
+        style="@style/textview_color_back_singleLine_size17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_measure_25sp"
+        android:text="sadas"
+        android:textSize="@dimen/sp20" />
+</LinearLayout>

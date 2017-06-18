@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/common_measure_10sp">
+
+    <!-- <TextView
+         style="@style/textview_color_back_gray_size17"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="请输入登录ip地址\n例如：http://192.168.88.129:8080/" />
+
+     <EditText
+         android:id="@+id/logIp"
+         style="@style/textview_color_back_gray_size17"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="@dimen/common_measure_10sp"
+         android:text="http://192.168.88.129:8080/"/>-->
+
+    <TextView
+        style="@style/textview_color_back_gray_size17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请输入ip地址" />
+
+    <EditText
+        android:id="@+id/CarIp"
+        style="@style/textview_color_back_gray_size17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_measure_10sp"
+        android:text="http://192.168.88.129:8081/" />
+
+    <Button
+        android:id="@+id/commitIp"
+        style="@style/textview_color_white_size17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_circular3_check_ok"
+        android:text="确 认" />
+</LinearLayout>

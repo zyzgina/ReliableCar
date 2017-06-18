@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/plain"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/top" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshlayout_base"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.kaopujinfu.appsys.customlayoutlibrary.view.ObserveScrollView
+            android:id="@+id/scrollview_base"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/sp45"
+                android:background="@color/plain"
+                android:orientation="vertical" />
+        </com.kaopujinfu.appsys.customlayoutlibrary.view.ObserveScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

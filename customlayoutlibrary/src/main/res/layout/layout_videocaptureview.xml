@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/videoCaptureView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/videoCaptureTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/common_measure_50sp"
+        android:background="@color/transparent"
+        android:padding="@dimen/common_measure_10sp"
+        android:text="00:00"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp15" />
+
+    <ImageView
+        android:id="@+id/videoCapturePic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/videoCaptureRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/common_measure_50sp"
+        android:background="@color/trans"
+        android:src="@drawable/recording_btn_normal" />
+
+    <TextView
+        android:id="@+id/videoCaptureHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/videoCaptureRecord"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/common_measure_20sp"
+        android:text="点击开始录制"
+        android:textColor="@color/green"
+        android:textSize="@dimen/sp18" />
+
+    <LinearLayout
+        android:id="@+id/videoCaptureBottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/common_measure_50sp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/videoCaptureBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/recording_btn_back" />
+
+        <ImageView
+            android:id="@+id/videoCaptureConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/recording_btn_confirm" />
+
+    </LinearLayout>
+
+</RelativeLayout>

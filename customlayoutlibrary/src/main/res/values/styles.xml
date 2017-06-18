@@ -1,0 +1,279 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="dialogFullHeight" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- popupwindow style -->
+    <style name="PopupAnimation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_popmenu_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_popmenu_hide</item>
+    </style>
+
+    <style name="textview_color_white_size12">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/sp12</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_white_size14">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_white_size15">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/sp15</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_white_size17">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_singleLine_white_size17">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="textview_color_singleLine_white_size19">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/sp19</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="textview_color_plain_gray_size17">
+        <item name="android:textColor">@color/plain_gray</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_white_size18">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="textview_color_white_size19">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/sp19</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_back_size17">
+        <item name="android:textColor">@color/back</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_back_size19">
+        <item name="android:textColor">@color/back</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_back_singleLine_size17">
+        <item name="android:textColor">@color/back</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="textview_color_back_singleLine_size18">
+        <item name="android:textColor">@color/back</item>
+        <item name="android:textSize">@dimen/sp18</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="textview_color_back_maxLines2_size17">
+        <item name="android:textColor">@color/back</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="textview_color_back_gray_size17">
+        <item name="android:textColor">@color/back_gray</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_back_gray_singleLine_size17">
+        <item name="android:textColor">@color/back_gray</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="textview_color_back_gray_size14">
+        <item name="android:textColor">@color/back_gray</item>
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="textview_color_back_gray_size15">
+        <item name="android:textColor">@color/back_gray</item>
+        <item name="android:textSize">@dimen/sp15</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_back_gray_maxLines2_size17">
+        <item name="android:textColor">@color/back_gray</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="textview_color_back_gray_maxLines1_size17">
+        <item name="android:textColor">@color/back_gray</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="textview_color_gray_maxLines3_size17">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
+    <style name="textview_color_gray_singleLine_size15">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/sp15</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="textview_color_gray_singleLine_size17">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="textview_color_gray_maxLines2_size17">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="textview_color_yellow_orange_size17">
+        <item name="android:textColor">@color/yellow_orange</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_yellow_orange_singleLine_size17">
+        <item name="android:textColor">@color/yellow_orange</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="textview_color_red_size17">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_green_size17">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="textview_color_green_size19">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">@dimen/sp19</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_green_size14">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_gray_back_singleLine_size17">
+        <item name="android:textColor">@color/gray_back</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="textview_color_gray_size17">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="textview_color_gray_size14">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="textview_color_gray_size15">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/sp15</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="textview_colorgray_back_size17">
+        <item name="android:textColor">@color/gray_back</item>
+        <item name="android:textSize">@dimen/sp17</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+
+
+    <style name="BaseDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowBackground">@color/green_bright</item>
+        <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+    <style name="PassDialog" parent="@style/BaseDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="WhiteDialog" parent="@style/BaseDialog">
+        <item name="android:windowBackground">@color/plain_gray</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="ActivityDialog" parent="@android:style/Theme.Translucent.NoTitleBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <!--<item name="android:windowBackground">@color/green_bright</item>-->
+        <!-- 背景透明 -->
+        <!--<item name="android:backgroundDimEnabled">true</item>-->
+        <!-- 模糊 -->
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+</resources>

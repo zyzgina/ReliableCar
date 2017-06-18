@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_dialog_below_4"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/spinnerKey"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_100sp"
+        android:padding="@dimen/common_measure_20sp"
+        android:hint="可输入文字查找"
+        android:textColor="@color/back"
+        android:background="@color/trans"
+        android:textColorHint="@color/plain_gray"
+        android:textSize="@dimen/sp20" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:background="@color/plain_gray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_measure_5sp">
+
+        <ListView
+            android:id="@+id/spinnerList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:listSelector="@color/trans"
+            android:scrollbars="none" />
+
+        <TextView
+            android:id="@+id/spinnerNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="没有数据！"
+            android:textColor="@color/plain_gray"
+            android:textSize="@dimen/sp20"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</LinearLayout>

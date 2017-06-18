@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/top_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_back">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sp50">
+
+        <ImageView
+            android:id="@+id/top_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/common_measure_10sp"
+            android:paddingLeft="@dimen/common_measure_30sp"
+            android:paddingRight="@dimen/common_measure_50sp"
+            android:paddingTop="@dimen/common_measure_10sp"
+            android:src="@drawable/back" />
+
+
+        <LinearLayout
+            android:id="@+id/back_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/topback_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="@dimen/common_measure_10sp"
+                android:paddingLeft="@dimen/common_measure_30sp"
+                android:paddingRight="@dimen/common_measure_10sp"
+                android:paddingTop="@dimen/common_measure_10sp"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@+id/top_back_text"
+                style="@style/textview_color_singleLine_white_size19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_toRightOf="@id/top_back"
+                android:text="工具" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/top_text"
+            style="@style/textview_color_singleLine_white_size19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:maxWidth="@dimen/common_measure_350sp"
+            android:text="注册" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/top_meun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/common_measure_20sp"
+                android:paddingLeft="@dimen/common_measure_20sp"
+                android:paddingRight="@dimen/common_measure_40sp"
+                android:paddingTop="@dimen/common_measure_20sp"
+                android:src="@drawable/navigationbar_icon_class_normal" />
+            <TextView
+                android:id="@+id/spot_top"
+                android:layout_width="@dimen/common_measure_20sp"
+                android:layout_height="@dimen/common_measure_20sp"
+                android:background="@drawable/red_spot"
+                android:layout_gravity="right"
+                android:layout_marginRight="@dimen/common_measure_20sp"
+                android:layout_marginTop="@dimen/common_measure_10sp"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/top_btn"
+            style="@style/textview_color_singleLine_white_size19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:gravity="center"
+            android:paddingLeft="@dimen/common_measure_20sp"
+            android:paddingRight="@dimen/common_measure_10sp"
+            android:text="跳过"
+            android:visibility="gone" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <Button
+        android:id="@+id/avatar_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_dialog_below_1"
+        android:padding="10dp"
+        android:text="拍照"
+        android:textColor="@color/green"
+        android:textSize="@dimen/sp15" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/plain_gray" />
+
+    <Button
+        android:id="@+id/avatar_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_dialog_below_3"
+        android:padding="10dp"
+        android:text="从相机选择"
+        android:textColor="@color/green"
+        android:textSize="@dimen/sp15" />
+
+    <Button
+        android:id="@+id/avatar_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_dialog_below_4"
+        android:padding="10dp"
+        android:text="取消"
+        android:textColor="@color/green"
+        android:textSize="@dimen/sp15" />
+</LinearLayout>

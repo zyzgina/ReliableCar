@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/videoLayout_custom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.kaopujinfu.appsys.customlayoutlibrary.view.CustomVideoView
+        android:id="@+id/player_custom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/thumbVideo_custom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_loading" />
+
+    <ProgressBar
+        android:id="@+id/videoloading_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminateDrawable="@drawable/video_loading"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/videoControlLayout_custom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <ImageView
+            android:id="@+id/videoPlay_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:src="@drawable/small_play" />
+
+        <TextView
+            android:id="@+id/videoCurrentTime_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00:00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/common_measure_5sp"
+            android:paddingRight="@dimen/common_measure_5sp"
+            android:text="/"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+
+        <TextView
+            android:id="@+id/videoTotalTime_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00:00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp15" />
+
+        <SeekBar
+            android:id="@+id/videoSeek_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/videoFull_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/small_fullscreen" />
+    </LinearLayout>
+</RelativeLayout>

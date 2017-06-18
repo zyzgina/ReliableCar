@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#26B031</color>
+    <color name="violet">#7F7FD7</color>
+    <color name="colorPrimaryDark">#29282D</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFFFFF</color>
+    <color name="back">#000000</color>
+    <color name="back_gray">#616161</color>
+    <color name="dark_gray">#161620</color>
+    <color name="deep_purple">#222131</color>
+    <color name="gray_back">#29282D</color>
+    <color name="gray_light">#CCCCCC</color>
+    <color name="trans">#00000000</color>
+    <color name="transparent">#4000</color>
+    <color name="parent">#9000</color>
+    <color name="yellow_orange">#BD8923</color>
+    <color name="oldorange">#A5730E</color>
+    <color name="plain">#F8F8F8</color>
+    <color name="plain_gray">#D4D4D4</color>
+    <color name="gray">#A1A1A1</color>
+    <color name="green_bright">#00FF40</color>
+    <color name="green">#26B031</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#6392C8</color>
+    <color name="viewfinder_mask">#60000000</color><!-- 灰度 -->
+    <color name="result_view">#b0000000</color>
+
+    <!-- 靠谱看车 -->
+    <color name="car_theme">#516D92</color>
+    <color name="car_document_time">#F0F3F8</color>
+    <color name="car_document_yellow">#F18C16</color>
+    <color name="submit_success">#019912</color>
+    <color name="yellow">#FFBB34</color>
+    <color name="whitetrans">#3FFFFFFF</color>
+    <color name="whitelalftrans">#5FFFFFFF</color>
+    <color name="red_orange">#FF6235</color>
+    <color name="check_ok">#99CC00</color>
+    <color name="check_error">#F65355</color>
+    <color name="backtransparent">#7000</color>
+    <color name="orange">#F08B14</color>
+    <color name="blue_light">#67B3FE</color>
+</resources>

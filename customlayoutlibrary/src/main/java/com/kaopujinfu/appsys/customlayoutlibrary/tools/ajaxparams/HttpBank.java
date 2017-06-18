@@ -1,0 +1,226 @@
+package com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams;
+
+import android.content.Context;
+
+import com.kaopujinfu.appsys.customlayoutlibrary.okHttpUtils.AjaxParams;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseUrl;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+
+/**
+ * 库融
+ * Created by 左丽姬 on 2017/4/10.
+ */
+
+public class HttpBank {
+    private static Context context;
+    private static HttpBank httpBank;
+    private static BankAjaxParams bankAjaxParams;
+
+    public static HttpBank getIntence(Context context) {
+        HttpBank.context = context;
+        HttpBank.bankAjaxParams = new BankAjaxParams(context);
+        if (httpBank == null)
+            httpBank = new HttpBank();
+        return httpBank;
+    }
+
+
+    /**登录*/
+    /**
+     * 登录接口提交
+     *
+     * @param usernme  用户名
+     * @param userpass 密码
+     * @param callBack 回调函数
+     */
+    public void login(String usernme, String userpass, String userCode, final CallBack<Object> callBack) {
+        if (GeneralUtils.isEmpty(usernme)) {
+            IBaseMethod.showToast(context, "请填写用户名", IBase.RETAIL_TWO);
+            callBack.onFailure(0, "请填写用户名");
+            return;
+        }
+        if (GeneralUtils.isEmpty(userpass)) {
+            IBaseMethod.showToast(context, "请填写密码", IBase.RETAIL_TWO);
+            callBack.onFailure(0, "请填写密码");
+            return;
+        }
+        AjaxParams params = bankAjaxParams.login(usernme, userpass, userCode);
+        IBaseMethod.post(context, IBaseUrl.USER, params, callBack);
+    }
+
+    /**
+     * 获取个人信息、获取个人进件数量,进件首页为你推荐
+     *
+     * @param action
+     */
+    public void getAction(String action, String url, CallBack<Object> callBack) {
+        AjaxParams params = bankAjaxParams.getAction(action);
+        IBaseMethod.post(context, url, params, callBack);
+    }
+
+
+    /**
+     * 获取token
+     *
+     * @param callBack
+     */
+    public void getToken(CallBack callBack) {
+        IBaseMethod.post(context, IBaseUrl.UPLOAD_FILE, bankAjaxParams.getTokenAjax(), callBack);
+    }
+
+    /**
+     * 上传七牛云成功后通知服务器
+     *
+     * @param bizType  业务类型名称，比如：监管器绑定、文档绑定、车辆外观
+     * @param bizId    业务编号，比如一个任务号，或者一部车辆的VIN码等
+     * @param storeKey 存储在七牛云上的KEY
+     * @param fileName 文件短名称
+     * @param fileSize 文件大小
+     * @param callBack
+     */
+    public void uploadSuccess(String bizType, String bizId, String storeKey, String fileName, String fileSize, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.getUploadSuccess(bizType, bizId, storeKey, fileName, fileSize);
+        LogUtils.debug("参数:" + params.getParamsString());
+        IBaseMethod.post(context, IBaseUrl.UPLOAD_FILE, params, callBack);
+    }
+
+    /**
+     * 获取文档收录列表
+     *
+     * @param callBack
+     */
+    public void documentList(CallBack callBack) {
+        IBaseMethod.post(context, IBaseUrl.BOX_V5_CELL, bankAjaxParams.ajaxDocumentList(), callBack);
+    }
+
+    /**
+     * 注册一个待入柜文档
+     *
+     * @param vinNo    vin码
+     * @param rfidId   标签编号
+     * @param callBack
+     */
+    public void newDocument(String vinNo, String rfidId, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxNewDocument(vinNo, rfidId);
+        IBaseMethod.post(context, IBaseUrl.BOX_V5_CELL, params, callBack);
+    }
+
+    /**
+     * 监管器绑定-》获取小圆盘列表
+     *
+     * @param callBack
+     */
+    public void getBindingLists(CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxBindingLists();
+        IBaseMethod.post(context, IBaseUrl.BANK_RF_DEV, params, callBack);
+    }
+
+    /**
+     * 监管器绑定-》获取小圆盘列表
+     *
+     * @param callBack
+     */
+    public void getBindingAdd(String vinNo, String devCode, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxBindingAdd(vinNo, devCode);
+        IBaseMethod.post(context, IBaseUrl.BANK_RF_DEV, params, callBack);
+    }
+
+    /**
+     * 获取经销商列表
+     *
+     * @param action
+     * @param callBack
+     */
+    public void getDlrList(CallBack callBack, String... action) {
+        AjaxParams params = bankAjaxParams.ajaxDlrs(action);
+        IBaseMethod.post(context, IBaseUrl.COMPANY, params, callBack);
+    }
+
+    /**
+     * 盘库-任务列表
+     */
+    public void getTaskList(CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxTaskList();
+        IBaseMethod.post(context, IBaseUrl.CHECK_TASK, params, callBack);
+    }
+
+    /**
+     * 盘库 --任务所含车辆清单
+     */
+    public void getTaskItem(String taskCode, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxTaskItem(taskCode);
+        IBaseMethod.post(context, IBaseUrl.CHECK_TASK, params, callBack);
+    }
+
+    /**
+     * 新建一个盘库任务
+     */
+    public void getAddTask(String userCompanyCode, String checkUser, String checkCompany, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxAddTask(userCompanyCode, checkUser, checkCompany);
+        IBaseMethod.post(context, IBaseUrl.CHECK_TASK, params, callBack);
+    }
+
+
+    /**
+     * 删除盘库任务
+     */
+    public void getDelTask(String taskCode, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxDelTask(taskCode);
+        IBaseMethod.post(context, IBaseUrl.CHECK_TASK, params, callBack);
+    }
+
+    /**
+     * 盘库--提交预审
+     */
+    public void getSubmitTask(String taskCode, String json, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxSubmitTask(taskCode, json);
+        IBaseMethod.post(context, IBaseUrl.CHECK_TASK, params, callBack);
+    }
+
+    /**
+     * 新建车辆-根据VIN码查询车辆品牌
+     */
+    public void getVinBrand(String vinCode, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxVinBrand(vinCode);
+        LogUtils.debug("根据VIN码查询车辆品牌==" + params.getParamsString());
+        IBaseMethod.post(context, IBaseUrl.CONF_CAR, params, callBack);
+    }
+
+    /**
+     * 新建车辆提交
+     */
+    public void commiNewCar(CallBack callBack, String... strings) {
+        AjaxParams params = bankAjaxParams.ajaxCommitNewCar(strings);
+        LogUtils.debug("参数:" + params.getParamsString());
+        IBaseMethod.post(context, IBaseUrl.URL_CAR, params, callBack);
+    }
+
+    /**
+     * 车辆列表
+     */
+    public void newCarList(CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxNewCarList();
+        IBaseMethod.post(context, IBaseUrl.URL_CAR, params, callBack);
+    }
+
+    /**
+     * 查询车辆品牌列表
+     * 查询车辆子品牌列表
+     * 查询车辆型号列表
+     *
+     * @param keyword    模糊查询
+     * @param brandId    品牌ID
+     * @param subBrandId 子品牌ID
+     * @param call
+     */
+    public void httpCat(String keyword, String brandId, String subBrandId, CallBack<Object> call) {
+        AjaxParams params = bankAjaxParams.getCat(keyword, brandId, subBrandId);
+        IBaseMethod.post(context, IBaseUrl.CONF_CAR, params, call);
+    }
+
+
+}
