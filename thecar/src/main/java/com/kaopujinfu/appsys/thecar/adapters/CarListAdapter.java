@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
 import com.kaopujinfu.appsys.thecar.R;
-import com.kaopujinfu.appsys.thecar.bean.BindingBean;
 import com.kaopujinfu.appsys.thecar.bean.CarListBean;
 import com.kaopujinfu.appsys.thecar.bean.DocumentHold;
 
@@ -168,9 +167,9 @@ public class CarListAdapter extends BaseExpandableListAdapter {
         // 按时间排序：降序
         Comparator comp = new Comparator() {
             public int compare(Object o1, Object o2) {
-                BindingBean.BindingItem b1 = (BindingBean.BindingItem) o1;
-                BindingBean.BindingItem b2 = (BindingBean.BindingItem) o2;
-                return b2.getInitTime().compareTo(b1.getInitTime());
+                CarListBean.ItemsCarBean b1 = (CarListBean.ItemsCarBean) o1;
+                CarListBean.ItemsCarBean b2 = (CarListBean.ItemsCarBean) o2;
+                return b2.getStartTime().compareTo(b1.getStartTime());
             }
         };
         Collections.sort(listBean.getItems(), comp);
