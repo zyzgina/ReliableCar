@@ -194,6 +194,8 @@ public class DialogUtil {
         dialog.show();
     }
 
+
+
     /**
      * 选择图片
      *
@@ -202,6 +204,10 @@ public class DialogUtil {
      * @param listener
      */
     public static void selectPicDialog(final Context context, final String fileName, final DialogCameraListener listener) {
+        selectPicDialog(context,fileName,0,listener);
+    }
+
+    public static void selectPicDialog(final Context context, final String fileName,int status, final DialogCameraListener listener) {
         if (dialog != null && dialog.isShowing()) {
             return;
         }
@@ -209,6 +215,10 @@ public class DialogUtil {
         Button avatar_phone = (Button) view.findViewById(R.id.avatar_phone);
         Button avatar_image = (Button) view.findViewById(R.id.avatar_image);
         Button avatar_cancel = (Button) view.findViewById(R.id.avatar_cancel);
+        if(status==1){
+            avatar_phone.setVisibility(View.GONE);
+            avatar_image.setBackgroundResource(R.drawable.shape_dialog_below_4);
+        }
         View.OnClickListener mListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
