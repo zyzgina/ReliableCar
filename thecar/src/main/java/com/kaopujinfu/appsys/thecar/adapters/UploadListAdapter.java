@@ -69,6 +69,7 @@ public class UploadListAdapter extends BaseAdapter {
         views = new ArrayList<>();
         this.handler = handler;
         db = FinalDb.create(mContext, IBase.BASE_DATE, true);
+//        db.deleteAll(UploadBean.class);
 //        db.deleteByWhere(UploadBean.class, "label=\"外观全景图\"");
         initData();
     }
