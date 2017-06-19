@@ -1,40 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="operations">
-        <item >新建车辆</item>
-        <item >文档收录</item>
-        <item >监管器绑定</item>
-        <item >照片采集</item>
-        <item >盘库</item>
+        <item>新建车辆</item>
+        <item>文档收录</item>
+        <item>监管器绑定</item>
+        <item>照片采集</item>
+        <item>盘库</item>
     </array>
     <array name="photos">
-        <item >外观全景图</item>
-        <item >驾驶舱全景图</item>
-        <item >后排座椅全景图</item>
-        <item >后备箱全景图</item>
-        <item >发动机舱高清图</item>
-        <item >评估高清图</item>
-        <item >尺寸标定高清图</item>
-        <item >其他高清图</item>
+        <item>外观全景图</item>
+        <item>驾驶舱全景图</item>
+        <item>后排座椅全景图</item>
+        <item>后备箱全景图</item>
+        <item>发动机舱高清图</item>
+        <item>评估高清图</item>
+        <item>尺寸标定高清图</item>
+        <item>其他高清图</item>
+    </array>
+    <array name="photos_en">
+        <item>appearance_panorama</item>
+        <item>cockpit_panorama</item>
+        <item>rear_seat_panorama</item>
+        <item>trunk_panorama</item>
+        <item>engine_room_HD</item>
+        <item>evaluation_HD_map</item>
+        <item>size_calibration_HD</item>
+        <item>other_HD</item>
     </array>
     <array name="assessment">
-        <item >外观-右前</item>
-        <item >外观-正侧</item>
-        <item >外观-正前</item>
-        <item >外观-正后</item>
-        <item >车灯</item>
-        <item >车胎</item>
-        <item >车内顶棚</item>
-        <item >车门</item>
-        <item >密封胶条</item>
-        <item >安全带根部</item>
-        <item >内饰-前排</item>
-        <item >内饰-后排</item>
-        <item >内饰-中控</item>
-        <item >仪表盘</item>
-        <item >变速杆</item>
-        <item >油门踏板</item>
-        <item >发动机舱</item>
-        <item >后备箱</item>
+        <item>外观-右前</item>
+        <item>外观-正侧</item>
+        <item>外观-正前</item>
+        <item>外观-正后</item>
+        <item>车灯</item>
+        <item>车胎</item>
+        <item>车内顶棚</item>
+        <item>车门</item>
+        <item>密封胶条</item>
+        <item>安全带根部</item>
+        <item>内饰-前排</item>
+        <item>内饰-后排</item>
+        <item>内饰-中控</item>
+        <item>仪表盘</item>
+        <item>变速杆</item>
+        <item>油门踏板</item>
+        <item>发动机舱</item>
+        <item>后备箱</item>
+    </array>
+    <array name="assessment_en">
+        <item>appearance_right_front</item>
+        <item>appearance_positive_side</item>
+        <item>appearance_positive_before</item>
+        <item>appearance_positive_after</item>
+        <item>car_lights</item>
+        <item>tyres</item>
+        <item>car_roof</item>
+        <item>door</item>
+        <item>sealing_strip</item>
+        <item>seat_belt_root</item>
+        <item>interior_front_row</item>
+        <item>interior_rear_row</item>
+        <item>interior_central_control</item>
+        <item>dashboard</item>
+        <item>transmission_lever</item>
+        <item>accelerator_pedal</item>
+        <item>engine_compartment</item>
+        <item>trunk</item>
     </array>
 </resources>
