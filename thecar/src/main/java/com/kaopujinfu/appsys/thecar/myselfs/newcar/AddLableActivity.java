@@ -27,7 +27,6 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
-import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
@@ -122,7 +121,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * 绑定小圆盘
+     * 绑定标签
      */
     private void commitBinding() {
         String vinNo = documentVIN_new.getText().toString();
@@ -139,11 +138,11 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         }
         dialog.show();
         dialog.setLoadingTitle("正在绑定……");
-        HttpBank.getIntence(this).getBindingAdd(vinNo, devCode, new CallBack() {
+        HttpBank.getIntence(this).httpLable(new CallBack() {
             @Override
             public void onSuccess(Object o) {
                 dialog.dismiss();
-                LogUtils.debug("绑定小圆盘:" + o.toString());
+                LogUtils.debug("绑定标签:" + o.toString());
                 Result result = Result.getMcJson(o.toString());
                 if (result != null && result.isSuccess()) {
                     showDialog();
@@ -161,7 +160,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
                 LogUtils.debug("====" + strMsg);
                 IBaseMethod.showToast(AddLableActivity.this, strMsg, IBase.RETAIL_ZERO);
             }
-        });
+        }, vinNo, devCode);
     }
 
     @Override
@@ -171,14 +170,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             // 标签编号
             if (data != null) {
                 String number = data.getStringExtra("result");
-                if (!GeneralUtils.isEmpty(number)) {
-                    if (number.length() == 11 && number.contains("RS#")) {
-                        number = number.replace("RS#", "");
-                        documentNum_new.setText(number);
-                    } else {
-                        DialogUtil.jumpCorrectErr(this, "扫入无效设备号", "继 续", 0, getResources().getColor(android.R.color.holo_red_light));
-                    }
-                }
+                documentNum_new.setText(number);
             }
         }
 
@@ -201,11 +193,11 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             LogUtils.debug("上传视频的路径:" + path);
             //提交成功
             File file = new File(path);
-            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "监管器绑定");
+            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "车辆绑标签");
             FinalDb db = FinalDb.create(AddLableActivity.this, IBase.BASE_DATE, true);
             db.save(uploadBean);
             Intent intent = new Intent(this, DocumentCommitActivity.class);
-            intent.putExtra("success", IBase.CONSTANT_ONE);
+            intent.putExtra("success", IBase.CONSTANT_FOUR);
             startActivity(intent);
             finish();
         }

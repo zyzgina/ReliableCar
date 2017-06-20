@@ -20,7 +20,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogTxt;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.thecar.R;
-import com.kaopujinfu.appsys.thecar.adapters.LableListAdapter;
+import com.kaopujinfu.appsys.thecar.adapters.CarListAdapter;
 import com.kaopujinfu.appsys.thecar.bean.CarListBean;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -38,7 +38,7 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
 
     private TwinklingRefreshLayout refreshLayout_bindings;
     private ExpandableListView bindingsList;
-    private LableListAdapter mAdapter;
+    private CarListAdapter mAdapter;
     private boolean flag = false;//判读是否选择
     private RelativeLayout addBindings;
     private TextView newBindingsSelectNum;
@@ -56,7 +56,7 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
         dialog.dismiss();
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
         header.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
-        mTvTitle.setText("监管清单");
+        mTvTitle.setText("车辆标签");
         top_meun.setVisibility(View.GONE);
         top_btn.setText("选择");
         top_btn.setVisibility(View.VISIBLE);
@@ -75,8 +75,8 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
 
         bindingsList = (ExpandableListView) findViewById(R.id.taskList);
         bindingsList.setGroupIndicator(null); // 隐藏默认指示器
-        mAdapter = new LableListAdapter(this, bindingsList);
-        mAdapter.setUpdateBindingUIListener(new LableListAdapter.UpdateBindingUIListener() {
+        mAdapter = new CarListAdapter(this, bindingsList);
+        mAdapter.setUpdateBindingUIListener(new CarListAdapter.UpdateBindingUIListener() {
             @Override
             public void updateUI(int num) {
                 newBindingsSelectNum.setText("已选择" + num + "个任务");
@@ -107,7 +107,7 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
     }
 
     private void initDate() {
-        HttpBank.getIntence(this).newCarList(new CallBack() {
+        HttpBank.getIntence(this).lableList(new CallBack() {
             @Override
             public void onSuccess(Object o) {
                 LogUtils.debug("获取数据:" + o.toString());
