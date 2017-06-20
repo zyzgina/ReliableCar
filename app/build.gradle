@@ -10,11 +10,29 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
+    signingConfigs {
+        release {
+            keyAlias 'kaopukanche'
+            keyPassword 'kanche'
+            storeFile file('kanche.keystore')
+            storePassword 'kanche'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            // 移除无用的resource文件
+            shrinkResources false
+            //Zipalign优化
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
     lintOptions {
