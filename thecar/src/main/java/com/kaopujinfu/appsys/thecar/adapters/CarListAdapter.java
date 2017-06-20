@@ -109,10 +109,12 @@ public class CarListAdapter extends BaseExpandableListAdapter {
         }
         final CarListBean.ItemsCarBean item = getChild(i, i1);
         hold.distributor.setText(item.getDlrLongName());
-        hold.number.setText("编号：00" + item.getId());
+        hold.number.setText(item.getStartTime());
         hold.vin.setText(item.getVinNo());
-        hold.state.setText("监管中");
-        hold.state.setBackgroundResource(R.drawable.button_green_circular);
+        hold.state.setText(item.getCarBrand() + "/" + item.getCarSubBrand());
+        hold.state.setTextColor(mContext.getResources().getColor(R.color.back_gray));
+        hold.state.setPadding(2, 0, 0, 0);
+        hold.state.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         // 最后一行把线隐藏
         if (i1 == getChildrenCount(i) - 1) {
             hold.line.setVisibility(View.GONE);
