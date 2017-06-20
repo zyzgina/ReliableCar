@@ -9,6 +9,17 @@ android {
         targetSdkVersion 25
         multiDexEnabled true
     }
+    buildTypes {
+        debug {
+            versionNameSuffix ".dev"
+        }
+
+        release {
+            debuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -20,6 +31,10 @@ android {
         flatDir {
             dirs 'libs'
         }
+    }
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
     }
 }
 
@@ -46,9 +61,11 @@ dependencies {
     compile 'com.amap.api:search:5.1.0'
     compile 'com.amap.api:location:3.4.0'
     /* 标签箭头分段统计图 */
-    compile 'com.github.zyzgina:ArrowPosition:25.3.0'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     compile 'com.github.zyzgina:TimeSelection:25.0.3'
+    compile('com.github.zyzgina:ArrowPosition:25.3.0') {
+        exclude module: 'support-v7'
+    }
     /* 语音播报 */
-    compile 'com.github.zyzgina:voiceProject:25.0.2'
+    compile 'com.github.zyzgina:voiceproject:25.0.2'
 }
