@@ -127,4 +127,17 @@ public class IBaseUrl {
      * 新建车辆
      * */
     public static String URL_CAR="car";
+    /**
+     * sevlet车辆帮标签
+     * */
+    public static String URL_RFID="rfid";
+    /**
+     * 新建车辆绑标签
+     * */
+    public static String ACTION_BINDRFID="BIND";
+
+    /**
+     * 吃完了绑标签列表
+     * */
+    public static String BIND_RFID_LIST="BIND_RFID_LIST";
 }

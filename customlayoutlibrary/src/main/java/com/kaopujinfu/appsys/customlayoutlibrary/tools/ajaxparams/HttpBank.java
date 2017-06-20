@@ -222,5 +222,19 @@ public class HttpBank {
         IBaseMethod.post(context, IBaseUrl.CONF_CAR, params, call);
     }
 
+    /**
+     * 车辆绑标签
+     */
+    public void httpLable(CallBack callBack, String... strs) {
+        AjaxParams params = bankAjaxParams.ajaxAddLable(strs);
+        IBaseMethod.post(context, IBaseUrl.URL_RFID, params, callBack);
+    }
+    /**
+     * 车辆绑标签列表
+     */
+    public void lableList(CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxLableList();
+        IBaseMethod.post(context, IBaseUrl.URL_CAR, params, callBack);
+    }
 
 }

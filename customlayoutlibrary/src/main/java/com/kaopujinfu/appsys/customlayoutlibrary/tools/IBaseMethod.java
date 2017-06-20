@@ -531,13 +531,15 @@ public class IBaseMethod {
         uploadBean.setLabel(strs[1]);
         String pathName = file.getAbsolutePath().replace(FileUtils.getCarUploadPath(), "");
         if (strs[1].contains("文档"))
-            uploadBean.setQny_key("BIND_DEV/" + pathName);
-        else if (strs[1].contains("监管"))
             uploadBean.setQny_key("BIND_DOC/" + pathName);
+        else if (strs[1].contains("监管"))
+            uploadBean.setQny_key("BIND_DEV/" + pathName);
         else if (strs[1].contains("VIN"))
             uploadBean.setQny_key("VIN_OCR/" + pathName);
-        else {
-            uploadBean.setQny_key("BIND_DEV/" + chinaChangeEn(pathName));
+        else if (strs[1].contains("车辆绑标签")) {
+            uploadBean.setQny_key("BIND_RFID/" + pathName);
+        } else {
+            uploadBean.setQny_key("PHOTO/" + chinaChangeEn(pathName));
         }
         uploadBean.setFilename(file.getName());
         uploadBean.setFilesize(file.length() + "");

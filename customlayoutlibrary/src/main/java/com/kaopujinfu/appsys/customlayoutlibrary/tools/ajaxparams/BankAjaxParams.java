@@ -281,6 +281,28 @@ public class BankAjaxParams {
     }
 
     /**
+     * 车辆绑标签
+     *
+     * @param strs 0,vin码  1标签
+     * @return AjaxParams
+     */
+    public AjaxParams ajaxAddLable(String... strs) {
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", IBaseUrl.ACTION_BINDRFID);
+        params.put("vinNo", strs[0]);
+        params.put("rfidId", strs[1]);
+        return params;
+    }
+    /**
+     * 车辆绑标签
+     */
+    public AjaxParams ajaxLableList() {
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", IBaseUrl.BIND_RFID_LIST);
+        return params;
+    }
+
+    /**
      * 设置登录用户，所属session ，公司code参数
      *
      * @return AjaxParams
