@@ -1,7 +1,6 @@
 package com.kaopujinfu.appsys.thecar.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -41,13 +40,13 @@ public class UploadTaskAdapter extends BaseAdapter {
     private String type;
     private String path;
 
-    public UploadTaskAdapter(Context context, String type,String path) {
+    public UploadTaskAdapter(Context context, String type, String path) {
         this.context = context;
         this.type = type;
-        this.path=path;
+        this.path = path;
         lists = new ArrayList<>();
-        file = new File(path+"/"+type);
-        LogUtils.debug("文件夹:"+file.getAbsolutePath());
+        file = new File(path + "/" + type);
+        LogUtils.debug("文件夹:" + file.getAbsolutePath());
         for (int i = 0; i < 5; i++) {
             lists.add("");
         }
@@ -101,6 +100,7 @@ public class UploadTaskAdapter extends BaseAdapter {
                 holder.upload_item_upload.setVisibility(View.GONE);
                 holder.upload_item_upload.setVisibility(View.VISIBLE);
                 FinalBitmap.create(context).display(holder.upload_item_upload, getItem(position));
+                views.add(holder.upload_item_upload);
             } else {
                 holder.defaultText_item_upload.setVisibility(View.GONE);
                 holder.textProgressBar_upload.isText(true);
@@ -110,7 +110,6 @@ public class UploadTaskAdapter extends BaseAdapter {
                 holder.upload_item_upload.setVisibility(View.GONE);
                 holder.upload_item_upload.setVisibility(View.VISIBLE);
                 FinalBitmap.create(context).display(holder.upload_item_upload, getItem(position));
-                views.add(holder.upload_item_upload);
             }
         }
         return convertView;
@@ -191,15 +190,11 @@ public class UploadTaskAdapter extends BaseAdapter {
 
     /* 更换图片 */
     public void repace(int position, List<PhotoInfo> infos) {
-        if (selectImages.contains(shows.get(position))) {
-            selectImages.remove(position);
-            selectImages.add(position, infos.get(0).getPhotoPath());
-        } else {
-            //替换保存图片
-            LogUtils.debug("替换上传队列的图片:");
-            View view = views.get(position);
-            ImageView upload_item_upload = (ImageView) view.findViewById(R.id.upload_item_upload);
-            FileUtils.saveBitMap(photoImages.get(position), ((BitmapDrawable) upload_item_upload.getDrawable()).getBitmap());
+        for (int i = 0; i < selectImages.size(); i++) {
+            if (selectImages.get(i).equals(shows.get(position))) {
+                selectImages.remove(i);
+                selectImages.add(i, infos.get(0).getPhotoPath());
+            }
         }
         notifyDataSetChanged();
     }
@@ -211,7 +206,7 @@ public class UploadTaskAdapter extends BaseAdapter {
     }
 
     /* 获取加入上传列表的数据 */
-    public List<String> getSelectImages(){
+    public List<String> getSelectImages() {
         return selectImages;
     }
 
@@ -228,7 +223,7 @@ public class UploadTaskAdapter extends BaseAdapter {
                 super.run();
                 for (int i = 0; i < selectImages.size(); i++) {
                     File upload = new File(selectImages.get(i));
-                    String name = type + "_" + DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance())+"_"+(i+1) + ".jpg";
+                    String name = type + "_" + DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance()) + "_" + (i + 1) + ".jpg";
                     File save = new File(file.getAbsolutePath(), name);
                     if (upload.exists())
                         FileUtils.CopySdcardFile(upload.getAbsolutePath(), save.getAbsolutePath());
@@ -236,6 +231,11 @@ public class UploadTaskAdapter extends BaseAdapter {
                 handler.sendEmptyMessage(state);
             }
         }.start();
+    }
+
+    /* 判断是否是上传队列中的数据 */
+    public boolean isUploadDate(int position) {
+        return photoImages.contains(shows.get(position));
     }
 
 }

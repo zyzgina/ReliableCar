@@ -39,6 +39,8 @@ public class PhotosGridAdapter extends BaseAdapter {
         this.mContext = mContext;
         this.file = file;
         strs = mContext.getResources().getStringArray(R.array.photos);
+        IBaseMethod.getChangeDate(strs, mContext.getResources().getStringArray(R.array.photos_en),
+                mContext.getResources().getStringArray(R.array.assessment), mContext.getResources().getStringArray(R.array.assessment_en));
     }
 
     public PhotosGridAdapter(Context mContext, File file, String[] strs) {
@@ -140,9 +142,7 @@ public class PhotosGridAdapter extends BaseAdapter {
                 String lable = "照片_" + name;
                 if ("评估高清图".equals(name)) {
                     String pathname = image.getAbsolutePath().substring(0, image.getAbsolutePath().lastIndexOf("/"));
-                    LogUtils.debug("pathname==" + pathname);
                     pathname = pathname.substring(pathname.lastIndexOf("/") + 1, pathname.length());
-                    LogUtils.debug("pathname==" + pathname);
                     lable += "/" + pathname;
                 }
                 UploadBean uploadBean = IBaseMethod.saveUploadBean(image, "", lable);

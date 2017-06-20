@@ -19,7 +19,7 @@ import com.kaopujinfu.appsys.thecar.R;
 public class MyselfOperationsAdapter extends BaseAdapter {
     private Context context;
     private String[] strs;
-    private int[] ints = {R.drawable.my_icon_binding, R.drawable.my_icon_document, R.drawable.my_icon_binding, R.drawable.my_icon_shot, R.drawable.my_icon_check};
+    private int[] ints = {R.drawable.my_icon_binding, R.drawable.my_icon_document, R.drawable.my_icon_binding,R.drawable.my_icon_binding, R.drawable.my_icon_shot, R.drawable.my_icon_check};
 
     public MyselfOperationsAdapter(Context context) {
         this.context = context;
