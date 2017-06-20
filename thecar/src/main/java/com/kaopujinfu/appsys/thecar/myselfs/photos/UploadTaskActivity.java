@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -62,6 +61,7 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
     private int index;
     String path;
     private TextView confirmTv;
+    private int repceStatus = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,7 +99,6 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
         confirmTv = (TextView) findViewById(R.id.confirmTv);
         uploadTaskConfirm.setOnClickListener(this);
 
-
         /* 图片预览 */
         showPhotos = (RelativeLayout) findViewById(R.id.showPhotos);
         showPhotos.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
@@ -116,10 +115,12 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
         replace_showPhotos.setOnClickListener(this);
 
         sAdapter = new ShowPhototsAdapter(this);
+        sAdapter.addImages(mAdapter.getLists());
         viewpage_showPhotots.setAdapter(sAdapter);
 
 
-        path = pathFile + SystemClock.currentThreadTimeMillis() + "/";
+        path = pathFile + "/" + type + "/";//拍照保存的路径
+        LogUtils.debug("保存照片的地址:" + path);
         uploadTaskGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -206,11 +207,11 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
                     uploadTasknum.setText("已选择" + mAdapter.selectImages.size() + "个任务，等待上传至上传队列");
                 } else {
                     int indexc = viewpage_showPhotots.getCurrentItem();
+                    LogUtils.debug("选择的下标:" + indexc);
                     mAdapter.repace(indexc, resultList);
                     mAdapter.notifyDataSetChanged();
                     sAdapter.addImages(mAdapter.getLists());
                     sAdapter.notifyDataSetChanged();
-
                 }
 
             }
@@ -232,6 +233,7 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
         if (requestCode == IBase.RETAIL_ONE) {
             // 拍照
             mAdapter.notifyDataSetChanged();
+            sAdapter.addImages(mAdapter.getLists());
         }
     }
 
@@ -351,6 +353,10 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
 
     /* 更改照片 */
     private void repacePhotots() {
+        if (mAdapter.isUploadDate(viewpage_showPhotots.getCurrentItem())) {
+            IBaseMethod.showToast(this, "该照片已经上传至队列，无法更换", IBase.RETAIL_TWO);
+            return;
+        }
         size = 1;
         selecotPhotos();
     }
@@ -358,12 +364,18 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
     /* 选择照片 */
     private void selecotPhotos() {
         fileName = System.currentTimeMillis() + ".jpg";
-        DialogUtil.selectPicDialog(UploadTaskActivity.this, fileName, new DialogCameraListener() {
+        if (size == 1) {
+            repceStatus = 1;
+        } else {
+            repceStatus = 0;
+        }
+        DialogUtil.selectPicDialog(UploadTaskActivity.this, fileName, repceStatus, new DialogCameraListener() {
             @Override
             public boolean takePhoto() {
                 LogTxt.getInstance().writeLog("跳转到拍照界面");
                 Intent intent = new Intent(UploadTaskActivity.this, ContinuityCameraActivity.class);
                 intent.putExtra("imagePath", path);
+                intent.putExtra("repceStatus", repceStatus);
                 startActivityForResult(intent, IBase.RETAIL_ONE);
                 return false;
             }

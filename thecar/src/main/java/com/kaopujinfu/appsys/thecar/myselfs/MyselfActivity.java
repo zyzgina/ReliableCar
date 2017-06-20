@@ -20,7 +20,6 @@ import com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MyListView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.ObserveScrollView;
-import com.kaopujinfu.appsys.thecar.PersonalActivity;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.MyselfMissionAdapter;
 import com.kaopujinfu.appsys.thecar.adapters.MyselfMsgAadapter;
@@ -30,6 +29,7 @@ import com.kaopujinfu.appsys.thecar.myselfs.checks.ChecksActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.MissionCommitActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.CarListActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.newcar.LableActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosActivity;
 import com.kaopujinfu.appsys.thecar.upload.UploadListActivity;
 
@@ -196,10 +196,14 @@ public class MyselfActivity extends Activity {
                 intent.setClass(MyselfActivity.this, BindingsActivity.class);
                 break;
             case IBase.CONSTANT_THREE:
+                    /* 车辆绑标签 */
+                intent.setClass(MyselfActivity.this, LableActivity.class);
+                break;
+            case IBase.CONSTANT_FOUR:
                     /* 照片采集 */
                 intent.setClass(MyselfActivity.this, PhotosActivity.class);
                 break;
-            case IBase.CONSTANT_FOUR:
+            case IBase.CONSTANT_FIVE:
                     /* 盘库 */
                 intent.setClass(MyselfActivity.this, ChecksActivity.class);
                 break;

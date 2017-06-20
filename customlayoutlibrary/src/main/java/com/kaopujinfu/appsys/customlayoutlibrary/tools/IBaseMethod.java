@@ -518,7 +518,7 @@ public class IBaseMethod {
             UploadBean uploadBean = saveUploadBean(file, strs);
             List<UploadBean> beanLists = db.findAllByWhere(UploadBean.class, "loactionPath=\"" + str + "\"");
             if (beanLists.size() == 0) {
-                LogUtils.debug("保存上传列表："+uploadBean.toString());
+                LogUtils.debug("保存上传列表：" + uploadBean.toString());
                 db.save(uploadBean);
             }
         }
@@ -536,12 +536,46 @@ public class IBaseMethod {
             uploadBean.setQny_key("BIND_DOC/" + pathName);
         else if (strs[1].contains("VIN"))
             uploadBean.setQny_key("VIN_OCR/" + pathName);
-        else
-            uploadBean.setQny_key("BIND_DEV/" + pathName);
+        else {
+            uploadBean.setQny_key("BIND_DEV/" + chinaChangeEn(pathName));
+        }
         uploadBean.setFilename(file.getName());
         uploadBean.setFilesize(file.length() + "");
         uploadBean.setLoactionPath(file.getAbsolutePath());
         return uploadBean;
+    }
+
+    /**
+     * 照片采集中文转英文
+     */
+    public static String chinaChangeEn(String paths) {
+        if (types != null && typesEn != null) {
+            for (int i = 0; i < types.length; i++) {
+                if (paths.contains(types[i])) {
+                    paths = paths.replace(types[i], typesEn[i]);
+                    break;
+                }
+            }
+        }
+        if (assessment != null && assessmentEn != null) {
+            for (int i = 0; i < assessment.length; i++) {
+                if (paths.contains(assessment[i])) {
+                    paths = paths.replace(assessment[i], assessmentEn[i]);
+                    break;
+                }
+            }
+        }
+        LogUtils.debug("转换后的数据:" + paths);
+        return paths;
+    }
+
+    private static String[] types, typesEn, assessment, assessmentEn;
+
+    public static void getChangeDate(String[] types, String[] typesEn, String[] assessment, String[] assessmentEn) {
+        IBaseMethod.types = types;
+        IBaseMethod.typesEn = typesEn;
+        IBaseMethod.assessment = assessment;
+        IBaseMethod.assessmentEn = assessmentEn;
     }
 
     /**

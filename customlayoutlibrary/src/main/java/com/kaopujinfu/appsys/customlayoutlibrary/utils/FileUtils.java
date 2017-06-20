@@ -58,6 +58,18 @@ public class FileUtils {
     }
 
     /**
+     * 获取看车拍照目录
+     */
+    public static String getCarPhotographPath() {
+        String filePath = null;
+        filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + FILE_PATH + "car/Photograph/";
+        File file = new File(filePath);
+        if (!file.exists())
+            file.mkdirs();
+        return filePath;
+    }
+
+    /**
      * 获取缓存日志目录
      */
     public static String getLogFilePath() {

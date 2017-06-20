@@ -12,6 +12,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.format.DateFormat;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -39,6 +41,7 @@ public class ContinuityCameraActivity extends Activity implements View.OnClickLi
     private SurfaceView cameraView;
     private ImageView cameraTake, cameraPhoto, cameraPhotoBack, cameraPhotoConfirm;
     private RelativeLayout cameraPhotoLayout;
+    private int repceStatus;//判断是否连续拍照
 
     private boolean isPortrait = true;
     private boolean isLandscapeRigth = false;
@@ -78,6 +81,7 @@ public class ContinuityCameraActivity extends Activity implements View.OnClickLi
         setContentView(R.layout.activity_continuity_camera);
         // 获取图片保存路径
         imagePath = getIntent().getStringExtra("imagePath");
+        repceStatus = getIntent().getIntExtra("repceStatus", 0);
         File file = new File(imagePath);
         if (!file.exists()) {
             file.mkdirs();
@@ -238,6 +242,13 @@ public class ContinuityCameraActivity extends Activity implements View.OnClickLi
         });
     }
 
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
     /**
      * 保存照片
      */
@@ -256,6 +267,14 @@ public class ContinuityCameraActivity extends Activity implements View.OnClickLi
                         bos = new BufferedOutputStream(new FileOutputStream(file));
                         // 将图片压缩到流中
                         mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (repceStatus == 1) {
+                                    finish();
+                                }
+                            }
+                        });
                     } catch (Exception e) {
                         LogTxt.getInstance().writeLog("保存图片出错：", e);
                     } finally {

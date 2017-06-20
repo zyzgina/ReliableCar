@@ -74,8 +74,8 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
         top_meun.setVisibility(View.GONE);
         mtop_back.setOnClickListener(this);
         db = FinalDb.create(this, IBase.BASE_DATE, true);
+        db.deleteAll(TaskItemBean.TaskItemsEntity.class);
         dialog.dismiss();
-
         yes_checksdetails = (TextView) findViewById(R.id.yes_checksdetails);
         yes_checksdetails.setText(item.getCheckCount() + "");
 
@@ -340,7 +340,7 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
                 public void cancel() {
                     //删除本地数据
                     for (TaskItemBean.TaskItemsEntity itemsEntity : detailsAdapter.getList()) {
-                        List<UploadBean> uploadBeens = db.findAllByWhere(UploadBean.class, "vinCode=\"" + itemsEntity.getVinNo() + "\" and label=\"VIN码盘库\"");
+                        List<UploadBean> uploadBeens = db.findAllByWhere(UploadBean.class, "vinCode=\"" + itemsEntity.getTaskCode() + "_" + itemsEntity.getVinNo() + "\" and label=\"VIN码盘库\"");
                         if (uploadBeens.size() > 0) {
                             for (UploadBean ub : uploadBeens) {
                                 db.delete(ub);

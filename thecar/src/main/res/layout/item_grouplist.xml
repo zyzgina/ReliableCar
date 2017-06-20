@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/common_measure_20sp">
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/documentDetails_item"
@@ -47,13 +48,12 @@
 
                 <TextView
                     android:id="@+id/documentDistributor_item"
+                    style="@style/textview_color_back_singleLine_size17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
-                    android:text="诚信二手车"
-                    android:textColor="@color/back"
-                    android:textSize="@dimen/sp18" />
+                    android:text="诚信二手车" />
 
                 <TextView
                     android:id="@+id/documentState_item"
@@ -98,13 +98,12 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_measure_15sp"
+            android:layout_below="@id/documentContent_item"
+            android:layout_marginTop="@dimen/common_measure_20sp"
+            android:layout_toLeftOf="@id/documentDetailsLayout_item"
             android:max="100"
             android:progressDrawable="@drawable/progressbar"
-            android:layout_marginTop="@dimen/common_measure_20sp"
-            android:layout_below="@id/documentContent_item"
-            android:layout_toLeftOf="@id/documentDetailsLayout_item"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
     </RelativeLayout>
 
     <View

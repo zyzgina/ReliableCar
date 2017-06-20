@@ -85,7 +85,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devicecontrol);
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
-        voiceUtils=new VoiceUtils();
+        voiceUtils = new VoiceUtils();
         voiceUtils.initialTts(this);
         initView();
     }
@@ -232,6 +232,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                             LogUtils.debug("模糊查询数据库:" + lists.size());
                             if (lists.size() > 0) {
                                 TaskItemBean.TaskItemsEntity entity = lists.get(0);
+                                int status_speek = entity.getCommit_status();
                                 if (entity.getCommit_status() == 0) {
                                     entity.setCommit_status(1);
                                     entity.setCheckMethod(IBase.RFIDCODE);
@@ -240,20 +241,40 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                                     entity.setLng(longitude + "");
                                     db.update(entity);
                                     VibratorUtil.Vibrate(DeviceControlActivity.this, 30);
-                                    voiceUtils.startSpeek("盘库成功");
-                                }else{
-                                    voiceUtils.startSpeek("该车已盘库");
                                 }
                                 List<TaskItemBean.TaskItemsEntity> finish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\"");
                                 List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
                                 mAlreadynum.setText((finish.size() - nofinish.size()) + "");
                                 mSurplusnum.setText(nofinish.size() + "");
                                 getAddData();
-                                if (nofinish.size() == 0) {
-                                    IBaseMethod.showToast(DeviceControlActivity.this, "该车库盘库已完成", IBase.RETAIL_TWO);
-                                    finish();
+                                if (nofinish.size() > 0) {
+                                    if (status_speek == 0) {
+                                        voiceUtils.startSpeek("盘库成功剩余" + nofinish.size() + "台");
+                                    } else {
+                                        voiceUtils.startSpeek("该车已盘库");
+                                    }
                                 }
-                            }else{
+                                if (nofinish.size() == 0) {
+                                    voiceUtils.startSpeek("全部完成辛苦了");
+                                    new Thread() {
+                                        @Override
+                                        public void run() {
+                                            while (true) {
+                                                try {
+                                                    sleep(3000);
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
+                                                if (voiceUtils.isEndSpeek()) {
+                                                    finish();
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }.start();
+
+                                }
+                            } else {
                                 voiceUtils.startSpeek("查询失败");
                             }
                         }
@@ -383,7 +404,6 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
         }
 
     }
-
 
 
 }

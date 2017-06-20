@@ -42,6 +42,15 @@ public class Loginbean  implements Serializable{
     private String expire_time;
     private String expire_seconds;
     private String upload_token;
+    /**
+     * companyShortName : 上海测试团队
+     * companyLongName : 上海测试监管团队
+     * roleName : SP_ADMIN
+     */
+
+    private String companyShortName;
+    private String companyLongName;
+    private String roleName;
 
     public void setResult(String result) {
         this.result = result;
@@ -163,8 +172,12 @@ public class Loginbean  implements Serializable{
                 ", expire_time='" + expire_time + '\'' +
                 ", expire_seconds='" + expire_seconds + '\'' +
                 ", upload_token='" + upload_token + '\'' +
+                ", companyShortName='" + companyShortName + '\'' +
+                ", companyLongName='" + companyLongName + '\'' +
+                ", roleName='" + roleName + '\'' +
                 '}';
     }
+
     public static Loginbean getLoginbean(String result){
         Loginbean loginbean=null;
         try{
@@ -173,5 +186,29 @@ public class Loginbean  implements Serializable{
             e.printStackTrace();
         }
         return loginbean;
+    }
+
+    public String getCompanyShortName() {
+        return companyShortName;
+    }
+
+    public void setCompanyShortName(String companyShortName) {
+        this.companyShortName = companyShortName;
+    }
+
+    public String getCompanyLongName() {
+        return companyLongName;
+    }
+
+    public void setCompanyLongName(String companyLongName) {
+        this.companyLongName = companyLongName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

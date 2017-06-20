@@ -2,8 +2,9 @@
 <resources>
     <array name="operations">
         <item>新建车辆</item>
-        <item>文档收录</item>
+        <item>文档绑标签</item>
         <item>监管器绑定</item>
+        <item>车辆绑标签</item>
         <item>照片采集</item>
         <item>盘库</item>
     </array>

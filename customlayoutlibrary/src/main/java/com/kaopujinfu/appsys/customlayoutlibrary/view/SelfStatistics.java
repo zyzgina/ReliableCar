@@ -5,8 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.kaopujinfu.appsys.customlayoutlibrary.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +49,7 @@ public class SelfStatistics extends View {
         init();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public SelfStatistics(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
@@ -138,7 +143,7 @@ public class SelfStatistics extends View {
         //设置进度扇形的样式
         paint.setStyle(Paint.Style.FILL);
         //设置文字的大小
-        paint.setTextSize(35);
+        paint.setTextSize(getResources().getDimensionPixelSize(R.dimen.sp15));
         int widthStr1 = (int) paint.measureText(stringText);
         paint.setColor(Color.parseColor("#333333"));
         float baseX = center - widthStr1 / 2;
