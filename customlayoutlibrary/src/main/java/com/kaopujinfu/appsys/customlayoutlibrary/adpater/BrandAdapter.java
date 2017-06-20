@@ -116,4 +116,8 @@ public class BrandAdapter extends BaseAdapter implements SpinnerListAdapter{
         }
         notifyDataSetChanged();
     }
+
+    public BrandBean.BrandItems getListsBean(int position){
+        return lists.get(position);
+    }
 }
