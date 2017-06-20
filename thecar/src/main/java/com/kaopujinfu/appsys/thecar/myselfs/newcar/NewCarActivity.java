@@ -507,7 +507,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
             spinnerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    BrandBean.BrandItems brandItems = items.get(i);
+                    BrandBean.BrandItems brandItems = mAdapter.getListsBean(i);
                     spinnerKey.setText("");
                     if (status == 0) {
                         status = 1;
