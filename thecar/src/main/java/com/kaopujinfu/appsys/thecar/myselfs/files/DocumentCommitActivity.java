@@ -12,7 +12,9 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.myselfs.bindings.AddBindingActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.bindings.BindingsActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.newcar.AddLableActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.CarListActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.newcar.LableActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.NewCarActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosDetailsActivity;
@@ -69,6 +71,12 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
             txt_documentCommit.setText("监管车辆成功");
             toast_documentCommit.setText("点击返回列表查看监管车辆信息");
             sel_documentCommit.setText("或点击新增车辆继续操作");
+        }else if (success == IBase.CONSTANT_FOUR) {
+            mTvTitle.setText("车辆绑标签提交");
+            new_documentCommit.setText("车辆绑标签");
+            txt_documentCommit.setText("车辆绑标签成功");
+            toast_documentCommit.setText("点击返回列表查看标签列表");
+            sel_documentCommit.setText("或点击车辆绑标签继续操作");
         }
     }
 
@@ -83,6 +91,8 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
                 intent.setClass(this, PhotosActivity.class);
             } else if (success == IBase.CONSTANT_THREE) {
                 intent.setClass(this, CarListActivity.class);
+            }else if (success == IBase.CONSTANT_FOUR) {
+                intent.setClass(this, LableActivity.class);
             }
             startActivity(intent);
             finish();
@@ -97,6 +107,8 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
                 intent.putExtra("UploadPath", UploadPath);
             } else if (success == IBase.CONSTANT_THREE) {
                 intent.setClass(this, NewCarActivity.class);
+            }else if (success == IBase.CONSTANT_FOUR) {
+                intent.setClass(this, AddLableActivity.class);
             }
             startActivity(intent);
             finish();
