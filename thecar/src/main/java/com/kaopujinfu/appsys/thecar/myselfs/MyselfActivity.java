@@ -30,7 +30,7 @@ import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.MissionCommitActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.CarListActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.LableActivity;
-import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosDetailsActivity;
 import com.kaopujinfu.appsys.thecar.upload.UploadListActivity;
 
 import net.tsz.afinal.FinalBitmap;
@@ -128,13 +128,13 @@ public class MyselfActivity extends Activity {
         Loginbean user = Loginbean.getLoginbean(o);
         if (user != null) {
             if (GeneralUtils.isEmpty(user.getMobile())) {
-                mNameTel.setText(user.getName() + "(未绑定)");
+                mNameTel.setText(user.getName() + "(未绑手机号)");
             } else {
                 mNameTel.setText(user.getName() + "(" + IBaseMethod.hide(user.getMobile(), 3, 6) + ")");
             }
             mJob.setText(user.getCompanyShortName() + "-" + user.getRole());
         } else {
-            mNameTel.setText("未设置(未绑定)");
+            mNameTel.setText("未设置(未绑手机号)");
             mJob.setText("未加入-未设置");
         }
         mMessage = (MyGridView) findViewById(R.id.message_myself);
@@ -201,7 +201,7 @@ public class MyselfActivity extends Activity {
                 break;
             case IBase.CONSTANT_FOUR:
                     /* 照片采集 */
-                intent.setClass(MyselfActivity.this, PhotosActivity.class);
+                intent.setClass(MyselfActivity.this, PhotosDetailsActivity.class);
                 break;
             case IBase.CONSTANT_FIVE:
                     /* 盘库 */

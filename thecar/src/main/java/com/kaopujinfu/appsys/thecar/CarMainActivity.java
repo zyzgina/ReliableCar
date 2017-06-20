@@ -38,8 +38,6 @@ import com.kaopujinfu.appsys.thecar.loans.LoanFormActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.MyselfActivity;
 import com.kaopujinfu.appsys.thecar.supervises.SupervisesActivity;
 
-import net.tsz.afinal.FinalBitmap;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -158,12 +156,12 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         Loginbean user = Loginbean.getLoginbean(o);
         if (user != null) {
             if (GeneralUtils.isEmpty(user.getMobile())) {
-                tel_slidingmenu.setText("未绑定");
+                tel_slidingmenu.setText("未绑手机号");
             } else {
                 tel_slidingmenu.setText(IBaseMethod.hide(user.getMobile(), 3, 6));
             }
         } else {
-            tel_slidingmenu.setText("未绑定");
+            tel_slidingmenu.setText("未绑手机号");
         }
         logout_slidingmenu_layout = (RadioGroup) findViewById(R.id.logout_slidingmenu_layout);
         logout_slidingmenu = (RadioButton) findViewById(R.id.logout_slidingmenu);

@@ -56,7 +56,7 @@ public class PersonalActivity extends BaseActivity {
             username_personal.setText(user.getName());
             idcode_personal.setText("");
             if (GeneralUtils.isEmpty(user.getMobile()))
-                phone_number_personal.setText("未绑定");
+                phone_number_personal.setText("未绑手机号");
             else
                 phone_number_personal.setText(IBaseMethod.hide(user.getMobile(), 3, 6));
             company_personal.setText(user.getCompanyLongName());
