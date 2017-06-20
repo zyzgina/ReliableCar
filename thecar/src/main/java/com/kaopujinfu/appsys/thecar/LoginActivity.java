@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
@@ -132,17 +131,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    /**
-     * 更换用户登录清除当前所有贷款申请数据
-     */
-//    private void clearLenderInfo() {
-//        List<LenderInfor> infors = db.findAll(LenderInfor.class);
-//        if (infors != null && infors.size() > 0) {
-//            if (!IBase.USERID.equals(infors.get(0).getUserId_db())) {
-//                db.deleteAll(LenderInfor.class);
-//            }
-//        }
-//    }
     public void login(String userName, final String userPass, final boolean isAuto) {
         dialog.show();
         dialog.setLoadingTitle("正在登录...");
@@ -156,7 +144,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     /** 保存数据 */
                     IBase.USERID = result.getUser_id();
                     IBase.SESSIONID = result.getS_id();
-                    SPUtils.put(LoginActivity.this,"loginUser",o.toString());
+                    SPUtils.put(LoginActivity.this, "loginUser", o.toString());
                     SPUtils.put(LoginActivity.this, "login_user_id", IBase.USERID);
                     SPUtils.put(LoginActivity.this, "login_s_id", IBase.SESSIONID);
 //                    clearLenderInfo();
