@@ -46,7 +46,7 @@ public class ErrorView extends View {
     int maxLineIncrement;
 
     //线的宽度
-    private int lineThick = 4;
+    private int lineThick = 10;
 
     //获取圆心的x坐标
     int center;

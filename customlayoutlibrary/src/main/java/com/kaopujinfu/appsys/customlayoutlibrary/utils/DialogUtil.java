@@ -34,6 +34,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.ErrorView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.TickView;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.WarningView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -481,6 +482,7 @@ public class DialogUtil {
         mTitle.setText(title);
         TickView mTick = (TickView) view.findViewById(R.id.tickView);
         ErrorView mError = (ErrorView) view.findViewById(R.id.errorView);
+        WarningView mWarning= (WarningView) view.findViewById(R.id.warningView);
         Button continueDialog = (Button) view.findViewById(R.id.continueDialog);
         if (!GeneralUtils.isEmpty(butText))
             continueDialog.setText(butText);
@@ -490,6 +492,9 @@ public class DialogUtil {
         }
         if (status == 1) {
             mTick.setVisibility(View.VISIBLE);
+        }
+        if(status == 2){
+            mWarning.setVisibility(View.VISIBLE);
         }
         if (bgColor != 0) {
             continueDialog.setBackgroundColor(bgColor);

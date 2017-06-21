@@ -180,7 +180,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 if (errorNo == IBase.CONSTANT_TWO)
                     IBaseMethod.showToast(LoginActivity.this, strMsg, IBase.RETAIL_TWO);
                 if (errorNo == IBase.CONSTANT_ONE)
-                    IBaseMethod.showToast(LoginActivity.this, strMsg, IBase.RETAIL_TWO);
+                    DialogUtil.jumpCorrectErr(LoginActivity.this, strMsg, "继 续", 2, getResources().getColor(android.R.color.holo_orange_light));
             }
         });
     }
