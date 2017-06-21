@@ -236,5 +236,11 @@ public class HttpBank {
         AjaxParams params = bankAjaxParams.ajaxLableList();
         IBaseMethod.post(context, IBaseUrl.URL_CAR, params, callBack);
     }
-
+    /**
+     * 我的-统计信息
+     */
+    public void httpStatistics(CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxStatistics();
+        IBaseMethod.post(context, IBaseUrl.URL_CAR, params, callBack);
+    }
 }

@@ -303,6 +303,15 @@ public class BankAjaxParams {
     }
 
     /**
+     * 我的-统计信息
+     */
+    public AjaxParams ajaxStatistics() {
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", IBaseUrl.ACTION_APP_STAT_INFO);
+        return params;
+    }
+
+    /**
      * 设置登录用户，所属session ，公司code参数
      *
      * @return AjaxParams

@@ -12,9 +12,12 @@ import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView;
@@ -24,6 +27,7 @@ import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.MyselfMissionAdapter;
 import com.kaopujinfu.appsys.thecar.adapters.MyselfMsgAadapter;
 import com.kaopujinfu.appsys.thecar.adapters.MyselfOperationsAdapter;
+import com.kaopujinfu.appsys.thecar.bean.StatisticsBean;
 import com.kaopujinfu.appsys.thecar.myselfs.bindings.BindingsActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.checks.ChecksActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentActivity;
@@ -62,6 +66,7 @@ public class MyselfActivity extends Activity {
         setContentView(R.layout.activity_myself);
         EventBus.getDefault().register(this);
         initMyself();
+        getData();
     }
 
     @Override
@@ -212,9 +217,24 @@ public class MyselfActivity extends Activity {
     }
 
     /**
-     * 我的任务获取数据
+     * 获取统计信息
      */
     private void getData() {
+        HttpBank.getIntence(this).httpStatistics(new CallBack() {
+            @Override
+            public void onSuccess(Object o) {
+                LogUtils.debug("统计信息:" + o.toString());
+                StatisticsBean bean = StatisticsBean.getStatisticsBean(o.toString());
+                if (bean != null && bean.getItemBeen() != null) {
+                    msgAadapter.setLists(bean.getItemBeen());
+                }
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg) {
+
+            }
+        });
     }
 
     @Subscribe

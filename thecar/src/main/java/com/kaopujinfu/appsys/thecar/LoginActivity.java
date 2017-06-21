@@ -179,6 +179,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 dialog.dismiss();
                 if (errorNo == IBase.CONSTANT_TWO)
                     IBaseMethod.showToast(LoginActivity.this, strMsg, IBase.RETAIL_TWO);
+                if (errorNo == IBase.CONSTANT_ONE)
+                    IBaseMethod.showToast(LoginActivity.this, strMsg, IBase.RETAIL_TWO);
             }
         });
     }

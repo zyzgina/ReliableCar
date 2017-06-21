@@ -137,7 +137,11 @@ public class IBaseUrl {
     public static String ACTION_BINDRFID="BIND";
 
     /**
-     * 吃完了绑标签列表
+     * 车辆绑标签列表
      * */
     public static String BIND_RFID_LIST="BIND_RFID_LIST";
+    /**
+     * 我的-统计信息
+     * */
+    public static String ACTION_APP_STAT_INFO="APP_STAT_INFO";
 }
