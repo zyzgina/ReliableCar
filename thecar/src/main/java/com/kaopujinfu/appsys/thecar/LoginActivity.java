@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -32,13 +33,6 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 
 import net.tsz.afinal.FinalDb;
 
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.OnNeverAskAgain;
-import permissions.dispatcher.OnPermissionDenied;
-import permissions.dispatcher.OnShowRationale;
-import permissions.dispatcher.PermissionRequest;
-import permissions.dispatcher.RuntimePermissions;
-
 import static com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils.get;
 
 /**
@@ -46,7 +40,6 @@ import static com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils.get;
  * Created by zuoliji on 2017/3/28.
  */
 
-@RuntimePermissions
 public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText username_login, userpass_login, usercode_login;
     private Button goto_login, register_login, forget_login, verificationcode_login;
@@ -61,9 +54,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         IBaseMethod.setBarStyle(this, Color.TRANSPARENT);
         db = FinalDb.create(this, IBase.BASE_DATE);
+        //6.0获取权限
         boolean isForthefirstime = (boolean) SPUtils.get(this, "isForthefirstime", true);
         if (isForthefirstime)
-            LoginActivityPermissionsDispatcher.needsPermissionWithCheck(this);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH}, 1);
         initLogin();
         autoLogin();
     }
@@ -204,28 +198,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         DialogUtil.updateIPDialog(this);
     }
 
-
-    @NeedsPermission({Manifest.permission.READ_CALENDAR, Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.BLUETOOTH})
-    void needsPermission() {
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         SPUtils.put(this, "isForthefirstime", false);
-        LoginActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-    }
-
-    @OnShowRationale({Manifest.permission.READ_CALENDAR, Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.BLUETOOTH})
-    void showRationale(final PermissionRequest request) {
-        request.proceed();
-    }
-
-    @OnPermissionDenied({Manifest.permission.READ_CALENDAR, Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.BLUETOOTH})
-    void permissionDenied() {
-    }
-
-    @OnNeverAskAgain({Manifest.permission.READ_CALENDAR, Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.BLUETOOTH})
-    void neverAskAdain() {
     }
 }
