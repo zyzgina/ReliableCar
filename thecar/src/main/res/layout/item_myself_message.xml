@@ -3,18 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kaopujinfu.appsys.customlayoutlibrary.view.SelfStatistics
-        android:id="@+id/myselMsg"
-        android:layout_width="@dimen/common_measure_150sp"
-        android:layout_height="@dimen/common_measure_150sp"
-        android:layout_centerHorizontal="true" />
+    <FrameLayout
+        android:id="@+id/selfLl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <com.kaopujinfu.appsys.customlayoutlibrary.view.SelfStatistics
+            android:id="@+id/myselMsg"
+            android:layout_width="@dimen/common_measure_150sp"
+            android:layout_height="@dimen/common_measure_150sp" />
+
+        <com.kaopujinfu.appsys.customlayoutlibrary.view.SelfStatistics
+            android:id="@+id/vinmyselMsg"
+            android:layout_width="@dimen/common_measure_110sp"
+            android:layout_height="@dimen/common_measure_110sp"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/mormalLl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/myselMsg"
-        android:layout_below="@id/myselMsg"
+        android:layout_alignLeft="@id/selfLl"
+        android:layout_below="@id/selfLl"
         android:layout_marginTop="@dimen/common_measure_20sp"
         android:orientation="horizontal">
 
@@ -38,7 +51,7 @@
         android:id="@+id/abnormalLl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/myselMsg"
+        android:layout_alignLeft="@id/selfLl"
         android:layout_below="@id/mormalLl"
         android:layout_marginTop="@dimen/common_measure_5sp"
         android:orientation="horizontal">
@@ -62,7 +75,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/myselMsg"
+        android:layout_alignLeft="@id/selfLl"
         android:layout_below="@id/abnormalLl"
         android:layout_marginTop="@dimen/common_measure_5sp"
         android:orientation="horizontal">
