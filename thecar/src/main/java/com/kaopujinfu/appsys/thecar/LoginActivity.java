@@ -147,7 +147,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     SPUtils.put(LoginActivity.this, "loginUser", o.toString());
                     SPUtils.put(LoginActivity.this, "login_user_id", IBase.USERID);
                     SPUtils.put(LoginActivity.this, "login_s_id", IBase.SESSIONID);
-//                    clearLenderInfo();
                     if (!isAuto) {
                         SPUtils.put(LoginActivity.this, "login_user_password", userPass);
                         SPUtils.put(LoginActivity.this, "currentLoginTime", System.currentTimeMillis());
