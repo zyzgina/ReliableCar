@@ -225,8 +225,8 @@ public class MyselfActivity extends Activity {
             public void onSuccess(Object o) {
                 LogUtils.debug("统计信息:" + o.toString());
                 StatisticsBean bean = StatisticsBean.getStatisticsBean(o.toString());
-                if (bean != null && bean.getItemBeen() != null) {
-                    msgAadapter.setLists(bean.getItemBeen());
+                if (bean != null) {
+                    msgAadapter.setLists(bean);
                 }
             }
 

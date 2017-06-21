@@ -11,33 +11,27 @@ import com.kaopujinfu.appsys.customlayoutlibrary.view.SelfStatistics;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.bean.StatisticsBean;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by 左丽姬 on 2017/5/12.
  */
 
 public class MyselfMsgAadapter extends BaseAdapter {
     private Context context;
-    private List<StatisticsBean.StatItemBean> beens;
+    private StatisticsBean beens;
 
     public MyselfMsgAadapter(Context context) {
         this.context = context;
-        beens = new ArrayList<>();
-        beens.add(new StatisticsBean.StatItemBean());
-        beens.add(new StatisticsBean.StatItemBean());
-        beens.add(new StatisticsBean.StatItemBean());
+        beens = new StatisticsBean();
     }
 
     @Override
     public int getCount() {
-        return beens.size();
+        return 3;
     }
 
     @Override
     public Object getItem(int position) {
-        return beens.get(position);
+        return position;
     }
 
     @Override
@@ -55,39 +49,47 @@ public class MyselfMsgAadapter extends BaseAdapter {
         } else {
             hodler = (MyMsgHodler) convertView.getTag();
         }
-        StatisticsBean.StatItemBean itemBean = beens.get(position);
-        String[] colorRes = itemBean.getColorRes();
-        if (colorRes == null) {
-            colorRes = new String[]{"#99CC00", "#F65355", "#D3D3D3"};
-        }
-        float[] datas = itemBean.getDatas();
-        if (datas == null) {
-            datas = new float[]{0, 0, 100};
-        }
+        String[] colorRes;
+        float[] datas = new float[3];
+        hodler.vinmyselMsg.setVisibility(View.GONE);
         if (position == 0) {
+            colorRes = new String[]{"#99CC00", "#F65355", "#D3D3D3"};
+            datas[0] = beens.getRfNormal();
+            datas[1] = beens.getRfAlert();
+            datas[2] = beens.getCarTotal() - beens.getRfAlert() - beens.getRfNormal();
             hodler.myselMsg.setPaintText("车辆监管");
             hodler.normalText.setText("正常: " + (int) datas[0]);
             hodler.abnormalText.setText("异常: " + (int) datas[1]);
             hodler.otherText.setText("未监管: " + (int) datas[2]);
             hodler.abnormalSpot.setTextColor(context.getResources().getColor(R.color.check_error));
         } else if (position == 1) {
+            colorRes = new String[]{"#99CC00", "#FFBB34", "#D3D3D3"};
+            datas[0] = beens.getDocCount();
+            datas[1] = beens.getDocRelease();
+            datas[2] = beens.getCarTotal() - beens.getDocCount() - beens.getDocRelease();
             hodler.myselMsg.setPaintText("文档监管");
             hodler.normalText.setText("监管中: " + (int) datas[0]);
             hodler.abnormalText.setText("释放待取: " + (int) datas[1]);
             hodler.otherText.setText("未监管: " + (int) datas[2]);
             hodler.abnormalSpot.setTextColor(context.getResources().getColor(R.color.yellow));
-            if (colorRes == null) {
-                colorRes = new String[]{"#99CC00", "#FFBB34", "#D3D3D3"};
-            }
         } else {
-            hodler.myselMsg.setPaintText("人工盘库");
-            hodler.normalText.setText("RFID: " + (int) datas[0]);
-            hodler.abnormalText.setText("VIN: " + (int) datas[1]);
-            hodler.otherText.setText("未盘库: " + (int) datas[2]);
-            hodler.abnormalSpot.setTextColor(context.getResources().getColor(R.color.check_error));
+            colorRes = new String[]{"#6392C8", "#D3D3D3"};
+            datas[0] = beens.getVinScan();
+            datas[1] = beens.getCarTotal() - beens.getVinScan();
+            hodler.myselMsg.setPaintText("");
+            hodler.vinmyselMsg.setVisibility(View.VISIBLE);
+            hodler.vinmyselMsg.setPaintText("盘库");
+            hodler.normalText.setText("RFID: " + beens.getRfidScan());
+            hodler.abnormalText.setText("VIN: " + (int) datas[0]);
+            hodler.otherText.setVisibility(View.GONE);
+            hodler.otherSpot.setVisibility(View.GONE);
+            hodler.abnormalSpot.setTextColor(context.getResources().getColor(R.color.blue));
+            hodler.vinmyselMsg.setDatas(new float[]{beens.getRfidScan(), beens.getCarTotal() - beens.getRfidScan()});
+            hodler.vinmyselMsg.setColorRes(new String[]{"#99CC00", "#D3D3D3"});
+            hodler.vinmyselMsg.startDraw();
         }
         hodler.otherSpot.setTextColor(context.getResources().getColor(R.color.plain_gray));
-        if (itemBean.getDatas() == null) {
+        if (beens.getCarTotal() == 0) {
             hodler.otherText.setText("未添加车辆");
         }
         hodler.myselMsg.setDatas(datas);
@@ -97,11 +99,12 @@ public class MyselfMsgAadapter extends BaseAdapter {
     }
 
     class MyMsgHodler {
-        SelfStatistics myselMsg;
+        SelfStatistics myselMsg, vinmyselMsg;
         TextView normalSpot, abnormalSpot, otherSpot, abnormalText, normalText, otherText;
 
         public MyMsgHodler(View view) {
             myselMsg = (SelfStatistics) view.findViewById(R.id.myselMsg);
+            vinmyselMsg = (SelfStatistics) view.findViewById(R.id.vinmyselMsg);
             normalSpot = (TextView) view.findViewById(R.id.normalSpot);
 //            TextPaint tp = normalSpot.getPaint();
 //            tp.setFakeBoldText(true);
@@ -114,9 +117,8 @@ public class MyselfMsgAadapter extends BaseAdapter {
         }
     }
 
-    public void setLists(List<StatisticsBean.StatItemBean> beens) {
-        this.beens.clear();
-        this.beens.addAll(beens);
+    public void setLists(StatisticsBean beens) {
+        this.beens = beens;
         notifyDataSetChanged();
     }
 }
