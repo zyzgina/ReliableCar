@@ -21,7 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.kaopujinfu.appsys.thecar.LoginActivity" />
+        <activity
+            android:name="com.kaopujinfu.appsys.thecar.LoginActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name="com.kaopujinfu.appsys.thecar.CarMainActivity" />
 
         <meta-data
