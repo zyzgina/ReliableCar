@@ -202,27 +202,39 @@ public class UploadListAdapter extends BaseAdapter {
                                     }
                                 });
                     } else {
-                        LogUtils.debug("Upload Fail");
+                        LogUtils.debug("Upload Fail " + file.exists());
                         //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                         int i = 1;
-                        for (View view : views) {
-                            if (view != null) {
-                                //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
-                                UploadListHold viewHolder = (UploadListHold) view.getTag();
-                                if (!flag) {
-                                    if (i == views.size()) {
-                                        flag = true;
-                                        IBaseMethod.showToast(mContext, "连接失败", IBase.RETAIL_TWO);
+                        if (file.exists()) {
+                            for (View view : views) {
+                                if (view != null) {
+                                    //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
+                                    UploadListHold viewHolder = (UploadListHold) view.getTag();
+                                    if (!flag) {
+                                        if (i == views.size()) {
+                                            flag = true;
+                                            IBaseMethod.showToast(mContext, "连接失败", IBase.RETAIL_TWO);
+                                        }
+                                        viewHolder.progress.setText("上传失败");
+                                        i++;
+                                    } else {
+                                        viewHolder.progress.setText("已暂停");
                                     }
-                                    viewHolder.progress.setText("上传失败");
-                                    i++;
-                                } else {
-                                    viewHolder.progress.setText("已暂停");
                                 }
-
-                                handler.sendEmptyMessage(IBase.CONSTANT_TWO);
                             }
+                            handler.sendEmptyMessage(IBase.CONSTANT_TWO);
+                        } else {
+                            LogUtils.debug("进入了？？？？" + uploadBean.getLoactionPath());
+                            lists.remove(0);
+                            if (lists.size() == 0) {
+                                handler.sendEmptyMessage(IBase.CONSTANT_ONE);
+                            }
+                            notifyDataSetChanged();
+                            db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
+                            LogUtils.debug("文件不存在:" + lists.size() + "_size_" + views.remove(0));
+
                         }
+
                     }
 //                    LogUtils.debug(key + ",\r\n " + info + ",\r\n " + res);
                 }
