@@ -183,7 +183,6 @@ public class UploadListAdapter extends BaseAdapter {
                             handler.sendEmptyMessage(IBase.CONSTANT_ONE);
                         }
                         notifyDataSetChanged();
-                        db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
                         HttpBank.getIntence(mContext).uploadSuccess(uploadBean.getLabel(),
                                 uploadBean.getVinCode(), uploadBean.getQny_key(),
                                 uploadBean.getFilename(), uploadBean.getFilesize(), new CallBack() {
@@ -201,6 +200,7 @@ public class UploadListAdapter extends BaseAdapter {
                                         IBaseMethod.showToast(mContext, "上传出错", IBase.RETAIL_ZERO);
                                     }
                                 });
+                        db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
                     } else {
                         LogUtils.debug("Upload Fail " + file.exists());
                         //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
@@ -224,7 +224,6 @@ public class UploadListAdapter extends BaseAdapter {
                             }
                             handler.sendEmptyMessage(IBase.CONSTANT_TWO);
                         } else {
-                            LogUtils.debug("进入了？？？？" + uploadBean.getLoactionPath());
                             lists.remove(0);
                             if (lists.size() == 0) {
                                 handler.sendEmptyMessage(IBase.CONSTANT_ONE);
@@ -298,6 +297,10 @@ public class UploadListAdapter extends BaseAdapter {
 
     public void delFile() {
         FileUtils.delFolder(file.getAbsolutePath());
+    }
+
+    public void delSql() {
+        db.deleteAll(UploadBean.class);
     }
 
 }
