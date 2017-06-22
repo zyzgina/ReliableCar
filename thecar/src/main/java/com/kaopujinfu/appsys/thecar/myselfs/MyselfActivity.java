@@ -61,15 +61,8 @@ public class MyselfActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myself);
-        EventBus.getDefault().register(this);
         initMyself();
         getData();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     private void initMyself() {
