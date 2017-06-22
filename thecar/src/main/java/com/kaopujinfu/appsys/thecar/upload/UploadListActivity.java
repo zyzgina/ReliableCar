@@ -94,14 +94,18 @@ public class UploadListActivity extends BaseNoScoActivity {
                 @Override
                 public void onClick(View view) {
                     LogTxt.getInstance().writeLog("开始上传数据");
+                    if (!IBaseMethod.isNetToast(UploadListActivity.this, true)) {
+                        IBaseMethod.showNetToast(UploadListActivity.this);
+                        return;
+                    }
                     if (flag) {
                         flag = false;
-                        top_btn.setText("暂停");
+                        top_btn.setText("全部暂停");
                         mAdapter.notifyDataSetChanged();
                         mAdapter.uploadFile(uploadManager);
                     } else {
                         flag = true;
-                        top_btn.setText("开始上传");
+                        top_btn.setText("全部开始");
                     }
                     mAdapter.setUpload(flag);
                 }

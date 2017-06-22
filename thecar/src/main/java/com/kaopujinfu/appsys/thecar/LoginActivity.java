@@ -198,8 +198,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     }
                     if (!GeneralUtils.isEmpty(result.getCompanyCode()))
                         IBase.COMPANY_CODE = result.getCompanyCode();
-                    if (GeneralUtils.isEmpty(result.getName()))
-                        IBase.user.setCompanyName(result.getName());
                     SPUtils.put(LoginActivity.this, "companyCode", IBase.COMPANY_CODE);
                     SPUtils.put(LoginActivity.this, "uploadToken", result.getUpload_token());
                     SPUtils.put(LoginActivity.this, "currentUploadTime", System.currentTimeMillis());
