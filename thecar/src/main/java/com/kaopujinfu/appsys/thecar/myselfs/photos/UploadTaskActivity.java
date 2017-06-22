@@ -249,11 +249,10 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
                 finish();
                 return;
             }
-            DialogUtil.prompt(this, "退出将会删除现下的所有照片和信息，您确定退出？",
+            DialogUtil.prompt(this, "你还有照片未保存至上传队列,退出将删除未保存照片.您确定退出？",
                     "取消", "确定", new DialogButtonListener() {
                         @Override
                         public void ok() {
-                            mAdapter.exit();
                             finish();
                         }
 
