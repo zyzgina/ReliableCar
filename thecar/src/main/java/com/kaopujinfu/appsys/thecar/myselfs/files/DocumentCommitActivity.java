@@ -16,8 +16,8 @@ import com.kaopujinfu.appsys.thecar.myselfs.newcar.AddLableActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.CarListActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.LableActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.NewCarActivity;
-import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosDetailsActivity;
+import com.kaopujinfu.appsys.thecar.upload.UploadListActivity;
 
 import static com.kaopujinfu.appsys.thecar.R.id.new_documentCommit;
 
@@ -45,6 +45,7 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
         top_btn.setVisibility(View.GONE);
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
         header.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
+        Button nextList_documentCommit = (Button) findViewById(R.id.nextList_documentCommit);
         Button new_documentCommit = (Button) findViewById(R.id.new_documentCommit);
         TextView txt_documentCommit = (TextView) findViewById(R.id.txt_documentCommit);
         TextView toast_documentCommit = (TextView) findViewById(R.id.toast_documentCommit);
@@ -61,9 +62,10 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
         } else if (success == IBase.CONSTANT_TWO) {
             UploadPath = getIntent().getStringExtra("UploadPath");
             mTvTitle.setText("任务提交");
-            new_documentCommit.setText("查看详情");
-            txt_documentCommit.setText("绑定成功");
-            toast_documentCommit.setText("你返回任务列表继续其他任务");
+            nextList_documentCommit.setText("返回上传列表");
+            new_documentCommit.setText("继续添加");
+            txt_documentCommit.setText("查看详情");
+            toast_documentCommit.setText("你返回上传列表上传资料");
             sel_documentCommit.setText("或者查看详情进行操作");
         } else if (success == IBase.CONSTANT_THREE) {
             mTvTitle.setText("监管车辆提交");
@@ -71,7 +73,7 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
             txt_documentCommit.setText("监管车辆成功");
             toast_documentCommit.setText("点击返回列表查看监管车辆信息");
             sel_documentCommit.setText("或点击新增车辆继续操作");
-        }else if (success == IBase.CONSTANT_FOUR) {
+        } else if (success == IBase.CONSTANT_FOUR) {
             mTvTitle.setText("车辆绑标签提交");
             new_documentCommit.setText("车辆绑标签");
             txt_documentCommit.setText("车辆绑标签成功");
@@ -88,10 +90,10 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
             } else if (success == IBase.CONSTANT_ONE) {
                 intent.setClass(this, BindingsActivity.class);
             } else if (success == IBase.CONSTANT_TWO) {
-                intent.setClass(this, PhotosActivity.class);
+                intent.setClass(this, UploadListActivity.class);
             } else if (success == IBase.CONSTANT_THREE) {
                 intent.setClass(this, CarListActivity.class);
-            }else if (success == IBase.CONSTANT_FOUR) {
+            } else if (success == IBase.CONSTANT_FOUR) {
                 intent.setClass(this, LableActivity.class);
             }
             startActivity(intent);
@@ -107,7 +109,7 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
                 intent.putExtra("UploadPath", UploadPath);
             } else if (success == IBase.CONSTANT_THREE) {
                 intent.setClass(this, NewCarActivity.class);
-            }else if (success == IBase.CONSTANT_FOUR) {
+            } else if (success == IBase.CONSTANT_FOUR) {
                 intent.setClass(this, AddLableActivity.class);
             }
             startActivity(intent);

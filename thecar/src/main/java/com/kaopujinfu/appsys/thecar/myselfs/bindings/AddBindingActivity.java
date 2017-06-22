@@ -159,7 +159,9 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
             public void onFailure(int errorNo, String strMsg) {
                 dialog.dismiss();
                 LogUtils.debug("====" + strMsg);
-                IBaseMethod.showToast(AddBindingActivity.this, strMsg, IBase.RETAIL_ZERO);
+                if (errorNo == IBase.CONSTANT_ONE) {
+                    IBaseMethod.showNetToast(AddBindingActivity.this);
+                }
             }
         });
     }

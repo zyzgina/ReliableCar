@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseNoScoActivity;
@@ -73,15 +72,5 @@ public class ApplyActivity extends BaseNoScoActivity {
                 refreshLayout.finishLoadmore();
             }
         });
-
-        ImageView newApply = (ImageView) findViewById(R.id.newApply);
-        newApply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ApplyActivity.this, AddApplyActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 }

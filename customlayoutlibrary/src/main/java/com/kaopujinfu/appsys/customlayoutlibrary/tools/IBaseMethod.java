@@ -317,6 +317,10 @@ public class IBaseMethod {
         }
     }
 
+    public static void showNetToast(Context context) {
+        DialogUtil.jumpCorrectErr(context, "当前设备未有网络连接,请检查", "继 续", 2, context.getResources().getColor(android.R.color.holo_orange_light));
+    }
+
     private static int time = 60;
 
     /**

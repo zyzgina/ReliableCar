@@ -157,8 +157,9 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onFailure(int errorNo, String strMsg) {
                 dialog.dismiss();
-                LogUtils.debug("====" + strMsg);
-                IBaseMethod.showToast(AddLableActivity.this, strMsg, IBase.RETAIL_ZERO);
+                if (errorNo == IBase.CONSTANT_ONE) {
+                    IBaseMethod.showNetToast(AddLableActivity.this);
+                }
             }
         }, vinNo, devCode);
     }

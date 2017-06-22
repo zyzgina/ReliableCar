@@ -35,6 +35,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.DocumentNewImagesAdapter;
+import com.kaopujinfu.appsys.thecar.myselfs.bindings.AddBindingActivity;
 
 import net.tsz.afinal.FinalDb;
 
@@ -259,7 +260,9 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
             public void onFailure(int errorNo, String strMsg) {
                 LogTxt.getInstance().writeLog("新建文档错误");
                 dialog.dismiss();
-                IBaseMethod.showToast(DocumentNewActivity.this, strMsg, IBase.RETAIL_ZERO);
+                if (errorNo == IBase.CONSTANT_ONE) {
+                    IBaseMethod.showNetToast(DocumentNewActivity.this);
+                }
             }
         });
     }

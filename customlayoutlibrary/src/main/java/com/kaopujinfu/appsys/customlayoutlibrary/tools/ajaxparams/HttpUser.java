@@ -2,7 +2,6 @@ package com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams;
 
 import android.content.Context;
 
-import com.kaopujinfu.appsys.customlayoutlibrary.bean.User;
 import com.kaopujinfu.appsys.customlayoutlibrary.okHttpUtils.AjaxParams;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
@@ -40,17 +39,6 @@ public class  HttpUser {
         }
         AjaxParams params = myParams.loginSendMobileCode(action, userId);
         IBaseMethod.post(context, IBaseUrl.USER, params, callBack);
-    }
-
-    /**注册*/
-    /**
-     * 注册接口提交
-     * @param user 用户
-     * @param callBack 回调函数
-     */
-    public void register(User user, final CallBack<Object> callBack){
-        AjaxParams params = myParams.register(user);
-        IBaseMethod.post(context,  IBaseUrl.USER, params, callBack);
     }
 
     /**
@@ -169,23 +157,6 @@ public class  HttpUser {
             return ;
         }
         AjaxParams params = myParams.forgetValidateMoblieCode(email, emailCode);
-        IBaseMethod.post(context,  IBaseUrl.USER, params, callBack);
-    }
-
-    /**
-     * 忘记密码-设置新密码
-     * @param user 用户
-     * @param callBack 回调函数
-     */
-    public void updatePasswordForget(User user, final CallBack<Object> callBack){
-        if (GeneralUtils.isEmpty(user.getEmail_code() )&& GeneralUtils.isEmpty(user.getMobile_code())){
-            IBaseMethod.showToast(context,"请填写验证码", IBase.RETAIL_TWO);
-            if (callBack != null){
-                callBack.onFailure(1, "请填写验证码");
-            }
-            return ;
-        }
-        AjaxParams params = myParams.forgetNewPassword(user);
         IBaseMethod.post(context,  IBaseUrl.USER, params, callBack);
     }
 

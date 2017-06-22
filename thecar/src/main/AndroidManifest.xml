@@ -50,11 +50,9 @@
         <activity android:name=".supervises.SupervisesActivity" />
         <activity android:name=".myselfs.bindings.BindingsActivity" />
         <activity android:name=".myselfs.files.DocumentActivity" />
-        <activity android:name=".myselfs.photos.PhotosActivity" />
         <activity android:name=".myselfs.checks.ChecksActivity" />
         <activity android:name=".myselfs.files.MissionCommitActivity" />
         <activity android:name=".myselfs.files.MissionListsActivity" />
-        <activity android:name=".myselfs.photos.AddTaskActivity" />
         <activity android:name=".myselfs.photos.PhotosDetailsActivity" />
         <activity android:name=".myselfs.photos.UploadTaskActivity" />
         <activity android:name=".myselfs.photos.AssessmentActivity" />
@@ -75,7 +73,6 @@
             android:name=".myselfs.bindings.AddBindingActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".upload.UploadListActivity" />
-        <activity android:name=".applys.AddApplyActivity" />
         <activity android:name="com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity" />
         <activity android:name="com.kaopujinfu.appsys.customlayoutlibrary.activitys.ScannerActivity" />
         <activity

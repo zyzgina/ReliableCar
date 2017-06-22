@@ -1,7 +1,5 @@
 package com.kaopujinfu.appsys.customlayoutlibrary.tools;
 
-import com.kaopujinfu.appsys.customlayoutlibrary.bean.User;
-
 /**
  * 全局常量定义
  * Created by zuoliji on 2017/3/28.
@@ -67,8 +65,6 @@ public class IBase {
     public static String SESSIONID="";
     /**所属公司*/
     public static String COMPANY_CODE="";
-    /** 用户 */
-    public static User user = new User();
     /**设置list每次取值得条数*/
     public static int limit=10;
 

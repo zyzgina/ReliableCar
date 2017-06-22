@@ -2,7 +2,6 @@ package com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams;
 
 import android.content.Context;
 
-import com.kaopujinfu.appsys.customlayoutlibrary.bean.User;
 import com.kaopujinfu.appsys.customlayoutlibrary.okHttpUtils.AjaxParams;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
@@ -36,25 +35,6 @@ public class MyAjaxParams {
         AjaxParams params = new AjaxParams();
         params.put("_action", action);
         params.put("user_id", userId);
-        return params;
-    }
-
-    /**
-     * 注册接口参数
-     *
-     * @param user 用户
-     * @return
-     */
-    public AjaxParams register(User user) {
-        AjaxParams params = new AjaxParams();
-        params.put("_action", "REGISTER"); // 方法名，固定值：REGISTER
-        params.put("name", user.getName()); // 用户名，手机号或邮箱地址
-        params.put("idcard", user.getIdcard()); //身份证号
-        params.put("companyName", user.getCompanyName()); // 公司名
-        params.put("email", user.getEmail()); // 邮箱
-        params.put("password", user.getPassword()); // 密码
-        params.put("mobile", user.getMobile()); // 手机号
-        params.put("mobile_code", user.getMobile_code()); // 验证码
         return params;
     }
 
@@ -142,27 +122,6 @@ public class MyAjaxParams {
 
 
     /**
-     * 忘记密码 - 设置新密码 接口参数
-     *
-     * @param user 用户
-     * @return
-     */
-    public AjaxParams forgetNewPassword(User user) {
-        AjaxParams params = new AjaxParams();
-        // 方法名，固定值：RESET_PWD_NEW
-        params.put("_action", "RESET_PWD_NEW");
-        if (GeneralUtils.isEmpty(user.getEmail_code())) {
-            params.put("user_id", user.getMobile()); // 用户ID (手机号或邮箱)
-            params.put("mobile_code", user.getMobile_code()); // 手机验证码　选填
-        } else {
-            params.put("user_id", user.getEmail()); // 用户ID (手机号或邮箱)
-            params.put("email_code", user.getEmail_code()); // 邮箱验证码　选填　两个验证码不能同时为空
-        }
-        params.put("new_password", user.getPassword()); // 新密码
-        return params;
-    }
-
-    /**
      * 获取发送短信时的校验码接口参数
      *
      * @return
@@ -205,7 +164,6 @@ public class MyAjaxParams {
         params.put("new_password2", newPassword2); // 新密码重复
         return params;
     }
-
 
 
     /**
