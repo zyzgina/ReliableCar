@@ -178,10 +178,13 @@ public class UploadTaskAdapter extends BaseAdapter {
 
     /* 删除图片 */
     public void delete(int position) {
-        views.remove(position);
-        if (selectImages.contains(shows.get(position)))
-            selectImages.remove(position);
-        else {
+        if (selectImages.contains(shows.get(position))) {
+            for (int i = 0; i < selectImages.size(); i++) {
+                if (selectImages.get(i).equals(shows.get(position))) {
+                    selectImages.remove(i);
+                }
+            }
+        } else {
             FileUtils.deleteFile(photoImages.get(position));
         }
 
