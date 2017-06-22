@@ -49,6 +49,7 @@ public class UploadListActivity extends BaseNoScoActivity {
                     uploadList.setVisibility(View.GONE);
                     noUploadList.setVisibility(View.VISIBLE);
                     mAdapter.delFile();
+                    mAdapter.delSql();
                     flag = true;
                     break;
                 case IBase.CONSTANT_TWO:
