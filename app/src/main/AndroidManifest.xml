@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name="com.kaopujinfu.appsys.thecar.LoginActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name="com.kaopujinfu.appsys.thecar.CarMainActivity" />
 
         <meta-data

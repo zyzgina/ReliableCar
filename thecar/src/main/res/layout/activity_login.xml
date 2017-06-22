@@ -1,45 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.kaopujinfu.appsys.customlayoutlibrary.view.IMMListenerRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
-    android:fitsSystemWindows="true">
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <Button
         style="@style/textview_color_white_size17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_gravity="right"
         android:background="@color/trans"
         android:onClick="settingIp"
         android:text="设置IP地址" />
 
     <RelativeLayout
+        android:id="@+id/showKeyLog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_height="@dimen/common_measure_300sp">
 
         <ImageView
             android:id="@+id/logo_login"
             android:layout_width="match_parent"
             android:layout_height="@dimen/sp90"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/sp20"
             android:layout_marginRight="@dimen/sp20"
             android:src="@drawable/login_logo" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ContentRl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/showKeyLog"
+        android:layout_gravity="center"
+        android:paddingTop="@dimen/sp60">
 
         <EditText
             android:id="@+id/username_login"
             style="@style/textview_color_singleLine_white_size17"
             android:layout_width="match_parent"
             android:layout_height="@dimen/sp50"
-            android:layout_below="@id/logo_login"
             android:layout_marginLeft="@dimen/common_measure_30sp"
             android:layout_marginRight="@dimen/common_measure_30sp"
-            android:layout_marginTop="@dimen/sp60"
             android:background="@drawable/edit_alpha_circular"
             android:drawableLeft="@drawable/login_icon_mob"
             android:drawablePadding="10dp"
             android:hint="@string/tel_name"
+            android:inputType="textPassword"
             android:paddingLeft="20dp"
             android:textColorHint="@color/white" />
 
@@ -175,22 +188,27 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <TextView
-        style="@style/textview_color_white_size15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/version_addr"
-        android:layout_centerHorizontal="true"
-        android:text="北京靠谱君科技信息有限公司" />
-
-    <TextView
-        android:id="@+id/version_addr"
-        style="@style/textview_color_white_size15"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/common_measure_20sp"
-        android:layout_marginTop="@dimen/common_measure_10sp"
-        android:text="©2017 www.kaopujinfu.com" />
-</RelativeLayout>
+        android:layout_gravity="bottom|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/textview_color_white_size15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京靠谱君科技信息有限公司" />
+
+        <TextView
+            android:id="@+id/version_addr"
+            style="@style/textview_color_white_size15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_measure_20sp"
+            android:layout_marginTop="@dimen/common_measure_10sp"
+            android:text="©2017 www.kaopujinfu.com" />
+    </LinearLayout>
+</com.kaopujinfu.appsys.customlayoutlibrary.view.IMMListenerRelativeLayout>

@@ -9,10 +9,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.text.method.HideReturnsTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
@@ -30,6 +32,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.IMMListenerRelativeLayout;
 
 import net.tsz.afinal.FinalDb;
 
@@ -47,6 +50,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private RelativeLayout usercodelayour_login;
     private LoadingDialog dialog;
     private FinalDb db;
+    private IMMListenerRelativeLayout keyLogin;
+    private RelativeLayout ContentRl;
+    private ImageView logo_login;
+    //屏幕高度
+    private int screenHeight = 0;
+    //软件盘弹起后所占高度阀值
+    private int keyHeight = 0;
+    RelativeLayout showKeyLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +65,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         IBaseMethod.setBarStyle(this, Color.TRANSPARENT);
         db = FinalDb.create(this, IBase.BASE_DATE);
+        showKeyLog = (RelativeLayout) findViewById(R.id.showKeyLog);
+        keyLogin = (IMMListenerRelativeLayout) findViewById(R.id.keyLogin);
+        //获取屏幕高度
+        screenHeight = this.getWindowManager().getDefaultDisplay().getHeight();
+        //阀值设置为屏幕高度的1/3
+        keyHeight = screenHeight / 3;
         //6.0获取权限
         boolean isForthefirstime = (boolean) SPUtils.get(this, "isForthefirstime", true);
         if (isForthefirstime)
@@ -81,6 +98,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void initLogin() {
         username_login = (EditText) findViewById(R.id.username_login);
+        username_login.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        ContentRl = (RelativeLayout) findViewById(R.id.ContentRl);
+        logo_login = (ImageView) findViewById(R.id.logo_login);
         //判断是否是登录账户
         String login_naem = get(this, "login_name", "").toString();
         if (!GeneralUtils.isEmpty(login_naem)) {
@@ -104,6 +124,22 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         dialog = new LoadingDialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+
+        keyLogin.setOnKeyboardStateChangedListener(new IMMListenerRelativeLayout.IOnKeyboardStateChangedListener() {
+            @Override
+            public void onKeyboardStateChanged(int state) {
+                switch (state) {
+                    case IMMListenerRelativeLayout.KEYBOARD_STATE_HIDE://软键盘隐藏
+                        showKeyLog.setVisibility(View.VISIBLE);
+                        break;
+                    case IMMListenerRelativeLayout.KEYBOARD_STATE_SHOW://软键盘显示
+                        showKeyLog.setVisibility(View.GONE);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     @Override
