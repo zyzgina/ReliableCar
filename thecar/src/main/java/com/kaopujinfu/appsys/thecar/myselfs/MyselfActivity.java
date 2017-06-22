@@ -37,10 +37,7 @@ import com.kaopujinfu.appsys.thecar.myselfs.newcar.LableActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosDetailsActivity;
 import com.kaopujinfu.appsys.thecar.upload.UploadListActivity;
 
-import net.tsz.afinal.FinalBitmap;
-
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 
 /**
@@ -235,15 +232,5 @@ public class MyselfActivity extends Activity {
 
             }
         });
-    }
-
-    @Subscribe
-    public void onEventMainThread(JumpEventBus jumpEventBus) {
-        if (jumpEventBus.getStatus() == IBase.CONSTANT_ZERO) {
-            if (IBase.user != null) {
-                mNameTel.setText(IBaseMethod.hide(IBase.user.getMobile(), 3, 6));
-                FinalBitmap.create(MyselfActivity.this).display(mAvatar, "http://192.168.88.129:8081" + IBase.user.getRealHeadImg());
-            }
-        }
     }
 }
