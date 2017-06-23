@@ -7,11 +7,10 @@
     android:fitsSystemWindows="true"
     android:background="@color/white">
 
-    <ImageView
+    <com.kaopujinfu.appsys.customlayoutlibrary.view.BitmapImageView
         android:id="@+id/image_start"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/start_show"
-        android:scaleType="fitXY"
         />
 </RelativeLayout>

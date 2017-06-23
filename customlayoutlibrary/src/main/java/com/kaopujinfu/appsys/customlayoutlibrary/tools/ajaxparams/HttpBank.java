@@ -229,6 +229,14 @@ public class HttpBank {
         AjaxParams params = bankAjaxParams.ajaxAddLable(strs);
         IBaseMethod.post(context, IBaseUrl.URL_RFID, params, callBack);
     }
+
+    /**
+     * 监管清单
+     * */
+    public void httpSupervises(CallBack callBack){
+        AjaxParams params = bankAjaxParams.ajaxSupervises();
+        IBaseMethod.post(context, IBaseUrl.URL_RFID, params, callBack);
+    }
     /**
      * 车辆绑标签列表
      */

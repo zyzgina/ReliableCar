@@ -312,6 +312,15 @@ public class BankAjaxParams {
     }
 
     /**
+     * 监管清单
+     * */
+    public AjaxParams ajaxSupervises() {
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", IBaseUrl.ACTIVITY_LIST_CAR);
+        return params;
+    }
+
+    /**
      * 设置登录用户，所属session ，公司code参数
      *
      * @return AjaxParams

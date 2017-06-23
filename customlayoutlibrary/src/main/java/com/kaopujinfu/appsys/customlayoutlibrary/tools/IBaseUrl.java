@@ -144,4 +144,9 @@ public class IBaseUrl {
      * 我的-统计信息
      * */
     public static String ACTION_APP_STAT_INFO="APP_STAT_INFO";
+    /**
+     * 监管清单
+     * */
+    public static String ACTIVITY_LIST_CAR="LIST_CAR";
+
 }

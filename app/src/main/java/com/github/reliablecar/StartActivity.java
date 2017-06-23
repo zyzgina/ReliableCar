@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.view.BitmapImageView;
 import com.kaopujinfu.appsys.thecar.LoginActivity;
 
 /**
@@ -17,7 +17,7 @@ import com.kaopujinfu.appsys.thecar.LoginActivity;
  */
 public class StartActivity extends AppCompatActivity {
 
-    private ImageView image_start;
+    private BitmapImageView image_start;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class StartActivity extends AppCompatActivity {
      * 初始化页面方法
      */
     private void initStart() {
-        image_start = (ImageView) findViewById(R.id.image_start);
+        image_start = (BitmapImageView) findViewById(R.id.image_start);
         //启动动画
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.start);
         animation.setAnimationListener(animationListener);
