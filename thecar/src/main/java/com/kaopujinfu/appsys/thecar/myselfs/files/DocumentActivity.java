@@ -135,8 +135,10 @@ public class DocumentActivity extends BaseNoScoActivity implements View.OnClickL
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
-                documentList.setVisibility(View.GONE);
-                documentNoData.setVisibility(View.VISIBLE);
+                if (mAdapter.getGroupCount() <= 0) {
+                    documentList.setVisibility(View.GONE);
+                    documentNoData.setVisibility(View.VISIBLE);
+                }
                 refreshLayout_document.finishRefreshing();
                 LogTxt.getInstance().writeLog("获取文档收录列表失败，错误编码：" + errorNo + "，错误信息：" + strMsg);
                 IBaseMethod.showToast(DocumentActivity.this, strMsg, IBase.RETAIL_ZERO);

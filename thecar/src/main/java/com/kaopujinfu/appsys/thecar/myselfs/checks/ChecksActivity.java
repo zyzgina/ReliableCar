@@ -121,10 +121,12 @@ public class ChecksActivity extends BaseNoScoActivity {
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
-                mNodate.setVisibility(View.VISIBLE);
-                mLists.setVisibility(View.GONE);
-                if(errorNo==IBase.CONSTANT_ONE){
-                    IBaseMethod.showToast(ChecksActivity.this,strMsg,IBase.RETAIL_ZERO);
+                if (checksListsAdapter.getCount() == 0) {
+                    mNodate.setVisibility(View.VISIBLE);
+                    mLists.setVisibility(View.GONE);
+                }
+                if (errorNo == IBase.CONSTANT_ONE) {
+                    IBaseMethod.showToast(ChecksActivity.this, strMsg, IBase.RETAIL_ZERO);
                 }
                 IBaseMethod.implementError(ChecksActivity.this, errorNo);
             }

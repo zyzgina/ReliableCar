@@ -133,8 +133,10 @@ public class BindingsActivity extends BaseNoScoActivity implements View.OnClickL
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
-                bindingsList.setVisibility(View.GONE);
-                bindingsNoData.setVisibility(View.VISIBLE);
+                if (bindingAdapter.getGroupCount() == 0){
+                    bindingsList.setVisibility(View.GONE);
+                    bindingsNoData.setVisibility(View.VISIBLE);
+                }
                 refreshLayout_bindings.finishRefreshing();
                 LogTxt.getInstance().writeLog("获取监管器绑定列表失败，错误编码：" + errorNo + "，错误信息：" + strMsg);
                 IBaseMethod.showToast(BindingsActivity.this, strMsg, IBase.RETAIL_ZERO);

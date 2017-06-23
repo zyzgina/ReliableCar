@@ -21,7 +21,6 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogTxt;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.CarListAdapter;
-import com.kaopujinfu.appsys.thecar.bean.BindingBean;
 import com.kaopujinfu.appsys.thecar.bean.CarListBean;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -134,8 +133,10 @@ public class CarListActivity extends BaseNoScoActivity implements View.OnClickLi
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
-                bindingsList.setVisibility(View.GONE);
-                bindingsNoData.setVisibility(View.VISIBLE);
+                if (mAdapter.getGroupCount() == 0) {
+                    bindingsList.setVisibility(View.GONE);
+                    bindingsNoData.setVisibility(View.VISIBLE);
+                }
                 refreshLayout_bindings.finishRefreshing();
                 LogTxt.getInstance().writeLog("获取监管器绑定列表失败，错误编码：" + errorNo + "，错误信息：" + strMsg);
                 IBaseMethod.showToast(CarListActivity.this, strMsg, IBase.RETAIL_ZERO);
