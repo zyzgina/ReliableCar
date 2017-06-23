@@ -58,10 +58,10 @@ public class SupervisesActivity extends BaseNoScoActivity {
         supervisesFromList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                SupervisersBean.SupervisersItemsEntity itemsEntity=mAdapter.getSuperviserItem(i);
+                SupervisersBean.SupervisersItemsEntity itemsEntity = mAdapter.getSuperviserItem(i);
                 Intent intent = new Intent(SupervisesActivity.this, SupervisesDetailsActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("supervisers",itemsEntity);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("supervisers", itemsEntity);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -73,10 +73,12 @@ public class SupervisesActivity extends BaseNoScoActivity {
         refreshLayout_supervisesfrom = (TwinklingRefreshLayout) findViewById(R.id.refreshLayout_supervisesfrom);
         refreshLayout_supervisesfrom.setHeaderView(progressLayout);
         refreshLayout_supervisesfrom.startRefresh();
+        refreshLayout_supervisesfrom.setEnableLoadmore(false);
         refreshLayout_supervisesfrom.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 if (isRefresh) {
+                    page = 1;
                     isRefresh = false;
                     getDate();
                 } else {
@@ -87,6 +89,8 @@ public class SupervisesActivity extends BaseNoScoActivity {
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 page++;
+                if (!isRefresh)
+                    isRefresh = true;
                 getDate();
             }
         });
