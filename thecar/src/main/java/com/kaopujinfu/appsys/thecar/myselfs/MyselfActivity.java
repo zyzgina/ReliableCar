@@ -106,11 +106,15 @@ public class MyselfActivity extends Activity {
         myself_scrollview.setScrollListener(new ObserveScrollView.ScrollListener() {
             @Override
             public void scrollOritention(int l, int t, int oldl, int oldt) {
-                if (t > 680) {
-                    IBaseMethod.setBarStyle(MyselfActivity.this, getResources().getColor(R.color.car_theme));
+                LogUtils.debug(t + "===========");
+                if (t > 20) {
                     mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
+                    int alpha = (int) (t / 2.5);
+                    if (alpha > 255) {
+                        alpha = 255;
+                    }
+                    mToplayout.getBackground().setAlpha(alpha);
                 } else {
-                    IBaseMethod.setBarStyle(MyselfActivity.this, getResources().getColor(R.color.trans));
                     mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
                 }
             }
