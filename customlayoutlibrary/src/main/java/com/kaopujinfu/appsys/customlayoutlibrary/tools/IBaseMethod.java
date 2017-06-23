@@ -108,8 +108,7 @@ public class IBaseMethod {
         switch (status) {
             case IBase.RETAIL_ZERO:
                 //失败提示框
-//                ToastUtils.showFailText(context, content);
-                DialogUtil.jumpCorrectErr(context, content, "继 续", 0, context.getResources().getColor(android.R.color.holo_red_light));
+                ToastUtils.showFailText(context, content);
                 break;
             case IBase.RETAIL_ONE:
                 //成功提示框
