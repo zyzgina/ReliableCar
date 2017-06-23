@@ -2,6 +2,7 @@ package com.kaopujinfu.appsys.thecar;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.text.method.HideReturnsTransformationMethod;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import android.widget.RelativeLayout;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.dialog.LoadingDialog;
+import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogItemListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.ShowPasswordListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
@@ -67,7 +70,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         db = FinalDb.create(this, IBase.BASE_DATE);
         showKeyLog = (RelativeLayout) findViewById(R.id.showKeyLog);
         keyLogin = (IMMListenerRelativeLayout) findViewById(R.id.keyLogin);
-        keyLogin.setPadding(0,IBaseMethod.setPaing(this),0,0);
+        keyLogin.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
         //获取屏幕高度
         screenHeight = this.getWindowManager().getDefaultDisplay().getHeight();
         //阀值设置为屏幕高度的1/3
@@ -229,8 +232,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     /* 设置项目服务器的IP地址 */
-    public void settingIp(View view) {
-        DialogUtil.updateIPDialog(this);
+    public void settingIp(final View view) {
+        DialogUtil.updateIPDialog(this, new DialogButtonListener() {
+            @Override
+            public void ok() {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm.isActive())
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0); //强制隐藏键盘
+            }
+
+            @Override
+            public void cancel() {
+
+            }
+        });
     }
 
     @Override
