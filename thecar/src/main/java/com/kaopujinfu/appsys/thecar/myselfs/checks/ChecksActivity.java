@@ -58,6 +58,7 @@ public class ChecksActivity extends BaseNoScoActivity {
         progressLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
         mRefreshLayout.setHeaderView(progressLayout);
         mRefreshLayout.setEnableLoadmore(false);
+        mRefreshLayout.startRefresh();
         mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
@@ -92,7 +93,6 @@ public class ChecksActivity extends BaseNoScoActivity {
                 startActivityForResult(intent, IBase.RETAIL_CHECK);
             }
         });
-        getDate();
     }
 
     /**
@@ -121,6 +121,11 @@ public class ChecksActivity extends BaseNoScoActivity {
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
+                mNodate.setVisibility(View.VISIBLE);
+                mLists.setVisibility(View.GONE);
+                if(errorNo==IBase.CONSTANT_ONE){
+                    IBaseMethod.showToast(ChecksActivity.this,strMsg,IBase.RETAIL_ONE);
+                }
                 IBaseMethod.implementError(ChecksActivity.this, errorNo);
             }
         });
