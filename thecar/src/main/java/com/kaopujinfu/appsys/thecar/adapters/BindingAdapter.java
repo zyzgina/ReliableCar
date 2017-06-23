@@ -208,8 +208,22 @@ public class BindingAdapter extends BaseExpandableListAdapter {
             list.get(key).removeAll(deletes);
             if (list.get(key).size() == 0){
                 list.remove(key);
+                dates.remove(key);
             }
         }
+        notifyDataSetChanged();
+    }
+    /**
+     * 清空数据
+     */
+    public void clearDate() {
+        for (String key : dates) {
+            list.get(key).clear();
+            if (list.get(key).size() == 0) {
+                list.remove(key);
+            }
+        }
+        dates.clear();
         notifyDataSetChanged();
     }
 

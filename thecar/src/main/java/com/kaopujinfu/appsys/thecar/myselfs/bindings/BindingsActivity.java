@@ -100,7 +100,12 @@ public class BindingsActivity extends BaseNoScoActivity implements View.OnClickL
 
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                initDate();
+                if (isRefresh) {
+                    isRefresh = false;
+                    initDate();
+                } else {
+                    refreshLayout.finishRefreshing();
+                }
             }
         });
     }
@@ -113,15 +118,17 @@ public class BindingsActivity extends BaseNoScoActivity implements View.OnClickL
                 refreshLayout_bindings.finishRefreshing();
                 BindingBean bindingBean = BindingBean.obtainBindingBean(o.toString());
                 if (bindingBean.isSuccess()) {
-                    LogTxt.getInstance().writeLog("获取监管器绑定列表成功");
+                    if (page == 1) {
+                        IBaseMethod.jumpCountdown(60, handler);
+                        bindingAdapter.clearDate();
+                    }
                     bindingAdapter.setListBean(bindingBean);
-                    if (bindingAdapter.getGroupCount() == 0){
+                    if (bindingAdapter.getGroupCount() == 0) {
                         bindingsList.setVisibility(View.GONE);
                         bindingsNoData.setVisibility(View.VISIBLE);
                     } else {
                         bindingsNoData.setVisibility(View.GONE);
                         bindingsList.setVisibility(View.VISIBLE);
-                        refreshLayout_bindings.setEnableRefresh(false);
                     }
                 } else {
                     bindingsList.setVisibility(View.GONE);
@@ -133,7 +140,7 @@ public class BindingsActivity extends BaseNoScoActivity implements View.OnClickL
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
-                if (bindingAdapter.getGroupCount() == 0){
+                if (bindingAdapter.getGroupCount() == 0) {
                     bindingsList.setVisibility(View.GONE);
                     bindingsNoData.setVisibility(View.VISIBLE);
                 }

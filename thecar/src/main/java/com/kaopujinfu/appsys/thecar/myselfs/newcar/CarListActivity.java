@@ -101,7 +101,12 @@ public class CarListActivity extends BaseNoScoActivity implements View.OnClickLi
 
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                initDate();
+                if (isRefresh) {
+                    isRefresh = false;
+                    initDate();
+                } else {
+                    refreshLayout.finishRefreshing();
+                }
             }
         });
     }
@@ -115,6 +120,10 @@ public class CarListActivity extends BaseNoScoActivity implements View.OnClickLi
                 CarListBean carListBean = CarListBean.getCarListBean(o.toString());
                 if (carListBean.isSuccess()) {
                     LogTxt.getInstance().writeLog("获取监管器绑定列表成功");
+                    if (page == 1) {
+                        IBaseMethod.jumpCountdown(60, handler);
+                        mAdapter.clearDate();
+                    }
                     mAdapter.setListBean(carListBean);
                     if (mAdapter.getGroupCount() == 0) {
                         bindingsList.setVisibility(View.GONE);
@@ -122,7 +131,6 @@ public class CarListActivity extends BaseNoScoActivity implements View.OnClickLi
                     } else {
                         bindingsNoData.setVisibility(View.GONE);
                         bindingsList.setVisibility(View.VISIBLE);
-                        refreshLayout_bindings.setEnableRefresh(false);
                     }
                 } else {
                     bindingsList.setVisibility(View.GONE);

@@ -115,8 +115,8 @@ public class DocumentActivity extends BaseNoScoActivity implements View.OnClickL
                 if (listBean.isSuccess()) {
                     if (page == 1) {
                         refreshLayout_document.finishRefreshing();
-                        IBaseMethod.jumpCountdown(60 * 2, handler);
-                        mAdapter.delete();
+                        IBaseMethod.jumpCountdown(60, handler);
+                        mAdapter.clearDate();
                     }
                     mAdapter.setListBean(listBean);
                     if (mAdapter.getGroupCount() <= 0) {

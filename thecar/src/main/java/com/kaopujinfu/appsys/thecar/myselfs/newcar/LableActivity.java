@@ -101,7 +101,12 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
 
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                initDate();
+                if (isRefresh) {
+                    isRefresh = false;
+                    initDate();
+                } else {
+                    refreshLayout.finishRefreshing();
+                }
             }
         });
     }
@@ -114,6 +119,10 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
                 refreshLayout_bindings.finishRefreshing();
                 CarListBean carListBean = CarListBean.getCarListBean(o.toString());
                 if (carListBean.isSuccess()) {
+                    if (page == 1) {
+                        IBaseMethod.jumpCountdown(60, handler);
+                        mAdapter.clearDate();
+                    }
                     mAdapter.setListBean(carListBean);
                     if (mAdapter.getGroupCount() == 0) {
                         bindingsList.setVisibility(View.GONE);
@@ -121,7 +130,6 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
                     } else {
                         bindingsNoData.setVisibility(View.GONE);
                         bindingsList.setVisibility(View.VISIBLE);
-                        refreshLayout_bindings.setEnableRefresh(false);
                     }
                 } else {
                     bindingsList.setVisibility(View.GONE);

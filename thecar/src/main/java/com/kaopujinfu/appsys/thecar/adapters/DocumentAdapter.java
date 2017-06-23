@@ -120,7 +120,7 @@ public class DocumentAdapter extends BaseExpandableListAdapter {
             hold.state.setBackgroundResource(R.drawable.button_green_circular);
         }
         // 最后一行把线隐藏
-        if (i1 == getChildrenCount(i) - 1){
+        if (i1 == getChildrenCount(i) - 1) {
             hold.line.setVisibility(View.GONE);
         } else {
             hold.line.setVisibility(View.VISIBLE);
@@ -134,11 +134,11 @@ public class DocumentAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onClick(View v) {
                     if (deletes.contains(item)) {
-                       deletes.remove(item);
-                        ((ImageView) v ).setImageResource(R.drawable.btn_notselected);
+                        deletes.remove(item);
+                        ((ImageView) v).setImageResource(R.drawable.btn_notselected);
                     } else {
                         deletes.add(item);
-                        ((ImageView) v ).setImageResource(R.drawable.btn_selected);
+                        ((ImageView) v).setImageResource(R.drawable.btn_selected);
                     }
                     if (mListener != null) {
                         mListener.updateUI(deletes.size());
@@ -159,13 +159,14 @@ public class DocumentAdapter extends BaseExpandableListAdapter {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        for (int i = 0; i < getGroupCount(); i ++){
+        for (int i = 0; i < getGroupCount(); i++) {
             mListView.expandGroup(i);
         }
     }
 
     /**
      * 设置数据
+     *
      * @param listBean
      */
     public void setListBean(DocumentListBean listBean) {
@@ -193,6 +194,7 @@ public class DocumentAdapter extends BaseExpandableListAdapter {
 
     /**
      * 选择删除
+     *
      * @param flag
      */
     public void updateSelected(boolean flag) {
@@ -204,18 +206,37 @@ public class DocumentAdapter extends BaseExpandableListAdapter {
     /**
      * 删除
      */
-    public void delete(){
-        for (String key : dates){
+    public void delete() {
+        for (String key : dates) {
             list.get(key).removeAll(deletes);
+            if (list.get(key).size() == 0) {
+                list.remove(key);
+                dates.remove(key);
+            }
         }
         notifyDataSetChanged();
     }
 
     /**
+     * 清空数据
+     */
+    public void clearDate() {
+        for (String key : dates) {
+            list.get(key).clear();
+            if (list.get(key).size() == 0) {
+                list.remove(key);
+            }
+        }
+        dates.clear();
+        notifyDataSetChanged();
+    }
+
+    /**
      * 修改前台界面UI监听
+     *
      * @param listener
      */
-    public void setUpdateUIListener(UpdateUIListener listener){
+    public void setUpdateUIListener(UpdateUIListener listener) {
         this.mListener = listener;
     }
 

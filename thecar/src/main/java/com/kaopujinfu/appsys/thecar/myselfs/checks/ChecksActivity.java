@@ -106,7 +106,7 @@ public class ChecksActivity extends BaseNoScoActivity {
                 TaskListBean bean = TaskListBean.getTaskListBean(o.toString());
                 LogUtils.debug("解析数据:" + bean.toString());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60 * 2, handler);
+                    IBaseMethod.jumpCountdown(60, handler);
                     checksListsAdapter.clearList();
                 }
                 if (bean != null && bean.getItems() != null && bean.getItems().size() > 0) {
