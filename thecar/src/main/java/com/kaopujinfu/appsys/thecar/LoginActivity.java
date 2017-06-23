@@ -150,6 +150,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.goto_login) {//登录
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive())
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0); //强制隐藏键盘
+            setFocusable();
             String username = username_login.getText().toString();
             SPUtils.put(this, "login_name", username);
             String userpass = userpass_login.getText().toString();
@@ -239,6 +243,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm.isActive())
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0); //强制隐藏键盘
+                setFocusable();
             }
 
             @Override
@@ -252,5 +257,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         SPUtils.put(this, "isForthefirstime", false);
+    }
+
+    private void setFocusable() {
+        username_login.setFocusable(false);
+        username_login.setFocusableInTouchMode(false);
+        username_login.setFocusable(true);
+        username_login.setFocusableInTouchMode(true);
+        userpass_login.setFocusable(false);
+        userpass_login.setFocusableInTouchMode(false);
+        userpass_login.setFocusable(true);
+        userpass_login.setFocusableInTouchMode(true);
     }
 }
