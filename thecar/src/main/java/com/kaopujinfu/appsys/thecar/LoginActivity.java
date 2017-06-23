@@ -67,6 +67,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         db = FinalDb.create(this, IBase.BASE_DATE);
         showKeyLog = (RelativeLayout) findViewById(R.id.showKeyLog);
         keyLogin = (IMMListenerRelativeLayout) findViewById(R.id.keyLogin);
+        keyLogin.setPadding(0,IBaseMethod.setPaing(this),0,0);
         //获取屏幕高度
         screenHeight = this.getWindowManager().getDefaultDisplay().getHeight();
         //阀值设置为屏幕高度的1/3
@@ -185,7 +186,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 LogUtils.debug("登录:" + o.toString());
                 Loginbean result = Loginbean.getLoginbean(o.toString());
                 dialog.dismiss();
-                if (result.isSuccess()) {
+                if (result != null && result.isSuccess()) {
                     /** 保存数据 */
                     IBase.USERID = result.getUser_id();
                     IBase.SESSIONID = result.getS_id();
