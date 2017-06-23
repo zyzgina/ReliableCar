@@ -8,13 +8,12 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
-    <style name="AppThemeTwo" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/start_show</item>
-        <item name="android:fitsSystemWindows">true</item>
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+    <style name="AppThemeTwo" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/trans</item>
     </style>
 
 </resources>
