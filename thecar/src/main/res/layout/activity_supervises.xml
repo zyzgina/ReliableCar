@@ -17,6 +17,8 @@
             android:divider="@null"
             android:listSelector="@color/trans" />
 
+        <include layout="@layout/no_date" />
+
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
 </LinearLayout>

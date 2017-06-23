@@ -7,6 +7,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseNoScoActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.SuperviseDetailsAdapter;
+import com.kaopujinfu.appsys.thecar.bean.SupervisersBean;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
@@ -20,6 +21,7 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
     private TwinklingRefreshLayout refreshLayout_supervisesDetails;
     private ListView supervisesDetailsList;
     private SuperviseDetailsAdapter mAdapter;
+    private SupervisersBean.SupervisersItemsEntity itemsEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,9 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
     @Override
     public void initView() {
         dialog.dismiss();
-        mTvTitle.setText("诚信二手车");
+        itemsEntity = (SupervisersBean.SupervisersItemsEntity) getIntent().getSerializableExtra("supervisers");
+        if (itemsEntity != null)
+            mTvTitle.setText(itemsEntity.getShortName());
         header.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
 
