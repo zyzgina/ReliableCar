@@ -106,7 +106,6 @@ public class MyselfActivity extends Activity {
         myself_scrollview.setScrollListener(new ObserveScrollView.ScrollListener() {
             @Override
             public void scrollOritention(int l, int t, int oldl, int oldt) {
-                LogUtils.debug(t + "===========");
                 if (t > 20) {
                     mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
                     int alpha = (int) (t / 2.5);
