@@ -2,14 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/car_document_time"
     android:orientation="vertical">
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout_applyfrom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/common_measure_20sp"
         android:background="@color/white">
 
         <ListView
