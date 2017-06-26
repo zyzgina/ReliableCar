@@ -32,6 +32,7 @@ import com.kaopujinfu.appsys.thecar.myselfs.bindings.BindingsActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.checks.ChecksActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.MissionCommitActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.files.MissionListsActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.CarListActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.LableActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosDetailsActivity;
@@ -152,6 +153,14 @@ public class MyselfActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MyselfActivity.this, MissionCommitActivity.class);
+                startActivity(intent);
+            }
+        });
+        RelativeLayout mMore = (RelativeLayout) findViewById(R.id.more_myself);
+        mMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyselfActivity.this, MissionListsActivity.class);
                 startActivity(intent);
             }
         });
