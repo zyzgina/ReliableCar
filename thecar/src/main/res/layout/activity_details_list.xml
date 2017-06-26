@@ -16,6 +16,7 @@
             android:listSelector="@color/trans"
             android:divider="@null"
             android:scrollbars="none" />
+        <include layout="@layout/no_date"/>
 
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 

@@ -47,7 +47,7 @@
             android:gravity="center"
             android:text="VIN盘库"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp15" />
+            android:textSize="@dimen/sp14" />
 
         <TextView
             android:id="@+id/supervisesDetailsRFIDCheck_item"
@@ -59,7 +59,7 @@
             android:gravity="center"
             android:text="RFID盘库"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp15" />
+            android:textSize="@dimen/sp14" />
 
         <TextView
             android:id="@+id/supervisesDetailsFlightCheck_item"
@@ -71,7 +71,7 @@
             android:gravity="center"
             android:text="飞行盘库"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp15" />
+            android:textSize="@dimen/sp14" />
 
         <TextView
             android:id="@+id/supervisesDetailsGPSCheck_item"
@@ -83,7 +83,7 @@
             android:gravity="center"
             android:text="GPS监管"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp15" />
+            android:textSize="@dimen/sp14" />
 
         <TextView
             android:id="@+id/supervisesDetailsCarCheck_item"
@@ -95,7 +95,7 @@
             android:gravity="center"
             android:text="7x24车辆监管"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp15" />
+            android:textSize="@dimen/sp14" />
 
         <TextView
             android:id="@+id/supervisesDetailsDocCheck_item"
@@ -106,7 +106,7 @@
             android:gravity="center"
             android:text="7x24文档监管"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp15" />
+            android:textSize="@dimen/sp14" />
 
     </LinearLayout>
 
