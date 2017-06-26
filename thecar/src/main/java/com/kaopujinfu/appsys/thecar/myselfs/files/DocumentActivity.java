@@ -112,7 +112,7 @@ public class DocumentActivity extends BaseNoScoActivity implements View.OnClickL
                 LogUtils.debug(o.toString());
                 refreshLayout_document.finishRefreshing();
                 DocumentListBean listBean = DocumentListBean.getDocumentList(o.toString());
-                if (listBean.isSuccess()) {
+                if (listBean!=null&&listBean.isSuccess()) {
                     if (page == 1) {
                         refreshLayout_document.finishRefreshing();
                         IBaseMethod.jumpCountdown(60, handler);
@@ -129,7 +129,6 @@ public class DocumentActivity extends BaseNoScoActivity implements View.OnClickL
                 } else {
                     documentList.setVisibility(View.GONE);
                     documentNoData.setVisibility(View.VISIBLE);
-                    LogTxt.getInstance().writeLog("获取文档收录列表错误，" + listBean.getComment());
                 }
             }
 

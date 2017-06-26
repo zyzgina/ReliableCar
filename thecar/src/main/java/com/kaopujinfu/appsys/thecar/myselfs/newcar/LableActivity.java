@@ -118,7 +118,7 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
                 LogUtils.debug("获取数据:" + o.toString());
                 refreshLayout_bindings.finishRefreshing();
                 CarListBean carListBean = CarListBean.getCarListBean(o.toString());
-                if (carListBean.isSuccess()) {
+                if (carListBean != null && carListBean.isSuccess()) {
                     if (page == 1) {
                         IBaseMethod.jumpCountdown(60, handler);
                         mAdapter.clearDate();
@@ -134,7 +134,8 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
                 } else {
                     bindingsList.setVisibility(View.GONE);
                     bindingsNoData.setVisibility(View.VISIBLE);
-                    IBaseMethod.showToast(LableActivity.this, carListBean.getComment(), IBase.RETAIL_ZERO);
+                    if (carListBean != null)
+                        IBaseMethod.showToast(LableActivity.this, carListBean.getComment(), IBase.RETAIL_ZERO);
                 }
             }
 

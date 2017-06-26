@@ -117,7 +117,7 @@ public class BindingsActivity extends BaseNoScoActivity implements View.OnClickL
                 LogUtils.debug("获取数据:" + o.toString());
                 refreshLayout_bindings.finishRefreshing();
                 BindingBean bindingBean = BindingBean.obtainBindingBean(o.toString());
-                if (bindingBean.isSuccess()) {
+                if (bindingBean != null && bindingBean.isSuccess()) {
                     if (page == 1) {
                         IBaseMethod.jumpCountdown(60, handler);
                         bindingAdapter.clearDate();
@@ -133,8 +133,8 @@ public class BindingsActivity extends BaseNoScoActivity implements View.OnClickL
                 } else {
                     bindingsList.setVisibility(View.GONE);
                     bindingsNoData.setVisibility(View.VISIBLE);
-                    LogTxt.getInstance().writeLog("获取监管器绑定列表错误，" + bindingBean.getComment());
-                    IBaseMethod.showToast(BindingsActivity.this, bindingBean.getComment(), IBase.RETAIL_ZERO);
+                    if (bindingBean != null)
+                        IBaseMethod.showToast(BindingsActivity.this, bindingBean.getComment(), IBase.RETAIL_ZERO);
                 }
             }
 

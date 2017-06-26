@@ -118,7 +118,7 @@ public class CarListActivity extends BaseNoScoActivity implements View.OnClickLi
                 LogUtils.debug("获取数据:" + o.toString());
                 refreshLayout_bindings.finishRefreshing();
                 CarListBean carListBean = CarListBean.getCarListBean(o.toString());
-                if (carListBean.isSuccess()) {
+                if (carListBean != null && carListBean.isSuccess()) {
                     LogTxt.getInstance().writeLog("获取监管器绑定列表成功");
                     if (page == 1) {
                         IBaseMethod.jumpCountdown(60, handler);
@@ -135,7 +135,8 @@ public class CarListActivity extends BaseNoScoActivity implements View.OnClickLi
                 } else {
                     bindingsList.setVisibility(View.GONE);
                     bindingsNoData.setVisibility(View.VISIBLE);
-                    IBaseMethod.showToast(CarListActivity.this, carListBean.getComment(), IBase.RETAIL_ZERO);
+                    if (carListBean != null)
+                        IBaseMethod.showToast(CarListActivity.this, carListBean.getComment(), IBase.RETAIL_ZERO);
                 }
             }
 
