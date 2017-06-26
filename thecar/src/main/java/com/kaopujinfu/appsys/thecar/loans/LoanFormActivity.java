@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseNoScoActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
@@ -24,11 +26,12 @@ public class LoanFormActivity extends BaseNoScoActivity {
     private TwinklingRefreshLayout refreshLayout_loanfrom;
     private ListView loanFromList;
     private LoanFromAdapter mAdapter;
+    private LinearLayout mNoDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        IBaseMethod.setBarStyle(this,getResources().getColor(R.color.car_theme));
+        IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
         setContentView(R.layout.activity_details_list);
     }
 
@@ -39,8 +42,13 @@ public class LoanFormActivity extends BaseNoScoActivity {
         top_meun.setVisibility(View.GONE);
 
         int padding = IBaseMethod.setPaing(this);
-        header.setPadding(0,padding,0,0);
+        header.setPadding(0, padding, 0, 0);
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
+
+        mNoDate = (LinearLayout) findViewById(R.id.ll_nodate);
+        mNoDate.setVisibility(View.GONE);
+        TextView mNoDateTv = (TextView) findViewById(R.id.no_date_text);
+        mNoDateTv.setText("暂无贷款清单");
 
         loanFromList = (ListView) findViewById(R.id.detailsList);
         mAdapter = new LoanFromAdapter(this);
