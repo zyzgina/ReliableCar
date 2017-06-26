@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -196,7 +197,6 @@ public class DialogUtil {
     }
 
 
-
     /**
      * 选择图片
      *
@@ -205,10 +205,10 @@ public class DialogUtil {
      * @param listener
      */
     public static void selectPicDialog(final Context context, final String fileName, final DialogCameraListener listener) {
-        selectPicDialog(context,fileName,0,listener);
+        selectPicDialog(context, fileName, 0, listener);
     }
 
-    public static void selectPicDialog(final Context context, final String fileName,int status, final DialogCameraListener listener) {
+    public static void selectPicDialog(final Context context, final String fileName, int status, final DialogCameraListener listener) {
         if (dialog != null && dialog.isShowing()) {
             return;
         }
@@ -216,7 +216,7 @@ public class DialogUtil {
         Button avatar_phone = (Button) view.findViewById(R.id.avatar_phone);
         Button avatar_image = (Button) view.findViewById(R.id.avatar_image);
         Button avatar_cancel = (Button) view.findViewById(R.id.avatar_cancel);
-        if(status==1){
+        if (status == 1) {
             avatar_phone.setVisibility(View.GONE);
             avatar_image.setBackgroundResource(R.drawable.shape_dialog_below_4);
         }
@@ -399,15 +399,14 @@ public class DialogUtil {
     /**
      * 库融IP地址修改对话框
      */
-    public static void updateIPDialog(final Context context) {
+    public static void updateIPDialog(final Context context, final DialogButtonListener listener) {
         if (dialog != null && dialog.isShowing()) {
             return;
         }
         String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_ipaddrss, null);
-//        final EditText logIp = (EditText) view.findViewById(R.id.logIp);
-//        logIp.setText(IBaseUrl.URL);
         final EditText CarIp = (EditText) view.findViewById(R.id.CarIp);
+        CarIp.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         if (!GeneralUtils.isEmpty(urlPath))
             CarIp.setText(urlPath);
         Button commitIp = (Button) view.findViewById(R.id.commitIp);
@@ -418,14 +417,16 @@ public class DialogUtil {
                 dialog.dismiss();
                 dialog.cancel();
                 SPUtils.put(RetailAplication.getContext(), "domain", car);
-                LogUtils.debug("输入:" + car);
+                if (listener != null) {
+                    listener.ok();
+                }
             }
         });
 
-        dialog = new Dialog(context);
+        dialog = new Dialog(context,R.style.dialogWhite);
         dialog.setContentView(view);
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-        params.width = ((Activity) context).getWindowManager().getDefaultDisplay().getWidth();
+        params.width = (int) (((Activity) context).getWindowManager().getDefaultDisplay().getWidth()*0.9);
         dialog.getWindow().setAttributes(params);
         dialog.getWindow().setGravity(Gravity.CENTER);
         dialog.setCanceledOnTouchOutside(true);
@@ -473,7 +474,7 @@ public class DialogUtil {
         if (dialog != null && dialog.isShowing()) {
             return;
         }
-        dialog = new Dialog(context);
+        dialog = new Dialog(context,R.style.dialogWhite);
         View view = View.inflate(context, R.layout.dialog_toats, null);
         dialog.show();
         dialog.setContentView(view);
@@ -482,7 +483,7 @@ public class DialogUtil {
         mTitle.setText(title);
         TickView mTick = (TickView) view.findViewById(R.id.tickView);
         ErrorView mError = (ErrorView) view.findViewById(R.id.errorView);
-        WarningView mWarning= (WarningView) view.findViewById(R.id.warningView);
+        WarningView mWarning = (WarningView) view.findViewById(R.id.warningView);
         Button continueDialog = (Button) view.findViewById(R.id.continueDialog);
         if (!GeneralUtils.isEmpty(butText))
             continueDialog.setText(butText);
@@ -493,7 +494,7 @@ public class DialogUtil {
         if (status == 1) {
             mTick.setVisibility(View.VISIBLE);
         }
-        if(status == 2){
+        if (status == 2) {
             mWarning.setVisibility(View.VISIBLE);
         }
         if (bgColor != 0) {
@@ -510,8 +511,7 @@ public class DialogUtil {
         WindowManager m = ((Activity) context).getWindowManager();
         Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
         WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); // 获取对话框当前的参数值
-        p.width = (int) (d.getWidth() * 0.9); // 宽度设置为屏幕的0.9
-        p.height = (int) (d.getHeight() * 0.3);
+        p.width = (int) (d.getWidth() * 0.8); // 宽度设置为屏幕的0.9
         dialog.getWindow().setAttributes(p);
     }
 
