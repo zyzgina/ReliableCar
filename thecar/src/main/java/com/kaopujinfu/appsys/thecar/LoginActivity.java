@@ -219,7 +219,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         IBaseMethod.showToast(LoginActivity.this, "此次登录IP不是常用的IP，需要发送短信或语音验证码来验证登录", IBase.RETAIL_ZERO);
                     } else {
                         // 登录失败
-                        IBaseMethod.showToast(LoginActivity.this, result.getComment(), IBase.RETAIL_ZERO);
+                        String comment = "登录失败,请检查登录信息";
+                        if (result != null)
+                            comment = result.getComment();
+                        DialogUtil.jumpCorrectErr(LoginActivity.this, comment, "继 续", 2, getResources().getColor(android.R.color.holo_orange_light));
+
                     }
                 }
             }
