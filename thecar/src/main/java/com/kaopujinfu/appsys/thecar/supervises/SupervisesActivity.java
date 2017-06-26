@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,7 +31,7 @@ public class SupervisesActivity extends BaseNoScoActivity {
     private TwinklingRefreshLayout refreshLayout_supervisesfrom;
     private ListView supervisesFromList;
     private ApplyOrSupervisesFromAdapter mAdapter;
-    private TextView mNoDate;
+    private LinearLayout mNoDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +46,10 @@ public class SupervisesActivity extends BaseNoScoActivity {
         dialog.dismiss();
         top_meun.setVisibility(View.GONE);
 
-        mNoDate = (TextView) findViewById(R.id.no_date_text);
-        mNoDate.setText("未添加监管数据");
+        mNoDate = (LinearLayout) findViewById(R.id.ll_nodate);
         mNoDate.setVisibility(View.GONE);
+        TextView mNoDateTv = (TextView) findViewById(R.id.no_date_text);
+        mNoDateTv.setText("未添加监管数据");
         int padding = IBaseMethod.setPaing(this);
         header.setPadding(0, padding, 0, 0);
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
