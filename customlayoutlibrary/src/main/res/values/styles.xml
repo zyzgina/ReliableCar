@@ -7,6 +7,12 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+    <style name="dialogWhite" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/button_frame5_bgwhite</item>
+    </style>
 
     <!-- popupwindow style -->
     <style name="PopupAnimation" mce_bogus="1" parent="android:Animation">
@@ -253,10 +259,12 @@
     <style name="PassDialog" parent="@style/BaseDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
     <style name="WhiteDialog" parent="@style/BaseDialog">
         <item name="android:windowBackground">@color/plain_gray</item>
         <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="ActivityDialog" parent="@android:style/Theme.Translucent.NoTitleBar">
