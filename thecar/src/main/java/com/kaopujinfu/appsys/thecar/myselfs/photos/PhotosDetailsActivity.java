@@ -110,6 +110,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
         findViewById(R.id.code_documentNum_new).setVisibility(View.GONE);
 
         documentVIN_new = (EditText) findViewById(R.id.documentVIN_new);
+        vinCode = SPUtils.get(this, IBase.USERID + "vinCode", "").toString();
         if (!GeneralUtils.isEmpty(vinCode))
             documentVIN_new.setText(vinCode);
         documentVIN_new.addTextChangedListener(textWatcher);
@@ -214,7 +215,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
     private void commit() {
         //提交任务
         //保存图片
-        adapter.saveDateList(vinCode);
+        adapter.saveDateList(documentVIN_new.getText().toString());
         Intent intent = new Intent(PhotosDetailsActivity.this, DocumentCommitActivity.class);
         intent.putExtra("success", IBase.CONSTANT_TWO);
         intent.putExtra("UploadPath", file.getAbsolutePath());
