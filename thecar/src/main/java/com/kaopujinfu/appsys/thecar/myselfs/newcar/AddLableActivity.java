@@ -185,6 +185,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
                     documentVIN_new.setText(vin);
+                    SPUtils.put(AddLableActivity.this, IBase.USERID + "vinCode", vin);
                 }
             }
         }

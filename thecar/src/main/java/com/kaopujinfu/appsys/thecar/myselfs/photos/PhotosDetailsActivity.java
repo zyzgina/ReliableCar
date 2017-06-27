@@ -3,7 +3,6 @@ package com.kaopujinfu.appsys.thecar.myselfs.photos;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -26,15 +25,16 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.PhotosGridAdapter;
+import com.kaopujinfu.appsys.thecar.myselfs.bindings.AddBindingActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * 任务详情
@@ -48,7 +48,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
     private File file;
     private String UploadPath;
     private Button missionClickTask;
-    private String vinCode = "LB54655645345634";
+    private String vinCode = "";
     private EditText documentVIN_new;
     private LinearLayout vinVerfiydocumentVIN;
     private boolean isVin = false;
@@ -205,6 +205,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             if (data != null) {
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
+                    SPUtils.put(PhotosDetailsActivity.this, IBase.USERID + "vinCode", vin);
                     documentVIN_new.setText(vin);
                 }
             }

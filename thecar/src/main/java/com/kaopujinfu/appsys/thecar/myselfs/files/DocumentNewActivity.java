@@ -35,7 +35,6 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.DocumentNewImagesAdapter;
-import com.kaopujinfu.appsys.thecar.myselfs.bindings.AddBindingActivity;
 
 import net.tsz.afinal.FinalDb;
 
@@ -208,6 +207,7 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
             if (data != null) {
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
+                    SPUtils.put(DocumentNewActivity.this, IBase.USERID + "vinCode", vin);
                     documentVIN_new.setText(vin);
                 }
             }

@@ -193,6 +193,7 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
             if (data != null) {
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
+                    SPUtils.put(AddBindingActivity.this, IBase.USERID + "vinCode", vin);
                     documentVIN_new.setText(vin);
                 }
             }
