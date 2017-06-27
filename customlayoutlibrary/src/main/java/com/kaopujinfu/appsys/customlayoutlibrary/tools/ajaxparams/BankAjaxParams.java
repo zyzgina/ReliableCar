@@ -320,9 +320,10 @@ public class BankAjaxParams {
         params.put("action", IBaseUrl.ACTION_LIST_CAR);
         return params;
     }
+
     /**
      * 监管清单-详情
-     * */
+     */
     public AjaxParams ajaxSuperviserDetails(String companyCode, int page) {
         AjaxParams params = BANKUserIDSID();
         params.put("action", IBaseUrl.ACTION_DLR_CAR);
@@ -334,10 +335,12 @@ public class BankAjaxParams {
 
     /**
      * 申请清单
-     * */
-    public AjaxParams ajaxApply(String action){
+     */
+    public AjaxParams ajaxApply(String action, String dlr) {
         AjaxParams params = BANKUserIDSID();
         params.put("action", action);
+        if (!GeneralUtils.isEmpty(dlr))
+            params.put("dlr", dlr);
         return params;
     }
 

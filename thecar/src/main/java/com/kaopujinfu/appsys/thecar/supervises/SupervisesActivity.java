@@ -110,7 +110,7 @@ public class SupervisesActivity extends BaseNoScoActivity {
                     refreshLayout_supervisesfrom.finishLoadmore();
                 }
                 SupervisersBean bean = SupervisersBean.getSupervisersBean(o.toString());
-                if (bean != null && bean.getItems().size() > 0) {
+                if (bean != null && bean.getItems()!=null&& bean.getItems().size() > 0) {
                     if (page == 1) {
                         mAdapter.clearSuperviser();
                     }

@@ -9,6 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.kaopujinfu.appsys.thecar.R;
+import com.kaopujinfu.appsys.thecar.bean.SupervicerDetailsBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 监管清单详情适配器
@@ -17,37 +21,43 @@ import com.kaopujinfu.appsys.thecar.R;
 public class SuperviseDetailsAdapter extends BaseAdapter {
 
     private Context mContext;
+    private List<SupervicerDetailsBean.SupDetailsItemsEntity> itemsEntities;
 
-    public SuperviseDetailsAdapter(Context context){
+    public SuperviseDetailsAdapter(Context context) {
         this.mContext = context;
+        this.itemsEntities = new ArrayList<>();
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return itemsEntities.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return itemsEntities.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Holder holder;
-        if (view == null){
+        if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_supervise_details, null);
             holder = new Holder(view);
             view.setTag(holder);
         } else {
             holder = (Holder) view.getTag();
         }
-        if (i % 3 == 0){
+        SupervicerDetailsBean.SupDetailsItemsEntity itemsEntity=itemsEntities.get(i);
+        holder.name.setText(itemsEntity.getCarBrand());
+        holder.vin.setText(itemsEntity.getVinNo());
+
+        if (i % 3 == 0) {
             holder.docCheck.setBackgroundColor(Color.parseColor("#F65355"));
             holder.rfidCheck.setBackgroundColor(Color.parseColor("#99CC00"));
         } else {
@@ -58,10 +68,10 @@ public class SuperviseDetailsAdapter extends BaseAdapter {
         return view;
     }
 
-    class Holder{
+    class Holder {
         TextView name, vin, vinCheck, rfidCheck, flightCheck, gpsCheck, carCheck, docCheck;
 
-        public Holder(View view){
+        public Holder(View view) {
             name = (TextView) view.findViewById(R.id.supervisesDetailsName_item);
             vin = (TextView) view.findViewById(R.id.supervisesDetailsVIN_item);
             vinCheck = (TextView) view.findViewById(R.id.supervisesDetailsVINCheck_item);
@@ -71,5 +81,15 @@ public class SuperviseDetailsAdapter extends BaseAdapter {
             carCheck = (TextView) view.findViewById(R.id.supervisesDetailsCarCheck_item);
             docCheck = (TextView) view.findViewById(R.id.supervisesDetailsDocCheck_item);
         }
+    }
+
+    public void setDetailsList(List<SupervicerDetailsBean.SupDetailsItemsEntity> itemsEntities) {
+        this.itemsEntities = itemsEntities;
+        notifyDataSetChanged();
+    }
+
+    public void clearDetails() {
+        this.itemsEntities.clear();
+        notifyDataSetChanged();
     }
 }

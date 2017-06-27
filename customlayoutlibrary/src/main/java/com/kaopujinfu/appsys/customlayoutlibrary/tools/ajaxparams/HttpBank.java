@@ -264,8 +264,9 @@ public class HttpBank {
     /**
      * 申请清单
      * */
-    public void httpApply(String action,CallBack callBack){
-        AjaxParams params = bankAjaxParams.ajaxApply(action);
+    public void httpApply(String action,String dlr,CallBack callBack){
+        AjaxParams params = bankAjaxParams.ajaxApply(action,dlr);
+        LogUtils.debug(params.getParamsString());
         IBaseMethod.post(context, IBaseUrl.URL_LOAN_APP, params, callBack);
     }
 }

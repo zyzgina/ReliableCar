@@ -99,7 +99,7 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
                     refreshLayout_supervisesDetails.finishLoadmore();
                 }
                 SupervicerDetailsBean bean = SupervicerDetailsBean.getSupervicerDetailsBean(o.toString());
-                if (bean != null && bean.getItems().size() > 0) {
+                if (bean != null &&bean.getItems()!=null&& bean.getItems().size() > 0) {
                     if (page == 1) {
                         mAdapter.clearDetails();
                     }

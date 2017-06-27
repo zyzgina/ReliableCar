@@ -3,6 +3,8 @@ package com.kaopujinfu.appsys.thecar.myselfs;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -57,6 +59,14 @@ public class MyselfActivity extends Activity {
     private MyselfMsgAadapter msgAadapter;
     private MyselfMissionAdapter missionAdapter;
     private MyselfOperationsAdapter operationsAdapter;
+    private ObserveScrollView myself_scrollview;
+    private int cale = 30;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,22 +113,9 @@ public class MyselfActivity extends Activity {
         });
         mSpot = (TextView) findViewById(R.id.spot_top);
 
-        ObserveScrollView myself_scrollview = (ObserveScrollView) findViewById(R.id.myself_scrollview);
-        myself_scrollview.setScrollListener(new ObserveScrollView.ScrollListener() {
-            @Override
-            public void scrollOritention(int l, int t, int oldl, int oldt) {
-                if (t > 20) {
-                    mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
-                    int alpha = (int) (t / 2.5);
-                    if (alpha > 255) {
-                        alpha = 255;
-                    }
-                    mToplayout.getBackground().setAlpha(alpha);
-                } else {
-                    mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
-                }
-            }
-        });
+        myself_scrollview = (ObserveScrollView) findViewById(R.id.myself_scrollview);
+        myself_scrollview.setScrollListener(scrollListener);
+
 
         mAvatar = (AvatarView) findViewById(R.id.avatar_myself);
         mNameTel = (TextView) findViewById(R.id.nametel_myself);
@@ -238,4 +235,42 @@ public class MyselfActivity extends Activity {
             }
         });
     }
+
+    private ObserveScrollView.ScrollListener scrollListener = new ObserveScrollView.ScrollListener() {
+        @Override
+        public void scrollOritention(int l, final int t, int oldl, final int oldt) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    //逐暂变实
+                    if (t > oldt) {
+                        if (t > cale && t < 700) {
+                            cale = t + 30;
+                            mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
+                            int alpha = (int) (t / 2.5);
+                            if (alpha > 255) {
+                                alpha = 255;
+                            }
+                            mToplayout.getBackground().setAlpha(alpha);
+                        }
+                    } else {
+                        if (t < cale && t >30) {
+                            //逐暂变透明
+                            cale = t - 30;
+                            mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
+                            int alpha = (int) (t / 2.5);
+                            if (alpha > 255) {
+                                alpha = 255;
+                            }
+                            mToplayout.getBackground().setAlpha(alpha);
+                        } else if (t <= 30) {
+                            //小于30透明
+                            cale = 30;
+                            mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
+                        }
+                    }
+                }
+            });
+        }
+    };
 }
