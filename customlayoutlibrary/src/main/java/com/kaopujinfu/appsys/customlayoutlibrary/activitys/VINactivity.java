@@ -1055,14 +1055,14 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
             List<TaskItemBean.TaskItemsEntity> finish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\"");
             List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
             num_vin.setText("今日盘点" + (finish.size() - nofinish.size()) + "台，还剩" + nofinish.size() + "台");
-            if(nofinish.size()>7) {
+            if(nofinish.size()>0) {
                 if (status_speek == 0) {
                     voiceUtils.startSpeek("盘库成功剩余" + nofinish.size() + "台");
                 } else {
                     voiceUtils.startSpeek("该车已盘库");
                 }
             }
-            if (nofinish.size() == 7) {
+            if (nofinish.size() == 0) {
                 voiceUtils.startSpeek("全部完成辛苦了",new VoiceUtils.SpeekEndListener() {
                     @Override
                     public void setSpeekEndListener(boolean b) {
