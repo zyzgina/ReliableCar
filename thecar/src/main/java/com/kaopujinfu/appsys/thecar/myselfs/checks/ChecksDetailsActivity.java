@@ -93,7 +93,7 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
         mNodate = (LinearLayout) findViewById(R.id.ll_nodate);
         mNodate.setVisibility(View.GONE);
         TextView mNoDateTv = (TextView) findViewById(R.id.no_date_text);
-        mNoDateTv.setText("暂无申请清单");
+        mNoDateTv.setText("暂无车辆数据");
 
         mLists = (ListView) findViewById(R.id.lists_checksdetails);
         detailsAdapter = new ChecksdetailsAdapter(this);
