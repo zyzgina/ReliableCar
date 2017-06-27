@@ -255,24 +255,19 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                                     }
                                 }
                                 if (nofinish.size() == 0) {
-                                    voiceUtils.startSpeek("全部完成辛苦了");
-                                    new Thread() {
+                                    voiceUtils.startSpeek("全部完成辛苦了",new VoiceUtils.SpeekEndListener() {
                                         @Override
-                                        public void run() {
-                                            while (true) {
+                                        public void setSpeekEndListener(boolean b) {
+                                            if(b){
                                                 try {
-                                                    sleep(3000);
+                                                    Thread.sleep(500);
                                                 } catch (InterruptedException e) {
                                                     e.printStackTrace();
                                                 }
-                                                if (voiceUtils.isEndSpeek()) {
-                                                    finish();
-                                                    break;
-                                                }
+                                                finish();
                                             }
                                         }
-                                    }.start();
-
+                                    });
                                 }
                             } else {
                                 voiceUtils.startSpeek("查询失败");

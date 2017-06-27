@@ -232,11 +232,20 @@ public class HttpBank {
 
     /**
      * 监管清单
-     * */
-    public void httpSupervises(CallBack callBack){
+     */
+    public void httpSupervises(CallBack callBack) {
         AjaxParams params = bankAjaxParams.ajaxSupervises();
-        IBaseMethod.post(context, IBaseUrl.URL_RFID, params, callBack);
+        IBaseMethod.post(context, IBaseUrl.URL_CAR, params, callBack);
     }
+
+    /**
+     * 监管清单-详情
+     */
+    public void httpSuperviserDetails(String companyCode, int page, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxSuperviserDetails(companyCode, page);
+        IBaseMethod.post(context, IBaseUrl.URL_CAR, params, callBack);
+    }
+
     /**
      * 车辆绑标签列表
      */
@@ -244,11 +253,19 @@ public class HttpBank {
         AjaxParams params = bankAjaxParams.ajaxLableList();
         IBaseMethod.post(context, IBaseUrl.URL_CAR, params, callBack);
     }
+
     /**
      * 我的-统计信息
      */
     public void httpStatistics(CallBack callBack) {
         AjaxParams params = bankAjaxParams.ajaxStatistics();
         IBaseMethod.post(context, IBaseUrl.URL_CAR, params, callBack);
+    }
+    /**
+     * 申请清单
+     * */
+    public void httpApply(String action,CallBack callBack){
+        AjaxParams params = bankAjaxParams.ajaxApply(action);
+        IBaseMethod.post(context, IBaseUrl.URL_LOAN_APP, params, callBack);
     }
 }

@@ -125,28 +125,45 @@ public class IBaseUrl {
 
     /**
      * 新建车辆
-     * */
-    public static String URL_CAR="car";
+     */
+    public static String URL_CAR = "car";
     /**
      * sevlet车辆帮标签
-     * */
-    public static String URL_RFID="rfid";
+     */
+    public static String URL_RFID = "rfid";
     /**
      * 新建车辆绑标签
-     * */
-    public static String ACTION_BINDRFID="BIND";
+     */
+    public static String ACTION_BINDRFID = "BIND";
 
     /**
      * 车辆绑标签列表
-     * */
-    public static String BIND_RFID_LIST="BIND_RFID_LIST";
+     */
+    public static String BIND_RFID_LIST = "BIND_RFID_LIST";
     /**
      * 我的-统计信息
-     * */
-    public static String ACTION_APP_STAT_INFO="APP_STAT_INFO";
+     */
+    public static String ACTION_APP_STAT_INFO = "APP_STAT_INFO";
     /**
      * 监管清单
-     * */
-    public static String ACTIVITY_LIST_CAR="LIST_CAR";
+     */
+    public static String ACTION_LIST_CAR = "LIST_CAR";
+    /**
+     * 监管清单-详情
+     */
+    public static String ACTION_DLR_CAR = "DLR_CAR";
+
+    /**
+     * 申请清单 sevlet
+     */
+    public static String URL_LOAN_APP = "loan_app";
+    /**
+     * 申请清单
+     */
+    public static String ACTION_APP_LIST1 = "APP_LIST1";
+    /**
+     * 申请清单详情
+     */
+    public static String ACTION_APP_LIST2 = "APP_LIST2";
 
 }

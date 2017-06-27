@@ -293,6 +293,7 @@ public class BankAjaxParams {
         params.put("rfidId", strs[1]);
         return params;
     }
+
     /**
      * 车辆绑标签
      */
@@ -313,10 +314,30 @@ public class BankAjaxParams {
 
     /**
      * 监管清单
-     * */
+     */
     public AjaxParams ajaxSupervises() {
         AjaxParams params = BANKUserIDSID();
-        params.put("action", IBaseUrl.ACTIVITY_LIST_CAR);
+        params.put("action", IBaseUrl.ACTION_LIST_CAR);
+        return params;
+    }
+    /**
+     * 监管清单-详情
+     * */
+    public AjaxParams ajaxSuperviserDetails(String companyCode, int page) {
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", IBaseUrl.ACTION_DLR_CAR);
+        params.put("page", "" + page);
+        params.put("limit", "" + IBase.limit);
+        params.put("companyCode", companyCode);
+        return params;
+    }
+
+    /**
+     * 申请清单
+     * */
+    public AjaxParams ajaxApply(String action){
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", action);
         return params;
     }
 

@@ -1055,31 +1055,28 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
             List<TaskItemBean.TaskItemsEntity> finish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\"");
             List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
             num_vin.setText("今日盘点" + (finish.size() - nofinish.size()) + "台，还剩" + nofinish.size() + "台");
-            if(nofinish.size()>0) {
+            if(nofinish.size()>7) {
                 if (status_speek == 0) {
                     voiceUtils.startSpeek("盘库成功剩余" + nofinish.size() + "台");
                 } else {
                     voiceUtils.startSpeek("该车已盘库");
                 }
             }
-            if (nofinish.size() == 0) {
-                voiceUtils.startSpeek("全部完成辛苦了");
-                new Thread() {
+            if (nofinish.size() == 7) {
+                voiceUtils.startSpeek("全部完成辛苦了",new VoiceUtils.SpeekEndListener() {
                     @Override
-                    public void run() {
-                        while (true) {
+                    public void setSpeekEndListener(boolean b) {
+                        LogUtils.debug("监听播放是否完成:"+b);
+                        if(b){
                             try {
-                                sleep(3000);
+                                Thread.sleep(500);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            if (voiceUtils.isEndSpeek()) {
-                                finish();
-                                break;
-                            }
+                            finish();
                         }
                     }
-                }.start();
+                });
             }
         } else {
             query_vin.setVisibility(View.VISIBLE);

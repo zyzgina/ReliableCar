@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,7 +28,7 @@ import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
  */
 
 public class ChecksActivity extends BaseNoScoActivity {
-    private TextView mNodate;
+    private LinearLayout mNodate;
     private ListView mLists;
     private TwinklingRefreshLayout mRefreshLayout;
     private ChecksListsAdapter checksListsAdapter;
@@ -46,10 +47,10 @@ public class ChecksActivity extends BaseNoScoActivity {
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
         header.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
         top_meun.setVisibility(View.GONE);
-
-        mNodate = (TextView) findViewById(R.id.no_date_text);
-        mNodate.setText("暂无盘库数据");
+        mNodate = (LinearLayout) findViewById(R.id.ll_nodate);
         mNodate.setVisibility(View.GONE);
+        TextView mNoDateTv = (TextView) findViewById(R.id.no_date_text);
+        mNoDateTv.setText("暂无申请清单");
 
 
         mLists = (ListView) findViewById(R.id.lists_checks);

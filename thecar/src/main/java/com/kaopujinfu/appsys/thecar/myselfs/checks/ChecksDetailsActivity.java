@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ import java.util.List;
  */
 
 public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnClickListener {
-    private TextView mNodate;
+    private LinearLayout mNodate;
     private TwinklingRefreshLayout mRefreshLayout;
     private ListView mLists;
     private ChecksdetailsAdapter detailsAdapter;
@@ -89,9 +90,10 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
         no_checksdetails.setText(item.getCarCount() - item.getCheckCount() + "");
 
 
-        mNodate = (TextView) findViewById(R.id.no_date_text);
-        mNodate.setText("暂无盘库数据");
+        mNodate = (LinearLayout) findViewById(R.id.ll_nodate);
         mNodate.setVisibility(View.GONE);
+        TextView mNoDateTv = (TextView) findViewById(R.id.no_date_text);
+        mNoDateTv.setText("暂无申请清单");
 
         mLists = (ListView) findViewById(R.id.lists_checksdetails);
         detailsAdapter = new ChecksdetailsAdapter(this);
