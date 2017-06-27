@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.thecar.R;
+import com.kaopujinfu.appsys.thecar.bean.ApplyBean;
 import com.kaopujinfu.appsys.thecar.bean.SupervisersBean;
 
 import java.util.ArrayList;
@@ -26,17 +27,19 @@ public class ApplyOrSupervisesFromAdapter extends BaseAdapter {
     private String[] applyFromTitles = {"初审", "高审", "放款"};
     private String[] supervisesFromTitles = {"正常", "异常", "仓库"};
     private List<SupervisersBean.SupervisersItemsEntity> itemsEntities;
+    private List<ApplyBean.ApplyItemsEntity> applyItemsEntities;
 
     public ApplyOrSupervisesFromAdapter(Context context, boolean isApplyFrom) {
         mContext = context;
         this.isApplyFrom = isApplyFrom;
         itemsEntities = new ArrayList<>();
+        applyItemsEntities = new ArrayList<>();
     }
 
     @Override
     public int getCount() {
         if (isApplyFrom)
-            return 6;
+            return applyItemsEntities.size();
         else
             return itemsEntities.size();
     }
@@ -44,7 +47,7 @@ public class ApplyOrSupervisesFromAdapter extends BaseAdapter {
     @Override
     public Object getItem(int i) {
         if (isApplyFrom)
-            return i;
+            return applyItemsEntities.get(i);
         else
             return itemsEntities.get(i);
     }
@@ -66,7 +69,16 @@ public class ApplyOrSupervisesFromAdapter extends BaseAdapter {
         }
         if (isApplyFrom) {
             // 申请清单
-
+            ApplyBean.ApplyItemsEntity applyItemsEntity = applyItemsEntities.get(i);
+            if (applyItemsEntity != null) {
+                hold.oneTitle.setText(applyFromTitles[0]);
+                hold.twoTitle.setText(applyFromTitles[1]);
+                hold.threeTitle.setText(applyFromTitles[2]);
+                hold.oneNum.setText(applyItemsEntity.getFirst() + "");
+                hold.twoNum.setText(applyItemsEntity.getFinalX() + "");
+                hold.threeNum.setText(applyItemsEntity.getPend() + "");
+                hold.distributor.setText(applyItemsEntity.getDlrName());
+            }
         } else {
             // 监管清单
             SupervisersBean.SupervisersItemsEntity itemsEntity = itemsEntities.get(i);
@@ -129,5 +141,22 @@ public class ApplyOrSupervisesFromAdapter extends BaseAdapter {
     /* 获取清单单条数据 */
     public SupervisersBean.SupervisersItemsEntity getSuperviserItem(int position) {
         return itemsEntities.get(position);
+    }
+
+    /* 申请清单 */
+    public void setApplyList(List<ApplyBean.ApplyItemsEntity> applyItemsEntities) {
+        this.applyItemsEntities.addAll(applyItemsEntities);
+        notifyDataSetChanged();
+    }
+
+    /* 清除申请清单 */
+    public void clearApply() {
+        this.applyItemsEntities.clear();
+        notifyDataSetChanged();
+    }
+
+    /* 获取单条申请数据 */
+    public ApplyBean.ApplyItemsEntity getApplyItems(int position) {
+        return applyItemsEntities.get(position);
     }
 }
