@@ -1066,7 +1066,6 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                 voiceUtils.startSpeek("全部完成辛苦了",new VoiceUtils.SpeekEndListener() {
                     @Override
                     public void setSpeekEndListener(boolean b) {
-                        LogUtils.debug("监听播放是否完成:"+b);
                         if(b){
                             try {
                                 Thread.sleep(500);
