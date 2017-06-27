@@ -68,4 +68,12 @@
         <item>engine_compartment</item>
         <item>trunk</item>
     </array>
+    <array name="applySearch">
+        <item>全部</item>
+        <item>现场办理</item>
+        <item>贷款初审</item>
+        <item>贷款终审</item>
+        <item>待放款</item>
+        <item>已取消</item>
+    </array>
 </resources>
