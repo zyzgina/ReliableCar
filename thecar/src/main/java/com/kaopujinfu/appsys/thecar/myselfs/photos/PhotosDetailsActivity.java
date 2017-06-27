@@ -30,7 +30,6 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.PhotosGridAdapter;
-import com.kaopujinfu.appsys.thecar.myselfs.bindings.AddBindingActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
 
 import java.io.File;
