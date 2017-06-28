@@ -13,7 +13,7 @@ import com.kaopujinfu.appsys.thecar.R;
  */
 
 public class DocumentHold {
-
+    public RelativeLayout documentDetailsLayout_item;
     public TextView distributor; // 经销商
     public TextView state; // 状态
     public TextView number; // 编号
@@ -24,6 +24,7 @@ public class DocumentHold {
     public ProgressBar ProgressBar_item;
 
     public DocumentHold(View view){
+        documentDetailsLayout_item = (RelativeLayout) view.findViewById(R.id.documentDetailsLayout_item);
         distributor = (TextView) view.findViewById(R.id.documentDistributor_item);
         state = (TextView) view.findViewById(R.id.documentState_item);
         number = (TextView) view.findViewById(R.id.documentNum_item);
