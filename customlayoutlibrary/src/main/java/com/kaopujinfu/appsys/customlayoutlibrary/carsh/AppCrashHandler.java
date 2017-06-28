@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
-import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogTxt;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -38,7 +37,6 @@ public class AppCrashHandler implements UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread arg0, Throwable arg1) {
-        LogTxt.getInstance().writeLog("系统异常：", arg1);
         String logdir;
         if (Environment.getExternalStorageDirectory() != null) {
             logdir = FileUtils.getCrashLogFilePath();
