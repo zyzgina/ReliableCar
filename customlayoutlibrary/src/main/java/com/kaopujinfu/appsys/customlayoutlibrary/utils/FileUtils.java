@@ -34,18 +34,6 @@ public class FileUtils {
     }
 
     /**
-     * 获取靠谱上传目录
-     */
-    public static String getKaopuUploadPath() {
-        String filePath = null;
-        filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + FILE_PATH + "kaopu/upload/";
-        File file = new File(filePath);
-        if (!file.exists())
-            file.mkdirs();
-        return filePath;
-    }
-
-    /**
      * 获取看车上传目录
      */
     public static String getCarUploadPath() {

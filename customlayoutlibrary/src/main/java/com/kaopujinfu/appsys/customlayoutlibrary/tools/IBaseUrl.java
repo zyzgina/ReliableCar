@@ -165,5 +165,13 @@ public class IBaseUrl {
      * 申请清单详情
      */
     public static String ACTION_APP_LIST2 = "APP_LIST2";
+    /**
+     * 贷款清单
+     */
+    public static String ACTION_APP_LIST3 = "APP_LIST3";
+    /**
+     * 贷款清单详情
+     */
+    public static String ACTION_APP_LIST4 = "APP_LIST4";
 
 }

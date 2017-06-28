@@ -175,7 +175,7 @@ public class PersonalActivity extends BaseActivity {
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
             return null;
         }
-        path = FileUtils.getKaopuUploadPath() + "/upload_image";
+        path = FileUtils.getCarUploadPath() + "/upload_image";
         LogUtils.debug("path==" + path);
         FileOutputStream b = null;
         File file = new File(path);
