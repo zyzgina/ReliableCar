@@ -61,8 +61,8 @@ public class ApplyDetailsAdapter extends BaseAdapter implements SpinnerListAdapt
             holder.name.setText(itemsEntity.getCarBrand());
             holder.vin.setText(itemsEntity.getVinNo());
             int price = 0;
-            if (!GeneralUtils.isEmpty(itemsEntity.getTotalCarPrice()))
-                price = Integer.parseInt(itemsEntity.getTotalCarPrice());
+            if (!GeneralUtils.isEmpty(itemsEntity.getLoanAmount()))
+                price = Integer.parseInt(itemsEntity.getLoanAmount());
             holder.price.setText("￥ " + getPrice(price));
             if (itemsEntity.getStage().contains("办理")) {
                 holder.state.setText("办理中");
@@ -138,9 +138,14 @@ public class ApplyDetailsAdapter extends BaseAdapter implements SpinnerListAdapt
             if (price < 1000) {
                 break;
             }
-            if (price % 1000 != 0)
-                str = "," + price % 1000 + str;
-            else
+            if (price % 1000 != 0){
+                if (price % 1000 < 100)
+                    str = "," + price % 1000+"0" + str;
+                else if (price % 1000 < 10)
+                    str = "," + price % 1000+"00" + str;
+                else
+                    str = "," + price % 1000 + str;
+            }else
                 str += ",000";
             price = price / 1000;
         }
