@@ -122,6 +122,7 @@ public class CarListAdapter extends BaseExpandableListAdapter {
             hold.line.setVisibility(View.VISIBLE);
         }
         if (isSelected) {
+            hold.documentDetailsLayout_item.setVisibility(View.VISIBLE);
             if (deletes.contains(item))
                 hold.item.setImageResource(R.drawable.btn_selected);
             else
@@ -142,7 +143,7 @@ public class CarListAdapter extends BaseExpandableListAdapter {
                 }
             });
         } else {
-            hold.item.setImageResource(R.drawable.easyicon);
+            hold.documentDetailsLayout_item.setVisibility(View.GONE);
         }
         return view;
     }
