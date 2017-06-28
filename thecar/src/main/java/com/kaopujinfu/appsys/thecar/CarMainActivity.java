@@ -77,6 +77,8 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         mRadioLoanform = (RadioButton) findViewById(R.id.loanform_carmain);
         mRadioApplyform = (RadioButton) findViewById(R.id.applyform_carmain);
         mRadioSuperviseform = (RadioButton) findViewById(R.id.superviseform_carmain);
+        mMyself.setOnClickListener(this);
+        mLoanform.setOnClickListener(this);
         mApplyform.setOnClickListener(this);
         mSuperviseform.setOnClickListener(this);
         mRadioMyself.setOnClickListener(this);
@@ -84,8 +86,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         mRadioApplyform.setOnClickListener(this);
         mRadioSuperviseform.setOnClickListener(this);
 
-        View layout = getLocalActivityManager().startActivity("frist",
-                new Intent(CarMainActivity.this, MyselfActivity.class)).getDecorView();
+        View layout = getLocalActivityManager().startActivity("frist", new Intent(CarMainActivity.this, MyselfActivity.class)).getDecorView();
         mContent.addView(layout);
 
         id_drawerlayout = (DrawerLayout) findViewById(R.id.id_drawerlayout);
@@ -120,16 +121,37 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        Intent intent = new Intent();
-        if (i == R.id.loanform_llcar || i == R.id.loanform_carmain) {
-            intent.setClass(this, LoanFormActivity.class);
+        if (i == R.id.myself_llcar || i == R.id.myself_carmain) {
+            setChecks();
+            IBaseMethod.setBarStyle(this, Color.TRANSPARENT);
+            mRadioMyself.setChecked(true);
+            View layout = getLocalActivityManager().startActivity("frist", new Intent(CarMainActivity.this, MyselfActivity.class)).getDecorView();
+            mContent.addView(layout);
+        } else if (i == R.id.loanform_llcar || i == R.id.loanform_carmain) {
+            setChecks();
+            mRadioLoanform.setChecked(true);
+            View layout = getLocalActivityManager().startActivity("second", new Intent(CarMainActivity.this, LoanFormActivity.class)).getDecorView();
+            mContent.addView(layout);
         } else if (i == R.id.applyform_llcar || i == R.id.applyform_carmain) {
-            intent.setClass(this, ApplyActivity.class);
+            setChecks();
+            mRadioApplyform.setChecked(true);
+            View layout = getLocalActivityManager().startActivity("third", new Intent(CarMainActivity.this, ApplyActivity.class)).getDecorView();
+            mContent.addView(layout);
         } else if (i == R.id.superviseform_llcar || i == R.id.superviseform_carmain) {
-            intent.setClass(this, SupervisesActivity.class);
+            setChecks();
+            mRadioSuperviseform.setChecked(true);
+            View layout = getLocalActivityManager().startActivity("four", new Intent(CarMainActivity.this, SupervisesActivity.class)).getDecorView();
+            mContent.addView(layout);
         }
-        startActivity(intent);
+    }
 
+    private void setChecks() {
+        IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
+        mContent.removeAllViews();
+        mRadioMyself.setChecked(false);
+        mRadioMyself.setChecked(false);
+        mRadioMyself.setChecked(false);
+        mRadioMyself.setChecked(false);
     }
 
     /*private LinearLayout transparent_ll;*/
