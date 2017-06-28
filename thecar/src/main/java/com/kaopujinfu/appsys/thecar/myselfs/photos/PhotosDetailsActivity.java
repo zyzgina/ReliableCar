@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseNoScoActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
@@ -41,7 +40,6 @@ import java.util.Calendar;
  */
 
 public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnClickListener {
-    private TextView taskVIN, taskMsg, taskDistributor, taskCode;
     private MyGridView taskGridview;
     private PhotosGridAdapter adapter;
     private File file;
@@ -98,16 +96,8 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             params.setMargins(0, 0, 0, getResources().getDimensionPixelOffset(R.dimen.sp45));
             scrollviewTaskDetails.setLayoutParams(params);
         }
-
-        taskCode = (TextView) findViewById(R.id.taskCode);
-        taskDistributor = (TextView) findViewById(R.id.taskDistributor);
-        taskMsg = (TextView) findViewById(R.id.taskMsg);
-        taskVIN = (TextView) findViewById(R.id.taskVIN);
-        taskVIN.setText(vinCode);
-        LinearLayout llTaskDistributor = (LinearLayout) findViewById(R.id.llTaskDistributor);
-        llTaskDistributor.setOnClickListener(this);
-
         findViewById(R.id.code_documentNum_new).setVisibility(View.GONE);
+        findViewById(R.id.view_code_documentNum_new).setVisibility(View.GONE);
 
         documentVIN_new = (EditText) findViewById(R.id.documentVIN_new);
         vinCode = SPUtils.get(this, IBase.USERID + "vinCode", "").toString();
@@ -144,9 +134,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.llTaskDistributor) {
-            //点击经销商
-        } else if (v.getId() == R.id.top_btn) {
+        if (v.getId() == R.id.top_btn) {
             commit();
         } else if (v.getId() == R.id.missionClickTask) {
             //点击任务管理
@@ -213,9 +201,17 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
     }
 
     private void commit() {
-        //提交任务
+        String vinCo = documentVIN_new.getText().toString();
+        if (GeneralUtils.isEmpty(vinCo)) {
+            vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
+            return;
+        }
+        if (!VINutils.checkVIN(vinCo)) {
+            vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
+            return;
+        }
         //保存图片
-        adapter.saveDateList(documentVIN_new.getText().toString());
+        adapter.saveDateList(vinCo);
         Intent intent = new Intent(PhotosDetailsActivity.this, DocumentCommitActivity.class);
         intent.putExtra("success", IBase.CONSTANT_TWO);
         intent.putExtra("UploadPath", file.getAbsolutePath());
