@@ -74,15 +74,15 @@ public class TaskManageActivity extends BaseActivity implements View.OnClickList
         final List<ReleaseIcno> icnos=new ArrayList<>();
         ReleaseIcno icno1=new ReleaseIcno();
         icno1.setName("58同城");
-        icno1.setIcon(R.drawable.tabber_icon_my);
+        icno1.setIcon(R.drawable.ic_myself_icon_blue);
 
         ReleaseIcno icno2=new ReleaseIcno();
         icno2.setName("人人车");
-        icno2.setIcon(R.drawable.tabber_icon_my);
+        icno2.setIcon(R.drawable.ic_myself_icon_blue);
 
         ReleaseIcno icno3=new ReleaseIcno();
         icno3.setName("大搜车");
-        icno3.setIcon(R.drawable.tabber_icon_my);
+        icno3.setIcon(R.drawable.ic_myself_icon_blue);
         icnos.add(icno1);
         icnos.add(icno2);
         icnos.add(icno3);

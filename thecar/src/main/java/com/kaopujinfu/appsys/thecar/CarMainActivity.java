@@ -34,8 +34,9 @@ import com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MyListView;
 import com.kaopujinfu.appsys.thecar.adapters.SimpleListAdapter;
 import com.kaopujinfu.appsys.thecar.applys.ApplyActivity;
+import com.kaopujinfu.appsys.thecar.bean.StatisticsBean;
 import com.kaopujinfu.appsys.thecar.loans.LoanFormActivity;
-import com.kaopujinfu.appsys.thecar.myselfs.MyselfActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.MineActivity;
 import com.kaopujinfu.appsys.thecar.supervises.SupervisesActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,6 +62,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         EventBus.getDefault().register(this);
         initCarMain();
         setMenu();
+        getData();
     }
 
     private void initCarMain() {
@@ -86,7 +88,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         mRadioApplyform.setOnClickListener(this);
         mRadioSuperviseform.setOnClickListener(this);
 
-        View layout = getLocalActivityManager().startActivity("frist", new Intent(CarMainActivity.this, MyselfActivity.class)).getDecorView();
+        View layout = getLocalActivityManager().startActivity("frist", new Intent(CarMainActivity.this, MineActivity.class)).getDecorView();
         mContent.addView(layout);
 
         id_drawerlayout = (DrawerLayout) findViewById(R.id.id_drawerlayout);
@@ -125,7 +127,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
             setChecks();
             IBaseMethod.setBarStyle(this, Color.TRANSPARENT);
             mRadioMyself.setChecked(true);
-            View layout = getLocalActivityManager().startActivity("frist", new Intent(CarMainActivity.this, MyselfActivity.class)).getDecorView();
+            View layout = getLocalActivityManager().startActivity("frist", new Intent(CarMainActivity.this, MineActivity.class)).getDecorView();
             mContent.addView(layout);
         } else if (i == R.id.loanform_llcar || i == R.id.loanform_carmain) {
             setChecks();
@@ -149,9 +151,9 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
         mContent.removeAllViews();
         mRadioMyself.setChecked(false);
-        mRadioMyself.setChecked(false);
-        mRadioMyself.setChecked(false);
-        mRadioMyself.setChecked(false);
+        mRadioLoanform.setChecked(false);
+        mRadioApplyform.setChecked(false);
+        mRadioSuperviseform.setChecked(false);
     }
 
     /*private LinearLayout transparent_ll;*/
@@ -252,5 +254,26 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
                 id_drawerlayout.openDrawer(Gravity.LEFT);
             }
         }
+    }
+
+    /**
+     * 获取统计信息
+     */
+    private void getData() {
+        HttpBank.getIntence(this).httpStatistics(new CallBack() {
+            @Override
+            public void onSuccess(Object o) {
+                LogUtils.debug("统计信息:" + o.toString());
+                StatisticsBean bean = StatisticsBean.getStatisticsBean(o.toString());
+                if (bean != null) {
+                    EventBus.getDefault().post(bean);
+                }
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg) {
+
+            }
+        });
     }
 }

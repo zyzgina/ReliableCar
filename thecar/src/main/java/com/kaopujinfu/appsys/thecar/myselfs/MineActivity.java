@@ -14,10 +14,9 @@ import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
-import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
-import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
@@ -41,14 +40,15 @@ import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosDetailsActivity;
 import com.kaopujinfu.appsys.thecar.upload.UploadListActivity;
 
 import org.greenrobot.eventbus.EventBus;
-
+import org.greenrobot.eventbus.Subscribe;
 
 /**
- * 我的
- * Created by 左丽姬 on 2017/5/11.
+ * Describe: 我的
+ * Created Author: Gina
+ * Created Date: 2017/6/28.
  */
-public class MyselfActivity extends Activity {
 
+public class MineActivity extends Activity {
     private RelativeLayout mToplayout;
     private AvatarView mAvatar;
     private TextView mNameTel, mJob;
@@ -71,20 +71,27 @@ public class MyselfActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_myself);
+        EventBus.getDefault().register(this);
+        setContentView(R.layout.activity_mine);
         initMyself();
-        getData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initMyself() {
         mToplayout = (RelativeLayout) findViewById(R.id.top_layout);
         mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
-        LinearLayout mLlmyself = (LinearLayout) findViewById(R.id.ll_myself);
         mToplayout.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
-        mLlmyself.setPadding(0, IBaseMethod.setPaing(this) + getResources().getDimensionPixelOffset(R.dimen.sp50), 0, 0);
+        RelativeLayout myselfTop = (RelativeLayout) findViewById(R.id.myselfTop);
+        myselfTop.setPadding(0, IBaseMethod.setPaing(this) + getResources().getDimensionPixelOffset(R.dimen.sp50), 0, 0);
         mTopback = (ImageView) findViewById(R.id.top_back);
         mTopback.setVisibility(View.GONE);
-        LinearLayout mBackll = (LinearLayout) findViewById(R.id.back_ll);
+        LinearLayout mBackll;
+        mBackll = (LinearLayout) findViewById(R.id.back_ll);
         mBackll.setVisibility(View.VISIBLE);
         ImageView topback_icon = (ImageView) findViewById(R.id.topback_icon);
         topback_icon.setImageResource(R.drawable.home_icon_user);
@@ -107,7 +114,7 @@ public class MyselfActivity extends Activity {
         mTopmeun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyselfActivity.this, UploadListActivity.class);
+                Intent intent = new Intent(MineActivity.this, UploadListActivity.class);
                 startActivity(intent);
             }
         });
@@ -120,7 +127,7 @@ public class MyselfActivity extends Activity {
         mAvatar = (AvatarView) findViewById(R.id.avatar_myself);
         mNameTel = (TextView) findViewById(R.id.nametel_myself);
         mJob = (TextView) findViewById(R.id.job_myself);
-        String o = SPUtils.get(MyselfActivity.this, "loginUser", "").toString();
+        String o = SPUtils.get(MineActivity.this, "loginUser", "").toString();
         Loginbean user = Loginbean.getLoginbean(o);
         if (user != null) {
             if (GeneralUtils.isEmpty(user.getMobile())) {
@@ -149,15 +156,15 @@ public class MyselfActivity extends Activity {
         mMission.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MyselfActivity.this, MissionCommitActivity.class);
+                Intent intent = new Intent(MineActivity.this, MissionCommitActivity.class);
                 startActivity(intent);
             }
         });
-        RelativeLayout mMore = (RelativeLayout) findViewById(R.id.more_myself);
+        TextView mMore = (TextView) findViewById(R.id.missionTvMy);
         mMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyselfActivity.this, MissionListsActivity.class);
+                Intent intent = new Intent(MineActivity.this, MissionListsActivity.class);
                 startActivity(intent);
             }
         });
@@ -178,7 +185,7 @@ public class MyselfActivity extends Activity {
     private AdapterView.OnItemClickListener mMessageItemClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            LogUtils.debug("获取跟目路:"+ FileUtils.getCarUploadPath());
         }
     };
 
@@ -189,53 +196,40 @@ public class MyselfActivity extends Activity {
         Intent intent = new Intent();
         switch (position) {
             case IBase.CONSTANT_ZERO:
-                intent.setClass(MyselfActivity.this, CarListActivity.class);
+                intent.setClass(MineActivity.this, CarListActivity.class);
                 break;
             case IBase.CONSTANT_ONE:
                     /* 文档收录 */
-                intent.setClass(MyselfActivity.this, DocumentActivity.class);
+                intent.setClass(MineActivity.this, DocumentActivity.class);
                 break;
             case IBase.CONSTANT_TWO:
                     /* 监管器绑定 */
-                intent.setClass(MyselfActivity.this, BindingsActivity.class);
+                intent.setClass(MineActivity.this, BindingsActivity.class);
                 break;
             case IBase.CONSTANT_THREE:
                     /* 车辆绑标签 */
-                intent.setClass(MyselfActivity.this, LableActivity.class);
+                intent.setClass(MineActivity.this, LableActivity.class);
                 break;
             case IBase.CONSTANT_FOUR:
                     /* 照片采集 */
-                intent.setClass(MyselfActivity.this, PhotosDetailsActivity.class);
+                intent.setClass(MineActivity.this, PhotosDetailsActivity.class);
                 break;
             case IBase.CONSTANT_FIVE:
                     /* 盘库 */
-                intent.setClass(MyselfActivity.this, ChecksActivity.class);
+                intent.setClass(MineActivity.this, ChecksActivity.class);
                 break;
         }
         startActivity(intent);
     }
 
-    /**
-     * 获取统计信息
-     */
-    private void getData() {
-        HttpBank.getIntence(this).httpStatistics(new CallBack() {
-            @Override
-            public void onSuccess(Object o) {
-                LogUtils.debug("统计信息:" + o.toString());
-                StatisticsBean bean = StatisticsBean.getStatisticsBean(o.toString());
-                if (bean != null) {
-                    msgAadapter.setLists(bean);
-                }
-            }
-
-            @Override
-            public void onFailure(int errorNo, String strMsg) {
-
-            }
-        });
+    @Subscribe
+    public void onEventMainThread(Object jumpEventBus) {
+        if (jumpEventBus instanceof StatisticsBean) {
+            msgAadapter.setLists((StatisticsBean) jumpEventBus);
+        }
     }
 
+    private boolean isChange = false;
     private ObserveScrollView.ScrollListener scrollListener = new ObserveScrollView.ScrollListener() {
         @Override
         public void scrollOritention(int l, final int t, int oldl, final int oldt) {
@@ -245,7 +239,8 @@ public class MyselfActivity extends Activity {
                     //逐暂变实
                     if (t > oldt) {
                         if (t > cale && t < 700) {
-                            cale = t + 30;
+                            isChange = true;
+                            cale = t + 50;
                             mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
                             int alpha = (int) (t / 2.5);
                             if (alpha > 255) {
@@ -254,19 +249,22 @@ public class MyselfActivity extends Activity {
                             mToplayout.getBackground().setAlpha(alpha);
                         }
                     } else {
-                        if (t < cale && t >30) {
+                        if (t < cale && t > 50) {
                             //逐暂变透明
-                            cale = t - 30;
+                            cale = t - 50;
                             mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
                             int alpha = (int) (t / 2.5);
                             if (alpha > 255) {
                                 alpha = 255;
                             }
                             mToplayout.getBackground().setAlpha(alpha);
-                        } else if (t <= 30) {
+                        } else if (t <= 50) {
                             //小于30透明
-                            cale = 30;
-                            mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
+                            if (isChange) {
+                                isChange = false;
+                                cale = 30;
+                                mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
+                            }
                         }
                     }
                 }

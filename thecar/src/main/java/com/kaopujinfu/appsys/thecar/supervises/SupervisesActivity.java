@@ -53,6 +53,9 @@ public class SupervisesActivity extends BaseNoScoActivity {
         int padding = IBaseMethod.setPaing(this);
         header.setPadding(0, padding, 0, 0);
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
+        header.setVisibility(View.GONE);
+        LinearLayout supervisesLinear= (LinearLayout) findViewById(R.id.supervisesLinear);
+        supervisesLinear.setPadding(0, padding, 0, 0);
 
         mAdapter = new ApplyOrSupervisesFromAdapter(this, false);
         supervisesFromList = (ListView) findViewById(R.id.supervisesFromList);

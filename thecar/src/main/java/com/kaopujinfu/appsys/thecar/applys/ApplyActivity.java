@@ -53,6 +53,9 @@ public class ApplyActivity extends BaseNoScoActivity {
         int padding = IBaseMethod.setPaing(this);
         header.setPadding(0, padding, 0, 0);
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
+        header.setVisibility(View.GONE);
+        LinearLayout applyLinear= (LinearLayout) findViewById(R.id.applyLinear);
+        applyLinear.setPadding(0, padding, 0, 0);
 
         applyFromList = (ListView) findViewById(R.id.applyFromList);
         mAdapter = new ApplyOrSupervisesFromAdapter(this, true);
