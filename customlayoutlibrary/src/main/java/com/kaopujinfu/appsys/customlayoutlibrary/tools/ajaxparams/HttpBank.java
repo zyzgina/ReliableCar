@@ -15,6 +15,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 
 import net.tsz.afinal.FinalDb;
 
@@ -288,6 +289,7 @@ public class HttpBank {
         //查找数据库中是否存在
         List<VinCodeBean> lists = db.findAllByWhere(VinCodeBean.class, "vinCode=\"" + vinCode + "\"");
         if (lists.size() > 0) {
+            SPUtils.put(context, IBase.USERID + "vinCode", vinCode);
             Message message = new Message();
             message.what = IBase.CONSTANT_TEN;
             message.obj = true;
@@ -311,7 +313,7 @@ public class HttpBank {
                     vinCodeBean.setVinCode(vinCode);
                     vinCodeBean.setSavetime(DateUtil.getSimpleDateYYYYMMDD(System.currentTimeMillis()));
                     db.save(vinCodeBean);
-
+                    SPUtils.put(context, IBase.USERID + "vinCode", vinCode);
                 }
             }
 
