@@ -284,7 +284,6 @@ public class HttpBank {
      * 判断VIN码是否存在
      */
     public void httpIsVinExit(final String vinCode, final Handler handler) {
-        LogUtils.debug("获取VIN码是否存在");
         final FinalDb db = FinalDb.create(context, IBase.BASE_DATE, false);
         //查找数据库中是否存在
         List<VinCodeBean> lists = db.findAllByWhere(VinCodeBean.class, "vinCode=\"" + vinCode + "\"");
