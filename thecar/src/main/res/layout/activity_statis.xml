@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView-->
+    <!--android:id="@+id/message_myself"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/white"-->
+    <!--android:listSelector="@color/white"-->
+    <!--android:numColumns="3"-->
+    <!--android:padding="@dimen/common_measure_20sp" />-->
+    <LinearLayout
+        android:id="@+id/message_myself"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/common_measure_20sp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <include
+                android:id="@+id/docmentStatis"
+                layout="@layout/item_myself_message" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <include
+                android:id="@+id/supStatis"
+                layout="@layout/item_myself_message" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <include
+                android:id="@+id/checkStatis"
+                layout="@layout/item_myself_message" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewMy1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/message_myself"
+        android:background="@color/plain_gray" />
+</RelativeLayout>
