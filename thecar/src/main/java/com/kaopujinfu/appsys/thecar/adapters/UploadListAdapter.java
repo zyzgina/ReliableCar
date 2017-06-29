@@ -248,6 +248,9 @@ public class UploadListAdapter extends BaseAdapter {
                                     //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
                                     UploadListHold viewHolder = (UploadListHold) view.getTag();
                                     percent = percent * 100;
+                                    if (percent >= 100) {
+                                        percent = 99;
+                                    }
                                     viewHolder.progressBar.setProgress((int) percent);
                                     viewHolder.progress.setText((int) percent + "%");
                                 }

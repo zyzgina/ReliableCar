@@ -47,6 +47,7 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
             mTvTitle.setText(itemsEntity.getShortName());
         header.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
+        top_meun.setVisibility(View.GONE);
 
         mNoDate = (LinearLayout) findViewById(R.id.ll_nodate);
         mNoDate.setVisibility(View.GONE);
@@ -91,7 +92,7 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
         HttpBank.getIntence(this).httpSuperviserDetails(itemsEntity.getCompanyCode(), page, new CallBack() {
             @Override
             public void onSuccess(Object o) {
-                LogUtils.debug("数据:" + o.toString());
+                LogUtils.debug(page+"   数据:" + o.toString());
                 if (page == 1) {
                     IBaseMethod.jumpCountdown(60, handler);
                     refreshLayout_supervisesDetails.finishRefreshing();

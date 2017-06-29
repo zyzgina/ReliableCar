@@ -76,4 +76,11 @@
         <item>待放款</item>
         <item>已取消</item>
     </array>
+    <array name="loanSearch">
+        <item>全部</item>
+        <item>贷款中</item>
+        <item>还款待审</item>
+        <item>办理结清</item>
+        <item>已取消</item>
+    </array>
 </resources>

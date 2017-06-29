@@ -51,7 +51,12 @@ public class LoanFormDetailsActivity extends BaseNoScoActivity {
         itemsEntity = (LoanFormBean.LoanItemsEntity) getIntent().getSerializableExtra("LoanItems");
         mTvTitle.setText(itemsEntity.getDlrName());
         dialog.dismiss();
-        top_meun.setVisibility(View.GONE);
+        top_meun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menu_press();
+            }
+        });
 
         int padding = IBaseMethod.setPaing(this);
         header.setPadding(0,padding,0,0);
@@ -107,7 +112,7 @@ public class LoanFormDetailsActivity extends BaseNoScoActivity {
      */
     public void menu_press() {
         // 一个自定义的布局，作为显示的内容
-        final String[] infos = getResources().getStringArray(R.array.applySearch);
+        final String[] infos = getResources().getStringArray(R.array.loanSearch);
         SHContextMenu shContextMenu = new SHContextMenu(this);
         List<ContextMenuItem> itemList = new ArrayList<>();
         for (int i = 0; i < infos.length; i++) {
@@ -118,23 +123,23 @@ public class LoanFormDetailsActivity extends BaseNoScoActivity {
             @Override
             public void onItemSelect(int position) {
                 String name = infos[position];
-//                if (position == 0) {
-//                    mAdapter.setTitles(null);
-//                } else {
-//                    List<String> lists = mAdapter.getTitles();
-//                    List<String> titles = new ArrayList<String>();
-//                    if (lists.contains(name)) {
-//                        titles.add(name);
-//                    }
-//                    mAdapter.setTitles(titles);
-//                    if (mAdapter.getCount() == 0) {
-//                        mNoDate.setVisibility(View.VISIBLE);
-//                        applyDetailsList.setVisibility(View.GONE);
-//                    } else {
-//                        mNoDate.setVisibility(View.GONE);
-//                        applyDetailsList.setVisibility(View.VISIBLE);
-//                    }
-//                }
+                if (position == 0) {
+                    mAdapter.setTitles(null);
+                } else {
+                    List<String> lists = mAdapter.getTitles();
+                    List<String> titles = new ArrayList<String>();
+                    if (lists.contains(name)) {
+                        titles.add(name);
+                    }
+                    mAdapter.setTitles(titles);
+                    if (mAdapter.getCount() == 0) {
+                        mNoDate.setVisibility(View.VISIBLE);
+                        loanFromDetailsList.setVisibility(View.GONE);
+                    } else {
+                        mNoDate.setVisibility(View.GONE);
+                        loanFromDetailsList.setVisibility(View.VISIBLE);
+                    }
+                }
             }
         });
         shContextMenu.showMenu();
