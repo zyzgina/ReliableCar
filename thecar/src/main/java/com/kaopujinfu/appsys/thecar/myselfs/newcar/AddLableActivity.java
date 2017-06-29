@@ -3,6 +3,8 @@ package com.kaopujinfu.appsys.thecar.myselfs.newcar;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -49,7 +51,19 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
     private ImageView documentVINScan, documentScan;
     private EditText documentNum_new, documentVIN_new;
     private LinearLayout vinVerfiydocumentVIN;
-    private boolean isVin = false;
+    private boolean isVin = true;
+    boolean isVerfiy = false;
+    private Handler vinhandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case IBase.CONSTANT_TEN:
+                    isVerfiy = (boolean) msg.obj;
+                    break;
+            }
+        }
+    };
 
 
     @Override
@@ -82,12 +96,6 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             documentVIN_new.setText(vinCode);
         documentVIN_new.addTextChangedListener(textWatcher);
         vinVerfiydocumentVIN = (LinearLayout) findViewById(R.id.vinVerfiydocumentVIN);
-        documentVIN_new.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                isVin = hasFocus;
-            }
-        });
         documentNum_new = (EditText) findViewById(R.id.documentNum_new);
         documentNum_new.setHint("请输入标签编号");
         documentVINScan = (ImageView) findViewById(R.id.documentVINScan_new);
@@ -129,7 +137,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         if (GeneralUtils.isEmpty(vinNo)) {
             IBaseMethod.showToast(this, "请输入VIN码！", IBase.RETAIL_ZERO);
             return;
-        } else if (!VINutils.checkVIN(vinNo)) {
+        } else if (!VINutils.checkVIN(vinNo) || isVerfiy) {
             vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
             return;
         } else if (GeneralUtils.isEmpty(devCode)) {
@@ -186,6 +194,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
                 if (!GeneralUtils.isEmpty(vin)) {
                     documentVIN_new.setText(vin);
                     SPUtils.put(AddLableActivity.this, IBase.USERID + "vinCode", vin);
+                    HttpBank.getIntence(AddLableActivity.this).httpIsVinExit(vin, vinhandler);
                 }
             }
         }
@@ -274,17 +283,24 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             if (isVin) {
                 vinVerfiydocumentVIN.setVisibility(View.GONE);
                 String vin = documentVIN_new.getText().toString();
-                if (vin.length() > 18) {
-                    vin = vin.substring(0, 18);
+                if (vin.length() >17) {
+                    vin = vin.substring(0, 17);
                     documentVIN_new.setText(vin);
                     documentVIN_new.setSelection(vin.length());
+                }
+                if(vin.length()==17) {
                     if (VINutils.checkVIN(vin)) {
-                        documentVIN_new.setVisibility(View.GONE);
+                        vinVerfiydocumentVIN.setVisibility(View.GONE);
+                        HttpBank.getIntence(AddLableActivity.this).httpIsVinExit(vin, vinhandler);
                     } else {
                         vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
                     }
+                }else{
+                    vinVerfiydocumentVIN.setVisibility(View.GONE);
                 }
 
+            } else {
+                isVin = true;
             }
         }
     };

@@ -1,14 +1,24 @@
 package com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.VinCodeBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.okHttpUtils.AjaxParams;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseUrl;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+
+import net.tsz.afinal.FinalDb;
+
+import java.util.List;
 
 /**
  * 库融
@@ -261,12 +271,61 @@ public class HttpBank {
         AjaxParams params = bankAjaxParams.ajaxStatistics();
         IBaseMethod.post(context, IBaseUrl.URL_CAR, params, callBack);
     }
+
     /**
      * 申请清单
-     * */
-    public void httpApply(String action,String dlr,CallBack callBack){
-        AjaxParams params = bankAjaxParams.ajaxApply(action,dlr);
-        LogUtils.debug(params.getParamsString());
+     */
+    public void httpApply(String action, String dlr, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxApply(action, dlr);
         IBaseMethod.post(context, IBaseUrl.URL_LOAN_APP, params, callBack);
+    }
+
+    /**
+     * 判断VIN码是否存在
+     */
+    public void httpIsVinExit(final String vinCode, final Handler handler) {
+        LogUtils.debug("获取VIN码是否存在");
+        final FinalDb db = FinalDb.create(context, IBase.BASE_DATE, false);
+        //查找数据库中是否存在
+        List<VinCodeBean> lists = db.findAllByWhere(VinCodeBean.class, "vinCode=\"" + vinCode + "\"");
+        if (lists.size() > 0) {
+            Message message = new Message();
+            message.what = IBase.CONSTANT_TEN;
+            message.obj = true;
+            handler.sendMessage(message);
+            return ;
+        }
+        AjaxParams params = bankAjaxParams.ajaxIsVin("VIN_CHECK", vinCode);
+        IBaseMethod.post(context, IBaseUrl.URL_CAR, params, new CallBack() {
+            @Override
+            public void onSuccess(Object o) {
+                LogUtils.debug("验证VIN：" + o.toString());
+                Result result = Result.getMcJson(o.toString());
+                Message message = new Message();
+                message.what = IBase.CONSTANT_TEN;
+                message.obj = result.isSuccess();
+                handler.sendMessage(message);
+                if (!result.isSuccess()) {
+                    DialogUtil.jumpCorrectErr(context, "未找到\"" + vinCode + "\"车辆", "继 续", 0, context.getResources().getColor(android.R.color.holo_red_light));
+                } else {
+                    VinCodeBean vinCodeBean = new VinCodeBean();
+                    vinCodeBean.setVinCode(vinCode);
+                    vinCodeBean.setSavetime(DateUtil.getSimpleDateYYYYMMDD(System.currentTimeMillis()));
+                    db.save(vinCodeBean);
+
+                }
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg) {
+                Message message = new Message();
+                message.what = IBase.CONSTANT_TEN;
+                message.obj = false;
+                handler.sendMessage(message);
+                if (errorNo == IBase.CONSTANT_ONE) {
+                    IBaseMethod.showNetToast(context);
+                }
+            }
+        });
     }
 }

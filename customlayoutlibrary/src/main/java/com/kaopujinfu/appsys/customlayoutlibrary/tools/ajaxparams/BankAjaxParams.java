@@ -345,6 +345,16 @@ public class BankAjaxParams {
     }
 
     /**
+     * 验证VIN是否存在
+     */
+    public AjaxParams ajaxIsVin(String action, String vinNo) {
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", action);
+        params.put("vinNo", vinNo);
+        return params;
+    }
+
+    /**
      * 设置登录用户，所属session ，公司code参数
      *
      * @return AjaxParams

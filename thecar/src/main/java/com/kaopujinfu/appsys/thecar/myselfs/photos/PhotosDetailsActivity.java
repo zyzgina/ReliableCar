@@ -2,6 +2,8 @@ package com.kaopujinfu.appsys.thecar.myselfs.photos;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +22,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
@@ -48,7 +51,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
     private String vinCode = "";
     private EditText documentVIN_new;
     private LinearLayout vinVerfiydocumentVIN;
-    private boolean isVin = false;
+    private boolean isVin = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,12 +108,6 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             documentVIN_new.setText(vinCode);
         documentVIN_new.addTextChangedListener(textWatcher);
         vinVerfiydocumentVIN = (LinearLayout) findViewById(R.id.vinVerfiydocumentVIN);
-        documentVIN_new.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                isVin = hasFocus;
-            }
-        });
         findViewById(R.id.documentVINScan_new).setOnClickListener(this);
 
         taskGridview = (MyGridView) findViewById(R.id.taskGridview);
@@ -195,18 +192,28 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
                 if (!GeneralUtils.isEmpty(vin)) {
                     SPUtils.put(PhotosDetailsActivity.this, IBase.USERID + "vinCode", vin);
                     documentVIN_new.setText(vin);
+                    HttpBank.getIntence(PhotosDetailsActivity.this).httpIsVinExit(vin, vinhandler);
                 }
             }
         }
     }
 
+    boolean isVerfiy = false;
+    private Handler vinhandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case IBase.CONSTANT_TEN:
+                    isVerfiy = (boolean) msg.obj;
+                    break;
+            }
+        }
+    };
+
     private void commit() {
         String vinCo = documentVIN_new.getText().toString();
-        if (GeneralUtils.isEmpty(vinCo)) {
-            vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
-            return;
-        }
-        if (!VINutils.checkVIN(vinCo)) {
+        if (GeneralUtils.isEmpty(vinCo) || !VINutils.checkVIN(vinCo) || !isVerfiy) {
             vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
             return;
         }
@@ -235,17 +242,24 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             if (isVin) {
                 vinVerfiydocumentVIN.setVisibility(View.GONE);
                 String vin = documentVIN_new.getText().toString();
-                if (vin.length() > 18) {
-                    vin = vin.substring(0, 18);
+                if (vin.length() >17) {
+                    vin = vin.substring(0, 17);
                     documentVIN_new.setText(vin);
                     documentVIN_new.setSelection(vin.length());
+                }
+                if(vin.length()==17) {
                     if (VINutils.checkVIN(vin)) {
-                        documentVIN_new.setVisibility(View.GONE);
+                        vinVerfiydocumentVIN.setVisibility(View.GONE);
+                        HttpBank.getIntence(PhotosDetailsActivity.this).httpIsVinExit(vin, vinhandler);
                     } else {
                         vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
                     }
+                }else{
+                    vinVerfiydocumentVIN.setVisibility(View.GONE);
                 }
 
+            }else{
+                isVin=true;
             }
         }
     };
