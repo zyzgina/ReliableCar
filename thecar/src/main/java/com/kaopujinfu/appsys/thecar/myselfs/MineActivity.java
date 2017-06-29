@@ -236,48 +236,37 @@ public class MineActivity extends Activity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (t / 50 == 1) {
-                        mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
-                    } else if (t % 50 == 0 && t < 700) {
-                        LogUtils.debug("进入lll");
-                        mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
-                        int alpha = (int) (t / 2.5);
-                        if (alpha > 255) {
-                            alpha = 255;
-                        }
-                        mToplayout.getBackground().setAlpha(alpha);
-                    }
 //                    //逐暂变实
-//                    if (t > oldt) {
-//                        if (t > cale && t < 700) {
-//                            isChange = true;
-//                            cale = t + 50;
-//                            mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
-//                            int alpha = (int) (t / 2.5);
-//                            if (alpha > 255) {
-//                                alpha = 255;
-//                            }
-//                            mToplayout.getBackground().setAlpha(alpha);
-//                        }
-//                    } else {
-//                        if (t < cale && t > 50) {
-//                            //逐暂变透明
-//                            cale = t - 50;
-//                            mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
-//                            int alpha = (int) (t / 2.5);
-//                            if (alpha > 255) {
-//                                alpha = 255;
-//                            }
-//                            mToplayout.getBackground().setAlpha(alpha);
-//                        } else if (t <= 50) {
-//                            //小于30透明
-//                            if (isChange) {
-//                                isChange = false;
-//                                cale = 30;
-//                                mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
-//                            }
-//                        }
-//                    }
+                    if (t > oldt) {
+                        if (t > cale && t < 700) {
+                            isChange = true;
+                            cale = t + 50;
+                            mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
+                            int alpha = (int) (t / 2.5);
+                            if (alpha > 255) {
+                                alpha = 255;
+                            }
+                            mToplayout.getBackground().setAlpha(alpha);
+                        }
+                    } else {
+                        if (t < cale && t > 50) {
+                            //逐暂变透明
+                            cale = t - 50;
+                            mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
+                            int alpha = (int) (t / 2.5);
+                            if (alpha > 255) {
+                                alpha = 255;
+                            }
+                            mToplayout.getBackground().setAlpha(alpha);
+                        } else if (t <= 50) {
+                            //小于30透明
+                            if (isChange) {
+                                isChange = false;
+                                cale = 30;
+                                mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
+                            }
+                        }
+                    }
                 }
             });
         }
