@@ -139,7 +139,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         if (GeneralUtils.isEmpty(vinNo)) {
             IBaseMethod.showToast(this, "请输入VIN码！", IBase.RETAIL_ZERO);
             return;
-        } else if (!VINutils.checkVIN(vinNo) || isVerfiy) {
+        } else if (!VINutils.checkVIN(vinNo) || !isVerfiy) {
             vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
             return;
         } else if (GeneralUtils.isEmpty(devCode)) {
