@@ -92,8 +92,10 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         txt_documentNum_new.setText("标签编号");
         String vinCode = SPUtils.get(this, IBase.USERID + "vinCode", "").toString();
         documentVIN_new = (EditText) findViewById(R.id.documentVIN_new);
-        if (!GeneralUtils.isEmpty(vinCode))
+        if (!GeneralUtils.isEmpty(vinCode)) {
             documentVIN_new.setText(vinCode);
+            HttpBank.getIntence(AddLableActivity.this).httpIsVinExit(vinCode, vinhandler);
+        }
         documentVIN_new.addTextChangedListener(textWatcher);
         vinVerfiydocumentVIN = (LinearLayout) findViewById(R.id.vinVerfiydocumentVIN);
         documentNum_new = (EditText) findViewById(R.id.documentNum_new);
@@ -193,7 +195,6 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
                     documentVIN_new.setText(vin);
-                    SPUtils.put(AddLableActivity.this, IBase.USERID + "vinCode", vin);
                     HttpBank.getIntence(AddLableActivity.this).httpIsVinExit(vin, vinhandler);
                 }
             }

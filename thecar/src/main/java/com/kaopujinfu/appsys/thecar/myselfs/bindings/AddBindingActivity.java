@@ -92,8 +92,10 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
         txt_documentNum_new.setText("设备编号");
         String vinCode = SPUtils.get(this, IBase.USERID + "vinCode", "").toString();
         documentVIN_new = (EditText) findViewById(R.id.documentVIN_new);
-        if (!GeneralUtils.isEmpty(vinCode))
+        if (!GeneralUtils.isEmpty(vinCode)) {
             documentVIN_new.setText(vinCode);
+            HttpBank.getIntence(AddBindingActivity.this).httpIsVinExit(vinCode, vinhandler);
+        }
         documentVIN_new.addTextChangedListener(textWatcher);
         vinVerfiydocumentVIN = (LinearLayout) findViewById(R.id.vinVerfiydocumentVIN);
         documentNum_new = (EditText) findViewById(R.id.documentNum_new);
@@ -200,7 +202,6 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
             if (data != null) {
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
-                    SPUtils.put(AddBindingActivity.this, IBase.USERID + "vinCode", vin);
                     documentVIN_new.setText(vin);
                     HttpBank.getIntence(AddBindingActivity.this).httpIsVinExit(vin, vinhandler);
                 }

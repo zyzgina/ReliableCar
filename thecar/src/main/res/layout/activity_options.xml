@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView
+        android:id="@+id/message_myself"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:listSelector="@color/white"
+        android:numColumns="3"
+        android:padding="@dimen/common_measure_20sp" />
+
+    <View
+        android:id="@+id/viewMy1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/message_myself"
+        android:background="@color/plain_gray" />
+
+    <View
+        android:id="@+id/viewMy2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/viewMy1"
+        android:layout_marginTop="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <TextView
+        android:id="@+id/tvMy1"
+        style="@style/textview_color_back_gray_singleLine_size17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewMy2"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/tabbar_icon_home_normal"
+        android:drawablePadding="@dimen/common_measure_10sp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/common_measure_20sp"
+        android:text="@string/common_operations" />
+
+    <com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView
+        android:id="@+id/operations_myself"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMy1"
+        android:layout_marginTop="@dimen/common_measure_30sp"
+        android:listSelector="@color/white"
+        android:numColumns="4"
+        android:paddingBottom="@dimen/common_measure_20sp"
+        android:paddingLeft="@dimen/common_measure_20sp"
+        android:paddingRight="@dimen/common_measure_20sp" />
+
+    <View
+        android:id="@+id/viewMy3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/operations_myself"
+        android:layout_marginBottom="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+</RelativeLayout>

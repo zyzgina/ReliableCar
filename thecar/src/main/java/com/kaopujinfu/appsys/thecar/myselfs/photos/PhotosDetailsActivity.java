@@ -104,8 +104,10 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
 
         documentVIN_new = (EditText) findViewById(R.id.documentVIN_new);
         vinCode = SPUtils.get(this, IBase.USERID + "vinCode", "").toString();
-        if (!GeneralUtils.isEmpty(vinCode))
+        if (!GeneralUtils.isEmpty(vinCode)) {
             documentVIN_new.setText(vinCode);
+            HttpBank.getIntence(PhotosDetailsActivity.this).httpIsVinExit(vinCode, vinhandler);
+        }
         documentVIN_new.addTextChangedListener(textWatcher);
         vinVerfiydocumentVIN = (LinearLayout) findViewById(R.id.vinVerfiydocumentVIN);
         findViewById(R.id.documentVINScan_new).setOnClickListener(this);
@@ -190,7 +192,6 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             if (data != null) {
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
-                    SPUtils.put(PhotosDetailsActivity.this, IBase.USERID + "vinCode", vin);
                     documentVIN_new.setText(vin);
                     HttpBank.getIntence(PhotosDetailsActivity.this).httpIsVinExit(vin, vinhandler);
                 }

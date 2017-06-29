@@ -104,8 +104,10 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
 
         String vinCode = SPUtils.get(this, IBase.USERID + "vinCode", "").toString();
         documentVIN_new = (EditText) findViewById(R.id.documentVIN_new);
-        if (!GeneralUtils.isEmpty(vinCode))
+        if (!GeneralUtils.isEmpty(vinCode)) {
             documentVIN_new.setText(vinCode);
+            HttpBank.getIntence(DocumentNewActivity.this).httpIsVinExit(vinCode, vinhandler);
+        }
         documentVIN_new.addTextChangedListener(textWatcher);
         vinVerfiydocumentVIN = (LinearLayout) findViewById(R.id.vinVerfiydocumentVIN);
         documentNum_new = (EditText) findViewById(R.id.documentNum_new);
@@ -215,7 +217,6 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
             if (data != null) {
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
-                    SPUtils.put(DocumentNewActivity.this, IBase.USERID + "vinCode", vin);
                     documentVIN_new.setText(vin);
                     HttpBank.getIntence(DocumentNewActivity.this).httpIsVinExit(vin, vinhandler);
                 }
