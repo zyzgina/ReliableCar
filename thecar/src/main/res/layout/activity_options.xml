@@ -3,27 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView
-        android:id="@+id/message_myself"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:listSelector="@color/white"
-        android:numColumns="3"
-        android:padding="@dimen/common_measure_20sp" />
-
-    <View
-        android:id="@+id/viewMy1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/message_myself"
-        android:background="@color/plain_gray" />
-
     <View
         android:id="@+id/viewMy2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/viewMy1"
         android:layout_marginTop="@dimen/common_measure_20sp"
         android:background="@color/plain_gray" />
 

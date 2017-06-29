@@ -20,6 +20,7 @@ public class UploadBean implements Serializable {
     private String qny_key;//七牛云保存的key
     private String filename;//文件短名
     private String filesize;//文件大小
+    private String userid;
 
     public int getId() {
         return id;
@@ -77,6 +78,14 @@ public class UploadBean implements Serializable {
         this.filesize = filesize;
     }
 
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
     @Override
     public String toString() {
         return "UploadBean{" +
@@ -87,6 +96,7 @@ public class UploadBean implements Serializable {
                 ", qny_key='" + qny_key + '\'' +
                 ", filename='" + filename + '\'' +
                 ", filesize='" + filesize + '\'' +
+                ", userid='" + userid + '\'' +
                 '}';
     }
 }

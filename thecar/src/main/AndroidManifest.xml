@@ -50,6 +50,7 @@
         <activity android:name=".myselfs.MissionActiviy"/>
         <activity android:name=".myselfs.OptionsActivity"/>
         <activity android:name=".myselfs.UserActivity"/>
+        <activity android:name=".myselfs.StatisActivity"/>
         <activity android:name=".supervises.SupervisesActivity" />
         <activity android:name=".myselfs.bindings.BindingsActivity" />
         <activity android:name=".myselfs.files.DocumentActivity" />

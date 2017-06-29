@@ -126,7 +126,7 @@ public class UploadListAdapter extends BaseAdapter {
     }
 
     private void initData() {
-        List<UploadBean> uploadBeens = db.findAll(UploadBean.class);
+        List<UploadBean> uploadBeens = db.findAllByWhere(UploadBean.class, "userid=\"" + IBase.USERID + "\"");
         for (UploadBean uploadBean : uploadBeens) {
             LogUtils.debug(uploadBean.toString());
         }

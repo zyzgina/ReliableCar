@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.VinCodeBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.dialog.LoadingDialog;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
@@ -39,8 +40,12 @@ import com.kaopujinfu.appsys.thecar.loans.LoanFormActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.MineActivity;
 import com.kaopujinfu.appsys.thecar.supervises.SupervisesActivity;
 
+import net.tsz.afinal.FinalDb;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
 
 /**
  * Created by 左丽姬 on 2017/5/12.
@@ -63,6 +68,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         initCarMain();
         setMenu();
         getData();
+        deletVin();
     }
 
     private void initCarMain() {
@@ -275,5 +281,14 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
 
             }
         });
+    }
+
+    /* 判断vin缓存的数据大小，并处理 */
+    private void deletVin(){
+        FinalDb db=FinalDb.create(this,IBase.BASE_DATE,false);
+        List<VinCodeBean> lists=db.findAll(VinCodeBean.class);
+        if(lists.size()>=500){
+            db.deleteAll(VinCodeBean.class);
+        }
     }
 }

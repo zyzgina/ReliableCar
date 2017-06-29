@@ -532,6 +532,7 @@ public class IBaseMethod {
         UploadBean uploadBean = new UploadBean();
         uploadBean.setVinCode(strs[0]);
         uploadBean.setLabel(strs[1]);
+        uploadBean.setUserid(IBase.USERID);
         String pathName = file.getAbsolutePath().replace(FileUtils.getCarUploadPath(), "");
         if (strs[1].contains("文档"))
             uploadBean.setQny_key("BIND_DOC/" + pathName);
