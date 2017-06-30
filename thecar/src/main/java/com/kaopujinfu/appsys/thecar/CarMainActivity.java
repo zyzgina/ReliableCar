@@ -270,14 +270,23 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
             public void onSuccess(Object o) {
                 LogUtils.debug("统计信息:" + o.toString());
                 StatisticsBean bean = StatisticsBean.getStatisticsBean(o.toString());
+                String flag="false";
                 if (bean != null) {
+                    flag="true";
                     EventBus.getDefault().post(bean);
                 }
+                JumpEventBus jumpEventBus=new JumpEventBus();
+                jumpEventBus.setStatus(IBase.RETAIL_FOUR);
+                jumpEventBus.setName(flag);
+                EventBus.getDefault().post(jumpEventBus);
             }
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
-
+                JumpEventBus jumpEventBus=new JumpEventBus();
+                jumpEventBus.setStatus(IBase.RETAIL_FOUR);
+                jumpEventBus.setName("false");
+                EventBus.getDefault().post(jumpEventBus);
             }
         });
     }

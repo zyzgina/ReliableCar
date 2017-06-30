@@ -2,11 +2,15 @@ package com.kaopujinfu.appsys.thecar.myselfs;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
+import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
@@ -15,6 +19,9 @@ import com.kaopujinfu.appsys.thecar.R;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Describe:
@@ -26,13 +33,37 @@ public class UserActivity extends Activity {
     private AvatarView mAvatar;
     private TextView mNameTel, mJob;
     private TwinklingRefreshLayout refreshLayoutMin;
+    public boolean isRefresh = true;
+
+    public Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case IBase.RETAIL_COUNTDOWN:
+                    int time = (int) msg.obj;
+                    if (time == 0)
+                        isRefresh = true;
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        EventBus.getDefault().register(this);
         initUser();
     }
-    private void initUser(){
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    private void initUser() {
         RelativeLayout myselfTop = (RelativeLayout) findViewById(R.id.myselfTop);
         myselfTop.setPadding(0, IBaseMethod.setPaing(this) + getResources().getDimensionPixelOffset(R.dimen.sp50), 0, 0);
         mAvatar = (AvatarView) findViewById(R.id.avatar_myself);
@@ -51,9 +82,9 @@ public class UserActivity extends Activity {
             mNameTel.setText("未设置(未绑手机号)");
             mJob.setText("未加入-未设置");
         }
-        ImageView logoImageview= (ImageView) findViewById(R.id.logoImageview);
+        ImageView logoImageview = (ImageView) findViewById(R.id.logoImageview);
 
-        RelativeLayout rlUser= (RelativeLayout) findViewById(R.id.rlUser);
+        RelativeLayout rlUser = (RelativeLayout) findViewById(R.id.rlUser);
         rlUser.requestLayout();
 
          /* 下拉刷新 */
@@ -68,8 +99,24 @@ public class UserActivity extends Activity {
         refreshLayoutMin.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                refreshLayoutMin.finishRefreshing();
+                if (isRefresh) {
+                    isRefresh = false;
+                    JumpEventBus jumpEventBus = new JumpEventBus();
+                    jumpEventBus.setStatus(IBase.RETAIL_THREE);
+                    EventBus.getDefault().post(jumpEventBus);
+                } else
+                    refreshLayoutMin.finishRefreshing();
             }
         });
+    }
+
+    @Subscribe
+    public void onEventMainThread(JumpEventBus jumpEventBus) {
+        if (jumpEventBus.getStatus()==IBase.RETAIL_FOUR) {
+            refreshLayoutMin.finishRefreshing();
+            if("true".equals(jumpEventBus.getName())){
+                IBaseMethod.jumpCountdown(60, handler);
+            }
+        }
     }
 }
