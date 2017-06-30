@@ -39,6 +39,7 @@ import com.reliablel.voiceproject.VoiceUtils;
 
 import net.tsz.afinal.FinalDb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.kaopujinfu.appsys.thecar.service.BluetoothLeService.ACTION_BLUE_DISCONNECTED;
@@ -242,35 +243,41 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                                     db.update(entity);
                                     VibratorUtil.Vibrate(DeviceControlActivity.this, 30);
                                 }
-                                List<TaskItemBean.TaskItemsEntity> finish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\"");
-                                List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
+                                final List<TaskItemBean.TaskItemsEntity> finish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\"");
+                                final List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
                                 mAlreadynum.setText((finish.size() - nofinish.size()) + "");
                                 mSurplusnum.setText(nofinish.size() + "");
                                 getAddData();
+                                String content = "";
                                 if (nofinish.size() > 0) {
                                     if (status_speek == 0) {
-                                        voiceUtils.startSpeek("盘库成功剩余" + nofinish.size() + "台");
+                                        content = "盘库成功剩余" + nofinish.size() + "台";
                                     } else {
-                                        voiceUtils.startSpeek("该车已盘库");
+                                        content = "该车已盘库";
                                     }
                                 }
-                                if (nofinish.size() == 0) {
-                                    voiceUtils.startSpeek("全部完成辛苦了",new VoiceUtils.SpeekEndListener() {
+                                integerList.add(nofinish.size());
+                                if (nofinish.size() == 0 && num < integerList.size() && integerList.get(num) == 0) {
+                                    voiceUtils.startSpeek("全部完成辛苦了", new VoiceUtils.SpeekEndListener() {
                                         @Override
                                         public void setSpeekEndListener(boolean b) {
-                                            if(b){
+                                            if (b) {
                                                 try {
                                                     Thread.sleep(500);
                                                 } catch (InterruptedException e) {
                                                     e.printStackTrace();
                                                 }
+                                                voiceUtils.releaseSpeek();
                                                 finish();
                                             }
                                         }
                                     });
+                                    return ;
                                 }
+                                goSpeek(content,integerList.get(num),nofinish.size());
                             } else {
-                                voiceUtils.startSpeek("查询失败");
+                                integerList.add(-1);
+                                goSpeek("查询失败",integerList.get(num),1);
                             }
                         }
                     }
@@ -279,6 +286,41 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
             }
         }
     };
+    private int num = 0;
+    private boolean isExit=false;//判断是否退出该界面
+    private List<Integer> integerList = new ArrayList<>();
+
+    private void goSpeek(String content,final int value,final int size){
+        voiceUtils.startSpeek(content, new VoiceUtils.SpeekEndListener() {
+            @Override
+            public void setSpeekEndListener(boolean b) {
+                if (b && value != 0 && size == 0) {
+                    voiceUtils.releaseSpeek();
+                    voiceUtils.initialTts(DeviceControlActivity.this);
+                    voiceUtils.startSpeek("全部完成辛苦了", new VoiceUtils.SpeekEndListener() {
+                        @Override
+                        public void setSpeekEndListener(boolean b) {
+                            if (b) {
+                                try {
+                                    Thread.sleep(500);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                voiceUtils.releaseSpeek();
+                                finish();
+                            }
+                        }
+                    });
+                }
+                if(b&&isExit&&size!=0){
+                    voiceUtils.releaseSpeek();
+                }
+                if (b) {
+                    num++;
+                }
+            }
+        });
+    }
 
     /**
      * 获取已盘数据
@@ -348,7 +390,6 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        voiceUtils.releaseSpeek();
         unregisterReceiver(mBroadcastReceiver);
         unbindService(mServiceConnection);
         mRippleTelView.stopRippleAnimation();
@@ -367,6 +408,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                 public void ok() {
                     mBluetoothLeService.disconnect();
                     mConnected = false;
+                    isExit=true;
                     finish();
                 }
 
