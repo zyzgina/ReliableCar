@@ -184,7 +184,8 @@ public class UploadListAdapter extends BaseAdapter {
                         LogUtils.debug("Upload Success");
                         uploadDate(uploadBean);
                         lists.remove(0);
-                        LogUtils.debug(lists.size() + "_size_" + views.remove(0));
+                        views.remove(0);
+                        LogUtils.debug(lists.size() + "_size_" + views.size());
                         Message message = new Message();
                         message.what = IBase.CONSTANT_THREE;
                         message.obj = lists.size();
@@ -245,11 +246,11 @@ public class UploadListAdapter extends BaseAdapter {
 //                                    LogUtils.debug("上传进度大小：" + size);
                                     percent = percent * 100;
                                     if (size >= file.length()) {
-                                        size = (int) file.length()-2;
-                                        percent=99;
+                                        size = (int) file.length() - 2;
+                                        percent = 99;
                                     }
                                     viewHolder.progressBar.setProgress((int) percent);
-                                    String ps=FileUtils.getSize(size);
+                                    String ps = FileUtils.getSize(size);
 //                                    LogUtils.debug("上传进度："+ps);
                                     viewHolder.progress.setText(ps);
                                 }
