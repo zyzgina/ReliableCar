@@ -16,6 +16,7 @@ public class VinCodeBean implements Serializable {
     private int id;
     private String vinCode;
     private String savetime;
+    private String userid;
 
     public int getId() {
         return id;
@@ -41,12 +42,21 @@ public class VinCodeBean implements Serializable {
         this.savetime = savetime;
     }
 
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
     @Override
     public String toString() {
         return "VinCodeBean{" +
                 "id=" + id +
                 ", vinCode='" + vinCode + '\'' +
                 ", savetime='" + savetime + '\'' +
+                ", userid='" + userid + '\'' +
                 '}';
     }
 }
