@@ -240,12 +240,15 @@ public class UploadListAdapter extends BaseAdapter {
                                 if (view != null) {
                                     //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
                                     UploadListHold viewHolder = (UploadListHold) view.getTag();
+                                    int size = (int) (file.length() * percent);
                                     percent = percent * 100;
-                                    if (percent >= 100) {
-                                        percent = 99;
+                                    if (size >= file.length()) {
+                                        size = (int) file.length()-2;
+                                        percent=99;
                                     }
                                     viewHolder.progressBar.setProgress((int) percent);
-                                    viewHolder.progress.setText((int) percent + "%");
+                                    String ps=FileUtils.getSize(size);
+                                    viewHolder.progress.setText(ps);
                                 }
                             }
                             LogUtils.debug(key + ": " + percent);
@@ -300,7 +303,7 @@ public class UploadListAdapter extends BaseAdapter {
     }
 
     private void uploadDate(UploadBean uploadBean) {
-        LogUtils.debug("进入了上传服务器："+uploadBean.getId());
+        LogUtils.debug("进入了上传服务器：" + uploadBean.getId());
         HttpBank.getIntence(mContext).uploadSuccess(uploadBean.getLabel(),
                 uploadBean.getVinCode(), uploadBean.getQny_key(),
                 uploadBean.getFilename(), uploadBean.getFilesize(), new CallBack() {
