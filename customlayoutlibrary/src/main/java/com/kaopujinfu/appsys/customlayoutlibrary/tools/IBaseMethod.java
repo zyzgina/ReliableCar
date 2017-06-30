@@ -534,18 +534,24 @@ public class IBaseMethod {
         uploadBean.setLabel(strs[1]);
         uploadBean.setUserid(IBase.USERID);
         String pathName = file.getAbsolutePath().replace(FileUtils.getCarUploadPath(), "");
-        if (strs[1].contains("文档"))
+        String fileName = file.getName();
+        if (strs[1].contains("文档")) {
+            if (pathName.contains("文档绑定")) {
+                fileName = fileName.replace("文档绑定", "documentbinding");
+                pathName = pathName.replace("文档绑定", "documentbinding");
+            }
             uploadBean.setQny_key("BIND_DOC/" + pathName);
-        else if (strs[1].contains("监管"))
+        } else if (strs[1].contains("监管")) {
             uploadBean.setQny_key("BIND_DEV/" + pathName);
-        else if (strs[1].contains("VIN"))
+        } else if (strs[1].contains("VIN")) {
             uploadBean.setQny_key("VIN_OCR/" + pathName);
-        else if (strs[1].contains("车辆绑标签")) {
+        } else if (strs[1].contains("车辆绑标签")) {
             uploadBean.setQny_key("BIND_RFID/" + pathName);
         } else {
             uploadBean.setQny_key("PHOTO/" + chinaChangeEn(pathName));
+            fileName = chinaChangeEn(fileName);
         }
-        uploadBean.setFilename(file.getName());
+        uploadBean.setFilename(fileName);
         uploadBean.setFilesize(file.length() + "");
         uploadBean.setLoactionPath(file.getAbsolutePath());
         return uploadBean;
