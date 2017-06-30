@@ -26,8 +26,8 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
  */
 
 public class MapUtils {
-    double longitude = 0;//获取经度
-    double latitude = 0; //获取纬度
+    double longitude = 121.396796;//获取经度
+    double latitude = 31.213455; //获取纬度
     private LoactionListener listener;
     private Context context;
 
