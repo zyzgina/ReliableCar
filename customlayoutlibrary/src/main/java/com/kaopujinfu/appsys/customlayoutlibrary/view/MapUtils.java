@@ -78,14 +78,15 @@ public class MapUtils {
                 if (amapLocation.getErrorCode() == 0) {
                     longitude = amapLocation.getLongitude();
                     latitude = amapLocation.getLatitude();
-                    if (listener != null)
-                        listener.getOnLoactionListener(longitude, latitude);
 //                    LogUtils.debug("locationType:" + longitude + ",latitude:" + latitude);
                 } else {
                     //定位失败，ErrCode：错误码，errInfo：错误信息
                     LogUtils.debug("location Error, ErrCode:" + amapLocation.getErrorCode() + ", errInfo:"
                             + amapLocation.getErrorInfo());
+                    stopLocation();
                 }
+                if (listener != null)
+                    listener.getOnLoactionListener(longitude, latitude);
             }
         }
     };
