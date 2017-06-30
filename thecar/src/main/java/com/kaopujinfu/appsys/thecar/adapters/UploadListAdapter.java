@@ -240,7 +240,9 @@ public class UploadListAdapter extends BaseAdapter {
                                 if (view != null) {
                                     //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
                                     UploadListHold viewHolder = (UploadListHold) view.getTag();
+//                                    LogUtils.debug("上传进度：" + percent + "  总大小:" + file.length() + " 上传了：" + file.length() * percent);
                                     int size = (int) (file.length() * percent);
+//                                    LogUtils.debug("上传进度大小：" + size);
                                     percent = percent * 100;
                                     if (size >= file.length()) {
                                         size = (int) file.length()-2;
@@ -248,6 +250,7 @@ public class UploadListAdapter extends BaseAdapter {
                                     }
                                     viewHolder.progressBar.setProgress((int) percent);
                                     String ps=FileUtils.getSize(size);
+//                                    LogUtils.debug("上传进度："+ps);
                                     viewHolder.progress.setText(ps);
                                 }
                             }
