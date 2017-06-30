@@ -165,9 +165,17 @@ public class FileUtils {
      * @return
      */
     public static String getSize(File file) {
+        return getSize(file.length());
+    }
+    /**
+     * 获取文件大小
+     *
+     * @param fileSize
+     * @return
+     */
+    public static String getSize(long fileSize) {
         DecimalFormat df = new DecimalFormat("#.00");
         String size;
-        long fileSize = file.length();
         if (fileSize < 1024) {
             size = df.format((double) fileSize) + "B";
         } else if (fileSize < 1048576) {
