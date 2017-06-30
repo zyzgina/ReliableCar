@@ -113,7 +113,7 @@ public class UploadListAdapter extends BaseAdapter {
             hold.name.setText(file.getName());
             hold.size.setText(FileUtils.getSize(file));
             hold.progressBar.setProgress(0);
-            hold.progress.setText("0B");
+            hold.progress.setText("0KB");
             view.setTag(R.id.uploadListLayout_item, i);
             views.add(view);
         }
