@@ -166,7 +166,6 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
     private MyListView list_slidingmenu;
     private AvatarView avatar_slidingmenu;
     private TextView tel_slidingmenu;
-    private TextView jodgrade_slidingmenu, integral_slidingmenu;
     private RadioGroup logout_slidingmenu_layout;
     private RadioButton logout_slidingmenu;
     private SimpleListAdapter listAdapter;
@@ -180,8 +179,6 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         list_slidingmenu = (MyListView) findViewById(R.id.list_slidingmenu);
         avatar_slidingmenu = (AvatarView) findViewById(R.id.avatar_slidingmenu);
         tel_slidingmenu = (TextView) findViewById(R.id.tel_slidingmenu);
-        integral_slidingmenu = (TextView) findViewById(R.id.integral_slidingmenu);
-        jodgrade_slidingmenu = (TextView) findViewById(R.id.jodgrade_slidingmenu);
         String o = SPUtils.get(CarMainActivity.this, "loginUser", "").toString();
         Loginbean user = Loginbean.getLoginbean(o);
         if (user != null) {
