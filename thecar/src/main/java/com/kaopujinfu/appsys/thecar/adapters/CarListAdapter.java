@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.bean.CarListBean;
 import com.kaopujinfu.appsys.thecar.bean.DocumentHold;
@@ -111,7 +112,10 @@ public class CarListAdapter extends BaseExpandableListAdapter {
         hold.distributor.setText(item.getDlrLongName());
         hold.number.setText(item.getStartTime());
         hold.vin.setText(item.getVinNo());
-        hold.state.setText(item.getCarBrand() + "/" + item.getCarSubBrand());
+        String strs = item.getCarBrand() + "/" + item.getCarSubBrand();
+        if (GeneralUtils.isEmpty(item.getCarBrand()))
+            strs = "未知品牌";
+        hold.state.setText(strs);
         hold.state.setTextColor(mContext.getResources().getColor(R.color.back_gray));
         hold.state.setPadding(2, 0, 0, 0);
         hold.state.setBackgroundColor(mContext.getResources().getColor(R.color.white));
@@ -214,6 +218,7 @@ public class CarListAdapter extends BaseExpandableListAdapter {
         }
         notifyDataSetChanged();
     }
+
     /**
      * 清空数据
      */

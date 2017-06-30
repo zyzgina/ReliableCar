@@ -55,7 +55,10 @@ public class SuperviseDetailsAdapter extends BaseAdapter {
             holder = (Holder) view.getTag();
         }
         SupervicerDetailsBean.SupDetailsItemsEntity itemsEntity = itemsEntities.get(i);
-        holder.name.setText(itemsEntity.getCarBrand());
+        String strs = itemsEntity.getCarBrand();
+        if (GeneralUtils.isEmpty(itemsEntity.getCarBrand()))
+            strs = "未知品牌";
+        holder.name.setText(strs);
         holder.vin.setText(itemsEntity.getVinNo());
         if (GeneralUtils.isEmpty(itemsEntity.getVinStatus()))
             itemsEntity.setVinStatus("0");

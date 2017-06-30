@@ -62,7 +62,10 @@ public class ChecksdetailsAdapter extends BaseAdapter {
         hodler.mVincode.setVisibility(View.VISIBLE);
 
         TaskItemBean.TaskItemsEntity entity = itemsEntities.get(position);
-        hodler.mCompanyname.setText(entity.getCarBrand());
+        String strs = entity.getCarBrand();
+        if (GeneralUtils.isEmpty(entity.getCarBrand()))
+            strs = "未知品牌";
+        hodler.mCompanyname.setText(strs);
 
         if (!GeneralUtils.isEmpty(entity.getVinNo()))
             hodler.mVincode.setText(entity.getVinNo());
