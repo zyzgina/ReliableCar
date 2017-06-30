@@ -52,7 +52,7 @@ public class DistributorActivity extends Activity implements View.OnClickListene
     private MapUtils mapUtils;
     private double longitude, latitude;
     private LoadingDialog dialog;
-    private TextView mNodata;
+    private LinearLayout mNodata;
     private FinalDb db;
     private DistributorGpsAdapter mGpsAdapter;
     private BusinessAdapter mAdapter;
@@ -123,9 +123,10 @@ public class DistributorActivity extends Activity implements View.OnClickListene
                 selBack(gpsEntity);
             }
         });
-        mNodata = (TextView) findViewById(R.id.no_date_text);
-        mNodata.setText("暂无数据");
+        mNodata = (LinearLayout) findViewById(R.id.ll_nodate);
         mNodata.setVisibility(View.GONE);
+        TextView mNoDateTv = (TextView) findViewById(R.id.no_date_text);
+        mNoDateTv.setText("未找到经销商");
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ public class MissionListsActivity extends BaseNoScoActivity {
 
     private MyselfMissionAdapter missionAdapter;
     private ListView mLists;
-    private TextView mNodate;
+    private LinearLayout mNodate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,9 +85,10 @@ public class MissionListsActivity extends BaseNoScoActivity {
                 startActivity(intent);
             }
         });
-        mNodate = (TextView) findViewById(R.id.no_date_text);
-        mNodate.setText("暂无任务");
+        mNodate = (LinearLayout) findViewById(R.id.ll_nodate);
         mNodate.setVisibility(View.GONE);
+        TextView mNoDateTv = (TextView) findViewById(R.id.no_date_text);
+        mNoDateTv.setText("暂无任务");
     }
 
     /**
