@@ -78,7 +78,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         //6.0获取权限
         boolean isForthefirstime = (boolean) SPUtils.get(this, "isForthefirstime", true);
         if (isForthefirstime)
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH,Manifest.permission.RECORD_AUDIO}, 1);
         initLogin();
         autoLogin();
     }
