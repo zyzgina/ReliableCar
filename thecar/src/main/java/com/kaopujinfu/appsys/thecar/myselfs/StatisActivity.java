@@ -94,7 +94,10 @@ public class StatisActivity extends Activity {
         cOtherText.setVisibility(View.GONE);
         cMyselMsg.setColorRes(cColorRes);
         cVinmyselMsg.setColorRes(cColorRes1);
-
+        dMyselMsg.startDraw();
+        sMyselMsg.startDraw();
+        cMyselMsg.startDraw();
+        cVinmyselMsg.startDraw();
     }
 
     @Override
@@ -142,8 +145,8 @@ public class StatisActivity extends Activity {
         cNormalText.setText("RFID: " + (int) cDatas1[0]);
         cAbnormalText.setText("VIN: " + (int) cDatas[0]);
         cMyselMsg.setDatas(cDatas);
-        cMyselMsg.startDraw();
         cVinmyselMsg.setDatas(cDatas1);
+        cMyselMsg.startDraw();
         cVinmyselMsg.startDraw();
     }
 }
