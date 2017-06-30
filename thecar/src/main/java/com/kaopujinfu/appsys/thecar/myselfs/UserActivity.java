@@ -2,6 +2,7 @@ package com.kaopujinfu.appsys.thecar.myselfs;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,5 +47,6 @@ public class UserActivity extends Activity {
             mNameTel.setText("未设置(未绑手机号)");
             mJob.setText("未加入-未设置");
         }
+        ImageView logoImageview= (ImageView) findViewById(R.id.logoImageview);
     }
 }
