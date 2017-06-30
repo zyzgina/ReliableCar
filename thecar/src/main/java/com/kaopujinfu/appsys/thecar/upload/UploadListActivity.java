@@ -53,8 +53,21 @@ public class UploadListActivity extends BaseNoScoActivity {
                     flag = true;
                     break;
                 case IBase.CONSTANT_TWO:
-                    top_btn.setText("开始上传");
+                    String str = top_btn.getText().toString();
+                    if (str.length()>4) {
+                        str = str.substring(4, str.length());
+                        top_btn.setText("开始上传"+str);
+                    } else
+                        top_btn.setText("开始上传");
                     flag = true;
+                    break;
+                case IBase.CONSTANT_THREE:
+                    //显示按钮数据
+                    int nums = (int) msg.obj;
+                    String string = top_btn.getText().toString();
+                    if (string.length()>4)
+                        string = string.substring(0, 4);
+                    top_btn.setText(string + "(" + nums + ")");
                     break;
             }
         }
@@ -99,14 +112,23 @@ public class UploadListActivity extends BaseNoScoActivity {
                         IBaseMethod.showNetToast(UploadListActivity.this);
                         return;
                     }
+                    String str = top_btn.getText().toString();
                     if (flag) {
                         flag = false;
-                        top_btn.setText("全部暂停");
+                        if (str.length()>4) {
+                            str = str.substring(4, str.length());
+                            top_btn.setText("全部暂停"+str);
+                        } else
+                            top_btn.setText("全部暂停");
                         mAdapter.notifyDataSetChanged();
                         mAdapter.uploadFile(uploadManager);
                     } else {
                         flag = true;
-                        top_btn.setText("全部开始");
+                        if (str.length()>4) {
+                            str = str.substring(4, str.length());
+                            top_btn.setText("开始上传"+str);
+                        } else
+                            top_btn.setText("开始上传");
                     }
                     mAdapter.setUpload(flag);
                 }
