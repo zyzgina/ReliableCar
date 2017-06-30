@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/viewMy2"
         android:background="@color/white"
-        android:drawableLeft="@drawable/tabbar_icon_home_normal"
+        android:drawableLeft="@drawable/my_icon_operation"
         android:drawablePadding="@dimen/common_measure_10sp"
         android:gravity="center_vertical"
         android:padding="@dimen/common_measure_20sp"
