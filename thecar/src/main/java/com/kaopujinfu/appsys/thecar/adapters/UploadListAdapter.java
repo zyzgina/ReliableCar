@@ -110,7 +110,7 @@ public class UploadListAdapter extends BaseAdapter {
             } else {
                 finalBitmap.display(hold.icon, "file://" + file.getAbsolutePath());
             }
-            hold.name.setText(file.getName());
+            hold.name.setText(uploadBean.getFilename());
             hold.size.setText(FileUtils.getSize(file));
             hold.progressBar.setProgress(0);
             hold.progress.setText("0KB");
