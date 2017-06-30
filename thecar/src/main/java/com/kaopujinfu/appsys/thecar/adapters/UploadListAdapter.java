@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,6 +144,10 @@ public class UploadListAdapter extends BaseAdapter {
             }
         });
         lists = uploadBeens;
+        Message message = new Message();
+        message.what = IBase.CONSTANT_THREE;
+        message.obj = lists.size();
+        handler.sendMessage(message);
     }
 
     class UploadListHold {
@@ -177,29 +182,17 @@ public class UploadListAdapter extends BaseAdapter {
                     //res包含hash、key等信息，具体字段取决于上传策略的设置
                     if (info.isOK()) {
                         LogUtils.debug("Upload Success");
+                        uploadDate(uploadBean);
                         lists.remove(0);
                         LogUtils.debug(lists.size() + "_size_" + views.remove(0));
+                        Message message = new Message();
+                        message.what = IBase.CONSTANT_THREE;
+                        message.obj = lists.size();
+                        handler.sendMessage(message);
                         if (lists.size() == 0) {
                             handler.sendEmptyMessage(IBase.CONSTANT_ONE);
                         }
                         notifyDataSetChanged();
-                        HttpBank.getIntence(mContext).uploadSuccess(uploadBean.getLabel(),
-                                uploadBean.getVinCode(), uploadBean.getQny_key(),
-                                uploadBean.getFilename(), uploadBean.getFilesize(), new CallBack() {
-                                    @Override
-                                    public void onSuccess(Object o) {
-                                        LogUtils.debug("上传" + o.toString());
-                                        Result result = Result.getMcJson(o.toString());
-                                        if (result.isSuccess() && lists.size() == 0) {
-                                            IBaseMethod.showToast(mContext, "上传完成", IBase.RETAIL_ONE);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(int errorNo, String strMsg) {
-                                        IBaseMethod.showToast(mContext, "上传出错", IBase.RETAIL_ZERO);
-                                    }
-                                });
                         db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
                     } else {
                         LogUtils.debug("Upload Fail " + file.exists());
@@ -304,6 +297,27 @@ public class UploadListAdapter extends BaseAdapter {
 
     public void delSql() {
         db.deleteAll(UploadBean.class);
+    }
+
+    private void uploadDate(UploadBean uploadBean) {
+        LogUtils.debug("进入了上传服务器："+uploadBean.getId());
+        HttpBank.getIntence(mContext).uploadSuccess(uploadBean.getLabel(),
+                uploadBean.getVinCode(), uploadBean.getQny_key(),
+                uploadBean.getFilename(), uploadBean.getFilesize(), new CallBack() {
+                    @Override
+                    public void onSuccess(Object o) {
+                        LogUtils.debug("上传" + o.toString());
+                        Result result = Result.getMcJson(o.toString());
+                        if (result.isSuccess() && lists.size() == 0) {
+                            IBaseMethod.showToast(mContext, "上传完成", IBase.RETAIL_ONE);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int errorNo, String strMsg) {
+                        IBaseMethod.showToast(mContext, "上传出错", IBase.RETAIL_ZERO);
+                    }
+                });
     }
 
 }
