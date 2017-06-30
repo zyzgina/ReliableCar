@@ -394,6 +394,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
         unbindService(mServiceConnection);
         mRippleTelView.stopRippleAnimation();
         mCommitrippleTelView.stopRippleAnimation();
+        mapUtils.stopLocation();
     }
 
     /**
