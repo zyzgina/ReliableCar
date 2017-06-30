@@ -20,6 +20,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.TaskItemBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
+import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
@@ -36,6 +37,8 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 
 import net.tsz.afinal.FinalDb;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -271,6 +274,11 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
                 }
                 if (result.isSuccess()) {
                     top_btn.setText("提交(0)");
+                    //通知首页统计数据发改变
+                    JumpEventBus jumpEventBus=new JumpEventBus();
+                    jumpEventBus.setStatus(IBase.RETAIL_THREE);
+                    EventBus.getDefault().post(jumpEventBus);
+
                     if (flagCommit) {
                         getDate();
                     }

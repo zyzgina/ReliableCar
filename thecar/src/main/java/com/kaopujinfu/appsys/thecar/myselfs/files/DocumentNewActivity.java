@@ -22,6 +22,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.activitys.ContinuityCameraActiv
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.ScannerActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
+import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogCameraListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
@@ -39,6 +40,8 @@ import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.DocumentNewImagesAdapter;
 
 import net.tsz.afinal.FinalDb;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.Calendar;
@@ -256,6 +259,11 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                     if (lists.size() > 0) {
                         IBaseMethod.saveDateLoaction(db, lists, documentVIN_new.getText().toString(), "文档绑定");
                     }
+                    //通知首页统计数据发改变
+                    JumpEventBus jumpEventBus = new JumpEventBus();
+                    jumpEventBus.setStatus(IBase.RETAIL_THREE);
+                    EventBus.getDefault().post(jumpEventBus);
+
                     Intent intent = new Intent(DocumentNewActivity.this, DocumentCommitActivity.class);
                     intent.putExtra("success", IBase.CONSTANT_ZERO);
                     startActivity(intent);
@@ -372,19 +380,19 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
             if (isVin) {
                 vinVerfiydocumentVIN.setVisibility(View.GONE);
                 String vin = documentVIN_new.getText().toString();
-                if (vin.length() >17) {
+                if (vin.length() > 17) {
                     vin = vin.substring(0, 17);
                     documentVIN_new.setText(vin);
                     documentVIN_new.setSelection(vin.length());
                 }
-                if(vin.length()==17) {
+                if (vin.length() == 17) {
                     if (VINutils.checkVIN(vin)) {
                         vinVerfiydocumentVIN.setVisibility(View.GONE);
                         HttpBank.getIntence(DocumentNewActivity.this).httpIsVinExit(vin, vinhandler);
                     } else {
                         vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     vinVerfiydocumentVIN.setVisibility(View.GONE);
                 }
 

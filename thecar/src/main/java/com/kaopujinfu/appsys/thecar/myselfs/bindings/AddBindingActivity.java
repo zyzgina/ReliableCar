@@ -25,6 +25,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VideoRecordActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
+import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
@@ -40,6 +41,8 @@ import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
 
 import net.tsz.afinal.FinalDb;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -155,6 +158,11 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
                 LogUtils.debug("绑定小圆盘:" + o.toString());
                 Result result = Result.getMcJson(o.toString());
                 if (result != null && result.isSuccess()) {
+                    //通知首页统计数据发改变
+                    JumpEventBus jumpEventBus = new JumpEventBus();
+                    jumpEventBus.setStatus(IBase.RETAIL_THREE);
+                    EventBus.getDefault().post(jumpEventBus);
+
                     showDialog();
                 } else {
                     if (result != null)
@@ -292,19 +300,19 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
             if (isVin) {
                 vinVerfiydocumentVIN.setVisibility(View.GONE);
                 String vin = documentVIN_new.getText().toString();
-                if (vin.length() >17) {
+                if (vin.length() > 17) {
                     vin = vin.substring(0, 17);
                     documentVIN_new.setText(vin);
                     documentVIN_new.setSelection(vin.length());
                 }
-                if(vin.length()==17) {
+                if (vin.length() == 17) {
                     if (VINutils.checkVIN(vin)) {
                         vinVerfiydocumentVIN.setVisibility(View.GONE);
                         HttpBank.getIntence(AddBindingActivity.this).httpIsVinExit(vin, vinhandler);
                     } else {
                         vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     vinVerfiydocumentVIN.setVisibility(View.GONE);
                 }
 

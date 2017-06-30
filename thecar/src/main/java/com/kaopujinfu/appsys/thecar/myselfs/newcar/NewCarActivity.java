@@ -26,6 +26,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.adpater.BrandAdapter;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.BrandBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.DistributorGpsBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
+import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
@@ -42,6 +43,7 @@ import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
 
 import net.tsz.afinal.FinalDb;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -608,6 +610,12 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                 if (result != null && result.isSuccess()) {
                     SPUtils.put(NewCarActivity.this, IBase.USERID + "vinCode", vincode);
                     IBaseMethod.showToast(NewCarActivity.this, "提交成功", IBase.RETAIL_ONE);
+
+                    //通知首页统计数据发改变
+                    JumpEventBus jumpEventBus = new JumpEventBus();
+                    jumpEventBus.setStatus(IBase.RETAIL_THREE);
+                    EventBus.getDefault().post(jumpEventBus);
+
                     Intent intent = new Intent(NewCarActivity.this, DocumentCommitActivity.class);
                     intent.putExtra("success", IBase.CONSTANT_THREE);
                     startActivity(intent);

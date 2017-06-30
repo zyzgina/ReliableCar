@@ -259,6 +259,8 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
             } else {
                 id_drawerlayout.openDrawer(Gravity.LEFT);
             }
+        }else if(jumpEventBus.getStatus()==IBase.RETAIL_THREE){
+            getData();
         }
     }
 
