@@ -287,14 +287,14 @@ public class HttpBank {
     public void httpIsVinExit(final String vinCode, final Handler handler) {
         final FinalDb db = FinalDb.create(context, IBase.BASE_DATE, false);
         //查找数据库中是否存在
-        List<VinCodeBean> lists = db.findAllByWhere(VinCodeBean.class, "vinCode=\"" + vinCode + "\"");
+        List<VinCodeBean> lists = db.findAllByWhere(VinCodeBean.class, "vinCode=\"" + vinCode + "\" and userid=\"" + IBase.USERID + "\"");
         if (lists.size() > 0) {
             SPUtils.put(context, IBase.USERID + "vinCode", vinCode);
             Message message = new Message();
             message.what = IBase.CONSTANT_TEN;
             message.obj = true;
             handler.sendMessage(message);
-            return ;
+            return;
         }
         AjaxParams params = bankAjaxParams.ajaxIsVin("VIN_CHECK", vinCode);
         IBaseMethod.post(context, IBaseUrl.URL_CAR, params, new CallBack() {
@@ -311,6 +311,7 @@ public class HttpBank {
                 } else {
                     VinCodeBean vinCodeBean = new VinCodeBean();
                     vinCodeBean.setVinCode(vinCode);
+                    vinCodeBean.setUserid(IBase.USERID);
                     vinCodeBean.setSavetime(DateUtil.getSimpleDateYYYYMMDD(System.currentTimeMillis()));
                     db.save(vinCodeBean);
                     SPUtils.put(context, IBase.USERID + "vinCode", vinCode);
