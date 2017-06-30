@@ -12,6 +12,9 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView;
 import com.kaopujinfu.appsys.thecar.R;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 
 /**
  * Describe:
@@ -22,6 +25,7 @@ import com.kaopujinfu.appsys.thecar.R;
 public class UserActivity extends Activity {
     private AvatarView mAvatar;
     private TextView mNameTel, mJob;
+    private TwinklingRefreshLayout refreshLayoutMin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,5 +52,24 @@ public class UserActivity extends Activity {
             mJob.setText("未加入-未设置");
         }
         ImageView logoImageview= (ImageView) findViewById(R.id.logoImageview);
+
+        RelativeLayout rlUser= (RelativeLayout) findViewById(R.id.rlUser);
+        rlUser.requestLayout();
+
+         /* 下拉刷新 */
+        refreshLayoutMin = (TwinklingRefreshLayout) findViewById(R.id.refreshLayoutMin);
+        refreshLayoutMin.setEnableLoadmore(false);
+        ProgressLayout progressLayout = new ProgressLayout(this);
+        progressLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light,
+                android.R.color.holo_orange_light, android.R.color.holo_green_light);
+        refreshLayoutMin.setHeaderView(progressLayout);
+//        refreshLayoutMin.setEnableOverScroll(true);//是否越界弹回
+        refreshLayoutMin.setFloatRefresh(true);//悬浮刷新
+        refreshLayoutMin.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                refreshLayoutMin.finishRefreshing();
+            }
+        });
     }
 }

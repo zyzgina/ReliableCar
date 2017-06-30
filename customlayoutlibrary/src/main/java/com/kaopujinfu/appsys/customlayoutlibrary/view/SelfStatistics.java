@@ -22,11 +22,11 @@ import java.util.List;
 public class SelfStatistics extends View {
     private Paint paint;
     //对外提供注入数据的变量
-    private float[] datas;
+    private float[] datas={10};
     //自定义view内部存储数据信息
     private List<Infos> listDatas = new ArrayList<>();
     //默认统计图的颜色配置 如果数据大于4 则颜色轮询
-    private String colorRes[];
+    private String colorRes[]={"#D3D3D3"};
     private int mPanelWidth;
     private String stringText = "车辆监管";
 

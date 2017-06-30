@@ -1,69 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlUser"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <ImageView
-        android:id="@+id/logoImageview"
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/refreshLayoutMin"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/common_measure_559sp"
-        android:scaleType="fitXY"
-        android:src="@drawable/my_background" />
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
-    <RelativeLayout
-        android:id="@+id/myselfTop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/logoImageview"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_559sp"
+            android:scaleType="fitXY"
+            android:src="@drawable/my_background" />
 
-
-        <TextView
-            android:layout_width="@dimen/common_measure_250sp"
-            android:layout_height="@dimen/common_measure_250sp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/common_measure_20sp"
-            android:background="@drawable/white_transparent" />
-
-        <TextView
-            android:layout_width="@dimen/common_measure_230sp"
-            android:layout_height="@dimen/common_measure_230sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/common_measure_30sp"
-            android:background="@drawable/white_half_transparent" />
-
-        <com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView
-            android:id="@+id/avatar_myself"
-            android:layout_width="@dimen/common_measure_200sp"
-            android:layout_height="@dimen/common_measure_200sp"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/common_measure_45sp"
-            android:src="@drawable/avatar_head" />
-
-        <TextView
-            android:id="@+id/nametel_myself"
-            style="@style/textview_color_singleLine_white_size17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/avatar_myself"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/common_measure_10sp"
-            android:layout_marginRight="@dimen/common_measure_10sp"
-            android:text="张皓然(15173150523)" />
+        <RelativeLayout
+            android:id="@+id/myselfTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-        <TextView
-            android:id="@+id/job_myself"
-            style="@style/textview_color_singleLine_white_size17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nametel_myself"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/common_measure_30sp"
-            android:layout_marginLeft="@dimen/common_measure_10sp"
-            android:layout_marginRight="@dimen/common_measure_10sp"
-            android:layout_marginTop="@dimen/common_measure_10sp"
-            android:text="上海申协日产专营店-销售专员" />
-    </RelativeLayout>
+            <TextView
+                android:layout_width="@dimen/common_measure_250sp"
+                android:layout_height="@dimen/common_measure_250sp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/common_measure_20sp"
+                android:background="@drawable/white_transparent" />
+
+            <TextView
+                android:layout_width="@dimen/common_measure_230sp"
+                android:layout_height="@dimen/common_measure_230sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/common_measure_30sp"
+                android:background="@drawable/white_half_transparent" />
+
+            <com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView
+                android:id="@+id/avatar_myself"
+                android:layout_width="@dimen/common_measure_200sp"
+                android:layout_height="@dimen/common_measure_200sp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/common_measure_45sp"
+                android:src="@drawable/avatar_head" />
+
+            <TextView
+                android:id="@+id/nametel_myself"
+                style="@style/textview_color_singleLine_white_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/avatar_myself"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/common_measure_10sp"
+                android:layout_marginRight="@dimen/common_measure_10sp"
+                android:text="张皓然(15173150523)" />
+
+
+            <TextView
+                android:id="@+id/job_myself"
+                style="@style/textview_color_singleLine_white_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nametel_myself"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/common_measure_30sp"
+                android:layout_marginLeft="@dimen/common_measure_10sp"
+                android:layout_marginRight="@dimen/common_measure_10sp"
+                android:layout_marginTop="@dimen/common_measure_10sp"
+                android:text="上海申协日产专营店-销售专员" />
+        </RelativeLayout>
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 </RelativeLayout>
