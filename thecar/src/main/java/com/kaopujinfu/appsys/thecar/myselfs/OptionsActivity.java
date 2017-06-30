@@ -58,7 +58,7 @@ public class OptionsActivity extends Activity {
             case IBase.CONSTANT_ZERO:
                 intent.setClass(OptionsActivity.this, CarListActivity.class);
                 break;
-            case IBase.CONSTANT_ONE:
+            case IBase.CONSTANT_THREE:
                     /* 文档收录 */
                 intent.setClass(OptionsActivity.this, DocumentActivity.class);
                 break;
@@ -66,7 +66,7 @@ public class OptionsActivity extends Activity {
                     /* 监管器绑定 */
                 intent.setClass(OptionsActivity.this, BindingsActivity.class);
                 break;
-            case IBase.CONSTANT_THREE:
+            case IBase.CONSTANT_ONE:
                     /* 车辆绑标签 */
                 intent.setClass(OptionsActivity.this, LableActivity.class);
                 break;
