@@ -116,14 +116,11 @@ public class StatisActivity extends Activity {
             sDatas[0] = statisticsBean.getDocCount();
             sDatas[1] = statisticsBean.getDocRelease();
             sDatas[2] = statisticsBean.getCarTotal() - statisticsBean.getDocCount() - statisticsBean.getDocRelease();
-
+            cDatas[0] = statisticsBean.getRfidScan();
+            cDatas[1] = statisticsBean.getVinScan();
             if (statisticsBean.getCarCount() >= (statisticsBean.getRfidScan() + statisticsBean.getVinScan())) {
-                cDatas[0] = statisticsBean.getRfidScan();
-                cDatas[1] = statisticsBean.getVinScan();
                 cDatas[2] = statisticsBean.getCarCount() - statisticsBean.getRfidScan() - statisticsBean.getVinScan();
             } else {
-                cDatas[0] = 0;
-                cDatas[1] = 0;
                 cDatas[2] = statisticsBean.getCarCount();
             }
             if (statisticsBean.getCarCount() == 0) {
@@ -154,9 +151,6 @@ public class StatisActivity extends Activity {
         cNormalText.setText("RFID: " + (int) cDatas[0]);
         cAbnormalText.setText("VIN: " + (int) cDatas[1]);
         cOtherText.setText("待完成: " + (int) cDatas[2]);
-        if(cDatas[0]==0&&cDatas[1]==0&&cDatas[2]==0){
-            cDatas[2]=1;
-        }
         cMyselMsg.setDatas(cDatas);
         cMyselMsg.setColorRes(cColorRes);
         cMyselMsg.startDraw();
