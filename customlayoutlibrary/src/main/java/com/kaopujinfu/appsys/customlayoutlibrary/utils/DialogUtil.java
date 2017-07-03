@@ -149,7 +149,7 @@ public class DialogUtil {
             b_ok_prompt.setText(strings[1]);
             b_cancel_prompt.setText("");
             b_view.setVisibility(View.GONE);
-            b_ok_prompt.setBackgroundResource(R.drawable.button_circular5_blue);
+            b_ok_prompt.setBackgroundResource(R.drawable.button_circular5_car_theme);
             b_ok_prompt.setTextColor(context.getResources().getColor(R.color.white));
             b_view_prompt.setVisibility(View.VISIBLE);
         } else if (strings.length == 3) {
