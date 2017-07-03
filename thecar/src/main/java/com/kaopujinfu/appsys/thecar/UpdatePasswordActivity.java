@@ -1,5 +1,6 @@
 package com.kaopujinfu.appsys.thecar;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,8 +21,10 @@ import com.kaopujinfu.appsys.customlayoutlibrary.listener.ShowPasswordListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
-import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpUser;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 
 /**
  * 修改密码
@@ -101,22 +104,26 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
             return;
         }
         uHandler.sendEmptyMessage(IBase.RETAIL_THREE);
-        updateCommit(oldpassword, password, passtwo);
+        updateCommit(oldpassword, password);
     }
 
     /**
      * 表单提交
      */
-    private void updateCommit(String oldPassword, String newPassword, String newPassword2) {
+    private void updateCommit(String oldPassword, String newPassword) {
         dialog.show();
         dialog.setLoadingTitle("正在修改密码...");
-        HttpUser.getIntence(this).updatePassword(oldPassword, newPassword, newPassword2, new CallBack<Object>() {
+        HttpBank.getIntence(this).updatePassword(oldPassword, newPassword, new CallBack<Object>() {
             @Override
             public void onSuccess(Object o) {
                 dialog.dismiss();
+                LogUtils.debug("修改密码:"+o.toString());
                 Result result = Result.getMcJson(o.toString());
                 IBaseMethod.showToast(UpdatePasswordActivity.this, result.getComment(), IBase.RETAIL_ONE);
                 if (result.isSuccess()) {
+                    SPUtils.remove(UpdatePasswordActivity.this, "login_user_password");
+                    Intent intent = new Intent(UpdatePasswordActivity.this, LoginActivity.class);
+                    startActivity(intent);
                     finish();
                 }
             }
