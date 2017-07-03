@@ -14,10 +14,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
@@ -62,9 +65,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     //软件盘弹起后所占高度阀值
     private int keyHeight = 0;
     RelativeLayout showKeyLog;
-    LinearLayout ipLinear;
+    RelativeLayout ipLinear;
     EditText ip_login;
     boolean flag = false;
+    private LinearLayout addrssLinear;
+    private CheckBox ipshow_login;
+    private TextView testTv, productionTv;
+    private FrameLayout testAddress, productionAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +90,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         boolean isForthefirstime = (boolean) SPUtils.get(this, "isForthefirstime", true);
         if (isForthefirstime)
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH, Manifest.permission.RECORD_AUDIO}, 1);
+        initIp();
         initLogin();
         autoLogin();
     }
@@ -111,7 +119,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         ContentRl = (RelativeLayout) findViewById(R.id.ContentRl);
         logo_login = (ImageView) findViewById(R.id.logo_login);
 
-        ipLinear = (LinearLayout) findViewById(R.id.ipLinear);
+        ipLinear = (RelativeLayout) findViewById(R.id.ipLinear);
         ip_login = (EditText) findViewById(R.id.ip_login);
         ip_login.setText(urlPath);
         ip_login.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -160,10 +168,36 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         showKeyLog.setVisibility(View.VISIBLE);
                         break;
                     case IMMListenerRelativeLayout.KEYBOARD_STATE_SHOW://软键盘显示
+                        addrssLinear.setVisibility(View.GONE);
+                        ipshow_login.setChecked(false);
                         showKeyLog.setVisibility(View.GONE);
                         break;
                     default:
                         break;
+                }
+            }
+        });
+        testAddress.setOnClickListener(this);
+        productionAddress.setOnClickListener(this);
+    }
+    private void initIp(){
+        ipshow_login = (CheckBox) findViewById(R.id.ipshow_login);
+        addrssLinear = (LinearLayout) findViewById(R.id.addrssLinear);
+        testTv = (TextView) findViewById(R.id.testTv);
+        productionTv = (TextView) findViewById(R.id.productionTv);
+        testAddress = (FrameLayout) findViewById(R.id.testAddress);
+        productionAddress = (FrameLayout) findViewById(R.id.productionAddress);
+        ipshow_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    setFocusable();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm.isActive())
+                        imm.hideSoftInputFromWindow(buttonView.getWindowToken(), 0); //强制隐藏键盘
+                    addrssLinear.setVisibility(View.VISIBLE);
+                }else{
+                    addrssLinear.setVisibility(View.GONE);
                 }
             }
         });
@@ -206,6 +240,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }
             });
 
+        }else if(i==R.id.testAddress){
+            ip_login.setText(testTv.getText().toString());
+            ipshow_login.setChecked(false);
+            addrssLinear.setVisibility(View.GONE);
+        }else if(i==R.id.productionAddress){
+            ip_login.setText(productionTv.getText().toString());
+            ipshow_login.setChecked(false);
+            addrssLinear.setVisibility(View.GONE);
         }
     }
 
