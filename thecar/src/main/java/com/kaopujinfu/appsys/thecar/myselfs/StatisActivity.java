@@ -151,6 +151,9 @@ public class StatisActivity extends Activity {
         cNormalText.setText("RFID: " + (int) cDatas[0]);
         cAbnormalText.setText("VIN: " + (int) cDatas[1]);
         cOtherText.setText("待完成: " + (int) cDatas[2]);
+        if(cDatas[0]==0&&cDatas[1]==0&&cDatas[2]==0){
+            cDatas[2]=1;
+        }
         cMyselMsg.setDatas(cDatas);
         cMyselMsg.setColorRes(cColorRes);
         cMyselMsg.startDraw();
