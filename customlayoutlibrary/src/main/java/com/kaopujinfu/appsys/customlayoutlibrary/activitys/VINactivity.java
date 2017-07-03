@@ -73,8 +73,8 @@ import java.util.TimerTask;
 public class VINactivity extends Activity implements SurfaceHolder.Callback, Camera.PreviewCallback {
     private String PATH = FileUtils.getLogFilePath() + "VinCode/";
 
-    //    private static final String UsrID = "7D0408988D72F47C2166";//
-    private static final String UsrID = "7332DBAFD2FD18301EF6";
+    private static final String UsrID = "7D0408988D72F47C2166";//
+//    private static final String UsrID = "7332DBAFD2FD18301EF6";
     private Camera mycamera;
     private VinViewfinderView myView;
 
@@ -1055,7 +1055,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
             List<TaskItemBean.TaskItemsEntity> finish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\"");
             List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
             num_vin.setText("今日盘点" + (finish.size() - nofinish.size()) + "台，还剩" + nofinish.size() + "台");
-            if(nofinish.size()>0) {
+            if (nofinish.size() > 0) {
                 if (status_speek == 0) {
                     voiceUtils.startSpeek("盘库成功剩余" + nofinish.size() + "台");
                 } else {
@@ -1063,10 +1063,10 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                 }
             }
             if (nofinish.size() == 0) {
-                voiceUtils.startSpeek("全部完成辛苦了",new VoiceUtils.SpeekEndListener() {
+                voiceUtils.startSpeek("全部完成辛苦了", new VoiceUtils.SpeekEndListener() {
                     @Override
                     public void setSpeekEndListener(boolean b) {
-                        if(b){
+                        if (b) {
                             try {
                                 Thread.sleep(500);
                             } catch (InterruptedException e) {
