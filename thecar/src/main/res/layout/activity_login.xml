@@ -226,7 +226,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom|center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <TextView
             style="@style/textview_color_gray_singleLine_size17"
@@ -236,7 +237,7 @@
 
         <TextView
             android:id="@+id/version_addr"
-            style="@style/textview_color_gray_singleLine_size17"
+            style="@style/textview_color_gray_size15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/common_measure_20sp"
