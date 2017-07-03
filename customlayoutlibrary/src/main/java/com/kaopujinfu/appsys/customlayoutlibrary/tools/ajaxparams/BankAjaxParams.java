@@ -53,6 +53,20 @@ public class BankAjaxParams {
 
 
     /**
+     * 修改密码
+     *
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    public AjaxParams updatePassword(String oldPassword, String newPassword) {
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", "MODIFY_PASSWORD"); // 方法名，固定值：MODIFY_PWD
+        params.put("old_password", oldPassword); // 旧密码
+        params.put("new_password", newPassword); // 新密码
+        return params;
+    }
+    /**
      * 监管器绑定-》获取小圆盘列表
      */
     public AjaxParams ajaxBindingLists() {

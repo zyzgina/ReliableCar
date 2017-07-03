@@ -148,22 +148,6 @@ public class MyAjaxParams {
     }
 
 
-    /**
-     * 修改密码
-     *
-     * @param oldPassword
-     * @param newPassword
-     * @param newPassword2
-     * @return
-     */
-    public AjaxParams updatePassword(String oldPassword, String newPassword, String newPassword2) {
-        AjaxParams params = UserIDSIDCompany();
-        params.put("_action", "MODIFY_PWD"); // 方法名，固定值：MODIFY_PWD
-        params.put("old_password", oldPassword); // 旧密码
-        params.put("new_password", newPassword); // 新密码
-        params.put("new_password2", newPassword2); // 新密码重复
-        return params;
-    }
 
 
     /**

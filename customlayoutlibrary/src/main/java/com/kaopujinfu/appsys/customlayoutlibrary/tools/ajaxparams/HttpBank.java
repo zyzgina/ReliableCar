@@ -75,6 +75,16 @@ public class HttpBank {
 
 
     /**
+     * 修改密码
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @param callBack 回调函数
+     */
+    public void updatePassword(String oldPassword, String newPassword, CallBack<Object> callBack){
+        AjaxParams params = bankAjaxParams.updatePassword(oldPassword, newPassword);
+        IBaseMethod.post(context,  IBaseUrl.USER, params, callBack);
+    }
+    /**
      * 获取token
      *
      * @param callBack
