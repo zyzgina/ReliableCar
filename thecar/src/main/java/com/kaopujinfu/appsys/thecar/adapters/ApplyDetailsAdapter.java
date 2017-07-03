@@ -58,7 +58,10 @@ public class ApplyDetailsAdapter extends BaseAdapter implements SpinnerListAdapt
         }
         ApplyDetailsBean.ApplyDetailsItemsEntity itemsEntity = itemsEntities.get(i);
         if (itemsEntity != null) {
-            holder.name.setText(itemsEntity.getCarBrand());
+            String strs = itemsEntity.getCarBrand();
+            if (GeneralUtils.isEmpty(itemsEntity.getCarBrand()))
+                strs = "未知品牌";
+            holder.name.setText(strs);
             holder.vin.setText(itemsEntity.getVinNo());
             int price = 0;
             if (!GeneralUtils.isEmpty(itemsEntity.getLoanAmount()))
@@ -123,7 +126,7 @@ public class ApplyDetailsAdapter extends BaseAdapter implements SpinnerListAdapt
 
     public void addList(List<ApplyDetailsBean.ApplyDetailsItemsEntity> itemsEntities) {
         this.itemsEntities.addAll(itemsEntities);
-        this.tempLists=this.itemsEntities;
+        this.tempLists = this.itemsEntities;
         notifyDataSetChanged();
     }
 
@@ -138,14 +141,14 @@ public class ApplyDetailsAdapter extends BaseAdapter implements SpinnerListAdapt
             if (price < 1000) {
                 break;
             }
-            if (price % 1000 != 0){
+            if (price % 1000 != 0) {
                 if (price % 1000 < 100)
-                    str = "," + price % 1000+"0" + str;
+                    str = "," + price % 1000 + "0" + str;
                 else if (price % 1000 < 10)
-                    str = "," + price % 1000+"00" + str;
+                    str = "," + price % 1000 + "00" + str;
                 else
                     str = "," + price % 1000 + str;
-            }else
+            } else
                 str += ",000";
             price = price / 1000;
         }
