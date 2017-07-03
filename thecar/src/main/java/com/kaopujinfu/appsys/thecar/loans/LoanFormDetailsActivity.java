@@ -132,13 +132,13 @@ public class LoanFormDetailsActivity extends BaseNoScoActivity {
                         titles.add(name);
                     }
                     mAdapter.setTitles(titles);
-                    if (mAdapter.getCount() == 0) {
-                        mNoDate.setVisibility(View.VISIBLE);
-                        loanFromDetailsList.setVisibility(View.GONE);
-                    } else {
-                        mNoDate.setVisibility(View.GONE);
-                        loanFromDetailsList.setVisibility(View.VISIBLE);
-                    }
+                }
+                if (mAdapter.getCount() == 0) {
+                    mNoDate.setVisibility(View.VISIBLE);
+                    loanFromDetailsList.setVisibility(View.GONE);
+                } else {
+                    mNoDate.setVisibility(View.GONE);
+                    loanFromDetailsList.setVisibility(View.VISIBLE);
                 }
             }
         });

@@ -167,13 +167,13 @@ public class ApplyDetailsActivity extends BaseNoScoActivity {
                         titles.add(name);
                     }
                     mAdapter.setTitles(titles);
-                    if (mAdapter.getCount() == 0) {
-                        mNoDate.setVisibility(View.VISIBLE);
-                        applyDetailsList.setVisibility(View.GONE);
-                    } else {
-                        mNoDate.setVisibility(View.GONE);
-                        applyDetailsList.setVisibility(View.VISIBLE);
-                    }
+                }
+                if (mAdapter.getCount() == 0) {
+                    mNoDate.setVisibility(View.VISIBLE);
+                    applyDetailsList.setVisibility(View.GONE);
+                } else {
+                    mNoDate.setVisibility(View.GONE);
+                    applyDetailsList.setVisibility(View.VISIBLE);
                 }
             }
         });
