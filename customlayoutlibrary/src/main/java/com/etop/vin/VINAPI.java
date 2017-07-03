@@ -13,16 +13,13 @@ public class VINAPI {
 	public native void VinKernalUnInit();
 
 	public native void VinSetROI(int[] borders, int imgWidth, int imgHeight);
-
 	public native int VinRecognizeMemory(int[] pImageBuffer, int nWidth, int nHeight, int nBitCount, char[] szBuffer, int BufferLen);
 	
 	public native int VinRecognizeNV21(byte[] ImageStreamNV21, int Width, int Height, char[] Buffer, int BufferLen);
-
 	public native int VinRecognizeNV21Ex(byte[] ImageStreamNV21, int Width, int Height, char[] Buffer, int BufferLen,int []pLine);
 
     public native int VinSaveImage(String imagePath);
-
     public native String VinGetResult();
-
     public native int VinFindVIN();
+    public native int VinRecognizeImageFile(String filepath);
 }
