@@ -134,6 +134,8 @@ public class DialogUtil {
         tv_info_prompt.setText(strings[0]);
         TextView b_cancel_prompt = (TextView) view.findViewById(R.id.b_cancel_prompt);
         TextView b_ok_prompt = (TextView) view.findViewById(R.id.b_ok_prompt);
+        TextView b_view_prompt= (TextView) view.findViewById(R.id.b_view_prompt);
+        View b_view=view.findViewById(R.id.b_view);
         b_ok_prompt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +147,11 @@ public class DialogUtil {
         });
         if (strings.length == 2) {
             b_ok_prompt.setText(strings[1]);
-            b_cancel_prompt.setVisibility(View.GONE);
+            b_cancel_prompt.setText("");
+            b_view.setVisibility(View.GONE);
+            b_ok_prompt.setBackgroundResource(R.drawable.button_circular5_blue);
+            b_ok_prompt.setTextColor(context.getResources().getColor(R.color.white));
+            b_view_prompt.setVisibility(View.VISIBLE);
         } else if (strings.length == 3) {
             b_cancel_prompt.setOnClickListener(new View.OnClickListener() {
                 @Override
