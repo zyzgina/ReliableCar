@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.SelfStatistics;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.bean.StatisticsBean;
@@ -117,8 +118,13 @@ public class StatisActivity extends Activity {
 
             cDatas[0] = statisticsBean.getRfidScan();
             cDatas[1] = statisticsBean.getVinScan();
-            cDatas[2] = statisticsBean.getCarTotal() - statisticsBean.getRfidScan() - statisticsBean.getVinScan();
-
+            cDatas[2] = statisticsBean.getCarCount() - statisticsBean.getRfidScan() - statisticsBean.getVinScan();
+            LogUtils.debug("===="+cDatas.toString());
+            if(statisticsBean.getCarCount()==0){
+                cColorRes[2]="#D3D3D3";
+            }else{
+                cColorRes[2]="#F52E2E";
+            }
 //            cDatas1[0] = statisticsBean.getRfidScan();
 //            cDatas1[1] = statisticsBean.getCarTotal() - statisticsBean.getRfidScan();
             setDate();

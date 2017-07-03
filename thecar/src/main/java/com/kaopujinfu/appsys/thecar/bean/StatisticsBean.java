@@ -35,6 +35,7 @@ public class StatisticsBean implements Serializable {
     private int docRelease;
     private int rfidScan;
     private int vinScan;
+    private int carCount;
 
     public void setResult(String result) {
         this.result = result;
@@ -116,6 +117,14 @@ public class StatisticsBean implements Serializable {
         this.vinScan = vinScan;
     }
 
+    public int getCarCount() {
+        return carCount;
+    }
+
+    public void setCarCount(int carCount) {
+        this.carCount = carCount;
+    }
+
     @Override
     public String toString() {
         return "StatisticsBean{" +
@@ -129,6 +138,7 @@ public class StatisticsBean implements Serializable {
                 ", docRelease=" + docRelease +
                 ", rfidScan=" + rfidScan +
                 ", vinScan=" + vinScan +
+                ", carCount=" + carCount +
                 '}';
     }
 

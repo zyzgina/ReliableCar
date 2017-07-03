@@ -240,7 +240,7 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
                 case IBase.RETAIL_ONE:
                     //验证注册按钮可以点击
                     isTextChange = true;
-                    commitgo_update.setBackgroundResource(R.drawable.button_circular5_light_green);
+                    commitgo_update.setBackgroundResource(R.drawable.button_circular5_car_theme);
                     error_update.setVisibility(View.GONE);
                     break;
                 case IBase.RETAIL_TWO:
