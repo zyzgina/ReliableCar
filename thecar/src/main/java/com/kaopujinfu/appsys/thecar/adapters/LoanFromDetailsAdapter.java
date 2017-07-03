@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.adpater.SpinnerListAdapter;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.bean.LoanDetailsBean;
 
@@ -57,7 +58,10 @@ public class LoanFromDetailsAdapter extends BaseAdapter implements SpinnerListAd
         }
         LoanDetailsBean.LoanDetailsItemsEntity itemsEntity = itemsEntities.get(i);
         if (itemsEntity != null) {
-            hold.distributor.setText(itemsEntity.getCarBrand());
+            String strs = itemsEntity.getCarBrand();
+            if (GeneralUtils.isEmpty(itemsEntity.getCarBrand()))
+                strs = "未知品牌";
+            hold.distributor.setText(strs);
             hold.vin.setText(itemsEntity.getVinNo());
             hold.date.setText(itemsEntity.getTotalDay() + "天");
             hold.time.setText("(" + itemsEntity.getDisbTime() + ")");
