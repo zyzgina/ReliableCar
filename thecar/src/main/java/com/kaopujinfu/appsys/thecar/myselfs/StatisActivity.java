@@ -23,7 +23,7 @@ import static com.kaopujinfu.appsys.thecar.R.id.myselMsg;
  */
 
 public class StatisActivity extends Activity {
-//    private MyGridView mMessage;
+    //    private MyGridView mMessage;
 //    private MyselfMsgAadapter msgAadapter;
     private SelfStatistics dMyselMsg, dVinmyselMsg;
     private TextView dNormalSpot, dAbnormalSpot, dNormalText, dAbnormalText, dOtherSpot, dOtherText;
@@ -108,6 +108,7 @@ public class StatisActivity extends Activity {
         if (jumpEventBus instanceof StatisticsBean) {
 //            msgAadapter.setLists((StatisticsBean) jumpEventBus);
             StatisticsBean statisticsBean = (StatisticsBean) jumpEventBus;
+            LogUtils.debug("接受广播数据：" + statisticsBean.toString());
             dDatas[0] = statisticsBean.getRfNormal();
             dDatas[1] = statisticsBean.getRfAlert();
             dDatas[2] = statisticsBean.getCarTotal() - statisticsBean.getRfAlert() - statisticsBean.getRfNormal();
@@ -116,14 +117,19 @@ public class StatisActivity extends Activity {
             sDatas[1] = statisticsBean.getDocRelease();
             sDatas[2] = statisticsBean.getCarTotal() - statisticsBean.getDocCount() - statisticsBean.getDocRelease();
 
-            cDatas[0] = statisticsBean.getRfidScan();
-            cDatas[1] = statisticsBean.getVinScan();
-            cDatas[2] = statisticsBean.getCarCount() - statisticsBean.getRfidScan() - statisticsBean.getVinScan();
-            LogUtils.debug("===="+cDatas.toString());
-            if(statisticsBean.getCarCount()==0){
-                cColorRes[2]="#D3D3D3";
-            }else{
-                cColorRes[2]="#F52E2E";
+            if (statisticsBean.getCarCount() >= (statisticsBean.getRfidScan() + statisticsBean.getVinScan())) {
+                cDatas[0] = statisticsBean.getRfidScan();
+                cDatas[1] = statisticsBean.getVinScan();
+                cDatas[2] = statisticsBean.getCarCount() - statisticsBean.getRfidScan() - statisticsBean.getVinScan();
+            } else {
+                cDatas[0] = 0;
+                cDatas[1] = 0;
+                cDatas[2] = statisticsBean.getCarCount();
+            }
+            if (statisticsBean.getCarCount() == 0) {
+                cColorRes[2] = "#D3D3D3";
+            } else {
+                cColorRes[2] = "#F52E2E";
             }
 //            cDatas1[0] = statisticsBean.getRfidScan();
 //            cDatas1[1] = statisticsBean.getCarTotal() - statisticsBean.getRfidScan();
@@ -148,6 +154,9 @@ public class StatisActivity extends Activity {
         cNormalText.setText("RFID: " + (int) cDatas[0]);
         cAbnormalText.setText("VIN: " + (int) cDatas[1]);
         cOtherText.setText("待完成: " + (int) cDatas[2]);
+        if(cDatas[0]==0&&cDatas[1]==0&&cDatas[2]==0){
+            cDatas[2]=1;
+        }
         cMyselMsg.setDatas(cDatas);
         cMyselMsg.setColorRes(cColorRes);
         cMyselMsg.startDraw();
