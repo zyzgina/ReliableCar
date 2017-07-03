@@ -232,7 +232,7 @@
             style="@style/textview_color_gray_singleLine_size17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="北京靠谱君科技信息有限公司" />
+            android:text="上海真格智能科技有限公司" />
 
         <TextView
             android:id="@+id/version_addr"
@@ -241,6 +241,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/common_measure_20sp"
             android:layout_marginTop="@dimen/common_measure_10sp"
-            android:text="©2017 www.kaopujinfu.com" />
+            android:text="©2016-2017 www.loansys.net" />
     </LinearLayout>
 </com.kaopujinfu.appsys.customlayoutlibrary.view.IMMListenerRelativeLayout>

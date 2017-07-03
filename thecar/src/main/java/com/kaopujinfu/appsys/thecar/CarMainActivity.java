@@ -37,6 +37,7 @@ import com.kaopujinfu.appsys.thecar.adapters.SimpleListAdapter;
 import com.kaopujinfu.appsys.thecar.applys.ApplyActivity;
 import com.kaopujinfu.appsys.thecar.bean.StatisticsBean;
 import com.kaopujinfu.appsys.thecar.loans.LoanFormActivity;
+import com.kaopujinfu.appsys.thecar.menu.VerionActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.MineActivity;
 import com.kaopujinfu.appsys.thecar.supervises.SupervisesActivity;
 
@@ -199,6 +200,10 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
                     Intent intent = new Intent(CarMainActivity.this, UpdatePasswordActivity.class);
+                    startActivity(intent);
+                }
+                if(position==1){
+                    Intent intent = new Intent(CarMainActivity.this, VerionActivity.class);
                     startActivity(intent);
                 }
             }

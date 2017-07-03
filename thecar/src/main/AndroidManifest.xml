@@ -101,6 +101,7 @@
         <activity android:name=".myselfs.newcar.CarListActivity" />
         <activity android:name=".myselfs.newcar.LableActivity" />
         <activity android:name=".myselfs.newcar.AddLableActivity" />
+        <activity android:name=".menu.VerionActivity"/>
 
         <service
             android:name=".service.BluetoothLeService"
