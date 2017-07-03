@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,8 +16,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.dialog.LoadingDialog;
@@ -61,12 +62,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     //软件盘弹起后所占高度阀值
     private int keyHeight = 0;
     RelativeLayout showKeyLog;
+    LinearLayout ipLinear;
+    EditText ip_login;
+    boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        IBaseMethod.setBarStyle(this, Color.TRANSPARENT);
+        IBaseMethod.setBarStyle(this, getResources().getColor(R.color.transparent));
         db = FinalDb.create(this, IBase.BASE_DATE);
         showKeyLog = (RelativeLayout) findViewById(R.id.showKeyLog);
         keyLogin = (IMMListenerRelativeLayout) findViewById(R.id.keyLogin);
@@ -78,7 +82,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         //6.0获取权限
         boolean isForthefirstime = (boolean) SPUtils.get(this, "isForthefirstime", true);
         if (isForthefirstime)
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH,Manifest.permission.RECORD_AUDIO}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH, Manifest.permission.RECORD_AUDIO}, 1);
         initLogin();
         autoLogin();
     }
@@ -101,10 +105,29 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void initLogin() {
+        String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
         username_login = (EditText) findViewById(R.id.username_login);
         username_login.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         ContentRl = (RelativeLayout) findViewById(R.id.ContentRl);
         logo_login = (ImageView) findViewById(R.id.logo_login);
+
+        ipLinear = (LinearLayout) findViewById(R.id.ipLinear);
+        ip_login = (EditText) findViewById(R.id.ip_login);
+        ip_login.setText(urlPath);
+        ip_login.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        logo_login.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (flag) {
+                    flag = false;
+                    ipLinear.setVisibility(View.GONE);
+                } else {
+                    flag = true;
+                    ipLinear.setVisibility(View.VISIBLE);
+                }
+                return false;
+            }
+        });
         //判断是否是登录账户
         String login_naem = get(this, "login_name", "").toString();
         if (!GeneralUtils.isEmpty(login_naem)) {
@@ -157,6 +180,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             String username = username_login.getText().toString();
             SPUtils.put(this, "login_name", username);
             String userpass = userpass_login.getText().toString();
+            LogUtils.debug("保存的IP地址:" + ip_login.getText().toString());
+            SPUtils.put(RetailAplication.getContext(), "domain", ip_login.getText().toString());
             login(username, userpass, false);
         } else if (i == R.id.verificationcode_login) {// 获取验证码
             final String uname = username_login.getText().toString();
@@ -264,13 +289,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void setFocusable() {
+        //设置失去焦点
         username_login.setFocusable(false);
         username_login.setFocusableInTouchMode(false);
+        //设置获取焦点
         username_login.setFocusable(true);
         username_login.setFocusableInTouchMode(true);
         userpass_login.setFocusable(false);
         userpass_login.setFocusableInTouchMode(false);
         userpass_login.setFocusable(true);
         userpass_login.setFocusableInTouchMode(true);
+        ip_login.setFocusable(false);
+        ip_login.setFocusableInTouchMode(false);
+        ip_login.setFocusable(true);
+        ip_login.setFocusableInTouchMode(true);
     }
 }
