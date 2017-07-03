@@ -275,7 +275,7 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
                 if (result.isSuccess()) {
                     top_btn.setText("提交(0)");
                     //通知首页统计数据发改变
-                    JumpEventBus jumpEventBus=new JumpEventBus();
+                    JumpEventBus jumpEventBus = new JumpEventBus();
                     jumpEventBus.setStatus(IBase.RETAIL_THREE);
                     EventBus.getDefault().post(jumpEventBus);
 
@@ -340,7 +340,7 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
         flagCommit = false;
         List<TaskItemBean.TaskItemsEntity> finish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + item.getTaskCode() + "\" and commit_status=1");
         if (finish.size() > 0) {
-            DialogUtil.prompt(this, "你还有盘库数据未提交，是否提交？", "残忍拒绝", "提交", new DialogButtonListener() {
+            DialogUtil.prompt(this, "你还有盘库数据未提交，是否提交？拒绝将不保存已盘库数据！", "残忍拒绝", "提交", new DialogButtonListener() {
                 @Override
                 public void ok() {
                     commitDate();
