@@ -28,6 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_measure_30sp"
-        android:background="@drawable/button_circular3_check_ok"
+        android:background="@drawable/button_circular5_car_theme"
         android:text="确 认" />
 </LinearLayout>
