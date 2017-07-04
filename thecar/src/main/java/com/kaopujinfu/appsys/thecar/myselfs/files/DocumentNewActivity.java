@@ -155,7 +155,7 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                     }else{
                         Intent intent=new Intent(DocumentNewActivity.this,Picturepreview.class);
                         intent.putExtra("imagePath",mAdapter.getItem(i));
-                        startActivity(intent);
+                        startActivityForResult(intent,IBase.RETAIL_NINE);
                     }
 
                 }
@@ -232,6 +232,9 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                     HttpBank.getIntence(DocumentNewActivity.this).httpIsVinExit(vin, vinhandler);
                 }
             }
+        }
+        if(requestCode==IBase.RETAIL_NINE){
+            mAdapter.notifyDataSetChanged();
         }
     }
 
