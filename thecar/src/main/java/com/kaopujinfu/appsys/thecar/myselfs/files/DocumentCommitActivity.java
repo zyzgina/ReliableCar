@@ -63,7 +63,7 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
             UploadPath = getIntent().getStringExtra("UploadPath");
             mTvTitle.setText("任务提交");
             nextList_documentCommit.setText("返回上传列表");
-            new_documentCommit.setText("查看详情");
+            new_documentCommit.setText("继续添加");
             txt_documentCommit.setText("绑定成功");
             toast_documentCommit.setText("你返回上传列表上传资料");
             sel_documentCommit.setText("或者查看详情进行操作");
@@ -106,7 +106,7 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
                 intent.setClass(this, AddBindingActivity.class);
             } else if (success == IBase.CONSTANT_TWO) {
                 intent.setClass(this, PhotosDetailsActivity.class);
-                intent.putExtra("UploadPath", UploadPath);
+//                intent.putExtra("UploadPath", UploadPath);
             } else if (success == IBase.CONSTANT_THREE) {
                 intent.setClass(this, NewCarActivity.class);
             } else if (success == IBase.CONSTANT_FOUR) {

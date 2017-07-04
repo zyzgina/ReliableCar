@@ -93,11 +93,11 @@ public class MineActivity extends ActivityGroup {
         View layout = getLocalActivityManager().startActivity("zero", new Intent(MineActivity.this, UserActivity.class)).getDecorView();
         View layout1 = getLocalActivityManager().startActivity("one", new Intent(MineActivity.this, StatisActivity.class)).getDecorView();
         View layout2 = getLocalActivityManager().startActivity("two", new Intent(MineActivity.this, OptionsActivity.class)).getDecorView();
-        View layout3 = getLocalActivityManager().startActivity("three", new Intent(MineActivity.this, MissionActiviy.class)).getDecorView();
+//        View layout3 = getLocalActivityManager().startActivity("three", new Intent(MineActivity.this, MissionActiviy.class)).getDecorView();
         mineLiner.addView(layout);
         mineLiner.addView(layout1);
         mineLiner.addView(layout2);
-        mineLiner.addView(layout3);
+//        mineLiner.addView(layout3);
     }
 
 
