@@ -32,7 +32,7 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
     private SuperviseDetailsAdapter mAdapter;
     private SupervisersBean.SupervisersItemsEntity itemsEntity;
     private LinearLayout mNoDate;
-    private int maxTotal = 15;
+    private int maxTotal = 10;
     TextView alldetailsList;
 
     @Override
