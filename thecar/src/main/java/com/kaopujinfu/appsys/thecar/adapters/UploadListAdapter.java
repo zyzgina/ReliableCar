@@ -165,7 +165,6 @@ public class UploadListAdapter extends BaseAdapter {
             size = (TextView) view.findViewById(R.id.uploadSize_item);
         }
     }
-
     public void uploadFile(UploadManager uploadManager) {
         String token = getToken();
         if (GeneralUtils.isEmpty(token)) {
@@ -212,9 +211,13 @@ public class UploadListAdapter extends BaseAdapter {
                                         viewHolder.progress.setText("上传失败");
                                         i++;
                                     } else {
-                                        viewHolder.progress.setText("已暂停");
+                                        viewHolder.progress.setText("等待上传...");
                                     }
                                 }
+                            }
+                            if (flag&&views.size() > 0) {
+                                UploadListHold viewHolder = (UploadListHold)views.get(0).getTag();
+                                viewHolder.progress.setText("已暂停");
                             }
                             handler.sendEmptyMessage(IBase.CONSTANT_TWO);
                         } else {
