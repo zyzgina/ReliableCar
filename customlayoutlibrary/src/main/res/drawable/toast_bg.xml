@@ -8,7 +8,7 @@
     <stroke
         android:dashWidth="0dp"
         android:width="3px"
-        android:color="@color/yellow_orange" />
+        android:color="@color/car_theme" />
     <corners android:radius="5dp" />
     <solid android:color="@color/white" />
 </shape>
