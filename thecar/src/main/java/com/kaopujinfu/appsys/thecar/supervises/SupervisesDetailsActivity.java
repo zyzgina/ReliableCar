@@ -1,6 +1,7 @@
 package com.kaopujinfu.appsys.thecar.supervises;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -31,6 +32,8 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
     private SuperviseDetailsAdapter mAdapter;
     private SupervisersBean.SupervisersItemsEntity itemsEntity;
     private LinearLayout mNoDate;
+    private int maxTotal = 15;
+    TextView alldetailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,12 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
         supervisesDetailsList = (ListView) findViewById(R.id.detailsList);
         mAdapter = new SuperviseDetailsAdapter(this);
         supervisesDetailsList.setAdapter(mAdapter);
+        alldetailsList =new TextView(this);
+        alldetailsList.setText("一一一一已加载全部一一一一");
+        alldetailsList.setTextColor(getResources().getColor(R.color.gray));
+        alldetailsList.setTextSize(12);
+        alldetailsList.setGravity(Gravity.CENTER);
+        alldetailsList.setPadding(0,getResources().getDimensionPixelOffset(R.dimen.common_measure_50sp),0,getResources().getDimensionPixelOffset(R.dimen.common_measure_50sp));
 
         ProgressLayout progressLayout = new ProgressLayout(this);
         progressLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light,
@@ -68,16 +77,28 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
+                int maxPage = maxTotal / IBase.limit;
+                if (maxTotal % IBase.limit != 0)
+                    maxPage += 1;
                 page++;
                 if (!isRefresh)
                     isRefresh = true;
-                getDate();
+                if (maxPage >= page) {
+                    getDate();
+                } else {
+                    page--;
+                    supervisesDetailsList.addFooterView(alldetailsList);
+                    refreshLayout.finishLoadmore();
+                    refreshLayout.setEnableLoadmore(false);
+                }
             }
 
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
                 if (isRefresh) {
+                    refreshLayout.setEnableLoadmore(true);
+                    supervisesDetailsList.removeFooterView(alldetailsList);
                     page = 1;
                     isRefresh = false;
                     getDate();
@@ -92,7 +113,7 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
         HttpBank.getIntence(this).httpSuperviserDetails(itemsEntity.getCompanyCode(), page, new CallBack() {
             @Override
             public void onSuccess(Object o) {
-                LogUtils.debug(page+"   数据:" + o.toString());
+                LogUtils.debug(page + "   数据:" + o.toString());
                 if (page == 1) {
                     IBaseMethod.jumpCountdown(60, handler);
                     refreshLayout_supervisesDetails.finishRefreshing();
@@ -100,7 +121,10 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
                     refreshLayout_supervisesDetails.finishLoadmore();
                 }
                 SupervicerDetailsBean bean = SupervicerDetailsBean.getSupervicerDetailsBean(o.toString());
-                if (bean != null &&bean.getItems()!=null&& bean.getItems().size() > 0) {
+                if(bean!=null){
+                    maxTotal=bean.getTotal();
+                }
+                if (bean != null && bean.getItems() != null && bean.getItems().size() > 0) {
                     if (page == 1) {
                         mAdapter.clearDetails();
                     }
