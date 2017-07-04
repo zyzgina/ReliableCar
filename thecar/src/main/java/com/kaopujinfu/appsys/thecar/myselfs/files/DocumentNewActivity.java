@@ -3,6 +3,7 @@ package com.kaopujinfu.appsys.thecar.myselfs.files;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -146,10 +147,17 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                         }
                     });
                 } else {
-                    Intent it = new Intent(Intent.ACTION_VIEW);
-                    Uri mUri = Uri.parse("file://" + mAdapter.getItem(i));
-                    it.setDataAndType(mUri, "image/*");
-                    startActivity(it);
+                    if(Build.VERSION.SDK_INT<24){
+                        Intent it = new Intent(Intent.ACTION_VIEW);
+                        Uri mUri = Uri.parse("file://" + mAdapter.getItem(i));
+                        it.setDataAndType(mUri, "image/*");
+                        startActivity(it);
+                    }else{
+                        Intent intent=new Intent(DocumentNewActivity.this,Picturepreview.class);
+                        intent.putExtra("imagePath",mAdapter.getItem(i));
+                        startActivity(intent);
+                    }
+
                 }
             }
         });
