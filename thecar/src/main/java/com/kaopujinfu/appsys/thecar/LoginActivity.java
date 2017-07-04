@@ -92,25 +92,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH, Manifest.permission.RECORD_AUDIO}, 1);
         initIp();
         initLogin();
-        autoLogin();
     }
 
-    private void autoLogin() {
-        Long currentTime = System.currentTimeMillis();
-        Long loginTime = (Long) get(LoginActivity.this, "currentLoginTime", currentTime);
-        if (currentTime - loginTime == 0 || currentTime - loginTime >= 24 * 60 * 60 * 1000) { // 24 小时
-            // 需要手动登录
-        } else {
-            // 自动登录
-            String userName = (String) get(LoginActivity.this, "login_name", "");
-            String userPass = (String) get(LoginActivity.this, "login_user_password", "");
-            if (!GeneralUtils.isEmpty(userName) && !GeneralUtils.isEmpty(userPass)) {
-                // 用户名和密码不为空的时候进行登录
-                userpass_login.setText(userPass);
-                login(userName, userPass, true);
-            }
-        }
-    }
 
     private void initLogin() {
         String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
