@@ -59,7 +59,7 @@ public class DocumentNewImagesAdapter extends BaseAdapter {
         ImageView image = (ImageView) view.findViewById(R.id.documentNewImages_item);
         if (i != getCount() -1){
             image.setBackgroundColor(Color.TRANSPARENT);
-            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            image.setScaleType(ImageView.ScaleType.FIT_XY);
             FinalBitmap.create(mContext).display(image, getItem(i));
         } else {
             image.setBackgroundResource(R.drawable.button_frame_plain_gray);
