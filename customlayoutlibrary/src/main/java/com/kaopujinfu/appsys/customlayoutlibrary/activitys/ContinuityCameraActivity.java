@@ -11,10 +11,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -216,6 +218,7 @@ public class ContinuityCameraActivity extends Activity implements View.OnClickLi
         Camera.Parameters parameters = mCamera.getParameters();
         parameters.setPictureFormat(ImageFormat.JPEG);
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+        mCamera.setParameters(parameters);
         mCamera.autoFocus(new Camera.AutoFocusCallback() {
             @Override
             public void onAutoFocus(boolean b, Camera camera) {
@@ -232,6 +235,13 @@ public class ContinuityCameraActivity extends Activity implements View.OnClickLi
                                 // 横屏向右边
                                 martix.setRotate(180);
                             }
+                            DisplayMetrics dm = new DisplayMetrics();
+                            //获取屏幕信息
+                            getWindowManager().getDefaultDisplay().getMetrics(dm);
+                            int screenWidth = dm.widthPixels;
+                            int screenHeigh = dm.heightPixels;
+                            //设置图片大小
+                            mBitmap = ThumbnailUtils.extractThumbnail(mBitmap, screenHeigh, screenWidth);
                             mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), martix, true);
                             cameraPhoto.setImageBitmap(mBitmap);
                             cameraPhotoLayout.setVisibility(View.VISIBLE);
