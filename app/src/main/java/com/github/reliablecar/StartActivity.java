@@ -3,9 +3,11 @@ package com.github.reliablecar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
@@ -43,7 +45,15 @@ public class StartActivity extends AppCompatActivity {
      */
     private void initStart() {
         image_start = (BitmapImageView) findViewById(R.id.image_start);
-        //启动动画
+        ImageView startImage= (ImageView) findViewById(R.id.startImage);
+        startImage.setVisibility(View.GONE);
+        startImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autoLogin();
+            }
+        });
+//        //启动动画
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.start);
         animation.setAnimationListener(animationListener);
         image_start.setAnimation(animation);
