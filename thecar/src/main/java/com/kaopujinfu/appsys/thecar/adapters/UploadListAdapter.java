@@ -165,108 +165,21 @@ public class UploadListAdapter extends BaseAdapter {
             size = (TextView) view.findViewById(R.id.uploadSize_item);
         }
     }
+
     public void uploadFile(UploadManager uploadManager) {
         String token = getToken();
         if (GeneralUtils.isEmpty(token)) {
             return;
         }
-        for (int i = 0; i < lists.size(); i++) {
-            final UploadBean uploadBean = lists.get(i);
-//            LogUtils.debug("===" + uploadBean.toString());
-            final File file = new File(uploadBean.getLoactionPath());
-            LogUtils.debug("pathNmae==" + uploadBean.getQny_key());
-            uploadManager.put(file, uploadBean.getQny_key(), token, new UpCompletionHandler() {
-                @Override
-                public void complete(String key, ResponseInfo info, final JSONObject res) {
-                    //res包含hash、key等信息，具体字段取决于上传策略的设置
-                    if (info.isOK()) {
-                        LogUtils.debug("Upload Success");
-                        uploadDate(uploadBean);
-                        lists.remove(0);
-                        views.remove(0);
-                        LogUtils.debug(lists.size() + "_size_" + views.size());
-                        Message message = new Message();
-                        message.what = IBase.CONSTANT_THREE;
-                        message.obj = lists.size();
-                        handler.sendMessage(message);
-                        if (lists.size() == 0) {
-                            handler.sendEmptyMessage(IBase.CONSTANT_ONE);
-                        }
-                        notifyDataSetChanged();
-                        db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
-                    } else {
-                        LogUtils.debug("Upload Fail " + file.exists());
-                        //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
-                        int i = 1;
-                        if (file.exists()) {
-                            for (View view : views) {
-                                if (view != null) {
-                                    //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
-                                    UploadListHold viewHolder = (UploadListHold) view.getTag();
-                                    if (!flag) {
-                                        if (i == views.size()) {
-                                            flag = true;
-                                            IBaseMethod.showToast(mContext, "连接失败", IBase.RETAIL_TWO);
-                                        }
-                                        viewHolder.progress.setText("上传失败");
-                                        i++;
-                                    } else {
-                                        viewHolder.progress.setText("等待上传...");
-                                    }
-                                }
-                            }
-                            if (flag&&views.size() > 0) {
-                                UploadListHold viewHolder = (UploadListHold)views.get(0).getTag();
-                                viewHolder.progress.setText("已暂停");
-                            }
-                            handler.sendEmptyMessage(IBase.CONSTANT_TWO);
-                        } else {
-                            lists.remove(0);
-                            if (lists.size() == 0) {
-                                handler.sendEmptyMessage(IBase.CONSTANT_ONE);
-                            }
-                            notifyDataSetChanged();
-                            db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
-                            LogUtils.debug("文件不存在:" + lists.size() + "_size_" + views.remove(0));
-
-                        }
-
-                    }
-//                    LogUtils.debug(key + ",\r\n " + info + ",\r\n " + res);
-                }
-            }, new UploadOptions(null, null, false,
-                    new UpProgressHandler() {
-                        public void progress(String key, double percent) {
-                            View view = null;
-                            /* 匹配视图对象 */
-                            if (views.size() > 0) {
-                                view = views.get(0);
-                                if (view != null) {
-                                    //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
-                                    UploadListHold viewHolder = (UploadListHold) view.getTag();
-//                                    LogUtils.debug("上传进度：" + percent + "  总大小:" + file.length() + " 上传了：" + file.length() * percent);
-                                    int size = (int) (file.length() * percent);
-//                                    LogUtils.debug("上传进度大小：" + size);
-                                    percent = percent * 100;
-                                    if (size >= file.length()) {
-                                        size = (int) file.length() - 2;
-                                        percent = 99;
-                                    }
-                                    viewHolder.progressBar.setProgress((int) percent);
-                                    String ps = FileUtils.getSize(size);
-//                                    LogUtils.debug("上传进度："+ps);
-                                    viewHolder.progress.setText(ps);
-                                }
-                            }
-                            LogUtils.debug(key + ": " + percent);
-                        }
-                    }, new UpCancellationSignal() {
-                @Override
-                public boolean isCancelled() {
-                    return flag;
-                }
-            }));
-        }
+        final UploadBean uploadBean = lists.get(0);
+        uploadGoQuniu(uploadManager, uploadBean, token);
+//        for (int i = 0; i < lists.size(); i++) {
+//            final UploadBean uploadBean = lists.get(i);
+////            LogUtils.debug("===" + uploadBean.toString());
+//            final File file = new File(uploadBean.getLoactionPath());
+//            LogUtils.debug("pathNmae==" + uploadBean.getQny_key());
+//
+//        }
     }
 
     private String getToken() {
@@ -328,6 +241,116 @@ public class UploadListAdapter extends BaseAdapter {
                         IBaseMethod.showToast(mContext, "上传出错", IBase.RETAIL_ZERO);
                     }
                 });
+    }
+    private int num=0;
+    private void uploadGoQuniu(final UploadManager uploadManager, final UploadBean uploadBean, final String token) {
+        final File files = new File(uploadBean.getLoactionPath());
+        uploadManager.put(files, uploadBean.getQny_key(), token, new UpCompletionHandler() {
+            @Override
+            public void complete(String key, ResponseInfo info, final JSONObject res) {
+                //res包含hash、key等信息，具体字段取决于上传策略的设置
+                LogUtils.debug("判断上传是否成功:"+info.isOK());
+                if (info.isOK()) {
+                    LogUtils.debug("Upload Success");
+                    uploadDate(uploadBean);
+                    lists.remove(0);
+                    views.remove(0);
+                    LogUtils.debug(lists.size() + "_size_" + views.size());
+                    Message message = new Message();
+                    message.what = IBase.CONSTANT_THREE;
+                    message.obj = lists.size();
+                    handler.sendMessage(message);
+                    if (lists.size() == 0) {
+                        handler.sendEmptyMessage(IBase.CONSTANT_ONE);
+                    } else {
+                        if (lists.size() > 0) {
+                            UploadBean ub = lists.get(num);
+                            uploadGoQuniu(uploadManager, ub, token);
+                        }
+                    }
+                    notifyDataSetChanged();
+                    db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
+                } else {
+                    LogUtils.debug("Upload Fail " + files.exists());
+                    //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                    int i = 1;
+                    if (files.exists()) {
+                        for (View view : views) {
+                            if (view != null) {
+                                //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
+                                UploadListHold viewHolder = (UploadListHold) view.getTag();
+                                if (!flag) {
+                                    if (i == views.size()) {
+                                        flag = true;
+                                        IBaseMethod.showToast(mContext, "连接失败", IBase.RETAIL_TWO);
+                                    }
+                                    i++;
+                                }
+                                viewHolder.progress.setText("等待上传...");
+                            }
+                        }
+                        if (flag && views.size() > 0) {
+                            UploadListHold viewHolder = (UploadListHold) views.get(0).getTag();
+                            viewHolder.progress.setText("已暂停");
+                        }
+                        if (flag && views.size() > 0) {
+                            UploadListHold viewHolder = (UploadListHold) views.get(0).getTag();
+                            viewHolder.progress.setText("上传失败");
+                        }
+                        handler.sendEmptyMessage(IBase.CONSTANT_TWO);
+                    } else {
+                        lists.remove(0);
+                        if (lists.size() == 0) {
+                            handler.sendEmptyMessage(IBase.CONSTANT_ONE);
+                        }else{
+                            if (lists.size() > 0) {
+                                UploadBean ub = lists.get(num);
+                                uploadGoQuniu(uploadManager, ub, token);
+                            }
+                        }
+                        notifyDataSetChanged();
+                        db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
+                        LogUtils.debug("文件不存在:" + lists.size() + "_size_" + views.remove(0));
+
+                    }
+                    num++;
+
+                }
+//                    LogUtils.debug(key + ",\r\n " + info + ",\r\n " + res);
+            }
+        }, new UploadOptions(null, null, false,
+                new UpProgressHandler() {
+                    public void progress(String key, double percent) {
+                        View view = null;
+                            /* 匹配视图对象 */
+                        if (views.size() > 0) {
+                            view = views.get(0);
+                            if (view != null) {
+                                //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
+                                UploadListHold viewHolder = (UploadListHold) view.getTag();
+//                                    LogUtils.debug("上传进度：" + percent + "  总大小:" + files.length() + " 上传了：" + files.length() * percent);
+                                int size = (int) (files.length() * percent);
+//                                    LogUtils.debug("上传进度大小：" + size);
+                                percent = percent * 100;
+                                if (size >= files.length()) {
+                                    size = (int) files.length() - 2;
+                                    percent = 99;
+                                }
+//                                LogUtils.debug(key + "  图片上传的进度：" + percent + "  " + uploadBean.getQny_key());
+                                viewHolder.progressBar.setProgress((int) percent);
+                                String ps = FileUtils.getSize(size);
+                                    LogUtils.debug(FileUtils.getSize(files.length())+"上传进度："+ps);
+                                viewHolder.progress.setText(ps);
+                            }
+                        }
+                        LogUtils.debug(key + ": " + percent);
+                    }
+                }, new UpCancellationSignal() {
+            @Override
+            public boolean isCancelled() {
+                return flag;
+            }
+        }));
     }
 
 }
