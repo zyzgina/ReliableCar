@@ -73,7 +73,8 @@ public class StartActivity extends AppCompatActivity {
     private void autoLogin() {
         Long currentTime = System.currentTimeMillis();
         Long loginTime = (Long) get(StartActivity.this, "currentLoginTime", currentTime);
-        if (currentTime - loginTime == 0 || currentTime - loginTime >= 24 * 60 * 60 * 1000) { // 24 小时
+        String userPass = (String) get(StartActivity.this, "login_user_password", "");
+        if (GeneralUtils.isEmpty(userPass)||currentTime - loginTime == 0 || currentTime - loginTime >= 24 * 60 * 60 * 1000) { // 24 小时
             // 需要手动登录
             Intent intent = new Intent(StartActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -81,7 +82,6 @@ public class StartActivity extends AppCompatActivity {
         } else {
             // 自动登录
             String userName = (String) get(StartActivity.this, "login_name", "");
-            String userPass = (String) get(StartActivity.this, "login_user_password", "");
             if (!GeneralUtils.isEmpty(userName) && !GeneralUtils.isEmpty(userPass)) {
                 // 用户名和密码不为空的时候进行登录
                 login(userName, userPass, true);
