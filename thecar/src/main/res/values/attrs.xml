@@ -19,14 +19,14 @@
         <item>其他高清图</item>
     </array>
     <array name="photos_en">
-        <item>appearance_panorama</item>
-        <item>cockpit_panorama</item>
-        <item>rear_seat_panorama</item>
-        <item>trunk_panorama</item>
-        <item>engine_room_HD</item>
-        <item>evaluation_HD_map</item>
-        <item>size_calibration_HD</item>
-        <item>other_HD</item>
+        <item>appearance</item>
+        <item>cockpit</item>
+        <item>rearseat</item>
+        <item>trunk</item>
+        <item>engine</item>
+        <item>evaluation</item>
+        <item>calibration</item>
+        <item>other</item>
     </array>
     <array name="assessment">
         <item>外观-右前</item>
@@ -49,23 +49,23 @@
         <item>后备箱</item>
     </array>
     <array name="assessment_en">
-        <item>appearance_right_front</item>
-        <item>appearance_positive_side</item>
-        <item>appearance_positive_before</item>
-        <item>appearance_positive_after</item>
-        <item>car_lights</item>
+        <item>rightfront</item>
+        <item>positiveside</item>
+        <item>positivebefore</item>
+        <item>positiveafter</item>
+        <item>carlights</item>
         <item>tyres</item>
-        <item>car_roof</item>
+        <item>carroof</item>
         <item>door</item>
-        <item>sealing_strip</item>
-        <item>seat_belt_root</item>
-        <item>interior_front_row</item>
-        <item>interior_rear_row</item>
-        <item>interior_central_control</item>
+        <item>sealing</item>
+        <item>seatbelt</item>
+        <item>frontrow</item>
+        <item>rearrow</item>
+        <item>centralcontrol</item>
         <item>dashboard</item>
-        <item>transmission_lever</item>
-        <item>accelerator_pedal</item>
-        <item>engine_compartment</item>
+        <item>transmission</item>
+        <item>accelerato</item>
+        <item>compartment</item>
         <item>trunk</item>
     </array>
     <array name="applySearch">
