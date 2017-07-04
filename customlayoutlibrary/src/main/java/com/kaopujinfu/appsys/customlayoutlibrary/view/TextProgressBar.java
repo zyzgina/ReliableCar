@@ -51,9 +51,12 @@ public class TextProgressBar extends ProgressBar {
         int x = (((int) ((getProgress() * (getWidth()/100)/ this.getMax()) * 100))/ 2) + rect.centerX();
         if(isX) {
             int cx=rect.centerX();
-            if(cx<50)
-                cx=50;
-            x = getWidth() / 2 -cx;
+            if(cx<50) {
+                cx = 50;
+                x = getWidth() / 3 - cx;
+            }else{
+                x = getWidth() /2 - cx;
+            }
         }
         int y = (getHeight() / 2) - rect.centerY();// 让显示的字体处于中心位置;;
         canvas.drawText(this.str, x, y, this.mPaint);
