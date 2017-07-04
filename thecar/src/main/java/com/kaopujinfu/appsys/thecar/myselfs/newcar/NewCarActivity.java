@@ -621,7 +621,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     startActivity(intent);
                     finish();
                 } else {
-                    IBaseMethod.showToast(NewCarActivity.this, "提交失败", IBase.RETAIL_ZERO);
+                    IBaseMethod.showToast(NewCarActivity.this, result.getComment(), IBase.RETAIL_ZERO);
                 }
             }
 
