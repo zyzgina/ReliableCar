@@ -11,6 +11,7 @@
         android:layout_width="@dimen/common_measure_200sp"
         android:layout_height="@dimen/common_measure_200sp"
         android:layout_marginRight="@dimen/common_measure_20sp"
+        android:scaleType="fitXY"
         android:src="@drawable/icon_nocontent" />
 
     <LinearLayout
@@ -22,18 +23,20 @@
             android:id="@+id/uploadName_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="2"
             android:text="JSEI3259113.JPG"
-            android:textColor="@color/back"
-            android:textSize="@dimen/sp18" />
+            android:textColor="@color/back_gray"
+            android:textSize="@dimen/sp18"
+            android:layout_marginBottom="@dimen/common_measure_10sp"/>
 
         <ProgressBar
             android:id="@+id/uploadProgressBar_item"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/common_measure_5sp"
+            android:layout_height="@dimen/common_measure_10sp"
+            android:layout_marginTop="@dimen/common_measure_10sp"
             android:max="100"
-            android:progressDrawable="@drawable/progressbar_yellow"
-            android:layout_marginTop="@dimen/common_measure_10sp" />
+            android:progressDrawable="@drawable/progressbar_yellow" />
 
         <RelativeLayout
             android:layout_width="match_parent"
