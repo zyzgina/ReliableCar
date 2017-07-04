@@ -51,8 +51,8 @@ public class AssessmentActivity extends BaseActivity implements View.OnClickList
         header.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
         top_btn.setText("保存");
         top_meun.setVisibility(View.GONE);
-        top_btn.setVisibility(View.VISIBLE);
         top_btn.setOnClickListener(this);
+        mtop_back.setOnClickListener(this);
 
 
         assessmentGridview = (MyGridView) findViewById(R.id.assessmentGridview);
@@ -82,9 +82,15 @@ public class AssessmentActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.top_btn) {
+        if (v.getId() == R.id.top_back) {
             setResult(IBase.RESUTL_THREE);
             finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(IBase.RESUTL_THREE);
+        finish();
     }
 }
