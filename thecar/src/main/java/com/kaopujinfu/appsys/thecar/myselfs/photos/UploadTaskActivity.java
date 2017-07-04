@@ -79,15 +79,10 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
         header.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
         mTvTitle.setText(type);
         top_btn.setText("保存");
-        top_btn.setVisibility(View.VISIBLE);
+        top_btn.setVisibility(View.GONE);
         top_meun.setVisibility(View.GONE);
         top_btn.setOnClickListener(this);
-        mtop_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                back();
-            }
-        });
+        mtop_back.setOnClickListener(this);
 
         uploadTaskGridView = (MyGridView) findViewById(R.id.uploadTaskGridView);
         mAdapter = new UploadTaskAdapter(this, type, pathFile);
@@ -244,23 +239,7 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
 
     private void back() {
         if (!flag) {
-            if (mAdapter.getSelectImages().size() == 0) {
-                setResult(IBase.RESUTL_THREE);
-                finish();
-                return;
-            }
-            DialogUtil.prompt(this, "你还有照片未保存至上传队列,退出将删除未保存照片.您确定退出？",
-                    "取消", "确定", new DialogButtonListener() {
-                        @Override
-                        public void ok() {
-                            finish();
-                        }
-
-                        @Override
-                        public void cancel() {
-
-                        }
-                    });
+            mAdapter.saveUploadList(handler, 0);
         } else {
             showPhotos.setVisibility(View.GONE);
             flag = false;
@@ -273,12 +252,8 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.top_btn) {
-            if (sAdapter.getCount() == 0) {
-                IBaseMethod.showToast(this, "您未选择上传图片，赶快去选择吧！", IBase.RETAIL_TWO);
-                return;
-            }
-            mAdapter.saveUploadList(handler, 0);
+        if (v.getId() == R.id.top_back) {
+            back();
         } else if (v.getId() == R.id.delete_showPhotos) {
             showdelRepDialog(0);
         } else if (v.getId() == R.id.replace_showPhotos) {
@@ -290,7 +265,6 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
             IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
         } else if (v.getId() == R.id.uploadTaskConfirm) {
             //上传
-            LogUtils.debug("点击上传:" + isUpload);
             if (sAdapter.getCount() == 0) {
                 IBaseMethod.showToast(this, "您未选择上传图片，赶快去选择吧！", IBase.RETAIL_TWO);
                 return;
@@ -399,7 +373,7 @@ public class UploadTaskActivity extends BaseNoScoActivity implements View.OnClic
             // 这一步必须要做,否则不会显示.
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             confirmTv.setCompoundDrawables(drawable, null, null, null);
-            mAdapter.saveUploadList(handler, 1);
+            mAdapter.saveUploadList(handler, 0);
         } else {
             isUpload = false;
             //取消上传
