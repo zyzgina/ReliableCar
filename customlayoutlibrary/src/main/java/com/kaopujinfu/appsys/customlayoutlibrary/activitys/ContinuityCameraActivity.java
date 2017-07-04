@@ -6,12 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
+import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * 连续拍照
@@ -223,6 +224,23 @@ public class ContinuityCameraActivity extends Activity implements View.OnClickLi
         Camera.Parameters parameters = mCamera.getParameters();
         parameters.setPictureFormat(ImageFormat.JPEG);
         parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+        // 设置照片格式
+        parameters.setPictureFormat(PixelFormat.JPEG);
+        // 设置照片分辨率
+        DisplayMetrics dm = new DisplayMetrics();
+        //获取屏幕信息
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        int screenHeigh = dm.heightPixels;
+        LogUtils.debug(screenWidth+"==========="+screenHeigh);
+        List<Camera.Size> supportedPictureSizes = parameters.getSupportedPictureSizes();
+        for (Camera.Size size:supportedPictureSizes){
+            LogUtils.debug("参数:"+size.width+"   "+size.height);
+            if(size.height>=screenWidth){
+                parameters.setPictureSize(size.width, size.height);
+                break;
+            }
+        }
         mCamera.setParameters(parameters);
         mCamera.autoFocus(new Camera.AutoFocusCallback() {
             @Override
@@ -246,7 +264,8 @@ public class ContinuityCameraActivity extends Activity implements View.OnClickLi
                             int screenWidth = dm.widthPixels;
                             int screenHeigh = dm.heightPixels;
                             //设置图片大小
-                            mBitmap = ThumbnailUtils.extractThumbnail(mBitmap, screenHeigh, screenWidth);
+                            LogUtils.debug("拍照dax:"+mBitmap.getWidth()+"    "+mBitmap.getHeight());
+//                            mBitmap = ThumbnailUtils.extractThumbnail(mBitmap, screenHeigh, screenWidth);
                             mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), martix, true);
                             cameraPhoto.setImageBitmap(mBitmap);
                             cameraPhotoLayout.setVisibility(View.VISIBLE);
