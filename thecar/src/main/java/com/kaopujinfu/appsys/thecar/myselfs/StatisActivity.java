@@ -31,7 +31,7 @@ public class StatisActivity extends Activity {
     private TextView sNormalSpot, sAbnormalSpot, sNormalText, sAbnormalText, sOtherSpot, sOtherText;
     private SelfStatistics cMyselMsg, cVinmyselMsg;
     private TextView cNormalSpot, cAbnormalSpot, cNormalText, cAbnormalText, cOtherSpot, cOtherText;
-    private String[] dColorRes = {"#99CC00", "#F65355", "#D3D3D3"}, sColorRes = {"#99CC00", "#FFBB34", "#D3D3D3"}, cColorRes = {"#99CC00", "#6392C8", "#F52E2E"};//cColorRes1 = { "#F52E2E"};
+    private String[] dColorRes = {"#99CC00", "#F65355", "#D3D3D3"}, sColorRes = {"#99CC00", "#FFBB34", "#D3D3D3"}, cColorRes = {"#99CC00", "#6392C8", "#EA5637"};//cColorRes1 = { "#F52E2E"};
     private float[] dDatas = {8, 2, 10}, sDatas = {4, 5, 10}, cDatas = {0, 0, 10};//cDatas1 = {0, 10};
 
     @Override
@@ -90,6 +90,7 @@ public class StatisActivity extends Activity {
         cOtherSpot = (TextView) checkStatis.findViewById(R.id.otherSpot);
         cOtherText = (TextView) checkStatis.findViewById(R.id.otherText);
         cMyselMsg.setPaintText("人工盘库");
+        cOtherSpot.setTextColor(Color.parseColor(cColorRes[2]));
 //        cVinmyselMsg.setColorRes(cColorRes1);
         dMyselMsg.startDraw();
         sMyselMsg.startDraw();
@@ -124,9 +125,9 @@ public class StatisActivity extends Activity {
                 cDatas[2] = statisticsBean.getCarCount();
             }
             if (statisticsBean.getCarCount() == 0) {
-                cColorRes[2] = "#D3D3D3";
+                cColorRes[2] = "#EA5637";
             } else {
-                cColorRes[2] = "#F52E2E";
+                cColorRes[2] = "#EA5637";
             }
 //            cDatas1[0] = statisticsBean.getRfidScan();
 //            cDatas1[1] = statisticsBean.getCarTotal() - statisticsBean.getRfidScan();
