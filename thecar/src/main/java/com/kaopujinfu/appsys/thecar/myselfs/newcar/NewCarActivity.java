@@ -40,6 +40,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentNewActivity;
 
 import net.tsz.afinal.FinalDb;
 
@@ -628,6 +629,9 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onFailure(int errorNo, String strMsg) {
                 dialog.dismiss();
+                if (errorNo == IBase.CONSTANT_ONE) {
+                    IBaseMethod.showNetToast(NewCarActivity.this);
+                }
             }
         }, gpsEntity.getDlr(), vincode, isTwo, brand, subBrand, model, price, mileage, date);
     }
