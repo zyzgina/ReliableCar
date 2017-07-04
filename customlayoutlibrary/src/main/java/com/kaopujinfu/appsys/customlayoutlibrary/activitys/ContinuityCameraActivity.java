@@ -190,22 +190,27 @@ public class ContinuityCameraActivity extends Activity implements View.OnClickLi
     public void unregister() {
         mManager.unregisterListener(this);
     }
-
+    private boolean isJd=true;
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.cameraView) {
             // 点击拍照界面对焦
-            mCamera.autoFocus(null);
+            if (mCamera != null&&isJd) {
+                mCamera.autoFocus(null);
+            }
         } else if (view.getId() == R.id.cameraTake) {
             // 拍照
+            isJd=false;
             takePhoto();
         } else if (view.getId() == R.id.cameraPhotoBack) {
             // 点击取消保存按钮
+            isJd=true;
             mCamera.startPreview();
             cameraPhotoLayout.setVisibility(View.GONE);
         } else if (view.getId() == R.id.cameraPhotoConfirm) {
             // 点击保存按钮
             savePhoto();
+            isJd=true;
             mCamera.startPreview();
             cameraPhotoLayout.setVisibility(View.GONE);
         }
