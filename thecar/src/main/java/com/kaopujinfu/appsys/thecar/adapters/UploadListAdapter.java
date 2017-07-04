@@ -171,15 +171,10 @@ public class UploadListAdapter extends BaseAdapter {
         if (GeneralUtils.isEmpty(token)) {
             return;
         }
-        final UploadBean uploadBean = lists.get(0);
-        uploadGoQuniu(uploadManager, uploadBean, token);
-//        for (int i = 0; i < lists.size(); i++) {
-//            final UploadBean uploadBean = lists.get(i);
-////            LogUtils.debug("===" + uploadBean.toString());
-//            final File file = new File(uploadBean.getLoactionPath());
-//            LogUtils.debug("pathNmae==" + uploadBean.getQny_key());
-//
-//        }
+        for (int i = 0; i < lists.size(); i++) {
+            final UploadBean uploadBean = lists.get(i);
+            uploadGoQuniu(uploadManager,uploadBean,token);
+        }
     }
 
     private String getToken() {
@@ -249,7 +244,6 @@ public class UploadListAdapter extends BaseAdapter {
             @Override
             public void complete(String key, ResponseInfo info, final JSONObject res) {
                 //res包含hash、key等信息，具体字段取决于上传策略的设置
-                LogUtils.debug("判断上传是否成功:"+info.isOK());
                 if (info.isOK()) {
                     LogUtils.debug("Upload Success");
                     uploadDate(uploadBean);
@@ -262,11 +256,6 @@ public class UploadListAdapter extends BaseAdapter {
                     handler.sendMessage(message);
                     if (lists.size() == 0) {
                         handler.sendEmptyMessage(IBase.CONSTANT_ONE);
-                    } else {
-                        if (lists.size() > 0) {
-                            UploadBean ub = lists.get(num);
-                            uploadGoQuniu(uploadManager, ub, token);
-                        }
                     }
                     notifyDataSetChanged();
                     db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
@@ -293,7 +282,7 @@ public class UploadListAdapter extends BaseAdapter {
                             UploadListHold viewHolder = (UploadListHold) views.get(0).getTag();
                             viewHolder.progress.setText("已暂停");
                         }
-                        if (flag && views.size() > 0) {
+                        if (!flag && views.size() > 0) {
                             UploadListHold viewHolder = (UploadListHold) views.get(0).getTag();
                             viewHolder.progress.setText("上传失败");
                         }
@@ -302,19 +291,12 @@ public class UploadListAdapter extends BaseAdapter {
                         lists.remove(0);
                         if (lists.size() == 0) {
                             handler.sendEmptyMessage(IBase.CONSTANT_ONE);
-                        }else{
-                            if (lists.size() > 0) {
-                                UploadBean ub = lists.get(num);
-                                uploadGoQuniu(uploadManager, ub, token);
-                            }
                         }
                         notifyDataSetChanged();
                         db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
                         LogUtils.debug("文件不存在:" + lists.size() + "_size_" + views.remove(0));
 
                     }
-                    num++;
-
                 }
 //                    LogUtils.debug(key + ",\r\n " + info + ",\r\n " + res);
             }
@@ -328,19 +310,12 @@ public class UploadListAdapter extends BaseAdapter {
                             if (view != null) {
                                 //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
                                 UploadListHold viewHolder = (UploadListHold) view.getTag();
-//                                    LogUtils.debug("上传进度：" + percent + "  总大小:" + files.length() + " 上传了：" + files.length() * percent);
-                                int size = (int) (files.length() * percent);
-//                                    LogUtils.debug("上传进度大小：" + size);
                                 percent = percent * 100;
-                                if (size >= files.length()) {
-                                    size = (int) files.length() - 2;
+                                if (percent >= 100) {
                                     percent = 99;
                                 }
-//                                LogUtils.debug(key + "  图片上传的进度：" + percent + "  " + uploadBean.getQny_key());
                                 viewHolder.progressBar.setProgress((int) percent);
-                                String ps = FileUtils.getSize(size);
-                                    LogUtils.debug(FileUtils.getSize(files.length())+"上传进度："+ps);
-                                viewHolder.progress.setText(ps);
+                                viewHolder.progress.setText(("当前进度:"+(int)percent)+"%");
                             }
                         }
                         LogUtils.debug(key + ": " + percent);
