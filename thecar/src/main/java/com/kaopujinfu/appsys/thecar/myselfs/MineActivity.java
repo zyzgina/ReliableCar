@@ -143,4 +143,5 @@ public class MineActivity extends ActivityGroup {
             });
         }
     };
+
 }

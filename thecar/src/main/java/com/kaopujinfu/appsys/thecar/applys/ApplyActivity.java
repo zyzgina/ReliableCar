@@ -15,6 +15,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseUrl;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+import com.kaopujinfu.appsys.thecar.CarMainActivity;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.ApplyOrSupervisesFromAdapter;
 import com.kaopujinfu.appsys.thecar.bean.ApplyBean;
@@ -142,5 +143,10 @@ public class ApplyActivity extends BaseNoScoActivity {
                 IBaseMethod.showToast(ApplyActivity.this, strMsg, IBase.RETAIL_ZERO);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        CarMainActivity.exit(this);
     }
 }

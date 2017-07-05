@@ -15,6 +15,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView;
+import com.kaopujinfu.appsys.thecar.CarMainActivity;
 import com.kaopujinfu.appsys.thecar.R;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -118,5 +119,9 @@ public class UserActivity extends Activity {
                 IBaseMethod.jumpCountdown(60, handler);
             }
         }
+    }
+    @Override
+    public void onBackPressed() {
+        CarMainActivity.exit(this);
     }
 }
