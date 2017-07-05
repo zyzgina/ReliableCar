@@ -21,6 +21,8 @@ public class UploadBean implements Serializable {
     private String filename;//文件短名
     private String filesize;//文件大小
     private String userid;
+    public int process=0;//进入条
+    public String processText="0KB";//进入条文字显示
 
     public int getId() {
         return id;
@@ -97,6 +99,8 @@ public class UploadBean implements Serializable {
                 ", filename='" + filename + '\'' +
                 ", filesize='" + filesize + '\'' +
                 ", userid='" + userid + '\'' +
+                ", process=" + process +
+                ", processText='" + processText + '\'' +
                 '}';
     }
 }
