@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
@@ -202,7 +203,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
                     Intent intent = new Intent(CarMainActivity.this, UpdatePasswordActivity.class);
                     startActivity(intent);
                 }
-                if(position==1){
+                if (position == 1) {
                     Intent intent = new Intent(CarMainActivity.this, VerionActivity.class);
                     startActivity(intent);
                 }
@@ -261,7 +262,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
             } else {
                 id_drawerlayout.openDrawer(Gravity.LEFT);
             }
-        }else if(jumpEventBus.getStatus()==IBase.RETAIL_THREE){
+        } else if (jumpEventBus.getStatus() == IBase.RETAIL_THREE) {
             getData();
         }
     }
@@ -275,12 +276,12 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
             public void onSuccess(Object o) {
                 LogUtils.debug("统计信息:" + o.toString());
                 StatisticsBean bean = StatisticsBean.getStatisticsBean(o.toString());
-                String flag="false";
+                String flag = "false";
                 if (bean != null) {
-                    flag="true";
+                    flag = "true";
                     EventBus.getDefault().post(bean);
                 }
-                JumpEventBus jumpEventBus=new JumpEventBus();
+                JumpEventBus jumpEventBus = new JumpEventBus();
                 jumpEventBus.setStatus(IBase.RETAIL_FOUR);
                 jumpEventBus.setName(flag);
                 EventBus.getDefault().post(jumpEventBus);
@@ -288,7 +289,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
-                JumpEventBus jumpEventBus=new JumpEventBus();
+                JumpEventBus jumpEventBus = new JumpEventBus();
                 jumpEventBus.setStatus(IBase.RETAIL_FOUR);
                 jumpEventBus.setName("false");
                 EventBus.getDefault().post(jumpEventBus);
@@ -297,11 +298,32 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
     }
 
     /* 判断vin缓存的数据大小，并处理 */
-    private void deletVin(){
-        FinalDb db=FinalDb.create(this,IBase.BASE_DATE,false);
-        List<VinCodeBean> lists=db.findAll(VinCodeBean.class);
-        if(lists.size()>=500){
+    private void deletVin() {
+        FinalDb db = FinalDb.create(this, IBase.BASE_DATE, false);
+        List<VinCodeBean> lists = db.findAll(VinCodeBean.class);
+        if (lists.size() >= 500) {
             db.deleteAll(VinCodeBean.class);
         }
     }
+
+    static long mExitTime = 0;
+
+    public static void exit(Context context) {
+        if ((System.currentTimeMillis() - mExitTime) > 1000) {
+            TextView textView = new TextView(context);
+            textView.setText("再按一次退出靠谱看车");
+            textView.setTextSize(12);
+            textView.setTextColor(context.getResources().getColor(R.color.white));
+            textView.setBackgroundResource(R.drawable.button_circular5_car_theme);
+            textView.setPadding(20,10,20,10);
+            Toast toast = new Toast(context);
+            toast.setView(textView);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
+            mExitTime = System.currentTimeMillis();
+        } else {
+            System.exit(0);
+        }
+    }
+
 }
