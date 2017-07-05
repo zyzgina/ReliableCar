@@ -46,6 +46,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.kaopujinfu.appsys.thecar.R.id.num;
+
 /**
  * 上传列表适配器
  * Created by Doris on 2017/5/16.
@@ -113,7 +115,20 @@ public class UploadListAdapter extends BaseAdapter {
             hold.name.setText(uploadBean.getFilename());
             hold.size.setText(FileUtils.getSize(file));
             hold.progressBar.setProgress(0);
-            hold.progress.setText("等待上传...");
+            if (status == -1 || uploadBean.process == 0 || status == 1 && i != 0 || status == 2 && i != 0) {
+                hold.progress.setText("等待上传...");
+            }
+            LogUtils.debug("===进度显示===" + uploadBean.toString());
+            if (uploadBean.process != 0) {
+                hold.progressBar.setProgress(uploadBean.process);
+                hold.progress.setText(uploadBean.processText);
+            }
+            if (status == 1 && i == 0) {
+                hold.progress.setText("已暂停");
+            }
+            if (status == 2 && i == 0) {
+                hold.progress.setText("连接失败");
+            }
             view.setTag(R.id.uploadListLayout_item, i);
             views.add(view);
         }
@@ -171,10 +186,16 @@ public class UploadListAdapter extends BaseAdapter {
         if (GeneralUtils.isEmpty(token)) {
             return;
         }
-        for (int i = 0; i < lists.size(); i++) {
-            final UploadBean uploadBean = lists.get(i);
-            uploadGoQuniu(uploadManager,uploadBean,token);
+        if (lists.size() > 0) {
+            final UploadBean uploadBean = lists.get(0);
+            uploadGoQuniu(uploadManager, uploadBean, token);
+        } else {
+            handler.sendEmptyMessage(IBase.CONSTANT_ONE);
         }
+//        for (int i = 0; i < lists.size(); i++) {
+//            final UploadBean uploadBean = lists.get(i);
+//            uploadGoQuniu(uploadManager, uploadBean, token);
+//        }
     }
 
     private String getToken() {
@@ -207,6 +228,11 @@ public class UploadListAdapter extends BaseAdapter {
 
     public void setUpload(boolean flag) {
         this.flag = flag;
+        if (flag) {
+            status = 1;
+        } else {
+            status = 0;
+        }
     }
 
     public void delFile() {
@@ -237,9 +263,12 @@ public class UploadListAdapter extends BaseAdapter {
                     }
                 });
     }
-    private int num=0;
+
+    private int status = -1;
+
     private void uploadGoQuniu(final UploadManager uploadManager, final UploadBean uploadBean, final String token) {
         final File files = new File(uploadBean.getLoactionPath());
+        LogUtils.debug("===" + uploadBean.toString());
         uploadManager.put(files, uploadBean.getQny_key(), token, new UpCompletionHandler() {
             @Override
             public void complete(String key, ResponseInfo info, final JSONObject res) {
@@ -256,51 +285,44 @@ public class UploadListAdapter extends BaseAdapter {
                     handler.sendMessage(message);
                     if (lists.size() == 0) {
                         handler.sendEmptyMessage(IBase.CONSTANT_ONE);
+                    } else {
+                        LogUtils.debug("上传数字：" + num + "  总数据:" + lists.size());
+                        if (lists.size() > 0) {
+                            UploadBean uBean = lists.get(0);
+                            uploadGoQuniu(uploadManager, uBean, token);
+                        }
                     }
                     notifyDataSetChanged();
                     db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
                 } else {
                     LogUtils.debug("Upload Fail " + files.exists());
                     //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
-                    int i = 1;
                     if (files.exists()) {
-                        for (View view : views) {
-                            if (view != null) {
-                                //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
-                                UploadListHold viewHolder = (UploadListHold) view.getTag();
-                                if (!flag) {
-                                    if (i == views.size()) {
-                                        flag = true;
-                                        IBaseMethod.showToast(mContext, "连接失败", IBase.RETAIL_TWO);
-                                    }
-                                    i++;
-                                }
-                                viewHolder.progress.setText("等待上传...");
-                            }
+                        if (!flag) {
+                            status = 2;
+                            flag = true;
+                            IBaseMethod.showToast(mContext, "连接失败", IBase.RETAIL_TWO);
                         }
-                        if (flag && views.size() > 0) {
-                            UploadListHold viewHolder = (UploadListHold) views.get(0).getTag();
-                            viewHolder.progress.setText("已暂停");
-                        }
-                        if (!flag && views.size() > 0) {
-                            UploadListHold viewHolder = (UploadListHold) views.get(0).getTag();
-                            viewHolder.progress.setText("上传失败");
-                        }
+                        notifyDataSetChanged();
                         handler.sendEmptyMessage(IBase.CONSTANT_TWO);
                     } else {
                         lists.remove(0);
                         if (lists.size() == 0) {
                             handler.sendEmptyMessage(IBase.CONSTANT_ONE);
+                        } else {
+                            if (num < lists.size()) {
+                                UploadBean uBean = lists.get(0);
+                                uploadGoQuniu(uploadManager, uBean, token);
+                            }
                         }
                         notifyDataSetChanged();
                         db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
                         LogUtils.debug("文件不存在:" + lists.size() + "_size_" + views.remove(0));
-
                     }
                 }
 //                    LogUtils.debug(key + ",\r\n " + info + ",\r\n " + res);
             }
-        }, new UploadOptions(null, null, false,
+        }, new UploadOptions(null, null, true,
                 new UpProgressHandler() {
                     public void progress(String key, double percent) {
                         View view = null;
@@ -309,13 +331,17 @@ public class UploadListAdapter extends BaseAdapter {
                             view = views.get(0);
                             if (view != null) {
                                 //将视图对象中缓存的ViewHolder对象取出，并使用该对象对控件进行更新
-                                UploadListHold viewHolder = (UploadListHold) view.getTag();
+                                int size = (int) (files.length() * percent);
                                 percent = percent * 100;
                                 if (percent >= 100) {
                                     percent = 99;
                                 }
-                                viewHolder.progressBar.setProgress((int) percent);
-                                viewHolder.progress.setText(("当前进度:"+(int)percent)+"%");
+//                                LogUtils.debug(key + "上传进度:" + percent);
+//                                viewHolder.progress.setText(("当前进度:" + (int) percent) + "%");
+                                String sp = FileUtils.getSize(size);
+                                uploadBean.process = (int) percent;
+                                uploadBean.processText = sp;
+                                notifyDataSetChanged();
                             }
                         }
                         LogUtils.debug(key + ": " + percent);
