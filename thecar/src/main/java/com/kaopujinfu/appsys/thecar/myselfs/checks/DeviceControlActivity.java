@@ -230,7 +230,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
 //                            epc="E2000016910200660890C186";
                             String query = "taskCode=\"" + taskCode + "\" and rfidEpc like '%" + epc + "%'";
                             List<TaskItemBean.TaskItemsEntity> lists = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, query);
-                            LogUtils.debug("模糊查询数据库:" + lists.size());
+//                            LogUtils.debug("模糊查询数据库:" + lists.size());
                             if (lists.size() > 0) {
                                 TaskItemBean.TaskItemsEntity entity = lists.get(0);
                                 int status_speek = entity.getCommit_status();
@@ -267,52 +267,54 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                                                 } catch (InterruptedException e) {
                                                     e.printStackTrace();
                                                 }
+//                                                LogUtils.debug("全部完成了监听");
                                                 voiceUtils.releaseSpeek();
                                                 finish();
                                             }
                                         }
                                     });
-                                    return ;
+                                    return;
                                 }
-                                goSpeek(content,integerList.get(num),nofinish.size());
+                                goSpeek(content, integerList.get(num), nofinish.size());
                             } else {
                                 integerList.add(-1);
-                                goSpeek("查询失败",integerList.get(num),1);
+                                goSpeek("查询失败", integerList.get(num), 1);
                             }
                         }
                     }
-                    LogUtils.debug("RECV DATA===========addStr=========" + addStr);
+//                    LogUtils.debug("RECV DATA===========addStr=========" + addStr);
                 }
             }
         }
     };
     private int num = 0;
-    private boolean isExit=false;//判断是否退出该界面
+    private boolean isExit = false;//判断是否退出该界面
     private List<Integer> integerList = new ArrayList<>();
-
-    private void goSpeek(String content,final int value,final int size){
+    private boolean isTwo = true;//防止两次进入播报全部完成辛苦了
+    private void goSpeek(String content, final int value, final int size) {
         voiceUtils.startSpeek(content, new VoiceUtils.SpeekEndListener() {
             @Override
             public void setSpeekEndListener(boolean b) {
                 if (b && value != 0 && size == 0) {
-                    voiceUtils.releaseSpeek();
-                    voiceUtils.initialTts(DeviceControlActivity.this);
-                    voiceUtils.startSpeek("全部完成辛苦了", new VoiceUtils.SpeekEndListener() {
-                        @Override
-                        public void setSpeekEndListener(boolean b) {
-                            if (b) {
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                voiceUtils.releaseSpeek();
-                                finish();
-                            }
+//                    LogUtils.debug("进入了=====全部完成");
+                    voiceUtils.stopSpeek();
+                    if (isTwo) {
+//                        LogUtils.debug("进入全部完成播报语音");
+                        isTwo = false;
+                        goSpeek("全部完成辛苦了",1,0);
+                    } else {
+                        //判断是否进入了外部监听
+//                        LogUtils.debug("监听全部完成辛苦了播报");
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                    });
+                        voiceUtils.releaseSpeek();
+                        finish();
+                    }
                 }
-                if(b&&isExit&&size!=0){
+                if (b && isExit && size != 0) {
                     voiceUtils.releaseSpeek();
                 }
                 if (b) {
@@ -409,7 +411,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                 public void ok() {
                     mBluetoothLeService.disconnect();
                     mConnected = false;
-                    isExit=true;
+                    isExit = true;
                     finish();
                 }
 

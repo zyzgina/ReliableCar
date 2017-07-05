@@ -40,7 +40,6 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
-import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentNewActivity;
 
 import net.tsz.afinal.FinalDb;
 

@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
-import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.thecar.R;
 
 import java.util.ArrayList;
