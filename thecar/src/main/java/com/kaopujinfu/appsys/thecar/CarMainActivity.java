@@ -312,10 +312,10 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         if ((System.currentTimeMillis() - mExitTime) > 1000) {
             TextView textView = new TextView(context);
             textView.setText("再按一次退出靠谱看车");
-            textView.setTextSize(12);
+            textView.setTextSize(15);
             textView.setTextColor(context.getResources().getColor(R.color.white));
             textView.setBackgroundResource(R.drawable.button_circular5_car_theme);
-            textView.setPadding(20,10,20,10);
+            textView.setPadding(40,30,40,30);
             Toast toast = new Toast(context);
             toast.setView(textView);
             toast.setDuration(Toast.LENGTH_SHORT);
