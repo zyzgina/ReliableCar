@@ -67,5 +67,5 @@ dependencies {
         exclude module: 'support-v7'
     }
     /* 语音播报 */
-    compile 'com.github.zyzgina:voiceProject:25.2.5'
+    compile 'com.github.zyzgina:voiceProject:25.2.6'
 }
