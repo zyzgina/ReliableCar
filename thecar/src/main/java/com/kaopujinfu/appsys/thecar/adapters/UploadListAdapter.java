@@ -109,8 +109,10 @@ public class UploadListAdapter extends BaseAdapter {
             lastName = lastName.substring(lastName.indexOf("."));
             if (".mp4".equalsIgnoreCase(lastName)) {
                 getVideoImage(file, hold.icon);
+                hold.uVideo.setVisibility(View.VISIBLE);
             } else {
                 finalBitmap.display(hold.icon, "file://" + file.getAbsolutePath());
+                hold.uVideo.setVisibility(View.GONE);
             }
             hold.name.setText(uploadBean.getFilename());
             hold.size.setText(FileUtils.getSize(file));
@@ -166,7 +168,7 @@ public class UploadListAdapter extends BaseAdapter {
     }
 
     class UploadListHold {
-        ImageView icon; // 图片
+        ImageView icon,uVideo; // 图片
         TextView name; // 名称
         ProgressBar progressBar; // 进度条
         TextView progress; // 进度
@@ -174,6 +176,7 @@ public class UploadListAdapter extends BaseAdapter {
 
         public UploadListHold(View view) {
             icon = (ImageView) view.findViewById(R.id.uploadIcon_item);
+            uVideo= (ImageView) view.findViewById(R.id.uploadVideo_item);
             name = (TextView) view.findViewById(R.id.uploadName_item);
             progressBar = (ProgressBar) view.findViewById(R.id.uploadProgressBar_item);
             progress = (TextView) view.findViewById(R.id.uploadProgress_item);

@@ -13,7 +13,8 @@
         android:divider="@null"
         android:dividerHeight="@dimen/common_measure_20sp"
         android:listSelector="@color/trans"
-        android:padding="@dimen/common_measure_20sp" />
+        android:padding="@dimen/common_measure_20sp"
+        android:scrollbars="none"/>
 
     <LinearLayout
         android:id="@+id/noUploadList"
