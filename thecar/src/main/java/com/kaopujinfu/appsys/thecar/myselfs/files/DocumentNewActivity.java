@@ -289,7 +289,11 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
     }
 
     private void back() {
-        DialogUtil.prompt(this, "退出将会删除现下的所有照片和信息，您确定退出？",
+        if (mAdapter.getCount() == 1) {
+            finish();
+            return;
+        }
+        DialogUtil.prompt(this, getResources().getString(R.string.exitDocument),
                 "取消", "确定", new DialogButtonListener() {
                     @Override
                     public void ok() {
