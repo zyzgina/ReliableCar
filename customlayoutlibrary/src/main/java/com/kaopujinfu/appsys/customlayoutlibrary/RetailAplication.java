@@ -2,6 +2,8 @@ package com.kaopujinfu.appsys.customlayoutlibrary;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
@@ -45,6 +47,12 @@ public class RetailAplication extends MultiDexApplication {
         String domain = SPUtils.get(getContext(), "domain", "").toString();
         if (GeneralUtils.isEmpty(domain))
             SPUtils.put(getContext(), "domain", "http://kanche.loansys.net/");
+
+        //abdroid 7.0 调用系统路径抛出FileUriExposedException的解决方案
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+        }
     }
 
     @Override
