@@ -28,12 +28,13 @@ import org.greenrobot.eventbus.EventBus;
  * Created Date: 2017/6/28.
  */
 
-public class MineActivity extends ActivityGroup {
+public class MineActivity extends ActivityGroup implements View.OnClickListener {
     private RelativeLayout mToplayout;
     private ImageView mTopback;
     private TextView mSpot;
     private ObserveScrollView myself_scrollview;
     private LinearLayout mineLiner;
+    private View layout, layout1, layout2, layout3;
     private int cale = 30;
     private Handler handler = new Handler() {
         @Override
@@ -93,14 +94,33 @@ public class MineActivity extends ActivityGroup {
         myself_scrollview = (ObserveScrollView) findViewById(R.id.myself_scrollview);
         myself_scrollview.setScrollListener(scrollListener);
         mineLiner = (LinearLayout) findViewById(R.id.mineLiner);
-        View layout = getLocalActivityManager().startActivity("zero", new Intent(MineActivity.this, UserActivity.class)).getDecorView();
-        View layout1 = getLocalActivityManager().startActivity("one", new Intent(MineActivity.this, StatisActivity.class)).getDecorView();
-        View layout2 = getLocalActivityManager().startActivity("two", new Intent(MineActivity.this, OptionsActivity.class)).getDecorView();
-//        View layout3 = getLocalActivityManager().startActivity("three", new Intent(MineActivity.this, MissionActiviy.class)).getDecorView();
+        mineLiner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTop();
+            }
+        });
+        layout = getLocalActivityManager().startActivity("zero", new Intent(MineActivity.this, UserActivity.class)).getDecorView();
+        layout1 = getLocalActivityManager().startActivity("one", new Intent(MineActivity.this, StatisActivity.class)).getDecorView();
+        layout2 = getLocalActivityManager().startActivity("two", new Intent(MineActivity.this, OptionsActivity.class)).getDecorView();
+//      layout3 = getLocalActivityManager().startActivity("three", new Intent(MineActivity.this, MissionActiviy.class)).getDecorView();
         mineLiner.addView(layout);
         mineLiner.addView(layout1);
         mineLiner.addView(layout2);
 //        mineLiner.addView(layout3);
+        layout.setOnClickListener(this);
+        layout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTop();
+            }
+        });
+        layout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTop();
+            }
+        });
     }
 
     private ObserveScrollView.ScrollListener scrollListener = new ObserveScrollView.ScrollListener() {
@@ -162,7 +182,7 @@ public class MineActivity extends ActivityGroup {
         int scorllY = myself_scrollview.getScrollY();
         View view = mineLiner.getChildAt(0);
         int heigthY = view.getHeight() - mToplayout.getHeight();
-        if (!flag && scorllY > 80 && !flag && scorllY <= heigthY) {
+        if (!flag && scorllY > 80 && scorllY <= heigthY) {
             flag = true;
             isTopShow = true;
             isShow = true;
@@ -186,4 +206,25 @@ public class MineActivity extends ActivityGroup {
         }
     }
 
+    /* 点击显示顶部 */
+    private void showTop() {
+        int scorllY = myself_scrollview.getScrollY();
+        View view = mineLiner.getChildAt(0);
+        int heigthY = view.getHeight() - mToplayout.getHeight();
+        if (flag && scorllY > 80 && scorllY <= heigthY) {
+            flag = false;
+            isTopShow = false;
+            isShow = false;
+            mToplayout.setVisibility(View.VISIBLE);
+            Animation mSet = AnimationUtils.loadAnimation(MineActivity.this, R.anim.top_go);
+            mToplayout.setAnimation(mSet);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == layout || v == layout1 || v == layout2 || v == mineLiner || v == layout3) {
+            showTop();
+        }
+    }
 }
