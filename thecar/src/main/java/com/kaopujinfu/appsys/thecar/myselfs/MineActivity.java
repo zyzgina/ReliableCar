@@ -94,12 +94,7 @@ public class MineActivity extends ActivityGroup implements View.OnClickListener 
         myself_scrollview = (ObserveScrollView) findViewById(R.id.myself_scrollview);
         myself_scrollview.setScrollListener(scrollListener);
         mineLiner = (LinearLayout) findViewById(R.id.mineLiner);
-        mineLiner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTop();
-            }
-        });
+        mineLiner.setOnClickListener(this);
         layout = getLocalActivityManager().startActivity("zero", new Intent(MineActivity.this, UserActivity.class)).getDecorView();
         layout1 = getLocalActivityManager().startActivity("one", new Intent(MineActivity.this, StatisActivity.class)).getDecorView();
         layout2 = getLocalActivityManager().startActivity("two", new Intent(MineActivity.this, OptionsActivity.class)).getDecorView();
@@ -109,18 +104,8 @@ public class MineActivity extends ActivityGroup implements View.OnClickListener 
         mineLiner.addView(layout2);
 //        mineLiner.addView(layout3);
         layout.setOnClickListener(this);
-        layout1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTop();
-            }
-        });
-        layout2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTop();
-            }
-        });
+        layout1.setOnClickListener(this);
+        layout2.setOnClickListener(this);
     }
 
     private ObserveScrollView.ScrollListener scrollListener = new ObserveScrollView.ScrollListener() {
