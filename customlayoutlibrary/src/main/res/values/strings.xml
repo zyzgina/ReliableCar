@@ -38,4 +38,6 @@
     <string name="idcord_number">身份证号码</string>
     <string name="phone_number">手机号码</string>
     <string name="company">公司</string>
+
+    <string name="exitDocument">退出将会删除现下的所有照片和信息，您确定退出？</string>
 </resources>
