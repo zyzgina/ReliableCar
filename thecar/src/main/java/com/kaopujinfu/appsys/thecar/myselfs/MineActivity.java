@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,6 +33,7 @@ public class MineActivity extends ActivityGroup {
     private ImageView mTopback;
     private TextView mSpot;
     private ObserveScrollView myself_scrollview;
+    private LinearLayout mineLiner;
     private int cale = 30;
     private Handler handler = new Handler() {
         @Override
@@ -38,6 +41,7 @@ public class MineActivity extends ActivityGroup {
             super.handleMessage(msg);
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +92,7 @@ public class MineActivity extends ActivityGroup {
 
         myself_scrollview = (ObserveScrollView) findViewById(R.id.myself_scrollview);
         myself_scrollview.setScrollListener(scrollListener);
-
-        LinearLayout mineLiner= (LinearLayout) findViewById(R.id.mineLiner);
+        mineLiner = (LinearLayout) findViewById(R.id.mineLiner);
         View layout = getLocalActivityManager().startActivity("zero", new Intent(MineActivity.this, UserActivity.class)).getDecorView();
         View layout1 = getLocalActivityManager().startActivity("one", new Intent(MineActivity.this, StatisActivity.class)).getDecorView();
         View layout2 = getLocalActivityManager().startActivity("two", new Intent(MineActivity.this, OptionsActivity.class)).getDecorView();
@@ -100,48 +103,87 @@ public class MineActivity extends ActivityGroup {
 //        mineLiner.addView(layout3);
     }
 
-
-    private boolean isChange = false;
     private ObserveScrollView.ScrollListener scrollListener = new ObserveScrollView.ScrollListener() {
         @Override
         public void scrollOritention(int l, final int t, int oldl, final int oldt) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-//                    //逐暂变实
-                    if (t > oldt) {
-                        if (t > cale && t < 700) {
-                            isChange = true;
-                            cale = t + 50;
-                            mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
-                            int alpha = (int) (t / 2.5);
-                            if (alpha > 255) {
-                                alpha = 255;
-                            }
-                            mToplayout.getBackground().setAlpha(alpha);
-                        }
-                    } else {
-                        if (t < cale && t > 50) {
-                            //逐暂变透明
-                            cale = t - 50;
-                            mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
-                            int alpha = (int) (t / 2.5);
-                            if (alpha > 255) {
-                                alpha = 255;
-                            }
-                            mToplayout.getBackground().setAlpha(alpha);
-                        } else if (t <= 50) {
-                            //小于30透明
-                            if (isChange) {
-                                isChange = false;
-                                cale = 30;
-                                mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
-                            }
-                        }
-                    }
+                    //设置顶部栏逐渐透明
+                    setAlpha(t, oldt);
+                    //控制top的显示与隐藏
+                    setTopShow();
                 }
             });
         }
     };
+
+    /* 设置顶部栏逐渐透明 */
+    private boolean isChange = false;
+
+    private void setAlpha(int t, int oldt) {
+        //逐暂变实
+        if (t > oldt) {
+            if (t > cale && t < 700) {
+                isChange = true;
+                cale = t + 50;
+                mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
+                int alpha = (int) (t / 2.5);
+                if (alpha > 255) {
+                    alpha = 255;
+                }
+                mToplayout.getBackground().setAlpha(alpha);
+            }
+        } else {
+            if (t < cale && t > 50) {
+                //逐暂变透明
+                cale = t - 50;
+                mToplayout.setBackgroundColor(getResources().getColor(R.color.car_theme));
+                int alpha = (int) (t / 2.5);
+                if (alpha > 255) {
+                    alpha = 255;
+                }
+                mToplayout.getBackground().setAlpha(alpha);
+            } else if (t <= 50) {
+                //小于30透明
+                if (isChange) {
+                    isChange = false;
+                    cale = 30;
+                    mToplayout.setBackgroundColor(getResources().getColor(R.color.trans));
+                }
+            }
+        }
+    }
+
+    /* 控制top的显示与隐藏 */
+    boolean flag = false, isShow = true, isTopShow = false;
+
+    private void setTopShow() {
+        int scorllY = myself_scrollview.getScrollY();
+        View view = mineLiner.getChildAt(0);
+        int heigthY = view.getHeight() - mToplayout.getHeight();
+        if (!flag && scorllY > 80 && !flag && scorllY <= heigthY) {
+            flag = true;
+            isTopShow = true;
+            isShow = true;
+            mToplayout.setVisibility(View.GONE);
+            Animation mSet = AnimationUtils.loadAnimation(MineActivity.this, R.anim.top_move);
+            mToplayout.setAnimation(mSet);
+        }
+        if (isTopShow && scorllY < 80) {
+            isTopShow = false;
+            flag = false;
+            mToplayout.setVisibility(View.VISIBLE);
+            Animation mSet = AnimationUtils.loadAnimation(MineActivity.this, R.anim.top_go);
+            mToplayout.setAnimation(mSet);
+        }
+        if (isShow && scorllY > heigthY) {
+            isShow = false;
+            flag = false;
+            mToplayout.setVisibility(View.VISIBLE);
+            Animation mSet = AnimationUtils.loadAnimation(MineActivity.this, R.anim.top_go);
+            mToplayout.setAnimation(mSet);
+        }
+    }
 
 }
