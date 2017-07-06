@@ -313,7 +313,7 @@ public class UploadListAdapter extends BaseAdapter {
                         if (lists.size() == 0) {
                             handler.sendEmptyMessage(IBase.CONSTANT_ONE);
                         } else {
-                            if (num < lists.size()) {
+                            if (lists.size()>0) {
                                 UploadBean uBean = lists.get(0);
                                 uploadGoQuniu(uploadManager, uBean, token);
                             }
