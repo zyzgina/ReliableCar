@@ -161,7 +161,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             finish();
             return;
         }
-        DialogUtil.prompt(this, "退出将会删除现下的所有照片和信息，您确定退出？",
+        DialogUtil.prompt(this, getResources().getString(R.string.exitDocument),
                 "取消", "确定", new DialogButtonListener() {
                     @Override
                     public void ok() {
