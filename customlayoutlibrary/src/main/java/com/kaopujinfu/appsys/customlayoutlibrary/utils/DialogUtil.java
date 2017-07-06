@@ -2,11 +2,9 @@ package com.kaopujinfu.appsys.customlayoutlibrary.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -318,17 +316,8 @@ public class DialogUtil {
 
     private static void takePhoto(Activity activity, String fileName) {
         Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (Build.VERSION.SDK_INT < 24) {
-            // 下面这句指定调用相机拍照后的照片存储的路径
-            takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath(), fileName)));
-        } else {
-            //兼容android7.0
-            ContentValues contentValues = new ContentValues(1);
-            String imagePath=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath()+"/"+fileName;
-            contentValues.put(MediaStore.Images.Media.DATA, imagePath);
-            Uri uri = activity.getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-            takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        }
+        // 下面这句指定调用相机拍照后的照片存储的路径
+        takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath(), fileName)));
         activity.startActivityForResult(takeIntent, IBase.RETAIL_ONE);
     }
 
