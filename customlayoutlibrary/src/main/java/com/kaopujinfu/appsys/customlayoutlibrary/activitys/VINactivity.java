@@ -110,6 +110,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
     private double longitude, latitude;
     private String strCaptureFilePath;
     private VoiceUtils voiceUtils;
+    private boolean exitFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1067,11 +1068,13 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
             List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
             num_vin.setText("今日盘点" + (finish.size() - nofinish.size()) + "台，还剩" + nofinish.size() + "台");
             if (nofinish.size() > 0) {
+                String content;
                 if (status_speek == 0) {
-                    voiceUtils.startSpeek("盘库成功剩余" + nofinish.size() + "台");
+                    content = "盘库成功剩余" + nofinish.size() + "台";
                 } else {
-                    voiceUtils.startSpeek("该车已盘库");
+                    content = "该车已盘库";
                 }
+                setContentSpeek(content);
             }
             if (nofinish.size() == 0) {
                 voiceUtils.startSpeek("全部完成辛苦了", new VoiceUtils.SpeekEndListener() {
@@ -1083,6 +1086,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            voiceUtils.releaseSpeek();
                             finish();
                         }
                     }
@@ -1091,8 +1095,19 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
         } else {
             query_vin.setVisibility(View.VISIBLE);
             query_vin.setText("查询失败...");
-            voiceUtils.startSpeek("查询失败");
+            setContentSpeek("查询失败");
         }
+    }
+
+    private void setContentSpeek(String content) {
+        voiceUtils.startSpeek(content, new VoiceUtils.SpeekEndListener() {
+            @Override
+            public void setSpeekEndListener(boolean b) {
+                if (b && exitFlag) {
+                    voiceUtils.releaseSpeek();
+                }
+            }
+        });
     }
 
     //复制文档
@@ -1141,7 +1156,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        voiceUtils.releaseSpeek();
+        exitFlag = true;
         mapUtils.stopLocation();
     }
 }
