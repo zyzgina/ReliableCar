@@ -324,9 +324,8 @@ public class DialogUtil {
         } else {
             //兼容android7.0
             ContentValues contentValues = new ContentValues(1);
-            String str=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath()+"/"+fileName;
-            LogUtils.debug("拍照图片的路径："+str);
-            contentValues.put(MediaStore.Images.Media.DATA, str);
+            String imagePath=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath()+"/"+fileName;
+            contentValues.put(MediaStore.Images.Media.DATA, imagePath);
             Uri uri = activity.getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
             takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         }
