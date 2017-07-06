@@ -103,7 +103,7 @@ public class MineActivity extends ActivityGroup implements View.OnClickListener 
         layout = getLocalActivityManager().startActivity("zero", new Intent(MineActivity.this, UserActivity.class)).getDecorView();
         layout1 = getLocalActivityManager().startActivity("one", new Intent(MineActivity.this, StatisActivity.class)).getDecorView();
         layout2 = getLocalActivityManager().startActivity("two", new Intent(MineActivity.this, OptionsActivity.class)).getDecorView();
-//      layout3 = getLocalActivityManager().startActivity("three", new Intent(MineActivity.this, MissionActiviy.class)).getDecorView();
+//        layout3 = getLocalActivityManager().startActivity("three", new Intent(MineActivity.this, MissionActiviy.class)).getDecorView();
         mineLiner.addView(layout);
         mineLiner.addView(layout1);
         mineLiner.addView(layout2);
