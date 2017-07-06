@@ -1,11 +1,16 @@
 package com.kaopujinfu.appsys.thecar;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
@@ -110,8 +115,13 @@ public class PersonalActivity extends BaseActivity {
         }
         if (requestCode == IBase.RETAIL_ONE) {
             // 拍照
-            File temp = new File(Environment.getExternalStorageDirectory() + "/" + filename + ".jpg");
-            cropPhoto(Uri.fromFile(temp));// 裁剪图片
+            File temp = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + "/" + filename);
+            if(Build.VERSION.SDK_INT<24){
+                cropPhoto(Uri.fromFile(temp));// 裁剪图片
+            }else{
+                cropPhoto(getImageContentUri(PersonalActivity.this,temp));// 裁剪图片
+
+            }
         }
         if (requestCode == IBase.RETAIL_TWO) {
             if (data != null) {
@@ -163,6 +173,31 @@ public class PersonalActivity extends BaseActivity {
         intent.putExtra("outputY", 150);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, IBase.RETAIL_TWO);
+    }
+
+    public static Uri getImageContentUri(Context context, File imageFile) {
+        String filePath = imageFile.getAbsolutePath();
+        Cursor cursor = context.getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                new String[] { MediaStore.Images.Media._ID },
+                MediaStore.Images.Media.DATA + "=? ",
+                new String[] { filePath }, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor
+                    .getColumnIndex(MediaStore.MediaColumns._ID));
+            Uri baseUri = Uri.parse("content://media/external/images/media");
+            return Uri.withAppendedPath(baseUri, "" + id);
+        } else {
+            if (imageFile.exists()) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.DATA, filePath);
+                return context.getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            } else {
+                return null;
+            }
+        }
     }
 
     /**

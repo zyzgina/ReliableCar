@@ -2,9 +2,11 @@ package com.kaopujinfu.appsys.customlayoutlibrary.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -134,8 +136,8 @@ public class DialogUtil {
         tv_info_prompt.setText(strings[0]);
         TextView b_cancel_prompt = (TextView) view.findViewById(R.id.b_cancel_prompt);
         TextView b_ok_prompt = (TextView) view.findViewById(R.id.b_ok_prompt);
-        TextView b_view_prompt= (TextView) view.findViewById(R.id.b_view_prompt);
-        View b_view=view.findViewById(R.id.b_view);
+        TextView b_view_prompt = (TextView) view.findViewById(R.id.b_view_prompt);
+        View b_view = view.findViewById(R.id.b_view);
         b_ok_prompt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -316,8 +318,18 @@ public class DialogUtil {
 
     private static void takePhoto(Activity activity, String fileName) {
         Intent takeIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // 下面这句指定调用相机拍照后的照片存储的路径
-        takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), fileName)));
+        if (Build.VERSION.SDK_INT < 24) {
+            // 下面这句指定调用相机拍照后的照片存储的路径
+            takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath(), fileName)));
+        } else {
+            //兼容android7.0
+            ContentValues contentValues = new ContentValues(1);
+            String str=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath()+"/"+fileName;
+            LogUtils.debug("拍照图片的路径："+str);
+            contentValues.put(MediaStore.Images.Media.DATA, str);
+            Uri uri = activity.getApplication().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+            takeIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        }
         activity.startActivityForResult(takeIntent, IBase.RETAIL_ONE);
     }
 
@@ -429,10 +441,10 @@ public class DialogUtil {
             }
         });
 
-        dialog = new Dialog(context,R.style.dialogWhite);
+        dialog = new Dialog(context, R.style.dialogWhite);
         dialog.setContentView(view);
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-        params.width = (int) (((Activity) context).getWindowManager().getDefaultDisplay().getWidth()*0.9);
+        params.width = (int) (((Activity) context).getWindowManager().getDefaultDisplay().getWidth() * 0.9);
         dialog.getWindow().setAttributes(params);
         dialog.getWindow().setGravity(Gravity.CENTER);
         dialog.setCanceledOnTouchOutside(true);
@@ -480,7 +492,7 @@ public class DialogUtil {
         if (dialog != null && dialog.isShowing()) {
             return;
         }
-        dialog = new Dialog(context,R.style.dialogWhite);
+        dialog = new Dialog(context, R.style.dialogWhite);
         View view = View.inflate(context, R.layout.dialog_toats, null);
         dialog.show();
         dialog.setContentView(view);
