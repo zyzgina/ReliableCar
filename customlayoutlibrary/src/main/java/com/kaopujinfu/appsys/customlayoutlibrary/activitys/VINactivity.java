@@ -46,6 +46,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogTxt;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.VinViewfinderView;
@@ -74,7 +75,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
     private String PATH = FileUtils.getLogFilePath() + "VinCode/";
 
     private static final String UsrID = "7D0408988D72F47C2166";//
-//    private static final String UsrID = "7332DBAFD2FD18301EF6";
+    //    private static final String UsrID = "7332DBAFD2FD18301EF6";
     private Camera mycamera;
     private VinViewfinderView myView;
 
@@ -446,6 +447,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
         previewWidth = tmpsize.width;
         previewheight = tmpsize.height;
         if (length == 1) {
+//            LogTxt.getInstance().writeLog("获取previewWidth:" + previewWidth + "   previewheight:" + previewheight);
             preWidth = previewWidth;
             preHeight = previewheight;
         } else {
@@ -454,7 +456,9 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
             for (int i = 0; i < length; i++) {
                 size = list.get(i);
                 if (size.height > 700) {
+//                    LogTxt.getInstance().writeLog("获取size.heigth:" + size.height);
                     if (size.width * previewheight == size.height * previewWidth && size.height < second_previewheight) {
+//                        LogTxt.getInstance().writeLog("获取size.heigth:" + size.height + "   size.width:" + size.width);
                         second_previewWidth = size.width;
                         second_previewheight = size.height;
                     }
@@ -499,8 +503,14 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
             int t = ntmp;
             int b = preHeight - ntmp;
             int $l = (int) ((preHeight - $t - $t) * 1.585);
-            int l = (preWidth - $l) / 2;
+            int l;
+            if (preWidth > $l) {
+                l = (preWidth - $l) / 2;
+            } else {
+                l = ($l - preWidth) / 2;
+            }
             int r = preWidth - l;
+//            LogTxt.getInstance().writeLog("获取计算值:$t=" + $t + "   ntmp=" + ntmp + "  b=" + b + "  $l=" + $l + "   l=" + l + "  r=" + r);
             int borders[] = {l, t, r, b};
             m_ROI[0] = l;
             m_ROI[1] = t;
@@ -646,6 +656,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                 opts.inPurgeable = true;
                 bitmap = Bitmap.createBitmap(datas, parameters.getPreviewSize().width,
                         parameters.getPreviewSize().height, android.graphics.Bitmap.Config.ARGB_8888);
+                LogTxt.getInstance().writeLog("Bitmap:m_ROI:" + m_ROI[0] + " " + m_ROI[1] + " " + m_ROI[2] + " " + m_ROI[3]);
                 Bitmap tmpbitmap = Bitmap.createBitmap(bitmap, m_ROI[0], m_ROI[1], m_ROI[2] - m_ROI[0], m_ROI[3] - m_ROI[1]);
                 System.out.println("m_ROI:" + m_ROI[0] + " " + m_ROI[1] + " " + m_ROI[2] + " " + m_ROI[3]);
                 //savePicture(bitmap,"M");
