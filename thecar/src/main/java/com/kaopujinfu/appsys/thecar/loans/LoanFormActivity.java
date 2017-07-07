@@ -39,7 +39,6 @@ public class LoanFormActivity extends BaseNoScoActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
         setContentView(R.layout.activity_details_list);
     }
 
@@ -48,7 +47,6 @@ public class LoanFormActivity extends BaseNoScoActivity {
         mTvTitle.setText("贷款清单");
         dialog.dismiss();
         top_meun.setVisibility(View.GONE);
-
         int padding = IBaseMethod.setPaing(this);
         header.setPadding(0, padding, 0, 0);
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));

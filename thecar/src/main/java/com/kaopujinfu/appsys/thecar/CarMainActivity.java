@@ -113,7 +113,6 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
 
             @Override
             public void onDrawerOpened(View drawerView) {
-
             }
 
             @Override
@@ -133,7 +132,8 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         int i = v.getId();
         if (i == R.id.myself_llcar || i == R.id.myself_carmain) {
             setChecks();
-            IBaseMethod.setBarStyle(this, Color.TRANSPARENT);
+//            id_drawerlayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+//            //打开手势滑动
             mRadioMyself.setChecked(true);
             View layout = getLocalActivityManager().startActivity("frist", new Intent(CarMainActivity.this, MineActivity.class)).getDecorView();
             mContent.addView(layout);
@@ -156,7 +156,8 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
     }
 
     private void setChecks() {
-        IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
+//        id_drawerlayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+//        //关闭手势滑动
         mContent.removeAllViews();
         mRadioMyself.setChecked(false);
         mRadioLoanform.setChecked(false);

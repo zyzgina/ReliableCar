@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/supervisesLinear">
+    android:id="@+id/supervisesLinear"
+    android:background="@color/car_theme">
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout_supervisesfrom"
