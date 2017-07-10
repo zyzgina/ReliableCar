@@ -25,6 +25,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VideoRecordActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
+import com.kaopujinfu.appsys.customlayoutlibrary.listener.LoactionListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
@@ -33,6 +34,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.CaptureConfiguration;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.PredefinedCaptureConfigurations;
 import com.kaopujinfu.appsys.thecar.R;
@@ -65,12 +67,24 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         }
     };
 
+    private double longitude = 0, latitude = 0;
+    private MapUtils mapUtils;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addbinding);
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
+        mapUtils = new MapUtils(this);
+        mapUtils.initOnceLocation();
+        mapUtils.startLocation(new LoactionListener() {
+            @Override
+            public void getOnLoactionListener(double longitude, double latitude) {
+                AddLableActivity.this.longitude = longitude;
+                AddLableActivity.this.latitude = latitude;
+                mapUtils.stopLocation();
+            }
+        });
     }
 
     @Override
@@ -205,7 +219,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             LogUtils.debug("上传视频的路径:" + path);
             //提交成功
             File file = new File(path);
-            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "车辆绑标签");
+            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "车辆绑标签", latitude + "", longitude + "");
             FinalDb db = FinalDb.create(AddLableActivity.this, IBase.BASE_DATE, true);
             db.save(uploadBean);
             Intent intent = new Intent(this, DocumentCommitActivity.class);
@@ -284,19 +298,19 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             if (isVin) {
                 vinVerfiydocumentVIN.setVisibility(View.GONE);
                 String vin = documentVIN_new.getText().toString();
-                if (vin.length() >17) {
+                if (vin.length() > 17) {
                     vin = vin.substring(0, 17);
                     documentVIN_new.setText(vin);
                     documentVIN_new.setSelection(vin.length());
                 }
-                if(vin.length()==17) {
+                if (vin.length() == 17) {
                     if (VINutils.checkVIN(vin)) {
                         vinVerfiydocumentVIN.setVisibility(View.GONE);
                         HttpBank.getIntence(AddLableActivity.this).httpIsVinExit(vin, vinhandler);
                     } else {
                         vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     vinVerfiydocumentVIN.setVisibility(View.GONE);
                 }
 

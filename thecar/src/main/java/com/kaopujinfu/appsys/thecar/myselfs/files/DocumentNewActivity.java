@@ -25,6 +25,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogCameraListener;
+import com.kaopujinfu.appsys.customlayoutlibrary.listener.LoactionListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
@@ -36,6 +37,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogTxt;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.DocumentNewImagesAdapter;
 
@@ -84,12 +86,23 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
             }
         }
     };
-
+    private double longitude = 0, latitude = 0;
+    private MapUtils mapUtils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_document_new);
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
+        mapUtils = new MapUtils(this);
+        mapUtils.initOnceLocation();
+        mapUtils.startLocation(new LoactionListener() {
+            @Override
+            public void getOnLoactionListener(double longitude, double latitude) {
+                DocumentNewActivity.this.longitude = longitude;
+                DocumentNewActivity.this.latitude = latitude;
+                mapUtils.stopLocation();
+            }
+        });
     }
 
     @Override
@@ -260,7 +273,7 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                     //保存上传的图片到本地
                     List<String> lists = mAdapter.getLists();
                     if (lists.size() > 0) {
-                        IBaseMethod.saveDateLoaction(db, lists, documentVIN_new.getText().toString(), "文档绑定");
+                        IBaseMethod.saveDateLoaction(db, lists, documentVIN_new.getText().toString(), "文档绑定",latitude+"",longitude+"");
                     }
                     //通知首页统计数据发改变
                     JumpEventBus jumpEventBus = new JumpEventBus();

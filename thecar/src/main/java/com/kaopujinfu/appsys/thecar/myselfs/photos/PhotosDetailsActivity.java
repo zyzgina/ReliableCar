@@ -20,6 +20,7 @@ import android.widget.ScrollView;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseNoScoActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
+import com.kaopujinfu.appsys.customlayoutlibrary.listener.LoactionListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
@@ -29,6 +30,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.PhotosGridAdapter;
@@ -52,12 +54,25 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
     private EditText documentVIN_new;
     private LinearLayout vinVerfiydocumentVIN;
     private boolean isVin = true;
+    private double longitude = 0, latitude = 0;
+    private MapUtils mapUtils;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photosdetails);
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
+        mapUtils = new MapUtils(this);
+        mapUtils.initOnceLocation();
+        mapUtils.startLocation(new LoactionListener() {
+            @Override
+            public void getOnLoactionListener(double longitude, double latitude) {
+                LogUtils.debug("===="+longitude+"   "+latitude);
+                PhotosDetailsActivity.this.longitude = longitude;
+                PhotosDetailsActivity.this.latitude = latitude;
+                mapUtils.stopLocation();
+            }
+        });
     }
 
     @Override
@@ -219,7 +234,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             return;
         }
         //保存图片
-        adapter.saveDateList(vinCo);
+        adapter.saveDateList(vinCo, longitude + "", latitude + "");
         Intent intent = new Intent(PhotosDetailsActivity.this, DocumentCommitActivity.class);
         intent.putExtra("success", IBase.CONSTANT_TWO);
         intent.putExtra("UploadPath", file.getAbsolutePath());
@@ -243,24 +258,24 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             if (isVin) {
                 vinVerfiydocumentVIN.setVisibility(View.GONE);
                 String vin = documentVIN_new.getText().toString();
-                if (vin.length() >17) {
+                if (vin.length() > 17) {
                     vin = vin.substring(0, 17);
                     documentVIN_new.setText(vin);
                     documentVIN_new.setSelection(vin.length());
                 }
-                if(vin.length()==17) {
+                if (vin.length() == 17) {
                     if (VINutils.checkVIN(vin)) {
                         vinVerfiydocumentVIN.setVisibility(View.GONE);
                         HttpBank.getIntence(PhotosDetailsActivity.this).httpIsVinExit(vin, vinhandler);
                     } else {
                         vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     vinVerfiydocumentVIN.setVisibility(View.GONE);
                 }
 
-            }else{
-                isVin=true;
+            } else {
+                isVin = true;
             }
         }
     };

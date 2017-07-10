@@ -26,6 +26,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VideoRecordActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
+import com.kaopujinfu.appsys.customlayoutlibrary.listener.LoactionListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
@@ -35,6 +36,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.CaptureConfiguration;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.PredefinedCaptureConfigurations;
 import com.kaopujinfu.appsys.thecar.R;
@@ -68,12 +70,23 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
             }
         }
     };
-
+    private double longitude = 0, latitude = 0;
+    private MapUtils mapUtils;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addbinding);
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
+        mapUtils = new MapUtils(this);
+        mapUtils.initOnceLocation();
+        mapUtils.startLocation(new LoactionListener() {
+            @Override
+            public void getOnLoactionListener(double longitude, double latitude) {
+                AddBindingActivity.this.longitude = longitude;
+                AddBindingActivity.this.latitude = latitude;
+                mapUtils.stopLocation();
+            }
+        });
     }
 
     @Override
@@ -221,7 +234,7 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
             LogUtils.debug("上传视频的路径:" + path);
             //提交成功
             File file = new File(path);
-            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "监管器绑定");
+            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "监管器绑定",latitude+"",longitude+"");
             FinalDb db = FinalDb.create(AddBindingActivity.this, IBase.BASE_DATE, true);
             db.save(uploadBean);
             Intent intent = new Intent(this, DocumentCommitActivity.class);

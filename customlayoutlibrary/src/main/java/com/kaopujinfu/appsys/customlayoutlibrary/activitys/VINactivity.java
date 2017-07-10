@@ -1136,7 +1136,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                         public void run() {
                             List<String> lists = new ArrayList<String>();
                             lists.add(savePath);
-                            IBaseMethod.saveDateLoaction(db, lists, code + "_" + vin, "VIN码盘库");
+                            IBaseMethod.saveDateLoaction(db, lists, code + "_" + vin, "VIN码盘库",latitude+"",longitude+"");
                             List<UploadBean> lis = db.findAll(UploadBean.class);
                             for (UploadBean ub : lis) {
                                 LogUtils.debug(ub.toString());

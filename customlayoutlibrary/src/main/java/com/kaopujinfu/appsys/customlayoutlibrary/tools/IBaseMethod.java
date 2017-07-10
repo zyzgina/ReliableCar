@@ -554,6 +554,10 @@ public class IBaseMethod {
         uploadBean.setFilename(fileName);
         uploadBean.setFilesize(file.length() + "");
         uploadBean.setLoactionPath(file.getAbsolutePath());
+        if(strs.length>3){
+            uploadBean.setLatitude(strs[2]);
+            uploadBean.setLongitude(strs[3]);
+        }
         return uploadBean;
     }
 
