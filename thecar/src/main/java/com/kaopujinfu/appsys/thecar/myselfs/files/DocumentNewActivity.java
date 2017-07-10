@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseNoScoActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.ContinuityCameraActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.ScannerActivity;
@@ -88,6 +89,7 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
     };
     private double longitude = 0, latitude = 0;
     private MapUtils mapUtils;
+    private  boolean isDoument;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,6 +168,11 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                 }
             }
         });
+        isDoument = getIntent().getBooleanExtra("isDoument",false);
+        if(isDoument){
+            Intent intent = new Intent(DocumentNewActivity.this, ScannerActivity.class);
+            startActivityForResult(intent, IBase.RETAIL_THREE);
+        }
     }
 
     private GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
@@ -221,6 +228,14 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                 String number = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(number)) {
                     documentNum_new.setText(number);
+                }else{
+                    if(isDoument){
+                        finish();
+                    }
+                }
+            }else{
+                if(isDoument){
+                    finish();
                 }
             }
         }
@@ -279,7 +294,9 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                     JumpEventBus jumpEventBus = new JumpEventBus();
                     jumpEventBus.setStatus(IBase.RETAIL_THREE);
                     EventBus.getDefault().post(jumpEventBus);
-
+                    if(isDoument){
+                        RetailAplication.getInstance().exitAllActicity();
+                    }
                     Intent intent = new Intent(DocumentNewActivity.this, DocumentCommitActivity.class);
                     intent.putExtra("success", IBase.CONSTANT_ZERO);
                     startActivity(intent);
@@ -303,7 +320,13 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
 
     private void back() {
         if (mAdapter.getCount() == 1) {
-            finish();
+            if(isDoument) {
+                finish();
+            }else{
+                Intent intent = new Intent(DocumentNewActivity.this, DocumentActivity.class);
+                startActivity(intent);
+                finish();
+            }
             return;
         }
         DialogUtil.prompt(this, getResources().getString(R.string.exitDocument),
@@ -311,9 +334,13 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                     @Override
                     public void ok() {
                         mAdapter.exit();
-                        Intent intent = new Intent(DocumentNewActivity.this, DocumentActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if(isDoument) {
+                            finish();
+                        }else{
+                            Intent intent = new Intent(DocumentNewActivity.this, DocumentActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
 
                     @Override

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.ScannerActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
@@ -69,6 +70,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
 
     private double longitude = 0, latitude = 0;
     private MapUtils mapUtils;
+    private  boolean isLable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,6 +120,12 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         documentScan = (ImageView) findViewById(R.id.documentScan_new);
         documentVINScan.setOnClickListener(this);
         documentScan.setOnClickListener(this);
+
+        isLable = getIntent().getBooleanExtra("isLable",false);
+        if(isLable){
+            Intent intent = new Intent(AddLableActivity.this, ScannerActivity.class);
+            startActivityForResult(intent, IBase.RETAIL_THREE);
+        }
     }
 
     @Override
@@ -196,6 +204,13 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             if (data != null) {
                 String number = data.getStringExtra("result");
                 documentNum_new.setText(number);
+                if(GeneralUtils.isEmpty(number)&&isLable){
+                    finish();
+                }
+            }else{
+                if (isLable){
+                    finish();
+                }
             }
         }
 
@@ -217,6 +232,9 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         if (resultCode == RESULT_OK) {
             String path = data.getStringExtra(VideoRecordActivity.EXTRA_OUTPUT_FILENAME);
             LogUtils.debug("上传视频的路径:" + path);
+            if(isLable){
+                RetailAplication.getInstance().exitAllActicity();
+            }
             //提交成功
             File file = new File(path);
             UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "车辆绑标签", latitude + "", longitude + "");
@@ -323,9 +341,13 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(AddLableActivity.this, LableActivity.class);
-        startActivity(intent);
-        finish();
+        if(isLable) {
+            finish();
+        }else{
+            Intent intent = new Intent(AddLableActivity.this, LableActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
 }

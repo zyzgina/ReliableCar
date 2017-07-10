@@ -23,6 +23,9 @@ public class UploadBean implements Serializable {
     private String userid;
     public int process=0;//进入条
     public String processText="0KB";//进入条文字显示
+    //定位
+    private String latitude;
+    private String longitude;
 
     public int getId() {
         return id;
@@ -88,6 +91,22 @@ public class UploadBean implements Serializable {
         this.userid = userid;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public String toString() {
         return "UploadBean{" +
@@ -101,6 +120,8 @@ public class UploadBean implements Serializable {
                 ", userid='" + userid + '\'' +
                 ", process=" + process +
                 ", processText='" + processText + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 '}';
     }
 }

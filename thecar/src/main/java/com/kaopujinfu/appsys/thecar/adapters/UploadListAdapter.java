@@ -264,7 +264,7 @@ public class UploadListAdapter extends BaseAdapter {
                     public void onFailure(int errorNo, String strMsg) {
                         IBaseMethod.showToast(mContext, "上传出错", IBase.RETAIL_ZERO);
                     }
-                });
+                },uploadBean.getLongitude(),uploadBean.getLatitude());
     }
 
     private int status = -1;

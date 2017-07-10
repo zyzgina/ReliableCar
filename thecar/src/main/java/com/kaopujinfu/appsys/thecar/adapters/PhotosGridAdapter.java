@@ -178,10 +178,13 @@ public class PhotosGridAdapter extends BaseAdapter {
     }
 
     /* 保存数据 */
-    public void saveDateList(String vincode) {
+    public void saveDateList(String vincode,String longitude,String latitude) {
         FinalDb db = FinalDb.create(mContext, IBase.BASE_DATE, true);
         for (UploadBean uploadBean : uploadBeens) {
             uploadBean.setVinCode(vincode);
+            uploadBean.setLongitude(longitude);
+            uploadBean.setLatitude(latitude);
+            LogUtils.debug("保存数据:"+uploadBean.toString());
             db.save(uploadBean);
         }
     }

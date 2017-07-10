@@ -88,10 +88,9 @@ public class ApplyOrSupervisesFromAdapter extends BaseAdapter {
             hold.twoNum.setTextColor(Color.RED);
             hold.threeNum.setTextColor(Color.BLACK);
             for (int s = 0; s < itemsEntity.getArrcount().size(); s++) {
-                if (s == 0) {
+                if ("正常监管".equals(itemsEntity.getArrcount().get(s).getStatus())) {
                     hold.oneNum.setText(itemsEntity.getArrcount().get(s).getCount());
-                }
-                if (s == 1) {
+                } else{
                     hold.twoNum.setText(itemsEntity.getArrcount().get(s).getCount());
                 }
             }

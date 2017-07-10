@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.ScannerActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
@@ -72,6 +73,7 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
     };
     private double longitude = 0, latitude = 0;
     private MapUtils mapUtils;
+    private boolean isBind;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +122,11 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
         documentScan = (ImageView) findViewById(R.id.documentScan_new);
         documentVINScan.setOnClickListener(this);
         documentScan.setOnClickListener(this);
+        isBind = getIntent().getBooleanExtra("isBind",false);
+        if(isBind){
+            Intent intent = new Intent(AddBindingActivity.this, ScannerActivity.class);
+            startActivityForResult(intent, IBase.RETAIL_THREE);
+        }
     }
 
     @Override
@@ -210,6 +217,14 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
                     } else {
                         DialogUtil.jumpCorrectErr(this, "扫入无效设备号", "继 续", 0, getResources().getColor(android.R.color.holo_red_light));
                     }
+                }else{
+                    if (isBind){
+                        finish();
+                    }
+                }
+            }else{
+                if (isBind){
+                    finish();
                 }
             }
         }
@@ -232,6 +247,9 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
         if (resultCode == RESULT_OK) {
             String path = data.getStringExtra(VideoRecordActivity.EXTRA_OUTPUT_FILENAME);
             LogUtils.debug("上传视频的路径:" + path);
+            if(isBind){
+                RetailAplication.getInstance().exitAllActicity();
+            }
             //提交成功
             File file = new File(path);
             UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "监管器绑定",latitude+"",longitude+"");
@@ -338,9 +356,13 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(AddBindingActivity.this, BindingsActivity.class);
-        startActivity(intent);
-        finish();
+        if(isBind) {
+            finish();
+        }else{
+            Intent intent = new Intent(AddBindingActivity.this, BindingsActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
 }

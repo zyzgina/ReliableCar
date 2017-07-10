@@ -103,8 +103,8 @@ public class HttpBank {
      * @param fileSize 文件大小
      * @param callBack
      */
-    public void uploadSuccess(String bizType, String bizId, String storeKey, String fileName, String fileSize, CallBack callBack) {
-        AjaxParams params = bankAjaxParams.getUploadSuccess(bizType, bizId, storeKey, fileName, fileSize);
+    public void uploadSuccess(String bizType, String bizId, String storeKey, String fileName, String fileSize, CallBack callBack,String...strings) {
+        AjaxParams params = bankAjaxParams.getUploadSuccess(bizType, bizId, storeKey, fileName, fileSize,strings);
         LogUtils.debug("参数:" + params.getParamsString());
         IBaseMethod.post(context, IBaseUrl.UPLOAD_FILE, params, callBack);
     }

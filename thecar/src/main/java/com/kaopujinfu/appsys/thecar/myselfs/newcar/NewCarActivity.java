@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.timeselection.view.TimeSelector;
+import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.adpater.BrandAdapter;
@@ -75,6 +76,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
     private int status = 0;//0品牌 1子品牌 2 车型
     private CheckBox isTwoCar;
     private LinearLayout twoCarMsgNewCar, priceLlNewCar, caleBuyLl, vinVerfiyNewCar;
+    private boolean isCar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,9 +92,14 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(NewCarActivity.this, CarListActivity.class);
-        startActivity(intent);
-        finish();
+        LogUtils.debug("判断返回的页面:"+isCar);
+        if (isCar) {
+            finish();
+        }else{
+            Intent intent = new Intent(NewCarActivity.this, CarListActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
@@ -179,6 +186,16 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                 }
             }
         });
+        isCar = getIntent().getBooleanExtra("isCar", false);
+        if (isCar) {
+            isVin = false;
+            vinVerfiyNewCar.setVisibility(View.GONE);
+            dialog.show();
+            dialog.setLoadingTitle("正在进入VIN扫描,请稍等...");
+            Intent intent = new Intent(NewCarActivity.this, VINactivity.class);
+            intent.putExtra("isScanner", true);
+            startActivityForResult(intent, IBase.RETAIL_ELEVEN);
+        }
     }
 
     @Override
@@ -233,11 +250,18 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     mVinNew.setText(vin);
                     dialog.setLoadingTitle("正在查询车辆...");
                     getVinMoble(vin);
+                }else{
+                    if(isCar){
+                        finish();
+                    }
                 }
             } else {
                 if (dialog.isShowing()) {
                     dialog.dismiss();
                     dialog.cancel();
+                }
+                if(isCar){
+                    finish();
                 }
             }
         }
@@ -615,7 +639,10 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     JumpEventBus jumpEventBus = new JumpEventBus();
                     jumpEventBus.setStatus(IBase.RETAIL_THREE);
                     EventBus.getDefault().post(jumpEventBus);
-
+//
+                    if(isCar){
+                        RetailAplication.getInstance().exitAllActicity();
+                    }
                     Intent intent = new Intent(NewCarActivity.this, DocumentCommitActivity.class);
                     intent.putExtra("success", IBase.CONSTANT_THREE);
                     startActivity(intent);

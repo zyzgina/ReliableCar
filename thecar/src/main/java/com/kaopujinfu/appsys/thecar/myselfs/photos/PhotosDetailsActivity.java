@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseNoScoActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
@@ -233,6 +234,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
             return;
         }
+        RetailAplication.getInstance().exitAllActicity();
         //保存图片
         adapter.saveDateList(vinCo, longitude + "", latitude + "");
         Intent intent = new Intent(PhotosDetailsActivity.this, DocumentCommitActivity.class);

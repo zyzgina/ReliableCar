@@ -66,6 +66,7 @@ public class BankAjaxParams {
         params.put("new_password", newPassword); // 新密码
         return params;
     }
+
     /**
      * 监管器绑定-》获取小圆盘列表
      */
@@ -96,7 +97,7 @@ public class BankAjaxParams {
      * @param fileSize
      * @return
      */
-    public AjaxParams getUploadSuccess(String bizType, String bizId, String storeKey, String fileName, String fileSize) {
+    public AjaxParams getUploadSuccess(String bizType, String bizId, String storeKey, String fileName, String fileSize, String... action) {
         AjaxParams params = BANKUserIDSIDCompany();
         params.put("action", "UPLOAD");
         params.put("bizType", bizType);
@@ -104,6 +105,10 @@ public class BankAjaxParams {
         params.put("storeKey", storeKey);
         params.put("fileName", fileName);
         params.put("fileSize", fileSize);
+        if (action.length > 1) {
+            params.put("lngAmap", action[0]);
+            params.put("latAmap", action[1]);
+        }
         return params;
     }
 
