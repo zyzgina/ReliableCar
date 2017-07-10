@@ -110,7 +110,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
     private double longitude, latitude;
     private String strCaptureFilePath;
     private VoiceUtils voiceUtils;
-    private boolean exitFlag = false;
+    private boolean exitFlag = false, isThread = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,7 +196,6 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                 VINactivity.this.latitude = latitude;
             }
         });
-
     }
 
     private int width;
@@ -672,6 +671,9 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                     setResult(IBase.RETAIL_ELEVEN, intent);
                     finish();
                 } else {
+                    isThread = true;
+                    threadNum = 5;
+                    thread.start();
                     mRemind.setVisibility(View.VISIBLE);
                     toats_vin.setVisibility(View.GONE);
                     if (api.VinFindVIN() == 1) {
@@ -1022,6 +1024,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
     }
 
     public boolean onTouchEvent(MotionEvent event) {
+        isThread = false;
         mRemind.setVisibility(View.INVISIBLE);
         toats_vin.setVisibility(View.VISIBLE);
         mVinresult.setVisibility(View.INVISIBLE);
@@ -1157,6 +1160,39 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
     protected void onDestroy() {
         super.onDestroy();
         exitFlag = true;
+        isThread = false;
         mapUtils.stopLocation();
     }
+
+    /* 添加在规定时间没有点击屏幕自动进入扫描状态 */
+    private int threadNum = 5;//等待时间
+    private Thread thread = new Thread() {
+        @Override
+        public void run() {
+            super.run();
+            while (isThread) {
+                threadNum--;
+                LogUtils.debug("进度走动:" + threadNum);
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (threadNum == 0) {
+                    isThread = false;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mRemind.setVisibility(View.INVISIBLE);
+                            toats_vin.setVisibility(View.VISIBLE);
+                            mVinresult.setVisibility(View.INVISIBLE);
+                            mShowbitmap.setVisibility(View.INVISIBLE);
+                            mMsgvin.setVisibility(View.GONE);
+                            query_vin.setVisibility(View.GONE);
+                        }
+                    });
+                }
+            }
+        }
+    };
 }
