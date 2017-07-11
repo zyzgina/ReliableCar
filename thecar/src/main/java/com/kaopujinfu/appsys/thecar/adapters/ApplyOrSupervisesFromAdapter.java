@@ -87,12 +87,10 @@ public class ApplyOrSupervisesFromAdapter extends BaseAdapter {
             hold.threeTitle.setText(supervisesFromTitles[2]);
             hold.twoNum.setTextColor(Color.RED);
             hold.threeNum.setTextColor(Color.BLACK);
-            for (int s = 0; s < itemsEntity.getArrcount().size(); s++) {
-                if ("正常监管".equals(itemsEntity.getArrcount().get(s).getStatus())) {
-                    hold.oneNum.setText(itemsEntity.getArrcount().get(s).getCount());
-                } else{
-                    hold.twoNum.setText(itemsEntity.getArrcount().get(s).getCount());
-                }
+            if ("正常".equals(itemsEntity.getStatus())) {
+                hold.oneNum.setText(itemsEntity.getCount()+"");
+            } else {
+                hold.twoNum.setText(itemsEntity.getCount()+"");
             }
             String wareHouse = itemsEntity.getWareHouseCount();
             if (GeneralUtils.isEmpty(wareHouse))
