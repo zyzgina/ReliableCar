@@ -369,11 +369,11 @@ public class IBaseMethod {
         if (num != urlPath.length() - 1) {
             urlPath += "/";
         }
-        LogUtils.debug("urlPath====" + urlPath);
         //判断是否加了http://
         if (!urlPath.contains("http://")) {
             urlPath = "http://" + urlPath;
         }
+        LogUtils.debug("接口地址:"+urlPath);
         urlPath += url;
         OkHttpUtils.asyncPost(urlPath, params, new StringCallback() {
             @Override
