@@ -673,7 +673,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                 } else {
                     isThread = true;
                     threadNum = 5;
-                    thread.start();
+                    specifiedTime();
                     mRemind.setVisibility(View.VISIBLE);
                     toats_vin.setVisibility(View.GONE);
                     if (api.VinFindVIN() == 1) {
@@ -1166,33 +1166,35 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
 
     /* 添加在规定时间没有点击屏幕自动进入扫描状态 */
     private int threadNum = 5;//等待时间
-    private Thread thread = new Thread() {
-        @Override
-        public void run() {
-            super.run();
-            while (isThread) {
-                threadNum--;
-                LogUtils.debug("进度走动:" + threadNum);
-                try {
-                    sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if (threadNum == 0) {
-                    isThread = false;
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mRemind.setVisibility(View.INVISIBLE);
-                            toats_vin.setVisibility(View.VISIBLE);
-                            mVinresult.setVisibility(View.INVISIBLE);
-                            mShowbitmap.setVisibility(View.INVISIBLE);
-                            mMsgvin.setVisibility(View.GONE);
-                            query_vin.setVisibility(View.GONE);
-                        }
-                    });
+    private void specifiedTime(){
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                while (isThread) {
+                    threadNum--;
+                    LogUtils.debug("进度走动:" + threadNum);
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (threadNum == 0) {
+                        isThread = false;
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mRemind.setVisibility(View.INVISIBLE);
+                                toats_vin.setVisibility(View.VISIBLE);
+                                mVinresult.setVisibility(View.INVISIBLE);
+                                mShowbitmap.setVisibility(View.INVISIBLE);
+                                mMsgvin.setVisibility(View.GONE);
+                                query_vin.setVisibility(View.GONE);
+                            }
+                        });
+                    }
                 }
             }
-        }
-    };
+        }.start();
+    }
 }
