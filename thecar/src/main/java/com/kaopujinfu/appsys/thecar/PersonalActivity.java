@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
@@ -66,6 +67,16 @@ public class PersonalActivity extends BaseActivity {
                 phone_number_personal.setText(IBaseMethod.hide(user.getMobile(), 3, 6));
             company_personal.setText(user.getCompanyLongName());
             email_personal.setText(user.getEmail());
+            if(!GeneralUtils.isEmpty(user.getHead_img())){
+                //初始化加载中时显示的图片
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.avatar_head);
+                String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
+                //判断是否加了http://
+                if (!urlPath.contains("http://")) {
+                    urlPath = "http://" + urlPath;
+                }
+                FinalBitmap.create(this).display(avatar_personal,urlPath+user.getHead_img(),bitmap,bitmap);
+            }
         }
     }
 

@@ -3,6 +3,8 @@ package com.kaopujinfu.appsys.thecar;
 import android.app.ActivityGroup;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.VinCodeBean;
@@ -42,12 +45,15 @@ import com.kaopujinfu.appsys.thecar.menu.VerionActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.MineActivity;
 import com.kaopujinfu.appsys.thecar.supervises.SupervisesActivity;
 
+import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalDb;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
+
+import static com.kaopujinfu.appsys.thecar.R.id.avatar_personal;
 
 /**
  * Created by 左丽姬 on 2017/5/12.
@@ -189,6 +195,16 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
                 tel_slidingmenu.setText("未绑手机号");
             } else {
                 tel_slidingmenu.setText(IBaseMethod.hide(user.getMobile(), 3, 6));
+            }
+            if(!GeneralUtils.isEmpty(user.getHead_img())){
+                //初始化加载中时显示的图片
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.avatar_head);
+                String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
+                //判断是否加了http://
+                if (!urlPath.contains("http://")) {
+                    urlPath = "http://" + urlPath;
+                }
+                FinalBitmap.create(this).display(avatar_slidingmenu,urlPath+user.getHead_img(),bitmap,bitmap);
             }
         } else {
             tel_slidingmenu.setText("未绑手机号");

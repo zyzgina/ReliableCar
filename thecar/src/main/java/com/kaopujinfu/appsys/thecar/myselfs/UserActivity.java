@@ -1,6 +1,8 @@
 package com.kaopujinfu.appsys.thecar.myselfs;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
@@ -20,6 +23,8 @@ import com.kaopujinfu.appsys.thecar.R;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
+
+import net.tsz.afinal.FinalBitmap;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -79,6 +84,16 @@ public class UserActivity extends Activity {
                 mNameTel.setText(user.getName() + "(" + IBaseMethod.hide(user.getMobile(), 3, 6) + ")");
             }
             mJob.setText(user.getCompanyShortName() + "-" + user.getRole());
+            if(!GeneralUtils.isEmpty(user.getHead_img())){
+                //初始化加载中时显示的图片
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.avatar_head);
+                String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
+                //判断是否加了http://
+                if (!urlPath.contains("http://")) {
+                    urlPath = "http://" + urlPath;
+                }
+                FinalBitmap.create(this).display(mAvatar,urlPath+user.getHead_img(),bitmap,bitmap);
+            }
         } else {
             mNameTel.setText("未设置(未绑手机号)");
             mJob.setText("未加入-未设置");
