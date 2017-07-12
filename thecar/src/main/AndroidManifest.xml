@@ -59,6 +59,7 @@
         <activity android:name=".myselfs.files.MissionListsActivity" />
         <activity android:name=".myselfs.photos.PhotosDetailsActivity" />
         <activity android:name=".myselfs.photos.AssessmentActivity" />
+        <activity android:name=".myselfs.photos.UploadTaskActivity"/>
         <activity
             android:name=".myselfs.checks.ChecksDetailsActivity"
             android:screenOrientation="portrait" />
