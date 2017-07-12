@@ -58,10 +58,7 @@
         <activity android:name=".myselfs.files.MissionCommitActivity" />
         <activity android:name=".myselfs.files.MissionListsActivity" />
         <activity android:name=".myselfs.photos.PhotosDetailsActivity" />
-        <activity android:name=".myselfs.photos.UploadTaskActivity" />
         <activity android:name=".myselfs.photos.AssessmentActivity" />
-        <activity android:name=".myselfs.photos.TaskManageActivity" />
-        <activity android:name=".myselfs.photos.CarManageActivity" />
         <activity
             android:name=".myselfs.checks.ChecksDetailsActivity"
             android:screenOrientation="portrait" />
@@ -90,9 +87,6 @@
         <activity android:name=".supervises.SupervisesDetailsActivity" />
         <activity android:name=".applys.ApplyDetailsActivity" />
         <activity android:name=".loans.LoanFormDetailsActivity" />
-        <activity android:name=".myselfs.photos.CarDetailsActivity" />
-        <activity android:name=".myselfs.photos.MapActivity" />
-        <activity android:name=".myselfs.photos.CarCheckActivity" />
 
         <activity android:name=".UpdatePasswordActivity" />
         <activity android:name=".PersonalActivity" />

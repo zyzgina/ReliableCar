@@ -153,8 +153,8 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             commit();
         } else if (v.getId() == R.id.missionClickTask) {
             //点击任务管理
-            Intent intent = new Intent(this, TaskManageActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, TaskManageActivity.class);
+//            startActivity(intent);
         } else if (v.getId() == R.id.documentVINScan_new) {
             isVin = false;
             dialog.show();
