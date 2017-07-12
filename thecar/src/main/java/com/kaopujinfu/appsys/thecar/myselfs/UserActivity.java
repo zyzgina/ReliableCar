@@ -94,7 +94,7 @@ public class UserActivity extends Activity {
 //            }
             if (!GeneralUtils.isEmpty(user.getCompany_logo())) {
                 //初始化加载中时显示的图片
-                HttpBank.getIntence(this).getHeadBg(mAvatar,urlPath + user.getCompany_logo(),handler,R.drawable.my_background);
+                HttpBank.getIntence(this).getHeadBg(mAvatar,urlPath + user.getCompany_logo(),handler,R.drawable.avatar_head);
             }
         } else {
             mNameTel.setText("未设置(未绑手机号)");
