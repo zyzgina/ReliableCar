@@ -24,17 +24,12 @@ import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
-import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.dialog.LoadingDialog;
-import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
-import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogItemListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.ShowPasswordListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
-import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseUrl;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
-import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpUser;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
@@ -51,10 +46,9 @@ import static com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils.get;
  */
 
 public class LoginActivity extends Activity implements View.OnClickListener {
-    private EditText username_login, userpass_login, usercode_login;
-    private Button goto_login, register_login, forget_login, verificationcode_login;
+    private EditText username_login, userpass_login;
+    private Button goto_login, register_login, forget_login;
     private CheckBox userpassshow_login;
-    private RelativeLayout usercodelayour_login;
     private LoadingDialog dialog;
     private FinalDb db;
     private IMMListenerRelativeLayout keyLogin;
@@ -128,16 +122,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         goto_login = (Button) findViewById(R.id.goto_login);
         register_login = (Button) findViewById(R.id.register_login);
         forget_login = (Button) findViewById(R.id.forget_login);
-        usercodelayour_login = (RelativeLayout) findViewById(R.id.usercodelayour_login);
-        usercode_login = (EditText) findViewById(R.id.usercode_login);
-        verificationcode_login = (Button) findViewById(R.id.verificationcode_login);
         userpassshow_login = (CheckBox) findViewById(R.id.userpassshow_login);
 
         forget_login.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         goto_login.setOnClickListener(this);
         register_login.setOnClickListener(this);
         forget_login.setOnClickListener(this);
-        verificationcode_login.setOnClickListener(this);
         userpassshow_login.setOnCheckedChangeListener(new ShowPasswordListener(userpass_login));
 
         dialog = new LoadingDialog(this);
@@ -163,7 +153,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         testAddress.setOnClickListener(this);
         productionAddress.setOnClickListener(this);
     }
-    private void initIp(){
+
+    private void initIp() {
         ipshow_login = (CheckBox) findViewById(R.id.ipshow_login);
         addrssLinear = (LinearLayout) findViewById(R.id.addrssLinear);
         testTv = (TextView) findViewById(R.id.testTv);
@@ -173,13 +164,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         ipshow_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     setFocusable();
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm.isActive())
                         imm.hideSoftInputFromWindow(buttonView.getWindowToken(), 0); //强制隐藏键盘
                     addrssLinear.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     addrssLinear.setVisibility(View.GONE);
                 }
             }
@@ -200,34 +191,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             LogUtils.debug("保存的IP地址:" + ip_login.getText().toString());
             SPUtils.put(RetailAplication.getContext(), "domain", ip_login.getText().toString());
             login(username, userpass, false);
-        } else if (i == R.id.verificationcode_login) {// 获取验证码
-            final String uname = username_login.getText().toString();
-            DialogUtil.verificationCode(this, new String[]{"短信验证码", "语音验证码"}, new DialogItemListener() {
-                @Override
-                public void itemListener(int position) {
-                    String action = position == 0 ? IBaseUrl.ACTION_LOGIN_SMS : IBaseUrl.ACTION_LOGIN_VOICE;
-                    HttpUser.getIntence(LoginActivity.this).sendLoginMobileCode(action, uname, new CallBack<Object>() {
-                        @Override
-                        public void onSuccess(Object o) {
-                            Result result = Result.getMcJson(o.toString());
-                            if (result.isSuccess()) {
-                                IBaseMethod.showToast(LoginActivity.this, "验证码发送成功！", IBase.RETAIL_ONE);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(int errorNo, String strMsg) {
-
-                        }
-                    });
-                }
-            });
-
-        }else if(i==R.id.testAddress){
+        } else if (i == R.id.testAddress) {
             ip_login.setText(testTv.getText().toString());
             ipshow_login.setChecked(false);
             addrssLinear.setVisibility(View.GONE);
-        }else if(i==R.id.productionAddress){
+        } else if (i == R.id.productionAddress) {
             ip_login.setText(productionTv.getText().toString());
             ipshow_login.setChecked(false);
             addrssLinear.setVisibility(View.GONE);
@@ -263,18 +231,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     startActivity(intent);
                     finish();
                 } else {
-                    if ("NEED_MOBILE_CHECK".equals(result.getComment())) {
-                        // 需要验证码
-                        usercodelayour_login.setVisibility(View.VISIBLE);
-                        IBaseMethod.showToast(LoginActivity.this, "此次登录IP不是常用的IP，需要发送短信或语音验证码来验证登录", IBase.RETAIL_ZERO);
-                    } else {
-                        // 登录失败
-                        String comment = "登录失败,请检查登录信息";
-                        if (result != null)
-                            comment = result.getComment();
-                        DialogUtil.jumpCorrectErr(LoginActivity.this, comment, "继 续", 2, getResources().getColor(android.R.color.holo_orange_light));
-
-                    }
+                    // 登录失败
+                    String comment = "登录失败,请检查登录信息";
+                    if (result != null)
+                        comment = result.getComment();
+                    DialogUtil.jumpCorrectErr(LoginActivity.this, comment, "继 续", 2, getResources().getColor(android.R.color.holo_orange_light));
                 }
             }
 
@@ -285,24 +246,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     IBaseMethod.showToast(LoginActivity.this, strMsg, IBase.RETAIL_TWO);
                 if (errorNo == IBase.CONSTANT_ONE)
                     IBaseMethod.showNetToast(LoginActivity.this);
-            }
-        });
-    }
-
-    /* 设置项目服务器的IP地址 */
-    public void settingIp(final View view) {
-        DialogUtil.updateIPDialog(this, new DialogButtonListener() {
-            @Override
-            public void ok() {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm.isActive())
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0); //强制隐藏键盘
-                setFocusable();
-            }
-
-            @Override
-            public void cancel() {
-
             }
         });
     }

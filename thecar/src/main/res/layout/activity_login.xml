@@ -120,12 +120,12 @@
                 android:id="@+id/ipshow_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignBaseline="@id/ip_login"
+                android:layout_alignParentRight="true"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="20dp"
                 android:button="@drawable/selector_select_ip"
-                android:checked="false"/>
+                android:checked="false" />
 
             <LinearLayout
                 android:id="@+id/addrssLinear"
@@ -192,58 +192,12 @@
                 android:background="@color/plain_gray" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/usercodelayour_login"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/sp50"
-            android:layout_below="@id/ipLinear"
-            android:layout_marginLeft="@dimen/common_measure_30sp"
-            android:layout_marginRight="@dimen/common_measure_30sp"
-            android:layout_marginTop="@dimen/sp15"
-            android:background="@drawable/edit_alpha_circular"
-            android:visibility="gone">
-
-            <Button
-                android:id="@+id/verificationcode_login"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@null"
-                android:paddingLeft="@dimen/common_measure_0sp"
-                android:text="@string/getverification"
-                android:textColor="@color/white" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="@dimen/sp30"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/verificationcode_login"
-                android:background="@color/white" />
-
-            <EditText
-                android:id="@+id/usercode_login"
-                style="@style/textview_color_back_gray_singleLine_size17"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@+id/verificationcode_login"
-                android:background="@color/trans"
-                android:drawableLeft="@drawable/sideba_iconr_message_selected"
-                android:drawablePadding="10dp"
-                android:hint="@string/inputverification"
-                android:inputType="textPassword"
-                android:paddingLeft="20dp"
-                android:textColorHint="@color/back_gray" />
-
-        </RelativeLayout>
-
         <Button
             android:id="@+id/goto_login"
             style="@style/textview_color_white_size18"
             android:layout_width="match_parent"
             android:layout_height="@dimen/sp50"
-            android:layout_below="@id/usercodelayour_login"
+            android:layout_below="@id/ipLinear"
             android:layout_marginLeft="@dimen/common_measure_30sp"
             android:layout_marginRight="@dimen/common_measure_30sp"
             android:layout_marginTop="@dimen/common_measure_50sp"
