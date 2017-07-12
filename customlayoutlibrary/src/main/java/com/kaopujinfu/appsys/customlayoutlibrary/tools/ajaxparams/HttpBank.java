@@ -1,8 +1,11 @@
 package com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.ImageView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.VinCodeBean;
@@ -19,6 +22,11 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 
 import net.tsz.afinal.FinalDb;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -76,14 +84,16 @@ public class HttpBank {
 
     /**
      * 修改密码
+     *
      * @param oldPassword 旧密码
      * @param newPassword 新密码
-     * @param callBack 回调函数
+     * @param callBack    回调函数
      */
-    public void updatePassword(String oldPassword, String newPassword, CallBack<Object> callBack){
+    public void updatePassword(String oldPassword, String newPassword, CallBack<Object> callBack) {
         AjaxParams params = bankAjaxParams.updatePassword(oldPassword, newPassword);
-        IBaseMethod.post(context,  IBaseUrl.USER, params, callBack);
+        IBaseMethod.post(context, IBaseUrl.USER, params, callBack);
     }
+
     /**
      * 获取token
      *
@@ -103,8 +113,8 @@ public class HttpBank {
      * @param fileSize 文件大小
      * @param callBack
      */
-    public void uploadSuccess(String bizType, String bizId, String storeKey, String fileName, String fileSize, CallBack callBack,String...strings) {
-        AjaxParams params = bankAjaxParams.getUploadSuccess(bizType, bizId, storeKey, fileName, fileSize,strings);
+    public void uploadSuccess(String bizType, String bizId, String storeKey, String fileName, String fileSize, CallBack callBack, String... strings) {
+        AjaxParams params = bankAjaxParams.getUploadSuccess(bizType, bizId, storeKey, fileName, fileSize, strings);
         LogUtils.debug("参数:" + params.getParamsString());
         IBaseMethod.post(context, IBaseUrl.UPLOAD_FILE, params, callBack);
     }
@@ -339,5 +349,40 @@ public class HttpBank {
                 }
             }
         });
+    }
+
+    /**
+     * 获取头像
+     */
+    public void getHeadBg(final ImageView avatarView, final String url, final Handler handler, final int image) {
+        new Thread() {
+            public void run() {
+                URL fileUrl = null;
+                try {
+                    fileUrl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    HttpURLConnection conn = (HttpURLConnection) fileUrl.openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    final Bitmap bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (bitmap != null)
+                                avatarView.setImageBitmap(bitmap);
+                            else
+                                avatarView.setImageResource(image);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }

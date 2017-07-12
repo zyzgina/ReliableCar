@@ -34,7 +34,9 @@ public class Loginbean  implements Serializable{
     private String comment;
     private String user_id;
     private String name;
+    private String head_img;
     private String companyCode;
+    private String company_logo;
     private String role;
     private String email;
     private String mobile;
@@ -72,8 +74,24 @@ public class Loginbean  implements Serializable{
         this.name = name;
     }
 
+    public String getHead_img() {
+        return head_img;
+    }
+
+    public void setHead_img(String head_img) {
+        this.head_img = head_img;
+    }
+
     public void setCompanyCode(String companyCode) {
         this.companyCode = companyCode;
+    }
+
+    public String getCompany_logo() {
+        return company_logo;
+    }
+
+    public void setCompany_logo(String company_logo) {
+        this.company_logo = company_logo;
     }
 
     public void setRole(String role) {
@@ -164,7 +182,9 @@ public class Loginbean  implements Serializable{
                 ", comment='" + comment + '\'' +
                 ", user_id='" + user_id + '\'' +
                 ", name='" + name + '\'' +
+                ", head_img='" + head_img + '\'' +
                 ", companyCode='" + companyCode + '\'' +
+                ", company_logo='" + company_logo + '\'' +
                 ", role='" + role + '\'' +
                 ", email='" + email + '\'' +
                 ", mobile='" + mobile + '\'' +

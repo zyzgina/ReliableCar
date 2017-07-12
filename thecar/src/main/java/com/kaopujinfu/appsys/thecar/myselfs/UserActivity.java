@@ -1,8 +1,6 @@
 package com.kaopujinfu.appsys.thecar.myselfs;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +13,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.AvatarView;
@@ -23,8 +22,6 @@ import com.kaopujinfu.appsys.thecar.R;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
-
-import net.tsz.afinal.FinalBitmap;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -70,13 +67,14 @@ public class UserActivity extends Activity {
     }
 
     private void initUser() {
+        ImageView logoImageview = (ImageView) findViewById(R.id.logoImageview);
         RelativeLayout myselfTop = (RelativeLayout) findViewById(R.id.myselfTop);
         myselfTop.setPadding(0, IBaseMethod.setPaing(this) + getResources().getDimensionPixelOffset(R.dimen.sp50), 0, 0);
         mAvatar = (AvatarView) findViewById(R.id.avatar_myself);
         mNameTel = (TextView) findViewById(R.id.nametel_myself);
         mJob = (TextView) findViewById(R.id.job_myself);
         String o = SPUtils.get(UserActivity.this, "loginUser", "").toString();
-        Loginbean user = Loginbean.getLoginbean(o);
+        final Loginbean user = Loginbean.getLoginbean(o);
         if (user != null) {
             if (GeneralUtils.isEmpty(user.getMobile())) {
                 mNameTel.setText(user.getName() + "(未绑手机号)");
@@ -84,21 +82,24 @@ public class UserActivity extends Activity {
                 mNameTel.setText(user.getName() + "(" + IBaseMethod.hide(user.getMobile(), 3, 6) + ")");
             }
             mJob.setText(user.getCompanyShortName() + "-" + user.getRole());
-            if(!GeneralUtils.isEmpty(user.getHead_img())){
+             String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
+            //判断是否加了http://
+            if (!urlPath.contains("http://")) {
+                urlPath = "http://" + urlPath;
+            }
+//            if (!GeneralUtils.isEmpty(user.getHead_img())) {
+//                //初始化加载中时显示的图片
+//                LogUtils.debug("头像=====" + urlPath + user.getHead_img());
+//                HttpBank.getIntence(this).getHeadBg(mAvatar,urlPath + user.getHead_img(),handler,R.drawable.avatar_head);
+//            }
+            if (!GeneralUtils.isEmpty(user.getCompany_logo())) {
                 //初始化加载中时显示的图片
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.avatar_head);
-                String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
-                //判断是否加了http://
-                if (!urlPath.contains("http://")) {
-                    urlPath = "http://" + urlPath;
-                }
-                FinalBitmap.create(this).display(mAvatar,urlPath+user.getHead_img(),bitmap,bitmap);
+                HttpBank.getIntence(this).getHeadBg(mAvatar,urlPath + user.getCompany_logo(),handler,R.drawable.my_background);
             }
         } else {
             mNameTel.setText("未设置(未绑手机号)");
             mJob.setText("未加入-未设置");
         }
-        ImageView logoImageview = (ImageView) findViewById(R.id.logoImageview);
 
         RelativeLayout rlUser = (RelativeLayout) findViewById(R.id.rlUser);
         rlUser.requestLayout();
@@ -128,13 +129,14 @@ public class UserActivity extends Activity {
 
     @Subscribe
     public void onEventMainThread(JumpEventBus jumpEventBus) {
-        if (jumpEventBus.getStatus()==IBase.RETAIL_FOUR) {
+        if (jumpEventBus.getStatus() == IBase.RETAIL_FOUR) {
             refreshLayoutMin.finishRefreshing();
-            if("true".equals(jumpEventBus.getName())){
+            if ("true".equals(jumpEventBus.getName())) {
                 IBaseMethod.jumpCountdown(60, handler);
             }
         }
     }
+
     @Override
     public void onBackPressed() {
         CarMainActivity.exit(this);

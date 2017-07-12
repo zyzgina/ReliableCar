@@ -3,17 +3,18 @@ package com.kaopujinfu.appsys.thecar;
 import android.app.ActivityGroup;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -45,15 +46,12 @@ import com.kaopujinfu.appsys.thecar.menu.VerionActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.MineActivity;
 import com.kaopujinfu.appsys.thecar.supervises.SupervisesActivity;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalDb;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
-
-import static com.kaopujinfu.appsys.thecar.R.id.avatar_personal;
 
 /**
  * Created by 左丽姬 on 2017/5/12.
@@ -188,6 +186,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         list_slidingmenu = (MyListView) findViewById(R.id.list_slidingmenu);
         avatar_slidingmenu = (AvatarView) findViewById(R.id.avatar_slidingmenu);
         tel_slidingmenu = (TextView) findViewById(R.id.tel_slidingmenu);
+        ImageView slidingmenuIv= (ImageView) findViewById(R.id.slidingmenuIv);
         String o = SPUtils.get(CarMainActivity.this, "loginUser", "").toString();
         Loginbean user = Loginbean.getLoginbean(o);
         if (user != null) {
@@ -196,16 +195,19 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
             } else {
                 tel_slidingmenu.setText(IBaseMethod.hide(user.getMobile(), 3, 6));
             }
+            String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
+            //判断是否加了http://
+            if (!urlPath.contains("http://")) {
+                urlPath = "http://" + urlPath;
+            }
             if(!GeneralUtils.isEmpty(user.getHead_img())){
                 //初始化加载中时显示的图片
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.avatar_head);
-                String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
-                //判断是否加了http://
-                if (!urlPath.contains("http://")) {
-                    urlPath = "http://" + urlPath;
-                }
-                FinalBitmap.create(this).display(avatar_slidingmenu,urlPath+user.getHead_img(),bitmap,bitmap);
+                HttpBank.getIntence(this).getHeadBg(avatar_slidingmenu,urlPath + user.getHead_img(),handler,R.drawable.avatar_head);
             }
+//            if (!GeneralUtils.isEmpty(user.getCompany_logo())) {
+                //初始化加载中时显示的图片
+//                HttpBank.getIntence(this).getHeadBg(slidingmenuIv,urlPath + user.getCompany_logo(),handler,R.drawable.my_background);
+//            }
         } else {
             tel_slidingmenu.setText("未绑手机号");
         }
@@ -343,4 +345,10 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         }
     }
 
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 }

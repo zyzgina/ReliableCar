@@ -20,6 +20,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
@@ -69,13 +70,12 @@ public class PersonalActivity extends BaseActivity {
             email_personal.setText(user.getEmail());
             if(!GeneralUtils.isEmpty(user.getHead_img())){
                 //初始化加载中时显示的图片
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.avatar_head);
                 String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
                 //判断是否加了http://
                 if (!urlPath.contains("http://")) {
                     urlPath = "http://" + urlPath;
                 }
-                FinalBitmap.create(this).display(avatar_personal,urlPath+user.getHead_img(),bitmap,bitmap);
+                HttpBank.getIntence(this).getHeadBg(avatar_personal,urlPath + user.getHead_img(),handler,R.drawable.avatar_head);
             }
         }
     }
