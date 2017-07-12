@@ -12,26 +12,6 @@ public class IBaseUrl {
      */
     public static String USER = "login";
     /**
-     * 登录发送短信验证 action
-     */
-    public static final String ACTION_LOGIN_SMS = "SEND_LOGIN_MOBILE_CODE_SMS";
-    /**
-     * 登录发送语音验证 action
-     */
-    public static final String ACTION_LOGIN_VOICE = "SEND_LOGIN_MOBILE_CODE_VOICE";
-    /**
-     * 个人信息 action
-     */
-    public static final String ACTION_PERSONAL = "USER_INFO";
-    /**
-     * 省级联动 action
-     */
-    public static final String ACTION_LIST_PROVINCE = "LIST_PROVINCE";
-    /**
-     * 区级联动 action
-     */
-    public static final String ACTION_LIST_BY_PARENT = "LIST_BY_PARENT";
-    /**
      * 查询车辆品牌列表  action
      */
     public static final String ACTION_LIST_BRAND = "LIST_BRAND";

@@ -10,13 +10,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.GridView;
-import android.widget.LinearLayout;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.BrandBean;
@@ -31,25 +28,16 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.ToastUtils;
-import com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView;
 
 import net.tsz.afinal.FinalDb;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.math.RoundingMode;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import okhttp3.Call;
 
@@ -123,59 +111,6 @@ public class IBaseMethod {
     }
 
     /**
-     * 字符串验证验证
-     *
-     * @param verdata
-     * @param format
-     */
-    public static boolean verification(String verdata, String format) {
-        Pattern p = Pattern.compile(format);
-        Matcher matcher = p.matcher(verdata);
-        if (matcher.matches()) {
-            LogUtils.debug("验证成功");
-            return true;
-        }
-        LogUtils.debug("验证失败");
-        return false;
-    }
-
-    /**
-     * 判断两个字符串是否相等
-     *
-     * @param str1
-     * @param str2
-     */
-    public static boolean isEqual(String str1, String str2) {
-        if (str1.equals(str2)) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * gridview横向布局方法
-     *
-     * @param context  上下文对象
-     * @param gridView 计算的GridView
-     * @param size     多少条数据
-     * @param len      长度
-     */
-    public static void horizontal_layout(Context context, MyGridView gridView, int size, int len) {
-        DisplayMetrics dm = new DisplayMetrics();
-        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
-        float density = dm.density;
-        int allWidth = (int) (size * (len + 5) * density);
-        int itemWidth = (int) (len * density);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                allWidth, LinearLayout.LayoutParams.FILL_PARENT);
-        gridView.setLayoutParams(params);// 设置GirdView布局参数
-        gridView.setColumnWidth(itemWidth);// 列表项宽
-        gridView.setHorizontalSpacing(10);// 列表项水平间距
-        gridView.setStretchMode(GridView.NO_STRETCH);
-        gridView.setNumColumns(size);//总长度
-    }
-
-    /**
      * 判断网络是否连接
      *
      * @param context activity的上下文对象
@@ -187,23 +122,10 @@ public class IBaseMethod {
         NetworkInfo info = manager.getActiveNetworkInfo();
         // 判断当前网络状态是否为连接状态
         if (info != null && info.isConnected()) {
-            LogUtils.debug("=======判断当前网络状态是否为连接状态=====" + info.isConnected());
             if (info.getState() == NetworkInfo.State.CONNECTED) {
                 return true;
             }
         }
-//        NetworkInfo[] info = manager.getAllNetworkInfo();
-//        if (info != null && info.length > 0) {
-//            for (int i = 0; i < info.length; i++) {
-//                // 判断当前网络状态是否为连接状态
-//                LogUtils.debug("=======判断当前网络状态是否为连接状态====="+info[i].isAvailable());
-//                if (info[i] != null && info[i].isAvailable()) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            }
-//        }
         return false;
     }
 
@@ -219,49 +141,6 @@ public class IBaseMethod {
             return true;
         }
         return false;
-    }
-
-    /**
-     * 获取手机唯一标识码
-     *
-     * @param activity
-     */
-    public static void getCode(Activity activity) {
-        String base = "abcdefghijklmnopqrstuvwxyzQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
-        Random random = new Random();
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < 20; i++) {
-            int number = random.nextInt(base.length());
-            sb.append(base.charAt(number));
-        }
-        String m_szLongID = sb.toString() + System.currentTimeMillis();
-        IBase.szImei = getMD5(m_szLongID);
-        SPUtils.put(activity, "alyed_code", IBase.szImei);
-    }
-
-    /**
-     * MD5 加密
-     *
-     * @param info 需要加密的信息
-     * @return 返回加密后的信息
-     */
-    public static String getMD5(String info) {
-        MessageDigest m = null;
-        try {
-            m = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        m.update(info.getBytes(), 0, info.length());
-        byte p_md5Data[] = m.digest();
-        info = "";
-        for (int i = 0; i < p_md5Data.length; i++) {
-            int b = (0xFF & p_md5Data[i]);
-            if (b <= 0xF)
-                info += "0";
-            info += Integer.toHexString(b);
-        }
-        return info.toUpperCase();
     }
 
     /**
@@ -399,18 +278,6 @@ public class IBaseMethod {
     }
 
     /**
-     * 获取随机数，从 start 到 end 包括 start
-     *
-     * @param start 开始值
-     * @param end   结束值
-     * @return
-     */
-    public static int getRandomNumber(int start, int end) {
-        Random random = new Random();
-        return random.nextInt(end) + start;
-    }
-
-    /**
      * 接口响应错误执行的操作
      */
     public static void implementError(Context context, int errorNo) {
@@ -460,22 +327,6 @@ public class IBaseMethod {
         }
     }
 
-    /**
-     * 计算百分比
-     *
-     * @param num   占用
-     * @param total 总数
-     * @param scale 精确小数几位
-     * @return
-     */
-    public static double accuracy(double num, double total, int scale) {
-        DecimalFormat df = (DecimalFormat) NumberFormat.getInstance();
-        // 可以设置精确几位小数
-        df.setMaximumFractionDigits(scale);
-        // 模式 例如四舍五入
-        df.setRoundingMode(RoundingMode.HALF_UP);
-        return num / total;
-    }
 
     /**
      * 计算距离
