@@ -3,7 +3,6 @@ package com.kaopujinfu.appsys.customlayoutlibrary.okHttpUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -129,23 +128,6 @@ class BaseHttp {
             return new Request.Builder().post(formBody).url(url).build();
         }
         return new Request.Builder().get().build();
-    }
-
-    /**
-     * 根据请求地址,文件类型,上传文件,回调,创建一个请求实体对象
-     *
-     * @param url         请求地下
-     * @param contentType 需要上传的文件的类型 如:图片"image/jpeg"; "image/png".
-     * @param file        要上传的文件
-     * @param callback    回调接口
-     * @return 返回一个创建好的请求实体对象
-     */
-    public Request createUploadRequest(String url, String contentType, File file, UploadFileCallback callback) {
-        return new Request.Builder()
-                .url(url)
-                .post(new UploadFileBody(file, contentType, callback))
-                .build();
-
     }
 
     /**
