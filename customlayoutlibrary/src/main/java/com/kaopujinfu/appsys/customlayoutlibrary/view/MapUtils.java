@@ -1,6 +1,7 @@
 package com.kaopujinfu.appsys.customlayoutlibrary.view;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.LoactionListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.PermissionsUntils;
 
 /**
  * Describe: 高德地图定位设置
@@ -33,8 +35,9 @@ public class MapUtils {
 
     public MapUtils(Context context) {
         this.context = context;
-
-
+        if(!PermissionsUntils.checkLoationPermissions((Activity) context)){
+            PermissionsUntils.requesetLoactionPermissions((Activity) context);
+        }
     }
 
     public void initOnceLocation() {

@@ -187,7 +187,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
         mBackcamera.setOnClickListener(bClickListener);
         mFlashcamera.setOnClickListener(fClickListener);
         mTackPicbtn.setOnClickListener(tClickListener);
-        mapUtils = new MapUtils(getApplicationContext());
+        mapUtils = new MapUtils(this);
         mapUtils.initOnceLocation();
         mapUtils.startLocation(new LoactionListener() {
             @Override

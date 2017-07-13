@@ -29,6 +29,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.PermissionsUntils;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.ChecksdetailsAdapter;
 import com.kaopujinfu.appsys.thecar.bean.TaskListBean;
@@ -63,6 +64,10 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checksdetails);
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
+        //请求语音权限
+        if(!PermissionsUntils.checkRecordPermissions(this)){
+            PermissionsUntils.requesetRecordPermissions(this);
+        }
     }
 
     @Override
