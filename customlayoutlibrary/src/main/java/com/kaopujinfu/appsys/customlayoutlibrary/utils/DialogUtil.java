@@ -233,7 +233,7 @@ public class DialogUtil {
                     // 拍照
                     dialog.dismiss();
                     if (!PermissionsUntils.checkCameraPermissions((Activity) context)) {
-                        PermissionsUntils.requesetContanctsPermissions((Activity) context);
+                        PermissionsUntils.requesetCameraPermissions((Activity) context);
                         return;
                     }
                     if (listener != null) {
