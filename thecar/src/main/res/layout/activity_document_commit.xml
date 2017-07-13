@@ -133,8 +133,8 @@
                     android:id="@+id/image1"
                     android:layout_width="@dimen/sp50"
                     android:layout_height="@dimen/sp50"
-                    android:src="@drawable/my_icon_binding"
-                    android:layout_centerHorizontal="true"/>
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/my_icon_binding" />
 
                 <TextView
                     style="@style/textview_color_back_gray_size15"
@@ -155,9 +155,8 @@
                     android:id="@+id/image2"
                     android:layout_width="@dimen/sp50"
                     android:layout_height="@dimen/sp50"
-                    android:onClick="jumpIntent"
-                    android:src="@drawable/icon_biaoqian"
-                    android:layout_centerHorizontal="true"/>
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_biaoqian" />
 
                 <TextView
                     style="@style/textview_color_back_gray_size15"
@@ -178,9 +177,8 @@
                     android:id="@+id/image3"
                     android:layout_width="@dimen/sp50"
                     android:layout_height="@dimen/sp50"
-                    android:onClick="jumpIntent"
-                    android:src="@drawable/icon_jianguan"
-                    android:layout_centerHorizontal="true"/>
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_jianguan" />
 
                 <TextView
                     style="@style/textview_color_back_gray_size15"
@@ -197,20 +195,20 @@
                 android:layout_margin="@dimen/common_measure_10sp"
                 android:onClick="jumpIntent">
 
-                <ImageView
-                    android:id="@+id/image4"
-                    android:layout_width="@dimen/sp50"
-                    android:layout_height="@dimen/sp50"
-                    android:onClick="jumpIntent"
-                    android:src="@drawable/my_icon_document"
-                    android:layout_centerHorizontal="true"/>
-
                 <TextView
                     style="@style/textview_color_back_gray_size15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/image4"
+                    android:layout_below="@+id/image4"
                     android:text="文档绑标签" />
+
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="@dimen/sp50"
+                    android:layout_height="@dimen/sp50"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/my_icon_document" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -224,10 +222,9 @@
                     android:id="@+id/image5"
                     android:layout_width="@dimen/sp50"
                     android:layout_height="@dimen/sp50"
+                    android:layout_centerHorizontal="true"
                     android:layout_margin="@dimen/common_measure_10sp"
-                    android:onClick="jumpIntent"
-                    android:src="@drawable/my_icon_shot"
-                    android:layout_centerHorizontal="true"/>
+                    android:src="@drawable/my_icon_shot" />
 
                 <TextView
                     style="@style/textview_color_back_gray_size15"
