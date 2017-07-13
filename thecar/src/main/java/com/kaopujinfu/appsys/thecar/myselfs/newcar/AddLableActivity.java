@@ -90,7 +90,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         });
         //判断是否有相机权限
         if (!PermissionsUntils.checkCameraPermissions(AddLableActivity.this)) {
-            PermissionsUntils.requesetContanctsPermissions(AddLableActivity.this);
+            PermissionsUntils.requesetCameraPermissions(AddLableActivity.this);
         }
     }
 

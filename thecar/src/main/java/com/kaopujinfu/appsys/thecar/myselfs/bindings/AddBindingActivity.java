@@ -92,7 +92,7 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
         });
         //判断是否有相机权限
         if (!PermissionsUntils.checkCameraPermissions(AddBindingActivity.this)) {
-            PermissionsUntils.requesetContanctsPermissions(AddBindingActivity.this);
+            PermissionsUntils.requesetCameraPermissions(AddBindingActivity.this);
         }
     }
 
