@@ -231,6 +231,11 @@ public class DialogUtil {
             public void onClick(View v) {
                 if (v.getId() == R.id.avatar_phone) {
                     // 拍照
+                    dialog.dismiss();
+                    if (!PermissionsUntils.checkCameraPermissions((Activity) context)) {
+                        PermissionsUntils.requesetContanctsPermissions((Activity) context);
+                        return;
+                    }
                     if (listener != null) {
                         if (listener.takePhoto()) {
                             takePhoto((Activity) context, fileName);
@@ -238,7 +243,7 @@ public class DialogUtil {
                     } else {
                         takePhoto((Activity) context, fileName);
                     }
-                    dialog.dismiss();
+
                 } else if (v.getId() == R.id.avatar_image) {
                     // 从相册中选择
                     if (listener != null) {
