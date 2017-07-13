@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
@@ -31,7 +31,7 @@ import static com.kaopujinfu.appsys.thecar.R.id.new_documentCommit;
 public class DocumentCommitActivity extends BaseNoScoActivity {
     int success;
     String UploadPath;
-    private ImageView commitShot, commitDocument, commitJianguan, commitBiaoqian, commitNewCar;
+    private RelativeLayout commitShot, commitDocument, commitJianguan, commitBiaoqian, commitNewCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +55,11 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
         TextView toast_documentCommit = (TextView) findViewById(R.id.toast_documentCommit);
         TextView sel_documentCommit = (TextView) findViewById(R.id.sel_documentCommit);
 
-        commitNewCar = (ImageView) findViewById(R.id.commitNewCar);
-        commitBiaoqian = (ImageView) findViewById(R.id.commitBiaoqian);
-        commitJianguan = (ImageView) findViewById(R.id.commitJianguan);
-        commitDocument = (ImageView) findViewById(R.id.commitDocument);
-        commitShot = (ImageView) findViewById(R.id.commitShot);
+        commitNewCar = (RelativeLayout) findViewById(R.id.commitNewCar);
+        commitBiaoqian = (RelativeLayout) findViewById(R.id.commitBiaoqian);
+        commitJianguan = (RelativeLayout) findViewById(R.id.commitJianguan);
+        commitDocument = (RelativeLayout) findViewById(R.id.commitDocument);
+        commitShot = (RelativeLayout) findViewById(R.id.commitShot);
 
         if (success == IBase.CONSTANT_ZERO) {
             commitDocument.setVisibility(View.GONE);

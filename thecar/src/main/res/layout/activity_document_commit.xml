@@ -8,9 +8,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/common_measure_80sp"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/common_measure_80sp">
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -122,45 +122,120 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <ImageView
+            <RelativeLayout
                 android:id="@+id/commitNewCar"
-                android:layout_width="@dimen/sp50"
-                android:layout_height="@dimen/sp50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/common_measure_10sp"
-                android:onClick="jumpIntent"
-                android:src="@drawable/my_icon_binding" />
+                android:onClick="jumpIntent">
 
-            <ImageView
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="@dimen/sp50"
+                    android:layout_height="@dimen/sp50"
+                    android:src="@drawable/my_icon_binding"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    style="@style/textview_color_back_gray_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image1"
+                    android:text="新建车辆" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/commitBiaoqian"
-                android:layout_width="@dimen/sp50"
-                android:layout_height="@dimen/sp50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/common_measure_10sp"
-                android:onClick="jumpIntent"
-                android:src="@drawable/icon_biaoqian" />
+                android:onClick="jumpIntent">
 
-            <ImageView
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="@dimen/sp50"
+                    android:layout_height="@dimen/sp50"
+                    android:onClick="jumpIntent"
+                    android:src="@drawable/icon_biaoqian"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    style="@style/textview_color_back_gray_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image2"
+                    android:text="车辆绑标签" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/commitJianguan"
-                android:layout_width="@dimen/sp50"
-                android:layout_height="@dimen/sp50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/common_measure_10sp"
-                android:onClick="jumpIntent"
-                android:src="@drawable/icon_jianguan" />
+                android:onClick="jumpIntent">
 
-            <ImageView
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="@dimen/sp50"
+                    android:layout_height="@dimen/sp50"
+                    android:onClick="jumpIntent"
+                    android:src="@drawable/icon_jianguan"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    style="@style/textview_color_back_gray_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image3"
+                    android:text="绑定监管器" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/commitDocument"
-                android:layout_width="@dimen/sp50"
-                android:layout_height="@dimen/sp50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/common_measure_10sp"
-                android:onClick="jumpIntent"
-                android:src="@drawable/my_icon_document" />
+                android:onClick="jumpIntent">
 
-            <ImageView
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="@dimen/sp50"
+                    android:layout_height="@dimen/sp50"
+                    android:onClick="jumpIntent"
+                    android:src="@drawable/my_icon_document"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    style="@style/textview_color_back_gray_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image4"
+                    android:text="文档绑标签" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/commitShot"
-                android:layout_width="@dimen/sp50"
-                android:layout_height="@dimen/sp50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/common_measure_10sp"
-                android:onClick="jumpIntent"
-                android:src="@drawable/my_icon_shot" />
+                android:onClick="jumpIntent">
+
+                <ImageView
+                    android:id="@+id/image5"
+                    android:layout_width="@dimen/sp50"
+                    android:layout_height="@dimen/sp50"
+                    android:layout_margin="@dimen/common_measure_10sp"
+                    android:onClick="jumpIntent"
+                    android:src="@drawable/my_icon_shot"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    style="@style/textview_color_back_gray_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image5"
+                    android:text="照片采集" />
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 
