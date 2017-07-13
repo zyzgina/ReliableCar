@@ -35,6 +35,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.PermissionsUntils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
@@ -89,6 +90,10 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
                 mapUtils.stopLocation();
             }
         });
+        //判断是否有相机权限
+        if (!PermissionsUntils.checkCameraPermissions(AddBindingActivity.this)) {
+            PermissionsUntils.requesetContanctsPermissions(AddBindingActivity.this);
+        }
     }
 
     @Override

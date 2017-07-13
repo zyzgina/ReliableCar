@@ -1,6 +1,5 @@
 package com.kaopujinfu.appsys.thecar;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.text.method.HideReturnsTransformationMethod;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -33,6 +31,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.PermissionsUntils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.IMMListenerRelativeLayout;
 
@@ -83,7 +82,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         //6.0获取权限
         boolean isForthefirstime = (boolean) SPUtils.get(this, "isForthefirstime", true);
         if (isForthefirstime)
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.BLUETOOTH, Manifest.permission.RECORD_AUDIO}, 1);
+            PermissionsUntils.requesetContanctsPermissions(this);
         initIp();
         initLogin();
     }
