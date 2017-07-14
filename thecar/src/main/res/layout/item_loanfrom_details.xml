@@ -64,7 +64,7 @@
             android:gravity="right"
             android:layout_weight="1"
             android:textColor="@color/yellow_orange"
-            android:textSize="@dimen/sp20"
+            android:textSize="@dimen/sp16"
             android:text="￥230,900/￥234,14" />
 
     </LinearLayout>
