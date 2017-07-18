@@ -374,6 +374,34 @@ public class BankAjaxParams {
     }
 
     /**
+     * 柜子列表
+     * */
+    public AjaxParams ajaxCabinetLists(){
+        AjaxParams params=BANKUserIDSID();
+        params.put("action",IBaseUrl.APP_BOX_LIST);
+        return params;
+    }
+    /**
+     * 柜子详情
+     * */
+    public AjaxParams ajaxCabinetDetails(String id){
+        AjaxParams params=BANKUserIDSID();
+        params.put("action",IBaseUrl.APP_BOX_CELL);
+        params.put("id",id);
+        return params;
+    }
+    /**
+     * 柜子自行监管说明,柜子自行监管开锁,柜子自行监管停止
+     * */
+    public AjaxParams ajaxCabinetREGMANUAL(String boxCode,String cellId,String action){
+        AjaxParams params=BANKUserIDSID();
+        params.put("action",action);
+        params.put("boxCode",boxCode);
+        params.put("cellId",cellId);
+        return params;
+    }
+
+    /**
      * 设置登录用户，所属session ，公司code参数
      *
      * @return AjaxParams
