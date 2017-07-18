@@ -482,6 +482,21 @@ public class DialogUtil {
      * @param isCanlce 是否触摸消失
      */
     public static void jumpCorrectErr(Context context, String title, String butText, int status, int bgColor, boolean isCanlce) {
+        jumpCorrectErr(context,title,butText,status,bgColor,isCanlce,null);
+    }
+
+    /**
+     * 正确错误动态提示框 -是否触摸消失
+     *
+     * @param context
+     * @param title    提示的文字
+     * @param butText  Button 的文字
+     * @param status   0 错误提示  1 正确提示
+     * @param bgColor  button的背景颜色
+     * @param isCanlce 是否触摸消失
+     * @param listener 按钮监听
+     */
+    public static void jumpCorrectErr(Context context, String title, String butText, int status, int bgColor, boolean isCanlce, final DialogButtonListener listener) {
         if (dialog != null && dialog.isShowing()) {
             return;
         }
@@ -516,6 +531,8 @@ public class DialogUtil {
             public void onClick(View v) {
                 dialog.dismiss();
                 dialog.cancel();
+                if(listener!=null)
+                    listener.ok();
             }
         });
 
@@ -525,5 +542,4 @@ public class DialogUtil {
         p.width = (int) (d.getWidth() * 0.8); // 宽度设置为屏幕的0.9
         dialog.getWindow().setAttributes(p);
     }
-
 }
