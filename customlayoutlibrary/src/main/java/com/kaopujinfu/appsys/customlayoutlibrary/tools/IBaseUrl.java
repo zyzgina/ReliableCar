@@ -154,4 +154,29 @@ public class IBaseUrl {
      */
     public static String ACTION_APP_LIST4 = "APP_LIST4";
 
+    /**
+     * 柜子
+     * */
+    public static String CABINET_APP_LISTS="box_v5";
+    /**
+     * 柜子列表
+     * */
+    public static String APP_BOX_LIST="APP_BOX_LIST";
+    /**
+     * 柜子详情
+     * */
+    public static String APP_BOX_CELL="APP_BOX_CELL";
+    /**
+     * 柜子自行监管说明
+     * */
+    public static String REG_MANUAL="REG_MANUAL";
+    /**
+     * 柜子自行监管开锁
+     * */
+    public static  String OPEN_MANUAL="OPEN_MANUAL";
+    /**
+     * 柜子自行监管停止
+     * */
+    public static String STOP_MANUAL="STOP_MANUAL";
+
 }
