@@ -7,12 +7,15 @@ import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.R;
+import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.VideoRecorderListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.VideoRecordingListener;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogTxt;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.VideoCaptureView;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.CameraWrapper;
@@ -45,6 +48,7 @@ public class VideoRecordActivity extends Activity implements VideoRecorderListen
     private boolean mVideoRecorded = false, isFrontFacingCameraSelected;
 
     private String videoPath;
+    private boolean isLuzhi = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class VideoRecordActivity extends Activity implements VideoRecorderListen
         LogTxt.getInstance().writeLog("进入视频录制页面，视频保存路径：" + videoPath);
         // 获取控件
         mVideoCaptureView = (VideoCaptureView) findViewById(R.id.videocaptureview_vcv);
+        mVideoCaptureView.setVisGone(View.INVISIBLE);
         if (mVideoCaptureView == null) return;
         // 初始化 UI
         initializeRecordingUI();
@@ -99,12 +104,18 @@ public class VideoRecordActivity extends Activity implements VideoRecorderListen
 
     @Override
     public void onBackPressed() {
-        finishCancelled();
+        saveBack();
     }
 
     @Override
     public void onRecordClicked() {
         try {
+            if (isLuzhi) {
+                isLuzhi = false;
+            } else {
+                isLuzhi = true;
+            }
+            isExit=true;
             mVideoRecorder.toggleRecording();
         } catch (Exception e) {
             LogTxt.getInstance().writeLog("VideoRecordActivity-onRecordClicked()：", e);
@@ -154,8 +165,53 @@ public class VideoRecordActivity extends Activity implements VideoRecorderListen
     }
 
     private void finishCancelled() {
-        this.setResult(RESULT_CANCELED);
-        finish();
+//        this.setResult(RESULT_CANCELED);
+//        finish();
+    }
+    private boolean isExit=false;
+    private void saveBack() {
+        if (isLuzhi) {
+            isLuzhi=false;
+            try {
+                mVideoRecorder.toggleRecording();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        } else {
+            String str="你执行的操作要求必须录制视频，请录制";
+            String butstr="录  制";
+            if(isExit){
+                str="退出视频录制将自动保存视频";
+                butstr="保 存";
+            }
+            DialogUtil.jumpCorrectErr(this, str,butstr , 2, getResources().getColor(android.R.color.holo_orange_light), false, new DialogButtonListener() {
+                @Override
+                public void ok() {
+                    if(isExit) {
+                        final Intent result = new Intent();
+                        result.putExtra(EXTRA_OUTPUT_FILENAME, mVideoFile.getFullPath());
+                        setResult(RESULT_OK, result);
+                        finish();
+                    }else{
+                        isLuzhi=true;
+                        isExit=true;
+                        try {
+                            mVideoRecorder.toggleRecording();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void cancel() {
+
+                }
+            });
+        }
+
+
     }
 
     private void finishError(final String message) {
