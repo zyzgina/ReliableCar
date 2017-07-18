@@ -114,6 +114,7 @@ public class TaskItemBean implements Serializable {
         private int commit_status;//提交状态 0:未提交 1：已完成 2:已提交服务器
         private String distributor;
         private String finance;
+        private int allowVideo=1;
 
         public int getTid() {
             return tid;
@@ -275,6 +276,14 @@ public class TaskItemBean implements Serializable {
             this.finance = finance;
         }
 
+        public int getAllowVideo() {
+            return allowVideo;
+        }
+
+        public void setAllowVideo(int allowVideo) {
+            this.allowVideo = allowVideo;
+        }
+
         @Override
         public String toString() {
             return "TaskItemsEntity{" +
@@ -298,6 +307,7 @@ public class TaskItemBean implements Serializable {
                     ", commit_status=" + commit_status +
                     ", distributor='" + distributor + '\'' +
                     ", finance='" + finance + '\'' +
+                    ", allowVideo=" + allowVideo +
                     '}';
         }
     }
