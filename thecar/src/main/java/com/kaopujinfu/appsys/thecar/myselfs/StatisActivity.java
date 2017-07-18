@@ -125,7 +125,7 @@ public class StatisActivity extends Activity {
                 cDatas[2] = statisticsBean.getCarCount();
             }
             if (statisticsBean.getCarCount() == 0) {
-                cColorRes[2] = "#EA5637";
+                cColorRes[2] = "#D3D3D3";
             } else {
                 cColorRes[2] = "#EA5637";
             }
