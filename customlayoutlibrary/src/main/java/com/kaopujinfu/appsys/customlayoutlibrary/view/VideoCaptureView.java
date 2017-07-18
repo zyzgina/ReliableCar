@@ -150,4 +150,7 @@ public class VideoCaptureView extends FrameLayout implements View.OnClickListene
             mListener.onAcceptButtonClicked();
         }
     }
+    public void setVisGone(int gones){
+        videoCaptureBack.setVisibility(gones);
+    }
 }
