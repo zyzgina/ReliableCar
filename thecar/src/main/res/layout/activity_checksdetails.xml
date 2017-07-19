@@ -125,6 +125,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/vinChecksdetails"
             style="@style/textview_color_white_size17"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -134,6 +135,7 @@
             android:text="VIN码盘库" />
 
         <Button
+            android:id="@+id/rfidChecksdetails"
             style="@style/textview_color_white_size17"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -141,5 +143,15 @@
             android:background="@color/red_orange"
             android:onClick="checkRFIDar"
             android:text="RFID盘库" />
+        <Button
+            android:id="@+id/videoChecksdetails"
+            style="@style/textview_color_white_size17"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/car_theme"
+            android:onClick="checkVideo"
+            android:text="实施视频盘库"
+            android:visibility="gone"/>
     </LinearLayout>
 </RelativeLayout>
