@@ -103,9 +103,17 @@ public class ChecksdetailsAdapter extends BaseAdapter {
      * 添加数据
      */
     public void addItemList(List<TaskItemBean.TaskItemsEntity> itemsEntities) {
+        addItemList(itemsEntities,0);
+    }
+    /**
+     * 添加数据
+     */
+    public void addItemList(List<TaskItemBean.TaskItemsEntity> itemsEntities,int status) {
         this.itemsEntities.addAll(itemsEntities);
         notifyDataSetChanged();
-        saveDate();
+        if(status==0) {
+            saveDate();
+        }
     }
 
     /**
