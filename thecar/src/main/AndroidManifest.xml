@@ -63,6 +63,7 @@
         <activity
             android:name=".myselfs.checks.ChecksDetailsActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".myselfs.checks.CheacksVideoActivity"/>
         <activity
             android:name=".myselfs.checks.BluetoothActivity"
             android:theme="@style/PassDialog" />
