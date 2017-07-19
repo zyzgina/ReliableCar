@@ -134,6 +134,7 @@ public class UploadListAdapter extends BaseAdapter {
             view.setTag(R.id.uploadListLayout_item, i);
             views.add(view);
         }
+        LogTxt.getInstance().writeLog("获取views。size="+lists.size()+ "    "+views.size());
         return view;
     }
 
@@ -168,7 +169,7 @@ public class UploadListAdapter extends BaseAdapter {
     }
 
     class UploadListHold {
-        ImageView icon,uVideo; // 图片
+        ImageView icon, uVideo; // 图片
         TextView name; // 名称
         ProgressBar progressBar; // 进度条
         TextView progress; // 进度
@@ -176,7 +177,7 @@ public class UploadListAdapter extends BaseAdapter {
 
         public UploadListHold(View view) {
             icon = (ImageView) view.findViewById(R.id.uploadIcon_item);
-            uVideo= (ImageView) view.findViewById(R.id.uploadVideo_item);
+            uVideo = (ImageView) view.findViewById(R.id.uploadVideo_item);
             name = (TextView) view.findViewById(R.id.uploadName_item);
             progressBar = (ProgressBar) view.findViewById(R.id.uploadProgressBar_item);
             progress = (TextView) view.findViewById(R.id.uploadProgress_item);
@@ -264,7 +265,7 @@ public class UploadListAdapter extends BaseAdapter {
                     public void onFailure(int errorNo, String strMsg) {
                         IBaseMethod.showToast(mContext, "上传出错", IBase.RETAIL_ZERO);
                     }
-                },uploadBean.getLongitude(),uploadBean.getLatitude());
+                }, uploadBean.getLongitude(), uploadBean.getLatitude());
     }
 
     private int status = -1;
@@ -279,8 +280,10 @@ public class UploadListAdapter extends BaseAdapter {
                 if (info.isOK()) {
                     LogUtils.debug("Upload Success");
                     uploadDate(uploadBean);
+                    LogTxt.getInstance().writeLog("输出上传的文件下标与大小：" + lists.size() + "   " + views.size());
                     lists.remove(0);
-                    views.remove(0);
+                    if (views.size() > 0)
+                        views.remove(0);
                     LogUtils.debug(lists.size() + "_size_" + views.size());
                     Message message = new Message();
                     message.what = IBase.CONSTANT_THREE;
@@ -313,7 +316,7 @@ public class UploadListAdapter extends BaseAdapter {
                         if (lists.size() == 0) {
                             handler.sendEmptyMessage(IBase.CONSTANT_ONE);
                         } else {
-                            if (lists.size()>0) {
+                            if (lists.size() > 0) {
                                 UploadBean uBean = lists.get(0);
                                 uploadGoQuniu(uploadManager, uBean, token);
                             }
