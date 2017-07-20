@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -482,7 +483,7 @@ public class DialogUtil {
      * @param isCanlce 是否触摸消失
      */
     public static void jumpCorrectErr(Context context, String title, String butText, int status, int bgColor, boolean isCanlce) {
-        jumpCorrectErr(context,title,butText,status,bgColor,isCanlce,null);
+        jumpCorrectErr(context, title, butText, status, bgColor, isCanlce, null);
     }
 
     /**
@@ -505,6 +506,8 @@ public class DialogUtil {
         dialog.show();
         dialog.setContentView(view);
         dialog.setCanceledOnTouchOutside(isCanlce);
+        //点击返回键是否取消提示框
+        dialog.setCancelable(isCanlce);
         TextView mTitle = (TextView) view.findViewById(R.id.title_load);
         mTitle.setText(title);
         TickView mTick = (TickView) view.findViewById(R.id.tickView);
@@ -531,11 +534,60 @@ public class DialogUtil {
             public void onClick(View v) {
                 dialog.dismiss();
                 dialog.cancel();
-                if(listener!=null)
+                if (listener != null)
                     listener.ok();
             }
         });
 
+        WindowManager m = ((Activity) context).getWindowManager();
+        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+        WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); // 获取对话框当前的参数值
+        p.width = (int) (d.getWidth() * 0.8); // 宽度设置为屏幕的0.9
+        dialog.getWindow().setAttributes(p);
+    }
+
+    /**
+     * 带图标的提示对话框
+     *
+     * @param context
+     */
+    public static void jumpPrompt(Context context, String title, String butText, int status,int bgColor) {
+        if (dialog != null && dialog.isShowing()) {
+            return;
+        }
+        dialog = new Dialog(context, R.style.dialogWhite);
+        View view = View.inflate(context, R.layout.dialog_jumpprompt, null);
+        dialog.show();
+        dialog.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        //点击返回键是否取消提示框
+        dialog.setCancelable(false);
+        TextView mTitle = (TextView) view.findViewById(R.id.title_Prompt);
+        TextView mfial = (TextView) view.findViewById(R.id.fial_Prompt);
+        mTitle.setText(title);
+        TickView mTick = (TickView) view.findViewById(R.id.tickPrompt);
+        ErrorView mError = (ErrorView) view.findViewById(R.id.errorPrompt);
+        ImageView closePrompt = (ImageView) view.findViewById(R.id.closePrompt);
+        if (!GeneralUtils.isEmpty(butText)) {
+            mfial.setText(butText);
+            mfial.setVisibility(View.VISIBLE);
+        }
+        if (status == 0) {
+            mError.setVisibility(View.VISIBLE);
+        }
+        if (status == 1) {
+            mTick.setVisibility(View.VISIBLE);
+        }
+        if (bgColor != 0) {
+            mTitle.setTextColor(bgColor);
+        }
+        closePrompt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                dialog.cancel();
+            }
+        });
         WindowManager m = ((Activity) context).getWindowManager();
         Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
         WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); // 获取对话框当前的参数值
