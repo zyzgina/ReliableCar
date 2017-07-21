@@ -352,8 +352,8 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                             if (price != 0) {
                                 priceLlNewCar.setVisibility(View.VISIBLE);
                                 priceNewCar.setText("厂家新车标准售价：" + price + " 万");
-                                priceBuyNewCar.setText((int) (price*10000)+"");
-                                if(price>1) {
+                                priceBuyNewCar.setText((int) (price * 10000) + "");
+                                if (price > 1) {
                                     calePriceBuyNewCar.setText("实际购入价：" + price + " 万元");
                                 }
                             } else {
@@ -623,6 +623,10 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         String price = priceBuyNewCar.getText().toString();
         String mileage = mileageNewCar.getText().toString();
         String date = goDateNewCar.getText().toString();
+        if (GeneralUtils.isEmpty(price)) {
+            IBaseMethod.showToast(this, "请输入车辆的价格", IBase.RETAIL_TWO);
+            return;
+        }
         String isTwo = "";
         if (isTwoCar.isChecked()) {
             isTwo = "on";
