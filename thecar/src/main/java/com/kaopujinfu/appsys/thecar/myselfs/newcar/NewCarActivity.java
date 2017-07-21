@@ -92,10 +92,10 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        LogUtils.debug("判断返回的页面:"+isCar);
+        LogUtils.debug("判断返回的页面:" + isCar);
         if (isCar) {
             finish();
-        }else{
+        } else {
             Intent intent = new Intent(NewCarActivity.this, CarListActivity.class);
             startActivity(intent);
             finish();
@@ -250,8 +250,8 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     mVinNew.setText(vin);
                     dialog.setLoadingTitle("正在查询车辆...");
                     getVinMoble(vin);
-                }else{
-                    if(isCar){
+                } else {
+                    if (isCar) {
                         finish();
                     }
                 }
@@ -260,7 +260,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     dialog.dismiss();
                     dialog.cancel();
                 }
-                if(isCar){
+                if (isCar) {
                     finish();
                 }
             }
@@ -352,6 +352,10 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                             if (price != 0) {
                                 priceLlNewCar.setVisibility(View.VISIBLE);
                                 priceNewCar.setText("厂家新车标准售价：" + price + " 万");
+                                priceBuyNewCar.setText((int) (price*10000)+"");
+                                if(price>1) {
+                                    calePriceBuyNewCar.setText("实际购入价：" + price + " 万元");
+                                }
                             } else {
                                 priceLlNewCar.setVisibility(View.GONE);
                             }
@@ -622,6 +626,14 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         String isTwo = "";
         if (isTwoCar.isChecked()) {
             isTwo = "on";
+            if (GeneralUtils.isEmpty(mileage)) {
+                IBaseMethod.showToast(this, "二手车必须填写车辆行驶的里程", IBase.RETAIL_TWO);
+                return;
+            }
+            if (GeneralUtils.isEmpty(date)) {
+                IBaseMethod.showToast(this, "二手车必须填写车辆上牌时间", IBase.RETAIL_TWO);
+                return;
+            }
         }
         dialog.show();
         dialog.setLoadingTitle("正在提交...");
@@ -640,7 +652,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     jumpEventBus.setStatus(IBase.RETAIL_THREE);
                     EventBus.getDefault().post(jumpEventBus);
 //
-                    if(isCar){
+                    if (isCar) {
                         RetailAplication.getInstance().exitAllActicity();
                     }
                     Intent intent = new Intent(NewCarActivity.this, DocumentCommitActivity.class);
