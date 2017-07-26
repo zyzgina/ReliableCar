@@ -17,6 +17,7 @@
         android:textSize="@dimen/sp20" />
 
     <View
+        android:id="@+id/spinnerKeyView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_measure_1sp"
         android:background="@color/plain_gray" />
