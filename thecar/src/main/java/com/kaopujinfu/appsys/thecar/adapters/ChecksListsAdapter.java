@@ -63,6 +63,7 @@ public class ChecksListsAdapter extends BaseAdapter {
         hodler.mStatus.setText(item.getTaskState());
         if ("已完成".equals(item.getTaskState())) {
             hodler.mStatus.setBackgroundResource(R.drawable.button_green_circular);
+            hodler.mDate.setVisibility(View.GONE);
         } else if ("执行中".equals(item.getTaskState())) {
             hodler.mStatus.setBackgroundResource(R.drawable.button_yellow_circular);
             hodler.mDate.setVisibility(View.GONE);

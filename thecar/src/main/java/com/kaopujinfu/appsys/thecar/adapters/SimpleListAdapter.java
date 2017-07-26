@@ -18,7 +18,7 @@ import com.kaopujinfu.appsys.thecar.R;
  */
 
 public class SimpleListAdapter extends BaseAdapter {
-    private String[] strs = {"修改密码", "关于"};
+    private String[] strs = {"修改密码", "关于靠谱看车"};
     private int[] ints = {R.drawable.simple_lists_updatepaw_drawable, R.drawable.simple_lists_version_drawable};
     private Context context;
 
