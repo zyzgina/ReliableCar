@@ -29,6 +29,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.bean.DistributorGpsBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
+import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogItemListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
@@ -40,6 +41,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
 import com.kaopujinfu.appsys.thecar.R;
+import com.kaopujinfu.appsys.thecar.adapters.ColorsAdapter;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
 
 import net.tsz.afinal.FinalDb;
@@ -62,9 +64,9 @@ import static com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils.get;
  */
 
 public class NewCarActivity extends BaseActivity implements View.OnClickListener {
-    private TextView mDistributor, priceNewCar, goDateNewCar, caleDateNewCar, calePriceBuyNewCar;
-    private EditText mBrandNewCar, mSubBrandNewCar, mModuleNewCar, priceBuyNewCar, mileageNewCar;
-    private ImageView mDistributorNewImage, mBrandNewCarImage, goDateCarImage;
+    private TextView mDistributor, priceNewCar, goDateNewCar, caleDateNewCar, calePriceBuyNewCar, colorCar_new;
+    private EditText mBrandNewCar, mSubBrandNewCar, mModuleNewCar, priceBuyNewCar, mileageNewCar,licenseplatenumberCar, parkinglotCar;
+    private ImageView mDistributorNewImage, mBrandNewCarImage, goDateCarImage, colorCarImage;
     private DistributorGpsBean.GpsEntity gpsEntity;
     private EditText mVinNew;
     private ImageView mVinScan;
@@ -77,6 +79,8 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
     private CheckBox isTwoCar;
     private LinearLayout twoCarMsgNewCar, priceLlNewCar, caleBuyLl, vinVerfiyNewCar;
     private boolean isCar;
+    private ColorsAdapter colorsAdapter;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,6 +91,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
+
     }
 
     @Override
@@ -173,6 +178,18 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         goDateCarImage = (ImageView) findViewById(R.id.goDateCarImage);
         goDateCarImage.setOnClickListener(this);
         caleDateNewCar = (TextView) findViewById(R.id.caleDateNewCar);
+
+        licenseplatenumberCar = (EditText) findViewById(R.id.licenseplatenumberCar);
+        parkinglotCar = (EditText) findViewById(R.id.parkinglotCar);
+        colorCar_new = (TextView) findViewById(R.id.colorCar_new);
+        colorsAdapter=new ColorsAdapter(this);
+        if(colorsAdapter.getCount()>1){
+            colorCar_new.setText(colorsAdapter.getItem(1).toString());
+        }
+        colorCar_new.setOnClickListener(this);
+        colorCarImage = (ImageView) findViewById(R.id.colorCarImage);
+        colorCarImage.setOnClickListener(this);
+
         /* 是否是二手车 */
         isTwoCar = (CheckBox) findViewById(R.id.isTwoCar);
         twoCarMsgNewCar = (LinearLayout) findViewById(R.id.twoCarMsgNewCar);
@@ -220,6 +237,14 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
             showDate();
         } else if (v == top_btn) {
             commitNewCar();
+        }else if(v==colorCar_new||v==colorCarImage){
+            DialogUtil.spinnerDilaog(this, colorsAdapter,true, new DialogItemListener() {
+                @Override
+                public void itemListener(int position) {
+                    String colorStr=colorsAdapter.getItem(position).toString();
+                    colorCar_new.setText(colorStr);
+                }
+            });
         }
     }
 
@@ -627,6 +652,17 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
             IBaseMethod.showToast(this, "请输入车辆的价格", IBase.RETAIL_TWO);
             return;
         }
+        String colorStr=colorCar_new.getText().toString();
+        String licenseplatenumber=licenseplatenumberCar.getText().toString();
+        if(GeneralUtils.isEmpty(licenseplatenumber)){
+            IBaseMethod.showToast(this, "请输入车辆的车牌号", IBase.RETAIL_TWO);
+            return;
+        }
+        String parkinglot=parkinglotCar.getText().toString();
+        if(GeneralUtils.isEmpty(parkinglot)){
+            IBaseMethod.showToast(this, "请输入车位", IBase.RETAIL_TWO);
+            return;
+        }
         String isTwo = "";
         if (isTwoCar.isChecked()) {
             isTwo = "on";
@@ -675,7 +711,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     IBaseMethod.showNetToast(NewCarActivity.this);
                 }
             }
-        }, gpsEntity.getDlr(), vincode, isTwo, brand, subBrand, model, price, mileage, date);
+        }, gpsEntity.getDlr(), vincode, isTwo, brand, subBrand, model, price, mileage, date,colorStr,licenseplatenumber,parkinglot);
     }
 
 }
