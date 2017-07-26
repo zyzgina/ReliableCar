@@ -298,6 +298,115 @@
             android:background="@color/plain_gray" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车牌号" />
+
+        <EditText
+            android:id="@+id/licenseplatenumberCar"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_60sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:digits="0123456789."
+            android:gravity="right|center_vertical"
+            android:hint="请输入"
+            android:inputType="number"
+            android:paddingRight="@dimen/common_measure_100sp"
+            android:textColorHint="@color/gray" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车辆颜色" />
+
+        <TextView
+            android:id="@+id/colorCar_new"
+            style="@style/textview_color_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_60sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:clickable="true"
+            android:gravity="right|center_vertical"
+            android:text="--请选择--" />
+
+        <ImageView
+            android:id="@+id/colorCarImage"
+            android:layout_width="@dimen/common_measure_45sp"
+            android:layout_height="@dimen/common_measure_45sp"
+            android:src="@drawable/easyicon" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_20sp">
+
+        <TextView
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="停车位" />
+
+        <EditText
+            android:id="@+id/parkinglotCar"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_measure_60sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@color/trans"
+            android:digits="0123456789."
+            android:gravity="right|center_vertical"
+            android:hint="请输入"
+            android:inputType="number"
+            android:paddingRight="@dimen/common_measure_100sp"
+            android:textColorHint="@color/gray" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+
     <CheckBox
         android:id="@+id/isTwoCar"
         style="@style/textview_color_back_gray_singleLine_size17"
