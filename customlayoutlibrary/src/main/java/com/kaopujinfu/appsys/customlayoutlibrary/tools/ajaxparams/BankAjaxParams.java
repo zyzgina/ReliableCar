@@ -288,15 +288,15 @@ public class BankAjaxParams {
         }
         if (strings.length > 9) {
             //车辆颜色
-            ajaxParams.put("color", strings[9]);
+            ajaxParams.put("carColor", strings[9]);
         }
         if (strings.length > 10) {
             //车牌号
-            ajaxParams.put("licenseplatenumber", strings[10]);
+            ajaxParams.put("carPlate", strings[10]);
         }
         if (strings.length > 11) {
             //车位
-            ajaxParams.put("parkinglot", strings[11]);
+            ajaxParams.put("carParkNo", strings[11]);
         }
         return ajaxParams;
     }
