@@ -340,12 +340,17 @@ public class DialogUtil {
      * @param context
      * @param adapter
      */
-    public static void spinnerDilaog(final Context context, SpinnerListAdapter adapter, final DialogItemListener listener) {
+    public static void spinnerDilaog(final Context context, SpinnerListAdapter adapter,boolean isShow, final DialogItemListener listener) {
         if (dialog != null && dialog.isShowing()) {
             return;
         }
         View view = View.inflate(context, R.layout.dialog_spinner_search, null);
         final EditText spinnerKey = (EditText) view.findViewById(R.id.spinnerKey);
+        View spinnerKeyView=view.findViewById(R.id.spinnerKeyView);
+        if(isShow){
+            spinnerKey.setVisibility(View.GONE);
+            spinnerKeyView.setVisibility(View.GONE);
+        }
         final ListView spinnerList = (ListView) view.findViewById(R.id.spinnerList);
         final TextView spinnerNoData = (TextView) view.findViewById(R.id.spinnerNoData);
         final SpinnerListAdapter mAdapter = adapter;
