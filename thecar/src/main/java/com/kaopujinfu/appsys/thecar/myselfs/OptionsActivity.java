@@ -11,6 +11,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.MyselfOperationsAdapter;
 import com.kaopujinfu.appsys.thecar.myselfs.bindings.BindingsActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.cabinet.CabinetListActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.checks.ChecksActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.CarListActivity;
@@ -77,6 +78,10 @@ public class OptionsActivity extends Activity {
             case IBase.CONSTANT_FIVE:
                     /* 盘库 */
                 intent.setClass(OptionsActivity.this, ChecksActivity.class);
+                break;
+            case IBase.CONSTANT_SEX:
+                /* 柜子列表 */
+                intent.setClass(OptionsActivity.this, CabinetListActivity.class);
                 break;
         }
         startActivity(intent);

@@ -40,6 +40,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.IMMListenerRelativeLayout;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.ColorsAdapter;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
@@ -65,7 +66,7 @@ import static com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils.get;
 
 public class NewCarActivity extends BaseActivity implements View.OnClickListener {
     private TextView mDistributor, priceNewCar, goDateNewCar, caleDateNewCar, calePriceBuyNewCar, colorCar_new;
-    private EditText mBrandNewCar, mSubBrandNewCar, mModuleNewCar, priceBuyNewCar, mileageNewCar,licenseplatenumberCar, parkinglotCar;
+    private EditText mBrandNewCar, mSubBrandNewCar, mModuleNewCar, priceBuyNewCar, mileageNewCar, licenseplatenumberCar, parkinglotCar;
     private ImageView mDistributorNewImage, mBrandNewCarImage, goDateCarImage, colorCarImage;
     private DistributorGpsBean.GpsEntity gpsEntity;
     private EditText mVinNew;
@@ -81,6 +82,9 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
     private boolean isCar;
     private ColorsAdapter colorsAdapter;
 
+    private LinearLayout extendLayout;
+    private IMMListenerRelativeLayout newCarImml;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +95,21 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
-
+        //监听键盘的显示与隐藏
+        newCarImml.setOnKeyboardStateChangedListener(new IMMListenerRelativeLayout.IOnKeyboardStateChangedListener() {
+            @Override
+            public void onKeyboardStateChanged(int state) {
+                switch (state) {
+                    case IMMListenerRelativeLayout.KEYBOARD_STATE_HIDE://软键盘隐藏
+                        extendLayout.setVisibility(View.GONE);
+                        break;
+                    case IMMListenerRelativeLayout.KEYBOARD_STATE_SHOW://软键盘显示
+                        extendLayout.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                }
+            }
+        });
     }
 
     @Override
@@ -125,6 +143,10 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
+
+        newCarImml = (IMMListenerRelativeLayout) findViewById(R.id.newCarImml);
+        extendLayout = (LinearLayout) findViewById(R.id.extendLayout);
+        extendLayout.setVisibility(View.GONE);
 
         /* 经销商 */
         mDistributor = (TextView) findViewById(R.id.distributor_new);
@@ -182,8 +204,8 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         licenseplatenumberCar = (EditText) findViewById(R.id.licenseplatenumberCar);
         parkinglotCar = (EditText) findViewById(R.id.parkinglotCar);
         colorCar_new = (TextView) findViewById(R.id.colorCar_new);
-        colorsAdapter=new ColorsAdapter(this);
-        if(colorsAdapter.getCount()>1){
+        colorsAdapter = new ColorsAdapter(this);
+        if (colorsAdapter.getCount() > 1) {
             colorCar_new.setText(colorsAdapter.getItem(1).toString());
         }
         colorCar_new.setOnClickListener(this);
@@ -237,11 +259,11 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
             showDate();
         } else if (v == top_btn) {
             commitNewCar();
-        }else if(v==colorCar_new||v==colorCarImage){
-            DialogUtil.spinnerDilaog(this, colorsAdapter,true, new DialogItemListener() {
+        } else if (v == colorCar_new || v == colorCarImage) {
+            DialogUtil.spinnerDilaog(this, colorsAdapter, true, new DialogItemListener() {
                 @Override
                 public void itemListener(int position) {
-                    String colorStr=colorsAdapter.getItem(position).toString();
+                    String colorStr = colorsAdapter.getItem(position).toString();
                     colorCar_new.setText(colorStr);
                 }
             });
@@ -652,14 +674,14 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
             IBaseMethod.showToast(this, "请输入车辆的价格", IBase.RETAIL_TWO);
             return;
         }
-        String colorStr=colorCar_new.getText().toString();
-        String licenseplatenumber=licenseplatenumberCar.getText().toString();
-        if(GeneralUtils.isEmpty(licenseplatenumber)){
+        String colorStr = colorCar_new.getText().toString();
+        String licenseplatenumber = licenseplatenumberCar.getText().toString();
+        if (GeneralUtils.isEmpty(licenseplatenumber)) {
             IBaseMethod.showToast(this, "请输入车辆的车牌号", IBase.RETAIL_TWO);
             return;
         }
-        String parkinglot=parkinglotCar.getText().toString();
-        if(GeneralUtils.isEmpty(parkinglot)){
+        String parkinglot = parkinglotCar.getText().toString();
+        if (GeneralUtils.isEmpty(parkinglot)) {
             IBaseMethod.showToast(this, "请输入车位", IBase.RETAIL_TWO);
             return;
         }
@@ -711,7 +733,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     IBaseMethod.showNetToast(NewCarActivity.this);
                 }
             }
-        }, gpsEntity.getDlr(), vincode, isTwo, brand, subBrand, model, price, mileage, date,colorStr,licenseplatenumber,parkinglot);
+        }, gpsEntity.getDlr(), vincode, isTwo, brand, subBrand, model, price, mileage, date, colorStr, licenseplatenumber, parkinglot);
     }
 
 }

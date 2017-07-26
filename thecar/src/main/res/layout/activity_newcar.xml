@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     android:scrollbars="none">
 
-    <LinearLayout
+    <com.kaopujinfu.appsys.customlayoutlibrary.view.IMMListenerRelativeLayout
+        android:id="@+id/newCarImml"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
-
+        android:focusableInTouchMode="true">
         <include layout="@layout/newcar" />
-    </LinearLayout>
+    </com.kaopujinfu.appsys.customlayoutlibrary.view.IMMListenerRelativeLayout>
 </ScrollView>
