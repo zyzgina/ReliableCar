@@ -286,7 +286,18 @@ public class BankAjaxParams {
         if (strings.length > 8) {
             ajaxParams.put("carRegDate", strings[8]);
         }
-
+        if (strings.length > 9) {
+            //车辆颜色
+            ajaxParams.put("color", strings[9]);
+        }
+        if (strings.length > 10) {
+            //车牌号
+            ajaxParams.put("licenseplatenumber", strings[10]);
+        }
+        if (strings.length > 11) {
+            //车位
+            ajaxParams.put("parkinglot", strings[11]);
+        }
         return ajaxParams;
     }
 
@@ -375,29 +386,31 @@ public class BankAjaxParams {
 
     /**
      * 柜子列表
-     * */
-    public AjaxParams ajaxCabinetLists(){
-        AjaxParams params=BANKUserIDSID();
-        params.put("action",IBaseUrl.APP_BOX_LIST);
+     */
+    public AjaxParams ajaxCabinetLists() {
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", IBaseUrl.APP_BOX_LIST);
         return params;
     }
+
     /**
      * 柜子详情
-     * */
-    public AjaxParams ajaxCabinetDetails(String id){
-        AjaxParams params=BANKUserIDSID();
-        params.put("action",IBaseUrl.APP_BOX_CELL);
-        params.put("id",id);
+     */
+    public AjaxParams ajaxCabinetDetails(String id) {
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", IBaseUrl.APP_BOX_CELL);
+        params.put("id", id);
         return params;
     }
+
     /**
      * 柜子自行监管说明,柜子自行监管开锁,柜子自行监管停止
-     * */
-    public AjaxParams ajaxCabinetREGMANUAL(String boxCode,String cellId,String action){
-        AjaxParams params=BANKUserIDSID();
-        params.put("action",action);
-        params.put("boxCode",boxCode);
-        params.put("cellId",cellId);
+     */
+    public AjaxParams ajaxCabinetREGMANUAL(String boxCode, String cellId, String action) {
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", action);
+        params.put("boxCode", boxCode);
+        params.put("cellId", cellId);
         return params;
     }
 

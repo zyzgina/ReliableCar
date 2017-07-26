@@ -302,6 +302,28 @@ public class HttpBank {
     }
 
     /**
+     * 柜子列表
+     * */
+    public void httpCabinetLists(CallBack callBack){
+        AjaxParams params=bankAjaxParams.ajaxCabinetLists();
+        IBaseMethod.post(context,IBaseUrl.CABINET_APP_LISTS,params,callBack);
+    }
+    /**
+     * 柜子详情
+     * */
+    public void httpCabinetDetails(String id,CallBack callBack){
+        AjaxParams params=bankAjaxParams.ajaxCabinetDetails(id);
+        IBaseMethod.post(context,IBaseUrl.CABINET_APP_LISTS,params,callBack);
+    }
+    /**
+     * 柜子自行监管说明,柜子自行监管开锁,柜子自行监管停止
+     * */
+    public void httpCabinetLists(String action,String boxCode,String cellId,CallBack callBack){
+        AjaxParams params=bankAjaxParams.ajaxCabinetREGMANUAL(boxCode,cellId,action);
+        IBaseMethod.post(context,IBaseUrl.CABINET_APP_LISTS,params,callBack);
+    }
+
+    /**
      * 判断VIN码是否存在
      */
     public void httpIsVinExit(final String vinCode, final Handler handler) {
