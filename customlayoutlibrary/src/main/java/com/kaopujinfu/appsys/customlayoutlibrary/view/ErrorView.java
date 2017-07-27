@@ -187,5 +187,8 @@ public class ErrorView extends View {
     /* 设置画笔的大小 */
     public void setLineThick(int lineThick) {
         this.lineThick = lineThick;
+        //圆弧半径
+        radius = (int) (totalWidth / 2) - lineThick;
+        rectF = new RectF(center - radius, center - radius,  center + radius,  center + radius);
     }
 }
