@@ -571,7 +571,9 @@ public class DialogUtil {
         TextView mfial = (TextView) view.findViewById(R.id.fial_Prompt);
         mTitle.setText(title);
         TickView mTick = (TickView) view.findViewById(R.id.tickPrompt);
+        mTick.setLineThick(15);
         ErrorView mError = (ErrorView) view.findViewById(R.id.errorPrompt);
+        mError.setLineThick(15);
         ImageView closePrompt = (ImageView) view.findViewById(R.id.closePrompt);
         if (!GeneralUtils.isEmpty(butText)) {
             mfial.setText(butText);
