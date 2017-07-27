@@ -104,18 +104,11 @@ public class ErrorView extends View {
         //获取圆心的x坐标
         center = (int) (totalWidth / 2);
 
-        //圆弧半径
-        radius = (int) (totalWidth / 2) - lineThick;
-
         //打叉的起点
         line1StartX = (int) (center + totalWidth / 5);
         lineStartY = (int) (center - totalWidth / 5);
         line2StartX = (int) (center - totalWidth / 5);
 
-        rectF = new RectF(center - radius,
-                center - radius,
-                center + radius,
-                center + radius);
     }
 
     //绘制
@@ -124,7 +117,12 @@ public class ErrorView extends View {
         super.onDraw(canvas);
         //设置圆弧的宽度
         paint.setStrokeWidth(lineThick);
-
+        //圆弧半径
+        radius = (int) (totalWidth / 2) - lineThick;
+        rectF = new RectF(center - radius,
+                center - radius,
+                center + radius,
+                center + radius);
         if(flag){
             DynamicContent(canvas);
         }else{
@@ -187,8 +185,5 @@ public class ErrorView extends View {
     /* 设置画笔的大小 */
     public void setLineThick(int lineThick) {
         this.lineThick = lineThick;
-        //圆弧半径
-        radius = (int) (totalWidth / 2) - lineThick;
-        rectF = new RectF(center - radius, center - radius,  center + radius,  center + radius);
     }
 }
