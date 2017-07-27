@@ -40,4 +40,40 @@
     <string name="company">公司</string>
 
     <string name="exitDocument">退出将会删除现下的所有照片和信息，您确定退出？</string>
+
+
+    <!-- 声网 -->
+    <string name="bit_rate_value_with_unit">%d kbps</string>
+    <string name="frame_rate_value_with_unit">%d fps</string>
+    <string name="msg_no_network_connection">网络异常,断开通话</string>
+
+    <string-array
+        name="string_array_resolutions">
+        <item>160x120</item> // 120P
+        <item>320x180</item> // 180P
+        <item>320x240</item> // 240P the default one
+        <item>640x360</item> // 360P
+        <item>640x480</item> // 480P
+        <item>1280x720</item> // 720P
+    </string-array>
+
+    <string-array
+        name="string_array_frame_rate">
+        <item>15</item> // 120P
+        <item>15</item> // 180P
+        <item>15</item> // 240P
+        <item>15</item> // 360P
+        <item>15</item> // 480P
+        <item>15</item> // 720P
+    </string-array>
+
+    <string-array
+        name="string_array_bit_rate">
+        <item>80</item> // 120P
+        <item>160</item> // 180P
+        <item>200</item> // 240P
+        <item>400</item> // 360P
+        <item>500</item> // 480P
+        <item>1000</item> // 720P
+    </string-array>
 </resources>
