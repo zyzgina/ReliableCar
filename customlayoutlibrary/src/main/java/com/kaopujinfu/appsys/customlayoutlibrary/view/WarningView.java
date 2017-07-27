@@ -19,28 +19,11 @@ import java.util.regex.Pattern;
  */
 
 public class WarningView extends View {
-    //绘制圆弧的进度值
-    private int progress = 0;
-
-    //线1的x轴增量
-    private int line1X = 0;
-
-    //线1的y轴增量
-    private int line1Y = 0;
-
-    //线2的x轴增量
-    private int line2X = 0;
-
-    //线2的y轴增量
-    private int line2Y = 0;
 
     //打叉的起点
     int line1StartX;
     int line2StartX;
     int lineStartY;
-
-    int step = 2;
-
     //线水平最大增量
     int maxLineIncrement;
 
@@ -87,14 +70,13 @@ public class WarningView extends View {
     public WarningView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
+        //init();
     }
 
     void init() {
         paint = new Paint();
         //设置画笔颜色
         paint.setColor(getResources().getColor(android.R.color.holo_orange_light));
-        //设置圆弧的宽度
-        paint.setStrokeWidth(lineThick);
         //设置圆弧为空心
         paint.setStyle(Paint.Style.STROKE);
         //消除锯齿
@@ -134,9 +116,15 @@ public class WarningView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //设置圆弧的宽度
+        paint.setStrokeWidth(lineThick);
 //        //根据进度画圆弧
         canvas.drawArc(rectF, 235, 360, false, paint);
         canvas.drawArc(rectF2, 240, 60, true, paint2);
         canvas.drawArc(rectF3, 235, 360, true, paint2);
+    }
+    /* 设置画笔的大小 */
+    public void setLineThick(int lineThick) {
+        this.lineThick = lineThick;
     }
 }
