@@ -19,11 +19,6 @@ import java.util.regex.Pattern;
  */
 
 public class WarningView extends View {
-
-    //打叉的起点
-    int line1StartX;
-    int line2StartX;
-    int lineStartY;
     //线水平最大增量
     int maxLineIncrement;
 
@@ -94,22 +89,6 @@ public class WarningView extends View {
 
         //获取圆心的x坐标
         center = (int) (totalWidth / 2);
-
-        //圆弧半径
-        radius = (int) (totalWidth / 2) - lineThick;
-
-        //打叉的起点
-        line1StartX = (int) (center + totalWidth / 5);
-        lineStartY = (int) (center - totalWidth / 5);
-        line2StartX = (int) (center - totalWidth / 5);
-
-        rectF = new RectF(center - radius,
-                center - radius,
-                center + radius,
-                center + radius);
-        rectF2 = new RectF(center - radius / 4, center - radius + radius / 3, center + radius / 4, center + 2 * radius - radius / 3);
-
-        rectF3 = new RectF(center - radius / 8, center + radius - radius / 2, center + radius / 8, center + radius - radius / 4);
     }
 
     //绘制
@@ -118,6 +97,11 @@ public class WarningView extends View {
         super.onDraw(canvas);
         //设置圆弧的宽度
         paint.setStrokeWidth(lineThick);
+        //圆弧半径
+        radius = (int) (totalWidth / 2) - lineThick;
+        rectF = new RectF(center - radius,  center - radius,  center + radius,  center + radius);
+        rectF2 = new RectF(center - radius / 4, center - radius + radius / 3, center + radius / 4, center + 2 * radius - radius / 3);
+        rectF3 = new RectF(center - radius / 8, center + radius - radius / 2, center + radius / 8, center + radius - radius / 4);
 //        //根据进度画圆弧
         canvas.drawArc(rectF, 235, 360, false, paint);
         canvas.drawArc(rectF2, 240, 60, true, paint2);
