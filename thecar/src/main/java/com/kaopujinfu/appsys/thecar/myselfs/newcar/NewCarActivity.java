@@ -43,13 +43,12 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.IMMListenerRelativeLayout;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.ColorsAdapter;
+import com.kaopujinfu.appsys.thecar.bean.QueryVinBean;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
 
 import net.tsz.afinal.FinalDb;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -258,7 +257,11 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         } else if (v == goDateCarImage || v == goDateNewCar) {
             showDate();
         } else if (v == top_btn) {
-            commitNewCar();
+            if(isCarExit) {
+                commitNewCar();
+            }else{
+                getVinMoble( mVinNew.getText().toString());
+            }
         } else if (v == colorCar_new || v == colorCarImage) {
             DialogUtil.spinnerDilaog(this, colorsAdapter, true, new DialogItemListener() {
                 @Override
@@ -381,42 +384,21 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
     };
 
     /* 根据vin查询车辆 */
-    private void getVinMoble(String vinCode) {
+    private void getVinMoble(final String vinCode) {
         HttpBank.getIntence(this).getVinBrand(vinCode, new CallBack() {
             @Override
             public void onSuccess(Object o) {
                 dialog.dismiss();
                 LogUtils.debug("根据vin查询车辆 = " + o.toString());
-                try {
-                    JSONObject jsonObj = new JSONObject(o.toString());
-                    boolean success = jsonObj.optBoolean("success");
-                    if (success) {
-                        String brand = jsonObj.optString("brand");
-                        if (!GeneralUtils.isEmpty(brand)) {
-                            String subBrand = jsonObj.optString("subBrand");
-                            String model = jsonObj.optString("model");
-                            double price = jsonObj.optDouble("price");
-                            if (price != 0) {
-                                priceLlNewCar.setVisibility(View.VISIBLE);
-                                priceNewCar.setText("厂家新车标准售价：" + price + " 万");
-                                priceBuyNewCar.setText((int) (price * 10000) + "");
-                                if (price > 1) {
-                                    calePriceBuyNewCar.setText("实际购入价：" + price + " 万元");
-                                }
-                            } else {
-                                priceLlNewCar.setVisibility(View.GONE);
-                            }
-                            mBrandNewCar.setText(brand);
-                            mSubBrandNewCar.setText(subBrand);
-                            mModuleNewCar.setText(model);
-                        } else {
-                            showVINDialog();
-                        }
+                QueryVinBean bean = QueryVinBean.getQueryVinBean(o.toString());
+                if (bean != null && bean.isSuccess()) {
+                    if ("YES".equals(bean.getState())) {
+                        showExit(vinCode,bean);
                     } else {
-                        showVINDialog();
+                        carValues(bean);
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } else {
+                    showVINDialog();
                 }
             }
 
@@ -426,6 +408,42 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                 showVINDialog();
             }
         });
+    }
+
+    boolean isCarExit=false;
+    /* 判断该VIN是否已经添加 */
+    private void showExit(String strs,final QueryVinBean bean) {
+        DialogUtil.prompt(this, "你是否再次添加该车辆？"+strs, "取消", "添加", new DialogButtonListener() {
+            @Override
+            public void ok() {
+                carValues(bean);
+                isCarExit=true;
+            }
+
+            @Override
+            public void cancel() {
+                isCarExit=false;
+            }
+        });
+    }
+    private void carValues(QueryVinBean bean) {
+        if (bean.getPrice() != 0) {
+            priceLlNewCar.setVisibility(View.VISIBLE);
+            priceNewCar.setText("厂家新车标准售价：" + bean.getPrice() + " 万");
+            priceBuyNewCar.setText((int) (bean.getPrice() * 10000) + "");
+            if (bean.getPrice() > 1) {
+                calePriceBuyNewCar.setText("实际购入价：" + bean.getPrice() + " 万元");
+            }
+        } else {
+            priceLlNewCar.setVisibility(View.GONE);
+        }
+        if (!GeneralUtils.isEmpty(bean.getBrand())) {
+            mBrandNewCar.setText(bean.getBrand());
+            mSubBrandNewCar.setText(bean.getSubBrand());
+            mModuleNewCar.setText(bean.getModel());
+        } else {
+            showVINDialog();
+        }
     }
 
     /* 未查询到车辆信息提示 */
