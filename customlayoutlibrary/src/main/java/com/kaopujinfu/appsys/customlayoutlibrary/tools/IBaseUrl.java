@@ -158,6 +158,7 @@ public class IBaseUrl {
      * 柜子
      * */
     public static String CABINET_APP_LISTS="box_v5";
+    public static String ACTION_CABINET_APP_LISTS="box_v5_cell";
     /**
      * 柜子列表
      * */
