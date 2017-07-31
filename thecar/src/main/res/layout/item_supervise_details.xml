@@ -33,13 +33,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingBottom="@dimen/common_measure_20sp"
         android:paddingLeft="@dimen/common_measure_20sp"
-        android:paddingRight="@dimen/common_measure_20sp"
-        android:paddingBottom="@dimen/common_measure_20sp">
+        android:paddingRight="@dimen/common_measure_20sp">
 
         <TextView
             android:id="@+id/supervisesDistributor_item"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:textColor="@color/gray"
@@ -47,7 +47,7 @@
 
         <TextView
             android:id="@+id/superviseslatenumber_item"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -56,7 +56,7 @@
 
         <TextView
             android:id="@+id/supervisesColore_item"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:gravity="center"
@@ -65,7 +65,7 @@
 
         <TextView
             android:id="@+id/supervisesPotision_item"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
