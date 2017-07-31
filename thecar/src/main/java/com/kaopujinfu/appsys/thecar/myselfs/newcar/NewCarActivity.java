@@ -684,15 +684,15 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         }
         String colorStr = colorCar_new.getText().toString();
         String licenseplatenumber = licenseplatenumberCar.getText().toString();
-        if (GeneralUtils.isEmpty(licenseplatenumber)) {
-            IBaseMethod.showToast(this, "请输入车辆的车牌号", IBase.RETAIL_TWO);
-            return;
-        }
+//        if (GeneralUtils.isEmpty(licenseplatenumber)) {
+//            IBaseMethod.showToast(this, "请输入车辆的车牌号", IBase.RETAIL_TWO);
+//            return;
+//        }
         String parkinglot = parkinglotCar.getText().toString();
-        if (GeneralUtils.isEmpty(parkinglot)) {
-            IBaseMethod.showToast(this, "请输入车位", IBase.RETAIL_TWO);
-            return;
-        }
+//        if (GeneralUtils.isEmpty(parkinglot)) {
+//            IBaseMethod.showToast(this, "请输入车位", IBase.RETAIL_TWO);
+//            return;
+//        }
         String isTwo = "";
         if (isTwoCar.isChecked()) {
             isTwo = "on";

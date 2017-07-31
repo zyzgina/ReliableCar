@@ -87,7 +87,9 @@ public class ChecksActivity extends BaseNoScoActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TaskListBean.TaskListItem item = checksListsAdapter.selectItem(position);
-                Intent intent = new Intent(ChecksActivity.this, ChecksDetailsActivity.class);
+                Intent intent = new Intent();
+//                intent.setClass(ChecksActivity.this, ChecksDetailsActivity.class);
+                intent.setClass(ChecksActivity.this, CheacksVideoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("item", item);
                 intent.putExtras(bundle);
