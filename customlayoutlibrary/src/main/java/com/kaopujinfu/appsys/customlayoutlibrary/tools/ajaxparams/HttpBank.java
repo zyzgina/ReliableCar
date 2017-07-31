@@ -322,6 +322,10 @@ public class HttpBank {
         AjaxParams params=bankAjaxParams.ajaxCabinetREGMANUAL(boxCode,cellId,action);
         IBaseMethod.post(context,IBaseUrl.ACTION_CABINET_APP_LISTS,params,callBack);
     }
+    public void httpCabinetLists(String action,String boxCode,String cellId,String explain,CallBack callBack){
+        AjaxParams params=bankAjaxParams.ajaxCabinetREGMANUAL(boxCode,cellId,action,explain);
+        IBaseMethod.post(context,IBaseUrl.ACTION_CABINET_APP_LISTS,params,callBack);
+    }
 
     /**
      * 判断VIN码是否存在
