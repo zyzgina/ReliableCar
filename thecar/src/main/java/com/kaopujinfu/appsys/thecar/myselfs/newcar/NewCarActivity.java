@@ -70,7 +70,6 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
     private DistributorGpsBean.GpsEntity gpsEntity;
     private EditText mVinNew;
     private ImageView mVinScan;
-    private boolean isVin = false;
     private FinalDb db;
     private String subid = "", modles = "", sbid = "", mid = "";
     private BrandAdapter mAdapter;
@@ -168,12 +167,6 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         mVinScan.setOnClickListener(this);
         mVinNew.addTextChangedListener(textWatcher);
         vinVerfiyNewCar = (LinearLayout) findViewById(R.id.vinVerfiyNewCar);
-        mVinNew.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                isVin = hasFocus;
-            }
-        });
 
         mBrandNewCar = (EditText) findViewById(R.id.brandNewCar);
         mSubBrandNewCar = (EditText) findViewById(R.id.subBrandNewCar);
@@ -226,7 +219,6 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         });
         isCar = getIntent().getBooleanExtra("isCar", false);
         if (isCar) {
-            isVin = false;
             vinVerfiyNewCar.setVisibility(View.GONE);
             dialog.show();
             dialog.setLoadingTitle("正在进入VIN扫描,请稍等...");
@@ -243,7 +235,6 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
             Intent intent = new Intent(this, DistributorActivity.class);
             startActivityForResult(intent, IBase.RETAIL_NINE);
         } else if (v == mVinScan) {
-            isVin = false;
             vinVerfiyNewCar.setVisibility(View.GONE);
             dialog.show();
             dialog.setLoadingTitle("正在进入VIN扫描,请稍等...");
@@ -257,10 +248,10 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         } else if (v == goDateCarImage || v == goDateNewCar) {
             showDate();
         } else if (v == top_btn) {
-            if(isCarExit) {
+            if (isCarExit) {
                 commitNewCar();
-            }else{
-                getVinMoble( mVinNew.getText().toString());
+            } else {
+                getVinMoble(mVinNew.getText().toString());
             }
         } else if (v == colorCar_new || v == colorCarImage) {
             DialogUtil.spinnerDilaog(this, colorsAdapter, true, new DialogItemListener() {
@@ -298,8 +289,6 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
                     mVinNew.setText(vin);
-                    dialog.setLoadingTitle("正在查询车辆...");
-                    getVinMoble(vin);
                 } else {
                     if (isCar) {
                         finish();
@@ -320,7 +309,6 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
@@ -330,24 +318,22 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (isVin) {
-                vinVerfiyNewCar.setVisibility(View.GONE);
-                String vin = mVinNew.getText().toString();
-                LogUtils.debug("vin码校验:" + VINutils.checkVIN(vin));
-                if (vin.length() > 18) {
-                    vin = vin.substring(0, 18);
-                    mVinNew.setText(vin);
-                    mVinNew.setSelection(vin.length());
-                    if (VINutils.checkVIN(vin)) {
-                        dialog.show();
-                        dialog.setLoadingTitle("正在查询车辆...");
-                        vinVerfiyNewCar.setVisibility(View.GONE);
-                        getVinMoble(vin);
-                    } else {
-                        vinVerfiyNewCar.setVisibility(View.VISIBLE);
-                    }
+            vinVerfiyNewCar.setVisibility(View.GONE);
+            String vin = mVinNew.getText().toString();
+            if (vin.length() == 17) {
+                if (VINutils.checkVIN(vin)) {
+                    dialog.show();
+                    dialog.setLoadingTitle("正在查询车辆...");
+                    vinVerfiyNewCar.setVisibility(View.GONE);
+                    getVinMoble(vin);
+                } else {
+                    vinVerfiyNewCar.setVisibility(View.VISIBLE);
                 }
-
+            }
+            if (vin.length() > 17) {
+                vin = vin.substring(0, 16);
+                mVinNew.setText(vin);
+                mVinNew.setSelection(vin.length());
             }
         }
     };
@@ -385,6 +371,8 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
 
     /* 根据vin查询车辆 */
     private void getVinMoble(final String vinCode) {
+        dialog.setLoadingTitle("正在查询车辆...");
+        dialog.show();
         HttpBank.getIntence(this).getVinBrand(vinCode, new CallBack() {
             @Override
             public void onSuccess(Object o) {
@@ -393,7 +381,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                 QueryVinBean bean = QueryVinBean.getQueryVinBean(o.toString());
                 if (bean != null && bean.isSuccess()) {
                     if ("YES".equals(bean.getState())) {
-                        showExit(vinCode,bean);
+                        showExit(vinCode, bean);
                     } else {
                         carValues(bean);
                     }
@@ -410,22 +398,24 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         });
     }
 
-    boolean isCarExit=false;
+    boolean isCarExit = false;
+
     /* 判断该VIN是否已经添加 */
-    private void showExit(String strs,final QueryVinBean bean) {
-        DialogUtil.prompt(this, "你是否再次添加该车辆？"+strs, "取消", "添加", new DialogButtonListener() {
+    private void showExit(String strs, final QueryVinBean bean) {
+        DialogUtil.prompt(this, "你是否再次添加该车辆？" + strs, "取消", "添加", new DialogButtonListener() {
             @Override
             public void ok() {
                 carValues(bean);
-                isCarExit=true;
+                isCarExit = true;
             }
 
             @Override
             public void cancel() {
-                isCarExit=false;
+                isCarExit = false;
             }
         });
     }
+
     private void carValues(QueryVinBean bean) {
         if (bean.getPrice() != 0) {
             priceLlNewCar.setVisibility(View.VISIBLE);
