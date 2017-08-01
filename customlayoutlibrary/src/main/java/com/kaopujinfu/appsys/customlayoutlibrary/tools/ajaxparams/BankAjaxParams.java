@@ -418,7 +418,7 @@ public class BankAjaxParams {
      */
     public AjaxParams ajaxCabinetREGMANUAL(String boxCode, String cellId, String action,String beizhu) {
         AjaxParams params = ajaxCabinetREGMANUAL(boxCode,cellId,action);
-        params.put("",beizhu);
+        params.put("comment",beizhu);
         return params;
     }
 
