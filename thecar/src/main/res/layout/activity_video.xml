@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+
+    <FrameLayout
+        android:id="@+id/showVideo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <com.kaopujinfu.appsys.customlayoutlibrary.videocall.views.GridVideoViewContainer
+            android:id="@+id/grid_video_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/small_video_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/hideVideo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/deep_purple"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvVideoDis"
+            style="@style/textview_color_white_size18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="连接通话中" />
+
+        <com.kaopujinfu.appsys.customlayoutlibrary.videocall.views.DnyCrlView
+            android:id="@+id/videoDnyCrlView"
+            android:layout_width="@dimen/common_measure_160sp"
+            android:layout_height="@dimen/common_measure_10sp"
+            android:layout_alignBottom="@id/tvVideoDis"
+            android:layout_marginBottom="@dimen/common_measure_5sp"
+            android:layout_marginLeft="@dimen/common_measure_10sp"
+            android:layout_toRightOf="@id/tvVideoDis" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/checkLinearVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/toast_bg"
+        android:orientation="vertical"
+        android:padding="@dimen/common_measure_20sp"
+        android:layout_margin="@dimen/common_measure_30sp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/allSupVideo"
+                style="@style/textview_color_back_gray_singleLine_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="全部：17" />
+
+            <TextView
+                android:id="@+id/alwaySupVideo"
+                style="@style/textview_color_back_gray_singleLine_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="已盘：17" />
+
+            <TextView
+                android:id="@+id/hsSupVideo"
+                style="@style/textview_color_back_gray_singleLine_size17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="耗时:24小时17分10秒" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:id="@+id/brandSupVideo"
+            android:text="奔驰/S2300"
+            android:padding="@dimen/common_measure_20sp"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textview_color_back_gray_singleLine_size17"
+            android:id="@+id/vinSupVideo"
+            android:text="LWVCAFM97HA149008"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="@dimen/common_measure_20sp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/channel_name"
+            style="@style/textview_color_white_size17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/common_measure_20sp"
+            android:textStyle="bold" />
+
+        <com.kaopujinfu.appsys.customlayoutlibrary.videocall.views.AGLinearLayout
+            android:id="@+id/bottom_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/bottom_action_end_call"
+                android:layout_width="@dimen/common_measure_120sp"
+                android:layout_height="@dimen/common_measure_120sp"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onEndCallClicked"
+                android:src="@drawable/btn_endcall" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/voiceImageVideo"
+                    android:layout_width="@dimen/common_measure_120sp"
+                    android:layout_height="@dimen/common_measure_120sp"
+                    android:clickable="false"
+                    android:onClick="onVoiceChatClicked"
+                    android:src="@drawable/btn_voice" />
+
+                <ImageView
+                    android:id="@+id/switchcameraImageVideo"
+                    android:layout_width="@dimen/common_measure_120sp"
+                    android:layout_height="@dimen/common_measure_120sp"
+                    android:layout_marginLeft="@dimen/common_measure_30sp"
+                    android:layout_marginRight="@dimen/common_measure_30sp"
+                    android:clickable="false"
+                    android:onClick="onCustomizedFunctionClicked"
+                    android:src="@drawable/btn_switch_camera" />
+
+                <ImageView
+                    android:id="@+id/muteImageVideo"
+                    android:layout_width="@dimen/common_measure_120sp"
+                    android:layout_height="@dimen/common_measure_120sp"
+                    android:clickable="false"
+                    android:onClick="onVoiceMuteClicked"
+                    android:src="@drawable/btn_mute" />
+            </LinearLayout>
+        </com.kaopujinfu.appsys.customlayoutlibrary.videocall.views.AGLinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/contentlableItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/common_measure_20sp"
+        android:paddingLeft="@dimen/common_measure_10sp"
+        android:paddingRight="@dimen/common_measure_10sp"
+        android:paddingTop="@dimen/common_measure_20sp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/common_measure_20sp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/codeItemCabinet"
+                    style="@style/textview_color_back_gray_singleLine_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0011" />
+
+
+                <TextView
+                    android:id="@+id/companyItemCabinet"
+                    style="@style/textview_color_back_gray_singleLine_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_measure_10sp"
+                    android:gravity="center"
+                    android:text="建院资本发展公司" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/textview_color_back_gray_singleLine_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="容量" />
+
+                <TextView
+                    android:id="@+id/sizeItemCabinet"
+                    style="@style/textview_color_back_gray_singleLine_size17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_measure_10sp"
+                    android:gravity="center"
+                    android:text="126" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewLineItemCabinet"
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="@color/plain_gray" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_measure_10sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/goItemCab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/powerSupplyItem"
+                    style="@style/textview_color_white_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/check_error"
+                    android:padding="@dimen/common_measure_2sp"
+                    android:text="电源" />
+
+                <TextView
+                    android:id="@+id/temperatureItem"
+                    style="@style/textview_color_white_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_10sp"
+                    android:background="@color/check_ok"
+                    android:padding="@dimen/common_measure_2sp"
+                    android:text="温度" />
+
+                <TextView
+                    android:id="@+id/tiltItem"
+                    style="@style/textview_color_white_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_10sp"
+                    android:background="@color/check_ok"
+                    android:padding="@dimen/common_measure_2sp"
+                    android:text="倾斜" />
+
+                <TextView
+                    android:id="@+id/humanbodyItem"
+                    style="@style/textview_color_white_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_10sp"
+                    android:background="@color/check_error"
+                    android:padding="@dimen/common_measure_2sp"
+                    android:text="人体" />
+
+                <TextView
+                    android:id="@+id/networkItem"
+                    style="@style/textview_color_white_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_10sp"
+                    android:background="@color/check_error"
+                    android:padding="@dimen/common_measure_2sp"
+                    android:text="网络" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/downItemCab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_measure_10sp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/batteryItem"
+                    style="@style/textview_color_white_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/check_ok"
+                    android:padding="@dimen/common_measure_2sp"
+                    android:text="电池" />
+
+                <TextView
+                    android:id="@+id/noiseItem"
+                    style="@style/textview_color_white_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_10sp"
+                    android:background="@color/check_ok"
+                    android:padding="@dimen/common_measure_2sp"
+                    android:text="噪音" />
+
+                <TextView
+                    android:id="@+id/shockItem"
+                    style="@style/textview_color_white_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_10sp"
+                    android:background="@color/check_ok"
+                    android:padding="@dimen/common_measure_2sp"
+                    android:text="震动" />
+
+                <TextView
+                    android:id="@+id/openthedoorItem"
+                    style="@style/textview_color_white_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_10sp"
+                    android:background="@color/check_error"
+                    android:padding="@dimen/common_measure_2sp"
+                    android:text="开门" />
+
+                <TextView
+                    android:id="@+id/humidityItem"
+                    style="@style/textview_color_white_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_measure_10sp"
+                    android:background="@color/check_ok"
+                    android:padding="@dimen/common_measure_2sp"
+                    android:text="湿度" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/viewCabItem"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/contentlableItem"
+        android:layout_marginLeft="@dimen/common_measure_20sp"
+        android:background="@color/plain_gray" />
+</RelativeLayout>

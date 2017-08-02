@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cabinetDetailsRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/plain">
+
+    <GridView
+        android:id="@+id/cabinerDeatilsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:listSelector="@color/trans"
+        android:numColumns="2"
+        android:scrollbars="none" />
+
+    <include layout="@layout/no_date" />
+
+    <TextView
+        android:id="@+id/toastTitle"
+        style="@style/textview_color_white_size17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_frame5_bgback"
+        android:padding="@dimen/common_measure_10sp"
+        android:visibility="gone"/>
+</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
