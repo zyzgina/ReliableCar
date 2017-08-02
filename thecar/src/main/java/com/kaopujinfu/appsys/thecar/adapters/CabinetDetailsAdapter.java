@@ -43,7 +43,7 @@ public class CabinetDetailsAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
+    float ry=0;
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -84,8 +84,15 @@ public class CabinetDetailsAdapter extends BaseAdapter {
                     public boolean onTouch(View v, MotionEvent event) {
                         switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
+                                ry=event.getRawY();
                                 if (listenis != null)
                                     listenis.onCabinetTocuhListenis(position, true, event.getRawX(), event.getRawY());
+                                break;
+                            case MotionEvent.ACTION_MOVE:
+                                if(ry-event.getRawY()>=10||event.getRawY()-ry>=10){
+                                    if (listenis != null)
+                                        listenis.onCabinetTocuhListenis(position, false, event.getRawX(), event.getRawY());
+                                }
                                 break;
                             case MotionEvent.ACTION_UP:
                                 if (listenis != null)
