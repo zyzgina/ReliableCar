@@ -41,15 +41,19 @@ import com.etop.vin.VINAPI;
 import com.kaopujinfu.appsys.customlayoutlibrary.R;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.TaskItemBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
+import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.LoactionListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogTxt;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.VinViewfinderView;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.CaptureConfiguration;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.PredefinedCaptureConfigurations;
 import com.reliablel.voiceproject.VoiceUtils;
 
 import net.tsz.afinal.FinalDb;
@@ -1034,16 +1038,20 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
         return true;
     }
 
+    TaskItemBean.TaskItemsEntity entity;
+
     /**
      * 根据查询监管信息
      */
     private void queySupervises(String vin) {
         //正在查询提示
+        vinCode = vin;
         toats_vin.setVisibility(View.VISIBLE);
         List<TaskItemBean.TaskItemsEntity> lists = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "vinNo=\"" + vin + "\"");
         if (lists != null && lists.size() > 0) {
-            TaskItemBean.TaskItemsEntity entity = lists.get(0);
+            entity = lists.get(0);
             int status_speek = entity.getCommit_status();
+            taskCode = entity.getTaskCode();
             if (entity.getCommit_status() == 0) {
                 entity.setCommit_status(1);
                 entity.setCheckMethod(IBase.VINCODE);
@@ -1073,6 +1081,9 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
             if (nofinish.size() > 0) {
                 String content;
                 if (status_speek == 0) {
+                    if (entity.getAllowVideo() == 1) {
+                        showVideo();
+                    }
                     content = "盘库成功剩余" + nofinish.size() + "台";
                 } else {
                     content = "该车已盘库";
@@ -1080,6 +1091,9 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                 setContentSpeek(content);
             }
             if (nofinish.size() == 0) {
+                if (entity.getAllowVideo() == 1) {
+                    showVideo();
+                }
                 voiceUtils.startSpeek("全部完成辛苦了", new VoiceUtils.SpeekEndListener() {
                     @Override
                     public void setSpeekEndListener(boolean b) {
@@ -1090,7 +1104,9 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                                 e.printStackTrace();
                             }
                             voiceUtils.releaseSpeek();
-                            finish();
+                            if (entity.getAllowVideo() == 0) {
+                                finish();
+                            }
                         }
                     }
                 });
@@ -1136,7 +1152,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                         public void run() {
                             List<String> lists = new ArrayList<String>();
                             lists.add(savePath);
-                            IBaseMethod.saveDateLoaction(db, lists, code + "_" + vin, "VIN码盘库",latitude+"",longitude+"");
+                            IBaseMethod.saveDateLoaction(db, lists, code + "_" + vin, "VIN码盘库", latitude + "", longitude + "");
                             List<UploadBean> lis = db.findAll(UploadBean.class);
                             for (UploadBean ub : lis) {
                                 LogUtils.debug(ub.toString());
@@ -1166,7 +1182,8 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
 
     /* 添加在规定时间没有点击屏幕自动进入扫描状态 */
     private int threadNum = 5;//等待时间
-    private void specifiedTime(){
+
+    private void specifiedTime() {
         new Thread() {
             @Override
             public void run() {
@@ -1184,17 +1201,81 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                mRemind.setVisibility(View.INVISIBLE);
-                                toats_vin.setVisibility(View.VISIBLE);
-                                mVinresult.setVisibility(View.INVISIBLE);
-                                mShowbitmap.setVisibility(View.INVISIBLE);
-                                mMsgvin.setVisibility(View.GONE);
-                                query_vin.setVisibility(View.GONE);
+                                List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
+                                if (nofinish.size() == 0) {
+                                    finish();
+                                    return;
+                                } else {
+                                    mRemind.setVisibility(View.INVISIBLE);
+                                    toats_vin.setVisibility(View.VISIBLE);
+                                    mVinresult.setVisibility(View.INVISIBLE);
+                                    mShowbitmap.setVisibility(View.INVISIBLE);
+                                    mMsgvin.setVisibility(View.GONE);
+                                    query_vin.setVisibility(View.GONE);
+                                }
                             }
                         });
                     }
                 }
             }
         }.start();
+    }
+
+    /* 盘库视频录制 */
+    private void showVideo() {
+        isThread = false;
+        DialogUtil.jumpCorrectErr(this, "该车盘库需要进行视频录制操作，请录制", "录 制", 2, getResources().getColor(android.R.color.holo_orange_light), false, new DialogButtonListener() {
+            @Override
+            public void ok() {
+                CaptureConfiguration config = createCaptureConfiguration();
+                Intent intent = new Intent(VINactivity.this, VideoRecordActivity.class);
+                intent.putExtra(VideoRecordActivity.EXTRA_CAPTURE_CONFIGURATION, config);
+                intent.putExtra("isScance", true);
+                startActivityForResult(intent, 101);
+            }
+
+            @Override
+            public void cancel() {
+
+            }
+        });
+    }
+
+    private CaptureConfiguration createCaptureConfiguration() {
+        // 设置大小(RES_360P/RES_480P/RES_720P/RES_1080P/RES_1440P/RES_2160P)
+        final PredefinedCaptureConfigurations.CaptureResolution resolution = PredefinedCaptureConfigurations.CaptureResolution.RES_720P;
+        // 设置清晰度 (HIGH高清、MEDIUM中等、LOW低配)
+        final PredefinedCaptureConfigurations.CaptureQuality quality = PredefinedCaptureConfigurations.CaptureQuality.MEDIUM;
+        CaptureConfiguration.Builder builder = new CaptureConfiguration.Builder(resolution, quality);
+        // 设置视频最大时长，秒为单位
+//        builder.maxDuration(60);
+        // 设置视频最大大小，M为单位
+//        builder.maxFileSize(5);
+        // 设置每秒的帧数
+//        builder.frameRate(5);
+        // 设置是否显示时间
+        // 显示时间
+        builder.showRecordingTime();
+        // 隐藏时间
+//        builder.noCameraToggle();
+        return builder.build();
+    }
+
+    private String vinCode = "", taskCode = "";
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            String path = data.getStringExtra(VideoRecordActivity.EXTRA_OUTPUT_FILENAME);
+            //提交成功
+            File file = new File(path);
+            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, taskCode + "_" + vinCode, "VIN码盘库", latitude + "", longitude + "");
+            FinalDb db = FinalDb.create(VINactivity.this, IBase.BASE_DATE, true);
+            db.save(uploadBean);
+            threadNum = 3;
+            isThread = true;
+            specifiedTime();
+        }
     }
 }
