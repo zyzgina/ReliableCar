@@ -124,7 +124,7 @@ public class CabinetDetailsActivity extends BaseNoScoActivity {
             public void onSuccess(Object o) {
                 LogUtils.debug("柜体详情:" + o.toString());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60, handler);
+                    IBaseMethod.jumpCountdown(10, handler);
                     refreshLayout.finishRefreshing();
                 } else {
                     refreshLayout.finishLoadmore();
