@@ -138,6 +138,7 @@ public class LockActivity extends BaseNoScoActivity implements View.OnClickListe
                     JumpEventBus jumpEventBus=new JumpEventBus();
                     jumpEventBus.setName("柜体操作");
                     EventBus.getDefault().post(jumpEventBus);
+                    remarksLock.setText("");
                 } else {
                     DialogUtil.jumpPrompt(LockActivity.this, "停止监管失败", result.getComment(), 0, getResources().getColor(R.color.check_error));
                 }
