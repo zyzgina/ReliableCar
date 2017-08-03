@@ -373,6 +373,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
     private void getVinMoble(final String vinCode) {
         dialog.setLoadingTitle("正在查询车辆...");
         dialog.show();
+        isCarExit=true;
         HttpBank.getIntence(this).getVinBrand(vinCode, new CallBack() {
             @Override
             public void onSuccess(Object o) {
