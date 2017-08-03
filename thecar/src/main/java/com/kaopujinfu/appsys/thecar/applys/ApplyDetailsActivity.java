@@ -93,6 +93,8 @@ public class ApplyDetailsActivity extends BaseNoScoActivity {
                     page = 1;
                     isRefresh = false;
                     getDate();
+                }else{
+                    refreshLayout_applyDetails.finishRefreshing();
                 }
             }
         });
