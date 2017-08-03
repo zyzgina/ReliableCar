@@ -121,7 +121,7 @@ public class CarListActivity extends BaseNoScoActivity implements View.OnClickLi
                 if (carListBean != null && carListBean.isSuccess()) {
                     LogTxt.getInstance().writeLog("获取监管器绑定列表成功");
                     if (page == 1) {
-                        IBaseMethod.jumpCountdown(60, handler);
+                        IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                         mAdapter.clearDate();
                     }
                     mAdapter.setListBean(carListBean);

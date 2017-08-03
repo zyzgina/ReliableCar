@@ -95,7 +95,7 @@ public class MissionListsActivity extends BaseNoScoActivity {
      * 获取网络数据
      */
     private void getDate() {
-        IBaseMethod.jumpCountdown(60, handler);
+        IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
     }
 
 }

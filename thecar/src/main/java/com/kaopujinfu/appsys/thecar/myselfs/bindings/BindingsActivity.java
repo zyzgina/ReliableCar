@@ -119,7 +119,7 @@ public class BindingsActivity extends BaseNoScoActivity implements View.OnClickL
                 BindingBean bindingBean = BindingBean.obtainBindingBean(o.toString());
                 if (bindingBean != null && bindingBean.isSuccess()) {
                     if (page == 1) {
-                        IBaseMethod.jumpCountdown(60, handler);
+                        IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                         bindingAdapter.clearDate();
                     }
                     bindingAdapter.setListBean(bindingBean);

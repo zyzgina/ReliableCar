@@ -88,8 +88,8 @@ public class ChecksActivity extends BaseNoScoActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TaskListBean.TaskListItem item = checksListsAdapter.selectItem(position);
                 Intent intent = new Intent();
-//                intent.setClass(ChecksActivity.this, ChecksDetailsActivity.class);
-                intent.setClass(ChecksActivity.this, CheacksVideoActivity.class);
+                intent.setClass(ChecksActivity.this, ChecksDetailsActivity.class);
+//                intent.setClass(ChecksActivity.this, CheacksVideoActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("item", item);
                 intent.putExtras(bundle);
@@ -109,7 +109,7 @@ public class ChecksActivity extends BaseNoScoActivity {
                 TaskListBean bean = TaskListBean.getTaskListBean(o.toString());
                 LogUtils.debug("解析数据:" + bean.toString());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60, handler);
+                    IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                     checksListsAdapter.clearList();
                 }
                 if (bean != null && bean.getItems() != null && bean.getItems().size() > 0) {

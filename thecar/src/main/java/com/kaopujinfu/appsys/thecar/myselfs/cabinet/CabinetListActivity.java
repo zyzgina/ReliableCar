@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseNoScoActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
+import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
@@ -93,7 +94,7 @@ public class CabinetListActivity extends BaseNoScoActivity {
             public void onSuccess(Object o) {
                 LogUtils.debug("柜体列表:" + o.toString());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60, handler);
+                    IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                     refreshLayout.finishRefreshing();
                 } else {
                     refreshLayout.finishLoadmore();

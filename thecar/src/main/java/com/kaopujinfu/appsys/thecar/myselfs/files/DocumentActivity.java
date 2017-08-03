@@ -115,7 +115,7 @@ public class DocumentActivity extends BaseNoScoActivity implements View.OnClickL
                 if (listBean!=null&&listBean.isSuccess()) {
                     if (page == 1) {
                         refreshLayout_document.finishRefreshing();
-                        IBaseMethod.jumpCountdown(60, handler);
+                        IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                         mAdapter.clearDate();
                     }
                     mAdapter.setListBean(listBean);

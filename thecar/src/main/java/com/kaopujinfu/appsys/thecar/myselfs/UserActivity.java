@@ -132,7 +132,7 @@ public class UserActivity extends Activity {
         if (jumpEventBus.getStatus() == IBase.RETAIL_FOUR) {
             refreshLayoutMin.finishRefreshing();
             if ("true".equals(jumpEventBus.getName())) {
-                IBaseMethod.jumpCountdown(60, handler);
+                IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
             }
         }
     }

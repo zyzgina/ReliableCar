@@ -108,7 +108,7 @@ public class ApplyActivity extends BaseNoScoActivity {
             public void onSuccess(Object o) {
                 LogUtils.debug("申请清单:" + o.toString());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60, handler);
+                    IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                     refreshLayout_applyfrom.finishRefreshing();
                 } else {
                     refreshLayout_applyfrom.finishLoadmore();

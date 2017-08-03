@@ -120,7 +120,7 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
                 CarListBean carListBean = CarListBean.getCarListBean(o.toString());
                 if (carListBean != null && carListBean.isSuccess()) {
                     if (page == 1) {
-                        IBaseMethod.jumpCountdown(60, handler);
+                        IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                         mAdapter.clearDate();
                     }
                     mAdapter.setListBean(carListBean);
