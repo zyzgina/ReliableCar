@@ -383,6 +383,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     if ("YES".equals(bean.getState())) {
                         showExit(vinCode, bean);
                     } else {
+                        isCarExit=true;
                         carValues(bean);
                     }
                 } else {
