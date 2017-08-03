@@ -387,6 +387,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                         carValues(bean);
                     }
                 } else {
+                    isCarExit=true;
                     showVINDialog();
                 }
             }
