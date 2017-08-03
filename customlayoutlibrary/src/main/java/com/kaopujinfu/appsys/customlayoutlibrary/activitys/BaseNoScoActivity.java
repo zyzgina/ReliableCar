@@ -61,7 +61,7 @@ public abstract class BaseNoScoActivity extends FragmentActivity {
                     break;
                 case IBase.RETAIL_COUNTDOWN:
                     int time = (int) msg.obj;
-                    if (time == 0)
+                    if (time <= 0)
                         isRefresh = true;
                     break;
             }
