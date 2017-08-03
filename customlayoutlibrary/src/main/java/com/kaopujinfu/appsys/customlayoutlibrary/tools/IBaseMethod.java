@@ -214,7 +214,7 @@ public class IBaseMethod {
             @Override
             public void run() {
                 time--;
-                if (time == 0) {
+                if (time <= 0) {
                     //计时完毕，关闭计时器
                     timer.cancel();
                 }
