@@ -25,7 +25,6 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
-import com.kaopujinfu.appsys.thecar.myselfs.newcar.AddLableActivity;
 
 /**
  * 修改密码
