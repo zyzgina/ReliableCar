@@ -74,7 +74,7 @@ public class StartActivity extends AppCompatActivity {
         Long currentTime = System.currentTimeMillis();
         Long loginTime = (Long) get(StartActivity.this, "currentLoginTime", currentTime);
         String userPass = (String) get(StartActivity.this, "login_user_password", "");
-        if (GeneralUtils.isEmpty(userPass)||currentTime - loginTime == 0 || currentTime - loginTime >= 24 * 60 * 60 * 1000) { // 24 小时
+        if (GeneralUtils.isEmpty(userPass) || currentTime - loginTime == 0 || currentTime - loginTime >= 24 * 60 * 60 * 1000) { // 24 小时
             // 需要手动登录
             Intent intent = new Intent(StartActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -109,7 +109,8 @@ public class StartActivity extends AppCompatActivity {
                     if (!GeneralUtils.isEmpty(result.getCompanyCode()))
                         IBase.COMPANY_CODE = result.getCompanyCode();
                     SPUtils.put(StartActivity.this, "companyCode", IBase.COMPANY_CODE);
-                    SPUtils.put(StartActivity.this, "uploadToken", result.getUpload_token());
+                    if (!GeneralUtils.isEmpty(result.getUpload_token()))
+                        SPUtils.put(StartActivity.this, "uploadToken", result.getUpload_token());
                     SPUtils.put(StartActivity.this, "currentUploadTime", System.currentTimeMillis());
                     Intent intent = new Intent(StartActivity.this, CarMainActivity.class);
                     startActivity(intent);
