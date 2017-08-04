@@ -147,7 +147,8 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
                 }
                 refreshLayout_bindings.finishRefreshing();
                 LogTxt.getInstance().writeLog("获取监管器绑定列表失败，错误编码：" + errorNo + "，错误信息：" + strMsg);
-                IBaseMethod.showToast(LableActivity.this, strMsg, IBase.RETAIL_ZERO);
+                if (errorNo != 404)
+                    IBaseMethod.showToast(LableActivity.this, strMsg, IBase.RETAIL_ZERO);
             }
         });
     }

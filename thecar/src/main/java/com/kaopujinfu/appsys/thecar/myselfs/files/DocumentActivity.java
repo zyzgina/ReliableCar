@@ -112,7 +112,7 @@ public class DocumentActivity extends BaseNoScoActivity implements View.OnClickL
                 LogUtils.debug(o.toString());
                 refreshLayout_document.finishRefreshing();
                 DocumentListBean listBean = DocumentListBean.getDocumentList(o.toString());
-                if (listBean!=null&&listBean.isSuccess()) {
+                if (listBean != null && listBean.isSuccess()) {
                     if (page == 1) {
                         refreshLayout_document.finishRefreshing();
                         IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
@@ -140,7 +140,8 @@ public class DocumentActivity extends BaseNoScoActivity implements View.OnClickL
                 }
                 refreshLayout_document.finishRefreshing();
                 LogTxt.getInstance().writeLog("获取文档收录列表失败，错误编码：" + errorNo + "，错误信息：" + strMsg);
-                IBaseMethod.showToast(DocumentActivity.this, strMsg, IBase.RETAIL_ZERO);
+                if (errorNo != 404)
+                    IBaseMethod.showToast(DocumentActivity.this, strMsg, IBase.RETAIL_ZERO);
             }
         });
     }

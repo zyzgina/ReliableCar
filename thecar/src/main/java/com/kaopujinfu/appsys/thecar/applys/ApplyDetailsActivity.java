@@ -93,7 +93,7 @@ public class ApplyDetailsActivity extends BaseNoScoActivity {
                     page = 1;
                     isRefresh = false;
                     getDate();
-                }else{
+                } else {
                     refreshLayout_applyDetails.finishRefreshing();
                 }
             }
@@ -138,7 +138,8 @@ public class ApplyDetailsActivity extends BaseNoScoActivity {
                     mNoDate.setVisibility(View.VISIBLE);
                     applyDetailsList.setVisibility(View.GONE);
                 }
-                IBaseMethod.showToast(ApplyDetailsActivity.this, strMsg, IBase.RETAIL_ZERO);
+                if (errorNo != 404)
+                    IBaseMethod.showToast(ApplyDetailsActivity.this, strMsg, IBase.RETAIL_ZERO);
             }
         });
     }
