@@ -32,5 +32,6 @@ public class VerionActivity extends BaseNoScoActivity {
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
         TextView versionName= (TextView) findViewById(R.id.versionName);
         versionName.setText("当前版本号："+ IBaseMethod.getVersion(this));
+        TextView versionMsg= (TextView) findViewById(R.id.versionMsg);
     }
 }
