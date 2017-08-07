@@ -151,7 +151,7 @@ public class LoanFormDetailsActivity extends BaseNoScoActivity {
             public void onSuccess(Object o) {
                 LogUtils.debug("申请清单:" + o.toString());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60, handler);
+                    IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                     refreshLayout_loanfromdetails.finishRefreshing();
                 } else {
                     refreshLayout_loanfromdetails.finishLoadmore();

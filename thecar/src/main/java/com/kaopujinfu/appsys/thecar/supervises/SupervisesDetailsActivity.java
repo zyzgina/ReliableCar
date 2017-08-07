@@ -115,7 +115,7 @@ public class SupervisesDetailsActivity extends BaseNoScoActivity {
             public void onSuccess(Object o) {
                 LogUtils.debug(page + "   数据:" + o.toString());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60, handler);
+                    IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                     refreshLayout_supervisesDetails.finishRefreshing();
                 } else {
                     refreshLayout_supervisesDetails.finishLoadmore();

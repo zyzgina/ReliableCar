@@ -93,6 +93,8 @@ public class ApplyDetailsActivity extends BaseNoScoActivity {
                     page = 1;
                     isRefresh = false;
                     getDate();
+                } else {
+                    refreshLayout_applyDetails.finishRefreshing();
                 }
             }
         });
@@ -104,7 +106,7 @@ public class ApplyDetailsActivity extends BaseNoScoActivity {
             public void onSuccess(Object o) {
                 LogUtils.debug("申请清单详情:" + o.toString());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60, handler);
+                    IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                     refreshLayout_applyDetails.finishRefreshing();
                 } else {
                     refreshLayout_applyDetails.finishLoadmore();
@@ -136,7 +138,8 @@ public class ApplyDetailsActivity extends BaseNoScoActivity {
                     mNoDate.setVisibility(View.VISIBLE);
                     applyDetailsList.setVisibility(View.GONE);
                 }
-                IBaseMethod.showToast(ApplyDetailsActivity.this, strMsg, IBase.RETAIL_ZERO);
+                if (errorNo != 404)
+                    IBaseMethod.showToast(ApplyDetailsActivity.this, strMsg, IBase.RETAIL_ZERO);
             }
         });
     }

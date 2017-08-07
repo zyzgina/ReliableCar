@@ -119,7 +119,7 @@ public class BindingsActivity extends BaseNoScoActivity implements View.OnClickL
                 BindingBean bindingBean = BindingBean.obtainBindingBean(o.toString());
                 if (bindingBean != null && bindingBean.isSuccess()) {
                     if (page == 1) {
-                        IBaseMethod.jumpCountdown(60, handler);
+                        IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                         bindingAdapter.clearDate();
                     }
                     bindingAdapter.setListBean(bindingBean);
@@ -146,7 +146,8 @@ public class BindingsActivity extends BaseNoScoActivity implements View.OnClickL
                 }
                 refreshLayout_bindings.finishRefreshing();
                 LogTxt.getInstance().writeLog("获取监管器绑定列表失败，错误编码：" + errorNo + "，错误信息：" + strMsg);
-                IBaseMethod.showToast(BindingsActivity.this, strMsg, IBase.RETAIL_ZERO);
+                if (errorNo != 404)
+                    IBaseMethod.showToast(BindingsActivity.this, strMsg, IBase.RETAIL_ZERO);
             }
         });
     }

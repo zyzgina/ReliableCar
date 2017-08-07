@@ -40,6 +40,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import okhttp3.Call;
+import okhttp3.Response;
 
 import static com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils.get;
 
@@ -214,7 +215,7 @@ public class IBaseMethod {
             @Override
             public void run() {
                 time--;
-                if (time == 0) {
+                if (time <= 0) {
                     //计时完毕，关闭计时器
                     timer.cancel();
                 }
@@ -234,6 +235,8 @@ public class IBaseMethod {
      * @param params 参数
      * @param call   返回接受
      */
+    static int code = 200;
+
     public static void post(final Context context, String url, AjaxParams params, final CallBack call) {
         String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
         //判断是否有网络
@@ -252,13 +255,17 @@ public class IBaseMethod {
         if (!urlPath.contains("http://")) {
             urlPath = "http://" + urlPath;
         }
-        LogUtils.debug("接口地址:"+urlPath);
+        LogUtils.debug("接口地址:" + urlPath);
         urlPath += url;
         OkHttpUtils.asyncPost(urlPath, params, new StringCallback() {
             @Override
             public void onSuccess(Call scall, String result) {
                 if (call != null) {
-                    call.onSuccess(result);
+                    if (code == 404) {
+                        call.onFailure(code, "网络与服务不存在");
+                        DialogUtil.jumpCorrectErr(context, "网络与服务不存在,请核实信息", "知道了", 2, context.getResources().getColor(android.R.color.holo_orange_light));
+                    }else
+                        call.onSuccess(result);
                 }
             }
 
@@ -273,6 +280,12 @@ public class IBaseMethod {
                         call.onFailure(500, "接口无响应:" + e.toString());
                     }
                 }
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                super.onResponse(call, response);
+                code = response.code();
             }
         });
     }
@@ -405,7 +418,7 @@ public class IBaseMethod {
         uploadBean.setFilename(fileName);
         uploadBean.setFilesize(file.length() + "");
         uploadBean.setLoactionPath(file.getAbsolutePath());
-        if(strs.length>3){
+        if (strs.length > 3) {
             uploadBean.setLatitude(strs[2]);
             uploadBean.setLongitude(strs[3]);
         }

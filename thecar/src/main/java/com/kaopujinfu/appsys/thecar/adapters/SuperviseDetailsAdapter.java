@@ -62,6 +62,14 @@ public class SuperviseDetailsAdapter extends BaseAdapter {
         holder.vin.setText(itemsEntity.getVinNo());
         if (GeneralUtils.isEmpty(itemsEntity.getVinStatus()))
             itemsEntity.setVinStatus("0");
+        if(!GeneralUtils.isEmpty(itemsEntity.getDlrShortName()))
+        holder.distributor.setText(itemsEntity.getDlrShortName());
+        if(!GeneralUtils.isEmpty(itemsEntity.getCarPlate()))
+        holder.latenumber.setText(itemsEntity.getCarPlate());
+        if(!GeneralUtils.isEmpty(itemsEntity.getCarColor()))
+        holder.colorSup.setText(itemsEntity.getCarColor());
+        if(!GeneralUtils.isEmpty(itemsEntity.getCarColor()))
+        holder.supervisesPotision.setText(itemsEntity.getCarColor());
         int vinNo = Integer.parseInt(itemsEntity.getVinStatus());
         switch (vinNo) {
             case 11:
@@ -163,7 +171,7 @@ public class SuperviseDetailsAdapter extends BaseAdapter {
     }
 
     class Holder {
-        TextView name, vin, vinCheck, rfidCheck, flightCheck, gpsCheck, carCheck, docCheck;
+        TextView name, vin, vinCheck, rfidCheck, flightCheck, gpsCheck, carCheck, docCheck,distributor,latenumber,colorSup,supervisesPotision;
 
         public Holder(View view) {
             name = (TextView) view.findViewById(R.id.supervisesDetailsName_item);
@@ -174,6 +182,10 @@ public class SuperviseDetailsAdapter extends BaseAdapter {
             gpsCheck = (TextView) view.findViewById(R.id.supervisesDetailsGPSCheck_item);
             carCheck = (TextView) view.findViewById(R.id.supervisesDetailsCarCheck_item);
             docCheck = (TextView) view.findViewById(R.id.supervisesDetailsDocCheck_item);
+            distributor= (TextView) view.findViewById(R.id.supervisesDistributor_item);
+            latenumber= (TextView) view.findViewById(R.id.superviseslatenumber_item);
+            colorSup= (TextView) view.findViewById(R.id.supervisesColore_item);
+            supervisesPotision= (TextView) view.findViewById(R.id.supervisesPotision_item);
         }
     }
 

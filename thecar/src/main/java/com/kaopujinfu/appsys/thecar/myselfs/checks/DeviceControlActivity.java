@@ -18,7 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseNoScoActivity;
+import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VideoRecordActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.TaskItemBean;
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.LoactionListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
@@ -29,6 +31,8 @@ import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VibratorUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.RippleTelView;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.CaptureConfiguration;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.PredefinedCaptureConfigurations;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.ChecksdetailsAdapter;
 import com.kaopujinfu.appsys.thecar.service.BluetoothLeService;
@@ -39,6 +43,7 @@ import com.reliablel.voiceproject.VoiceUtils;
 
 import net.tsz.afinal.FinalDb;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,7 +171,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
         registerReceiver(mBroadcastReceiver, getIntentFilter());
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         LogUtils.debug("Try to bindService=" + bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE));
-        mapUtils = new MapUtils(getApplicationContext());
+        mapUtils = new MapUtils(this);
         mapUtils.initOnceLocation();
         mapUtils.startLocation(new LoactionListener() {
             @Override
@@ -179,6 +184,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
 
     private boolean isSuccess = false;
     private String addStr = "";
+    TaskItemBean.TaskItemsEntity entity;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -232,7 +238,9 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                             List<TaskItemBean.TaskItemsEntity> lists = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, query);
 //                            LogUtils.debug("模糊查询数据库:" + lists.size());
                             if (lists.size() > 0) {
-                                TaskItemBean.TaskItemsEntity entity = lists.get(0);
+                                entity = lists.get(0);
+                                vinCode = entity.getVinNo();
+                                tkCode = entity.getTaskCode();
                                 int status_speek = entity.getCommit_status();
                                 if (entity.getCommit_status() == 0) {
                                     entity.setCommit_status(1);
@@ -252,12 +260,18 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                                 if (nofinish.size() > 0) {
                                     if (status_speek == 0) {
                                         content = "盘库成功剩余" + nofinish.size() + "台";
+                                        if (entity.getAllowVideo() == 1) {
+                                            showVideo();
+                                        }
                                     } else {
                                         content = "该车已盘库";
                                     }
                                 }
                                 integerList.add(nofinish.size());
                                 if (nofinish.size() == 0 && num < integerList.size() && integerList.get(num) == 0) {
+                                    if (entity.getAllowVideo() == 1) {
+                                        showVideo();
+                                    }
                                     voiceUtils.startSpeek("全部完成辛苦了", new VoiceUtils.SpeekEndListener() {
                                         @Override
                                         public void setSpeekEndListener(boolean b) {
@@ -269,7 +283,9 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                                                 }
 //                                                LogUtils.debug("全部完成了监听");
                                                 voiceUtils.releaseSpeek();
-                                                finish();
+                                                if (entity.getAllowVideo() == 0) {
+                                                    finish();
+                                                }
                                             }
                                         }
                                     });
@@ -291,6 +307,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
     private boolean isExit = false;//判断是否退出该界面
     private List<Integer> integerList = new ArrayList<>();
     private boolean isTwo = true;//防止两次进入播报全部完成辛苦了
+
     private void goSpeek(String content, final int value, final int size) {
         voiceUtils.startSpeek(content, new VoiceUtils.SpeekEndListener() {
             @Override
@@ -301,7 +318,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                     if (isTwo) {
 //                        LogUtils.debug("进入全部完成播报语音");
                         isTwo = false;
-                        goSpeek("全部完成辛苦了",1,0);
+                        goSpeek("全部完成辛苦了", 1, 0);
                     } else {
                         //判断是否进入了外部监听
 //                        LogUtils.debug("监听全部完成辛苦了播报");
@@ -311,9 +328,20 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                             e.printStackTrace();
                         }
                         voiceUtils.releaseSpeek();
-                        finish();
+                        if (entity == null) {
+                            finish();
+                        }
+                        if (entity != null && entity.getAllowVideo() == 0) {
+                            finish();
+                        }
                     }
                 }
+                //跳转至视频录制，停止语音播放
+                if (b && isShowLz && isTwo) {
+                    isShowLz=false;
+                    voiceUtils.stopSpeek();
+                }
+                //判断该页面是否销毁
                 if (b && isExit && size != 0) {
                     voiceUtils.releaseSpeek();
                 }
@@ -445,5 +473,70 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
 
     }
 
+    private boolean isShowLz = false;
 
+    /* 盘库视频录制 */
+    private void showVideo() {
+        DialogUtil.jumpCorrectErr(this, "该车盘库需要进行视频录制操作，请录制", "录 制", 2, getResources().getColor(android.R.color.holo_orange_light), false, new DialogButtonListener() {
+            @Override
+            public void ok() {
+                isShowLz = true;
+                CaptureConfiguration config = createCaptureConfiguration();
+                Intent intent = new Intent(DeviceControlActivity.this, VideoRecordActivity.class);
+                intent.putExtra(VideoRecordActivity.EXTRA_CAPTURE_CONFIGURATION, config);
+                startActivityForResult(intent, 101);
+            }
+
+            @Override
+            public void cancel() {
+
+            }
+        });
+    }
+
+    private CaptureConfiguration createCaptureConfiguration() {
+        // 设置大小(RES_360P/RES_480P/RES_720P/RES_1080P/RES_1440P/RES_2160P)
+        final PredefinedCaptureConfigurations.CaptureResolution resolution = PredefinedCaptureConfigurations.CaptureResolution.RES_720P;
+        // 设置清晰度 (HIGH高清、MEDIUM中等、LOW低配)
+        final PredefinedCaptureConfigurations.CaptureQuality quality = PredefinedCaptureConfigurations.CaptureQuality.MEDIUM;
+        CaptureConfiguration.Builder builder = new CaptureConfiguration.Builder(resolution, quality);
+        // 设置视频最大时长，秒为单位
+//        builder.maxDuration(60);
+        // 设置视频最大大小，M为单位
+//        builder.maxFileSize(5);
+        // 设置每秒的帧数
+//        builder.frameRate(5);
+        // 设置是否显示时间
+        // 显示时间
+        builder.showRecordingTime();
+        // 隐藏时间
+//        builder.noCameraToggle();
+        return builder.build();
+    }
+
+    private String vinCode = "", tkCode = "";
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            isShowLz=false;
+            String path = data.getStringExtra(VideoRecordActivity.EXTRA_OUTPUT_FILENAME);
+            //提交成功
+            File file = new File(path);
+            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, tkCode + "_" + vinCode, "VIN码盘库", latitude + "", longitude + "");
+            FinalDb db = FinalDb.create(DeviceControlActivity.this, IBase.BASE_DATE, true);
+            db.save(uploadBean);
+            List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
+            if (nofinish.size() == 0) {
+                finish();
+                try {
+                    Thread.sleep(2000);
+                    voiceUtils.releaseSpeek();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

@@ -55,7 +55,7 @@ public class ApplyActivity extends BaseNoScoActivity {
         header.setPadding(0, padding, 0, 0);
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
         header.setVisibility(View.GONE);
-        LinearLayout applyLinear= (LinearLayout) findViewById(R.id.applyLinear);
+        LinearLayout applyLinear = (LinearLayout) findViewById(R.id.applyLinear);
         applyLinear.setPadding(0, padding, 0, 0);
 
         applyFromList = (ListView) findViewById(R.id.applyFromList);
@@ -66,8 +66,8 @@ public class ApplyActivity extends BaseNoScoActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ApplyBean.ApplyItemsEntity itemsEntity = mAdapter.getApplyItems(i);
                 Intent intent = new Intent(ApplyActivity.this, ApplyDetailsActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("applyItems",itemsEntity);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("applyItems", itemsEntity);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -88,7 +88,7 @@ public class ApplyActivity extends BaseNoScoActivity {
                     page = 1;
                     isRefresh = false;
                     getDate();
-                }else{
+                } else {
                     refreshLayout_applyfrom.finishRefreshing();
                 }
             }
@@ -103,12 +103,12 @@ public class ApplyActivity extends BaseNoScoActivity {
     }
 
     private void getDate() {
-        HttpBank.getIntence(this).httpApply(IBaseUrl.ACTION_APP_LIST1,"", new CallBack() {
+        HttpBank.getIntence(this).httpApply(IBaseUrl.ACTION_APP_LIST1, "", new CallBack() {
             @Override
             public void onSuccess(Object o) {
                 LogUtils.debug("申请清单:" + o.toString());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60, handler);
+                    IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                     refreshLayout_applyfrom.finishRefreshing();
                 } else {
                     refreshLayout_applyfrom.finishLoadmore();
@@ -140,7 +140,8 @@ public class ApplyActivity extends BaseNoScoActivity {
                     mNoDate.setVisibility(View.VISIBLE);
                     applyFromList.setVisibility(View.GONE);
                 }
-                IBaseMethod.showToast(ApplyActivity.this, strMsg, IBase.RETAIL_ZERO);
+                if (errorNo != 404)
+                    IBaseMethod.showToast(ApplyActivity.this, strMsg, IBase.RETAIL_ZERO);
             }
         });
     }

@@ -94,4 +94,6 @@ public class IBase {
     /** 数据库的名字 */
     public static final String BASE_DATE="thecar.db";
 
+    /** 下拉刷新等待的时间 */
+    public static final int TIME_REFERSH=10;
 }

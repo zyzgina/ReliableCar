@@ -121,7 +121,7 @@ public class CarListActivity extends BaseNoScoActivity implements View.OnClickLi
                 if (carListBean != null && carListBean.isSuccess()) {
                     LogTxt.getInstance().writeLog("获取监管器绑定列表成功");
                     if (page == 1) {
-                        IBaseMethod.jumpCountdown(60, handler);
+                        IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                         mAdapter.clearDate();
                     }
                     mAdapter.setListBean(carListBean);
@@ -148,7 +148,8 @@ public class CarListActivity extends BaseNoScoActivity implements View.OnClickLi
                 }
                 refreshLayout_bindings.finishRefreshing();
                 LogTxt.getInstance().writeLog("获取监管器绑定列表失败，错误编码：" + errorNo + "，错误信息：" + strMsg);
-                IBaseMethod.showToast(CarListActivity.this, strMsg, IBase.RETAIL_ZERO);
+                if (errorNo != 404)
+                    IBaseMethod.showToast(CarListActivity.this, strMsg, IBase.RETAIL_ZERO);
             }
         });
     }

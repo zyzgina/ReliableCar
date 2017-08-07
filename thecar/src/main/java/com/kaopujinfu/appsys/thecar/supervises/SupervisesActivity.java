@@ -108,7 +108,7 @@ public class SupervisesActivity extends BaseNoScoActivity {
             public void onSuccess(Object o) {
                 LogUtils.debug("监管清单:" + o.toString());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60, handler);
+                    IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                     refreshLayout_supervisesfrom.finishRefreshing();
                 } else {
                     refreshLayout_supervisesfrom.finishLoadmore();

@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="@dimen/common_measure_200sp"
-        android:layout_height="@dimen/common_measure_200sp"
-        android:src="@drawable/login_logo"
-        android:layout_marginTop="@dimen/common_measure_60sp"/>
+        android:layout_width="@dimen/common_measure_240sp"
+        android:layout_height="@dimen/common_measure_240sp"
+        android:layout_marginTop="@dimen/common_measure_60sp"
+        android:src="@drawable/car_icon" />
 
     <TextView
         android:id="@+id/versionName"
@@ -18,5 +18,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_measure_20sp"
         android:text="当前版本号: v1.0"
-        android:textSize="@dimen/sp20" />
+        android:textSize="@dimen/sp18" />
+    <TextView
+        android:id="@+id/versionMsg"
+        style="@style/textview_color_back_gray_size17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:padding="@dimen/common_measure_20sp"/>
 </LinearLayout>

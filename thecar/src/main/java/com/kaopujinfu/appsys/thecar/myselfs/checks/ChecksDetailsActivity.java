@@ -142,7 +142,7 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
                 LogUtils.debug("获取车辆数据:" + o.toString());
                 TaskItemBean bean = TaskItemBean.getTaskItemBean(o.toString(), item.getDlrShortName(), item.getAfcShortName());
                 if (page == 1) {
-                    IBaseMethod.jumpCountdown(60, handler);
+                    IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
                     detailsAdapter.clearItemList();
                     db.deleteAll(TaskItemBean.TaskItemsEntity.class);
                     mRefreshLayout.finishRefreshing();

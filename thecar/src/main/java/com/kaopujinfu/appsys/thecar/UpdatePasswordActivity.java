@@ -131,6 +131,9 @@ public class UpdatePasswordActivity extends BaseActivity implements View.OnClick
             @Override
             public void onFailure(int errorNo, String strMsg) {
                 dialog.dismiss();
+                if (errorNo == IBase.CONSTANT_ONE) {
+                    IBaseMethod.showNetToast(UpdatePasswordActivity.this);
+                }
             }
         });
     }

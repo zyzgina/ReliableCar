@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/plain"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <EditText
+        android:id="@+id/remarksLock"
+        style="@style/textview_color_back_gray_size17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_measure_30sp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:hint="请输入备注说明"
+        android:lines="8"
+        android:padding="@dimen/common_measure_20sp"
+        android:textColorHint="@color/back_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/common_measure_155sp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/relatItemLock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/but_lock"/>
+          <!--  <RelativeLayout
+                android:id="@+id/relatItemLock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/blue_circular"
+                android:padding="@dimen/common_measure_15sp">
+
+                <LinearLayout
+                    android:id="@+id/linearItemLock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/blue_circular"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/common_measure_100sp"
+                        android:layout_height="@dimen/common_measure_100sp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_cabinet_lock" />
+
+                    <TextView
+                        style="@style/textview_color_white_size17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_measure_5sp"
+                        android:text="开锁" />
+                </LinearLayout>
+            </RelativeLayout>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/relatItemLockSup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btu_sup"/>
+           <!-- <RelativeLayout
+                android:id="@+id/relatItemLockSup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_circular"
+                android:padding="@dimen/common_measure_15sp">
+
+                <LinearLayout
+                    android:id="@+id/linearItemLockSup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/red_circular"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/common_measure_100sp"
+                        android:layout_height="@dimen/common_measure_100sp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_cabinet_supervise" />
+
+                    <TextView
+                        style="@style/textview_color_white_size17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_measure_5sp"
+                        android:text="停止监管" />
+                </LinearLayout>
+            </RelativeLayout>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/relatItemLockSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btu_save"/>
+            <!--<RelativeLayout
+                android:id="@+id/relatItemLockSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/green_circular"
+                android:padding="@dimen/common_measure_15sp">
+
+                <LinearLayout
+                    android:id="@+id/linearItemLockSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/green_circular"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/common_measure_100sp"
+                        android:layout_height="@dimen/common_measure_100sp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_cabinet_save" />
+
+                    <TextView
+                        style="@style/textview_color_white_size17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_measure_5sp"
+                        android:text="保存" />
+                </LinearLayout>
+            </RelativeLayout>-->
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

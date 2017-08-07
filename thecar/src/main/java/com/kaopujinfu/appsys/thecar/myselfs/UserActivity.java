@@ -81,7 +81,10 @@ public class UserActivity extends Activity {
             } else {
                 mNameTel.setText(user.getName() + "(" + IBaseMethod.hide(user.getMobile(), 3, 6) + ")");
             }
-            mJob.setText(user.getCompanyShortName() + "-" + user.getRole());
+            String name=user.getCompanyShortName();
+            if(GeneralUtils.isEmpty(name))
+                name="";
+            mJob.setText(name + "-" + user.getRole());
              String urlPath = SPUtils.get(RetailAplication.getContext(), "domain", "").toString();
             //判断是否加了http://
             if (!urlPath.contains("http://")) {
@@ -132,7 +135,7 @@ public class UserActivity extends Activity {
         if (jumpEventBus.getStatus() == IBase.RETAIL_FOUR) {
             refreshLayoutMin.finishRefreshing();
             if ("true".equals(jumpEventBus.getName())) {
-                IBaseMethod.jumpCountdown(60, handler);
+                IBaseMethod.jumpCountdown(IBase.TIME_REFERSH, handler);
             }
         }
     }

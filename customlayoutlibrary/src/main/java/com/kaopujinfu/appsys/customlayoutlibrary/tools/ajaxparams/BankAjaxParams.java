@@ -413,6 +413,14 @@ public class BankAjaxParams {
         params.put("cellId", cellId);
         return params;
     }
+    /**
+     * 柜子自行监管说明,柜子自行监管开锁,柜子自行监管停止
+     */
+    public AjaxParams ajaxCabinetREGMANUAL(String boxCode, String cellId, String action,String beizhu) {
+        AjaxParams params = ajaxCabinetREGMANUAL(boxCode,cellId,action);
+        params.put("comment",beizhu);
+        return params;
+    }
 
     /**
      * 设置登录用户，所属session ，公司code参数

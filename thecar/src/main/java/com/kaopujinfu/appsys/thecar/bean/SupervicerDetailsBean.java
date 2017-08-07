@@ -70,15 +70,22 @@ public class SupervicerDetailsBean implements Serializable {
 
     public static class SupDetailsItemsEntity implements Serializable{
 
+
         /**
-         * vinStatus : 1
-         * rfidStatus : 1
-         * appCheckStatus : 0
-         * gpsStatus : 0
-         * rfDevStatus : 0
-         * docStatus : 0
-         * vinNo : 22222222222222222
-         * carBrand : 1
+         * vinStatus : 12
+         * rfidStatus : 20
+         * appCheckStatus : 30
+         * gpsStatus : 40
+         * rfDevStatus : 50
+         * docStatus : 60
+         * dlrShortName : 上海申协日产
+         * dlrLongName : 上海申协日产有限公司
+         * carColor :
+         * carParkNo :
+         * carPlate :
+         * vinNo : 99999999999999999
+         * dlr : G-177004-5472
+         * carBrand : 45
          */
 
         private String vinStatus;
@@ -87,7 +94,13 @@ public class SupervicerDetailsBean implements Serializable {
         private String gpsStatus;
         private String rfDevStatus;
         private String docStatus;
+        private String dlrShortName;
+        private String dlrLongName;
+        private String carColor;
+        private String carParkNo;
+        private String carPlate;
         private String vinNo;
+        private String dlr;
         private String carBrand;
 
         public void setVinStatus(String vinStatus) {
@@ -114,8 +127,32 @@ public class SupervicerDetailsBean implements Serializable {
             this.docStatus = docStatus;
         }
 
+        public void setDlrShortName(String dlrShortName) {
+            this.dlrShortName = dlrShortName;
+        }
+
+        public void setDlrLongName(String dlrLongName) {
+            this.dlrLongName = dlrLongName;
+        }
+
+        public void setCarColor(String carColor) {
+            this.carColor = carColor;
+        }
+
+        public void setCarParkNo(String carParkNo) {
+            this.carParkNo = carParkNo;
+        }
+
+        public void setCarPlate(String carPlate) {
+            this.carPlate = carPlate;
+        }
+
         public void setVinNo(String vinNo) {
             this.vinNo = vinNo;
+        }
+
+        public void setDlr(String dlr) {
+            this.dlr = dlr;
         }
 
         public void setCarBrand(String carBrand) {
@@ -146,8 +183,32 @@ public class SupervicerDetailsBean implements Serializable {
             return docStatus;
         }
 
+        public String getDlrShortName() {
+            return dlrShortName;
+        }
+
+        public String getDlrLongName() {
+            return dlrLongName;
+        }
+
+        public String getCarColor() {
+            return carColor;
+        }
+
+        public String getCarParkNo() {
+            return carParkNo;
+        }
+
+        public String getCarPlate() {
+            return carPlate;
+        }
+
         public String getVinNo() {
             return vinNo;
+        }
+
+        public String getDlr() {
+            return dlr;
         }
 
         public String getCarBrand() {
@@ -163,7 +224,13 @@ public class SupervicerDetailsBean implements Serializable {
                     ", gpsStatus='" + gpsStatus + '\'' +
                     ", rfDevStatus='" + rfDevStatus + '\'' +
                     ", docStatus='" + docStatus + '\'' +
+                    ", dlrShortName='" + dlrShortName + '\'' +
+                    ", dlrLongName='" + dlrLongName + '\'' +
+                    ", carColor='" + carColor + '\'' +
+                    ", carParkNo='" + carParkNo + '\'' +
+                    ", carPlate='" + carPlate + '\'' +
                     ", vinNo='" + vinNo + '\'' +
+                    ", dlr='" + dlr + '\'' +
                     ", carBrand='" + carBrand + '\'' +
                     '}';
         }
