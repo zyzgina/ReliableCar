@@ -40,13 +40,11 @@ import android.widget.Toast;
 import com.etop.vin.VINAPI;
 import com.kaopujinfu.appsys.customlayoutlibrary.R;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.TaskItemBean;
-import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.LoactionListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
-import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogTxt;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.VinViewfinderView;
@@ -66,6 +64,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cn.finalteam.galleryfinal.model.PhotoInfo;
+
+import static java.lang.Thread.sleep;
+
 /**
  * VIN 扫描
  * Created by 左丽姬 on 2017/5/10.
@@ -74,8 +76,8 @@ import java.util.TimerTask;
 public class VINactivity extends Activity implements SurfaceHolder.Callback, Camera.PreviewCallback {
     private String PATH = FileUtils.getLogFilePath() + "VinCode/";
 
-    private static final String UsrID = "7D0408988D72F47C2166";//
-    //    private static final String UsrID = "7332DBAFD2FD18301EF6";
+    //    private static final String UsrID = "7D0408988D72F47C2166";//
+    private static final String UsrID = "7332DBAFD2FD18301EF6";
     private Camera mycamera;
     private VinViewfinderView myView;
 
@@ -110,7 +112,6 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
     private double longitude, latitude;
     private String strCaptureFilePath;
     private VoiceUtils voiceUtils;
-    private boolean exitFlag = false, isThread = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,11 +119,10 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
         setActivitySetting();
         setContentView(R.layout.activity_vin);
         db = FinalDb.create(this, IBase.BASE_DATE, true);
-        voiceUtils = new VoiceUtils();
+        voiceUtils=new VoiceUtils();
         voiceUtils.initialTts(this);
         initView();
     }
-
     /**
      * activity 信息设置
      */
@@ -187,7 +187,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
         mBackcamera.setOnClickListener(bClickListener);
         mFlashcamera.setOnClickListener(fClickListener);
         mTackPicbtn.setOnClickListener(tClickListener);
-        mapUtils = new MapUtils(this);
+        mapUtils = new MapUtils(getApplicationContext());
         mapUtils.initOnceLocation();
         mapUtils.startLocation(new LoactionListener() {
             @Override
@@ -196,6 +196,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                 VINactivity.this.latitude = latitude;
             }
         });
+
     }
 
     private int width;
@@ -447,7 +448,6 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
         previewWidth = tmpsize.width;
         previewheight = tmpsize.height;
         if (length == 1) {
-//            LogTxt.getInstance().writeLog("获取previewWidth:" + previewWidth + "   previewheight:" + previewheight);
             preWidth = previewWidth;
             preHeight = previewheight;
         } else {
@@ -456,9 +456,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
             for (int i = 0; i < length; i++) {
                 size = list.get(i);
                 if (size.height > 700) {
-//                    LogTxt.getInstance().writeLog("获取size.heigth:" + size.height);
                     if (size.width * previewheight == size.height * previewWidth && size.height < second_previewheight) {
-//                        LogTxt.getInstance().writeLog("获取size.heigth:" + size.height + "   size.width:" + size.width);
                         second_previewWidth = size.width;
                         second_previewheight = size.height;
                     }
@@ -503,14 +501,8 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
             int t = ntmp;
             int b = preHeight - ntmp;
             int $l = (int) ((preHeight - $t - $t) * 1.585);
-            int l;
-            if (preWidth > $l) {
-                l = (preWidth - $l) / 2;
-            } else {
-                l = ($l - preWidth) / 2;
-            }
+            int l = (preWidth - $l) / 2;
             int r = preWidth - l;
-//            LogTxt.getInstance().writeLog("获取计算值:$t=" + $t + "   ntmp=" + ntmp + "  b=" + b + "  $l=" + $l + "   l=" + l + "  r=" + r);
             int borders[] = {l, t, r, b};
             m_ROI[0] = l;
             m_ROI[1] = t;
@@ -656,7 +648,6 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                 opts.inPurgeable = true;
                 bitmap = Bitmap.createBitmap(datas, parameters.getPreviewSize().width,
                         parameters.getPreviewSize().height, android.graphics.Bitmap.Config.ARGB_8888);
-                LogTxt.getInstance().writeLog("Bitmap:m_ROI:" + m_ROI[0] + " " + m_ROI[1] + " " + m_ROI[2] + " " + m_ROI[3]);
                 Bitmap tmpbitmap = Bitmap.createBitmap(bitmap, m_ROI[0], m_ROI[1], m_ROI[2] - m_ROI[0], m_ROI[3] - m_ROI[1]);
                 System.out.println("m_ROI:" + m_ROI[0] + " " + m_ROI[1] + " " + m_ROI[2] + " " + m_ROI[3]);
                 //savePicture(bitmap,"M");
@@ -671,9 +662,6 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                     setResult(IBase.RETAIL_ELEVEN, intent);
                     finish();
                 } else {
-                    isThread = true;
-                    threadNum = 5;
-                    specifiedTime();
                     mRemind.setVisibility(View.VISIBLE);
                     toats_vin.setVisibility(View.GONE);
                     if (api.VinFindVIN() == 1) {
@@ -1024,7 +1012,6 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        isThread = false;
         mRemind.setVisibility(View.INVISIBLE);
         toats_vin.setVisibility(View.VISIBLE);
         mVinresult.setVisibility(View.INVISIBLE);
@@ -1043,7 +1030,6 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
         List<TaskItemBean.TaskItemsEntity> lists = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "vinNo=\"" + vin + "\"");
         if (lists != null && lists.size() > 0) {
             TaskItemBean.TaskItemsEntity entity = lists.get(0);
-            int status_speek = entity.getCommit_status();
             if (entity.getCommit_status() == 0) {
                 entity.setCommit_status(1);
                 entity.setCheckMethod(IBase.VINCODE);
@@ -1056,13 +1042,15 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                 company_vin.setText("金融公司:" + entity.getFinance());
                 jxs_vin.setVisibility(View.VISIBLE);
                 company_vin.setVisibility(View.VISIBLE);
+                voiceUtils.startSpeek("盘库成功");
                 //将图片保存至上传对列
-                savePhoto(vin, entity.getTaskCode());
+                savePhoto(vin);
             } else {
                 jxs_vin.setVisibility(View.GONE);
                 company_vin.setVisibility(View.GONE);
                 query_vin.setVisibility(View.VISIBLE);
                 query_vin.setText("该车已盘库,点击继续");
+                voiceUtils.startSpeek("该车已盘库");
             }
             // 查询成功信息显示
             mMsgvin.setVisibility(View.VISIBLE);
@@ -1070,57 +1058,30 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
             List<TaskItemBean.TaskItemsEntity> finish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\"");
             List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
             num_vin.setText("今日盘点" + (finish.size() - nofinish.size()) + "台，还剩" + nofinish.size() + "台");
-            if (nofinish.size() > 0) {
-                String content;
-                if (status_speek == 0) {
-                    content = "盘库成功剩余" + nofinish.size() + "台";
-                } else {
-                    content = "该车已盘库";
-                }
-                setContentSpeek(content);
-            }
             if (nofinish.size() == 0) {
-                voiceUtils.startSpeek("全部完成辛苦了", new VoiceUtils.SpeekEndListener() {
-                    @Override
-                    public void setSpeekEndListener(boolean b) {
-                        if (b) {
-                            try {
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            voiceUtils.releaseSpeek();
-                            finish();
-                        }
-                    }
-                });
+                IBaseMethod.showToast(this, "该车库盘库已完成", IBase.RETAIL_TWO);
+                try {
+                    sleep(1000);
+                    finish();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             query_vin.setVisibility(View.VISIBLE);
             query_vin.setText("查询失败...");
-            setContentSpeek("查询失败");
+            voiceUtils.startSpeek("查询失败");
         }
     }
 
-    private void setContentSpeek(String content) {
-        voiceUtils.startSpeek(content, new VoiceUtils.SpeekEndListener() {
-            @Override
-            public void setSpeekEndListener(boolean b) {
-                if (b && exitFlag) {
-                    voiceUtils.releaseSpeek();
-                }
-            }
-        });
-    }
-
     //复制文档
-    private void savePhoto(final String vin, final String code) {
+    private void savePhoto(final String vin) {
         new Thread() {
             @Override
             public void run() {
                 super.run();
                 File upload = new File(strCaptureFilePath);
-                String uplod = FileUtils.getCarUploadPath() + "image/" + System.currentTimeMillis() + "/vin";
+                String uplod = FileUtils.getCarUploadPath() + "image/" + System.currentTimeMillis() + "/vin码盘库";
                 String name = DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance()) + ".jpg";
                 File save = new File(uplod);
                 if (!save.exists()) {
@@ -1136,11 +1097,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                         public void run() {
                             List<String> lists = new ArrayList<String>();
                             lists.add(savePath);
-                            IBaseMethod.saveDateLoaction(db, lists, code + "_" + vin, "VIN码盘库",latitude+"",longitude+"");
-                            List<UploadBean> lis = db.findAll(UploadBean.class);
-                            for (UploadBean ub : lis) {
-                                LogUtils.debug(ub.toString());
-                            }
+                            IBaseMethod.saveDateLoaction(db, lists, vin, "VIN码盘库");
                         }
                     });
                 }
@@ -1159,42 +1116,7 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        exitFlag = true;
-        isThread = false;
+        voiceUtils.releaseSpeek();
         mapUtils.stopLocation();
-    }
-
-    /* 添加在规定时间没有点击屏幕自动进入扫描状态 */
-    private int threadNum = 5;//等待时间
-    private void specifiedTime(){
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                while (isThread) {
-                    threadNum--;
-                    LogUtils.debug("进度走动:" + threadNum);
-                    try {
-                        sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (threadNum == 0) {
-                        isThread = false;
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mRemind.setVisibility(View.INVISIBLE);
-                                toats_vin.setVisibility(View.VISIBLE);
-                                mVinresult.setVisibility(View.INVISIBLE);
-                                mShowbitmap.setVisibility(View.INVISIBLE);
-                                mMsgvin.setVisibility(View.GONE);
-                                query_vin.setVisibility(View.GONE);
-                            }
-                        });
-                    }
-                }
-            }
-        }.start();
     }
 }
