@@ -445,6 +445,9 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                 mBrandNewCar.setText("");
                 mSubBrandNewCar.setText("");
                 mModuleNewCar.setText("");
+                priceBuyNewCar.setText("");
+                priceNewCar.setText("厂家新车标准售价：");
+                priceLlNewCar.setVisibility(View.GONE);
             }
 
             @Override
