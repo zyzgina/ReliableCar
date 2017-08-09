@@ -68,8 +68,8 @@ public class SuperviseDetailsAdapter extends BaseAdapter {
         holder.latenumber.setText(itemsEntity.getCarPlate());
         if(!GeneralUtils.isEmpty(itemsEntity.getCarColor()))
         holder.colorSup.setText(itemsEntity.getCarColor());
-        if(!GeneralUtils.isEmpty(itemsEntity.getCarColor()))
-        holder.supervisesPotision.setText(itemsEntity.getCarColor());
+        if(!GeneralUtils.isEmpty(itemsEntity.getCarParkNo()))
+        holder.supervisesPotision.setText(itemsEntity.getCarParkNo());
         int vinNo = Integer.parseInt(itemsEntity.getVinStatus());
         switch (vinNo) {
             case 11:
