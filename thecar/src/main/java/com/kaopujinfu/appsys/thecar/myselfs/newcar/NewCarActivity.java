@@ -683,8 +683,9 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         String mileage = mileageNewCar.getText().toString();
         String date = goDateNewCar.getText().toString();
         if (GeneralUtils.isEmpty(price)) {
-            IBaseMethod.showToast(this, "请输入车辆的价格", IBase.RETAIL_TWO);
-            return;
+            price="0";
+//            IBaseMethod.showToast(this, "请输入车辆的价格", IBase.RETAIL_TWO);
+//            return;
         }
         String colorStr = colorCar_new.getText().toString();
         String licenseplatenumber = licenseplatenumberCar.getText().toString();
