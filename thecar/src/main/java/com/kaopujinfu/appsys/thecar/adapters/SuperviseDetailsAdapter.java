@@ -64,11 +64,11 @@ public class SuperviseDetailsAdapter extends BaseAdapter {
             itemsEntity.setVinStatus("0");
         if(!GeneralUtils.isEmpty(itemsEntity.getDlrShortName()))
         holder.distributor.setText(itemsEntity.getDlrShortName());
-        if(!GeneralUtils.isEmpty(itemsEntity.getCarPlate()))
+        if(!GeneralUtils.isEmpty(itemsEntity.getCarPlate())&&!"未填".equals(itemsEntity.getCarPlate()))
         holder.latenumber.setText(itemsEntity.getCarPlate());
-        if(!GeneralUtils.isEmpty(itemsEntity.getCarColor()))
+        if(!GeneralUtils.isEmpty(itemsEntity.getCarColor())&&!"未填".equals(itemsEntity.getCarColor()))
         holder.colorSup.setText(itemsEntity.getCarColor());
-        if(!GeneralUtils.isEmpty(itemsEntity.getCarParkNo()))
+        if(!GeneralUtils.isEmpty(itemsEntity.getCarParkNo())&&!"未填".equals(itemsEntity.getCarParkNo()))
         holder.supervisesPotision.setText(itemsEntity.getCarParkNo());
         int vinNo = Integer.parseInt(itemsEntity.getVinStatus());
         switch (vinNo) {
