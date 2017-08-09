@@ -421,6 +421,15 @@ public class BankAjaxParams {
         params.put("comment",beizhu);
         return params;
     }
+    /**
+     * 版本更新
+     * */
+    public AjaxParams ajaxAppVersion(){
+        AjaxParams params = BANKUserIDSID();
+        params.put("action", "APP_VERSION_LIST");
+        params.put("appType", "Android");
+        return params;
+    }
 
     /**
      * 设置登录用户，所属session ，公司code参数

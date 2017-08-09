@@ -328,6 +328,14 @@ public class HttpBank {
     }
 
     /**
+     * 版本更新提示
+     * */
+    public void httpAppVersion(CallBack callBack){
+        AjaxParams params=bankAjaxParams.ajaxAppVersion();
+        IBaseMethod.post(context,"app_version",params,callBack);
+    }
+
+    /**
      * 判断VIN码是否存在
      */
     public void httpIsVinExit(final String vinCode, final Handler handler) {
