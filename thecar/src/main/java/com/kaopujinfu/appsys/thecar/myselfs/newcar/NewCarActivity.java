@@ -700,14 +700,14 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         String isTwo = "";
         if (isTwoCar.isChecked()) {
             isTwo = "on";
-            if (GeneralUtils.isEmpty(mileage)) {
-                IBaseMethod.showToast(this, "二手车必须填写车辆行驶的里程", IBase.RETAIL_TWO);
-                return;
-            }
-            if (GeneralUtils.isEmpty(date)) {
-                IBaseMethod.showToast(this, "二手车必须填写车辆上牌时间", IBase.RETAIL_TWO);
-                return;
-            }
+//            if (GeneralUtils.isEmpty(mileage)) {
+//                IBaseMethod.showToast(this, "二手车必须填写车辆行驶的里程", IBase.RETAIL_TWO);
+//                return;
+//            }
+//            if (GeneralUtils.isEmpty(date)) {
+//                IBaseMethod.showToast(this, "二手车必须填写车辆上牌时间", IBase.RETAIL_TWO);
+//                return;
+//            }
         }
         dialog.show();
         dialog.setLoadingTitle("正在提交...");
