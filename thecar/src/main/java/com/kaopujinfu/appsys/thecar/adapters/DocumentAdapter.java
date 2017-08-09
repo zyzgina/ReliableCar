@@ -126,6 +126,7 @@ public class DocumentAdapter extends BaseExpandableListAdapter {
             hold.line.setVisibility(View.VISIBLE);
         }
         if (isSelected) {
+            hold.item.setVisibility(View.VISIBLE);
             if (deletes.contains(item))
                 hold.item.setImageResource(R.drawable.btn_selected);
             else
@@ -147,6 +148,7 @@ public class DocumentAdapter extends BaseExpandableListAdapter {
             });
         } else {
             hold.item.setImageResource(R.drawable.easyicon);
+            hold.item.setVisibility(View.GONE);
         }
         return view;
     }
