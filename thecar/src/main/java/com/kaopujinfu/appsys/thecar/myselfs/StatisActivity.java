@@ -76,8 +76,8 @@ public class StatisActivity extends Activity {
         sOtherText = (TextView) supStatis.findViewById(R.id.otherText);
 
         sMyselMsg.setPaintText("文档监管");
-        sAbnormalSpot.setTextColor(getResources().getColor(R.color.yellow));
         sMyselMsg.setColorRes(sColorRes);
+        sAbnormalSpot.setTextColor(getResources().getColor(R.color.yellow));
         sOtherSpot.setTextColor(Color.parseColor(dColorRes[2]));
 
         cMyselMsg = (SelfStatistics) checkStatis.findViewById(myselMsg);
@@ -139,12 +139,18 @@ public class StatisActivity extends Activity {
         dNormalText.setText("正常: " + (int) dDatas[0]);
         dAbnormalText.setText("异常: " + (int) dDatas[1]);
         dOtherText.setText("未监管: " + (int) dDatas[2]);
+        if(dDatas[0]==0&&dDatas[1]==0&&dDatas[2]==0){
+            dDatas[2]=1;
+        }
         dMyselMsg.setDatas(dDatas);
         dMyselMsg.startDraw();
 
         sNormalText.setText("监管中: " + (int) sDatas[0]);
         sAbnormalText.setText("释放待取: " + (int) sDatas[1]);
         sOtherText.setText("未监管: " + (int) sDatas[2]);
+        if(sDatas[0]==0&&sDatas[1]==0&&sDatas[2]==0){
+            sDatas[2]=1;
+        }
         sMyselMsg.setDatas(sDatas);
         sMyselMsg.startDraw();
 
