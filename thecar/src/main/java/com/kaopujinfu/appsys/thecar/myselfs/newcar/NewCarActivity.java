@@ -65,7 +65,7 @@ import static com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils.get;
 
 public class NewCarActivity extends BaseActivity implements View.OnClickListener {
     private TextView mDistributor, priceNewCar, goDateNewCar, caleDateNewCar, calePriceBuyNewCar, colorCar_new;
-    private EditText mBrandNewCar, mSubBrandNewCar, mModuleNewCar, priceBuyNewCar, mileageNewCar, licenseplatenumberCar, parkinglotCar;
+    private EditText mBrandNewCar, mSubBrandNewCar, mModuleNewCar, priceBuyNewCar, mileageNewCar, licenseplatenumberCar,myCodenumberCar, parkinglotCar;
     private ImageView mDistributorNewImage, mBrandNewCarImage, goDateCarImage, colorCarImage;
     private DistributorGpsBean.GpsEntity gpsEntity;
     private EditText mVinNew;
@@ -193,6 +193,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         goDateCarImage.setOnClickListener(this);
         caleDateNewCar = (TextView) findViewById(R.id.caleDateNewCar);
 
+        myCodenumberCar = (EditText) findViewById(R.id.myCodenumberCar);
         licenseplatenumberCar = (EditText) findViewById(R.id.licenseplatenumberCar);
         parkinglotCar = (EditText) findViewById(R.id.parkinglotCar);
         colorCar_new = (TextView) findViewById(R.id.colorCar_new);
@@ -698,6 +699,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
 //            IBaseMethod.showToast(this, "请输入车位", IBase.RETAIL_TWO);
 //            return;
 //        }
+        String myCode=myCodenumberCar.getText().toString();
         String isTwo = "";
         if (isTwoCar.isChecked()) {
             isTwo = "on";
@@ -746,7 +748,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     IBaseMethod.showNetToast(NewCarActivity.this);
                 }
             }
-        }, gpsEntity.getDlr(), vincode, isTwo, brand, subBrand, model, price, mileage, date, colorStr, licenseplatenumber, parkinglot);
+        }, gpsEntity.getDlr(), vincode, isTwo, brand, subBrand, model, price, mileage, date, colorStr, licenseplatenumber, parkinglot,myCode);
     }
 
 }
