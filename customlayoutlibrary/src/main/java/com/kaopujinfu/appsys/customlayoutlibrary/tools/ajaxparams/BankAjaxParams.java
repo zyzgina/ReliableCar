@@ -298,6 +298,14 @@ public class BankAjaxParams {
             //车位
             ajaxParams.put("carParkNo", strings[11]);
         }
+        if(strings.length>12){
+            //车辆自编号
+            ajaxParams.put("carNumber", strings[12]);
+        }
+        if(strings.length>13){
+            //备注信息
+            ajaxParams.put("comment",strings[13]);
+        }
         return ajaxParams;
     }
 
