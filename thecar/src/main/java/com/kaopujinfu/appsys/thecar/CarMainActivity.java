@@ -25,14 +25,17 @@ import android.widget.Toast;
 import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Loginbean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.VinCodeBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.dialog.LoadingDialog;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
+import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseUrl;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
@@ -45,6 +48,7 @@ import com.kaopujinfu.appsys.thecar.loans.LoanFormActivity;
 import com.kaopujinfu.appsys.thecar.menu.VerionActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.MineActivity;
 import com.kaopujinfu.appsys.thecar.supervises.SupervisesActivity;
+import com.kaopujinfu.appsys.thecar.upload.UploadListActivity;
 
 import net.tsz.afinal.FinalDb;
 
@@ -75,6 +79,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         setMenu();
         getData();
         deletVin();
+//        appVersion();
     }
 
     private void initCarMain() {
@@ -351,4 +356,36 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
             super.handleMessage(msg);
         }
     };
+
+    /* 获取 版本更新 */
+    private void appVersion(){
+        HttpBank.getIntence(this).httpAppVersion(new CallBack() {
+            @Override
+            public void onSuccess(Object o) {
+                LogUtils.debug("版本更新："+o.toString());
+
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg) {
+
+            }
+        });
+        //查询是否有上传数据
+        List<UploadBean> uploadBeens = FinalDb.create(this).findAllByWhere(UploadBean.class, "userid=\"" + IBase.USERID + "\"");
+        if(uploadBeens.size()>0){
+            DialogUtil.prompt(this, "上传列表中有文件等待上传，赶快去看看吧！", "稍后上传", "现在上传", new DialogButtonListener() {
+                @Override
+                public void ok() {
+                    Intent intent = new Intent(CarMainActivity.this, UploadListActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void cancel() {
+
+                }
+            });
+        }
+    }
 }
