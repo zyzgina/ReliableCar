@@ -364,23 +364,6 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
 
     /* 获取 版本更新 */
     private void appVersion() {
-        //查询是否有上传数据
-        List<UploadBean> uploadBeens = FinalDb.create(this).findAllByWhere(UploadBean.class, "userid=\"" + IBase.USERID + "\"");
-        if (uploadBeens.size() > 0) {
-            DialogUtil.prompt(this, "上传列表中有文件等待上传，赶快去看看吧！", "稍后上传", "现在上传", new DialogButtonListener() {
-                @Override
-                public void ok() {
-                    Intent intent = new Intent(CarMainActivity.this, UploadListActivity.class);
-                    startActivity(intent);
-                }
-
-                @Override
-                public void cancel() {
-
-                }
-            });
-        }
-
         HttpBank.getIntence(this).httpAppVersion(new CallBack() {
             @Override
             public void onSuccess(Object o) {
@@ -413,16 +396,40 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
 
                                 }
                             });
+                        }else{
+                            isUploadFile();
                         }
+                    }else{
+                        isUploadFile();
                     }
+                }else{
+                    isUploadFile();
                 }
             }
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
-
+                isUploadFile();
             }
         });
+    }
 
+    public void isUploadFile(){
+        //查询是否有上传数据
+        List<UploadBean> uploadBeens = FinalDb.create(this, IBase.BASE_DATE, true).findAllByWhere(UploadBean.class, "userid=\"" + IBase.USERID + "\"");
+        if (uploadBeens.size() > 0) {
+            DialogUtil.prompt(this, "上传列表中有文件等待上传，赶快去看看吧！", "稍后上传", "现在上传", new DialogButtonListener() {
+                @Override
+                public void ok() {
+                    Intent intent = new Intent(CarMainActivity.this, UploadListActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void cancel() {
+
+                }
+            });
+        }
     }
 }
