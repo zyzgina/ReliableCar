@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/imageEW"
         android:layout_width="@dimen/common_measure_240sp"
         android:layout_height="@dimen/common_measure_240sp"
         android:layout_marginTop="@dimen/common_measure_60sp"
-        android:src="@drawable/car_icon" />
+        android:src="@drawable/car_icon"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/versionName"
@@ -18,12 +19,31 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_measure_20sp"
         android:text="当前版本号: v1.0"
-        android:textSize="@dimen/sp18" />
-    <TextView
-        android:id="@+id/versionMsg"
-        style="@style/textview_color_back_gray_size17"
+        android:textSize="@dimen/sp18"
+        android:layout_below="@id/imageEW"
+        android:layout_centerHorizontal="true"/>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:padding="@dimen/common_measure_20sp"/>
-</LinearLayout>
+        android:layout_below="@id/versionName"
+        android:scrollbars="none"
+        android:layout_marginBottom="@dimen/common_measure_90sp">
+        <TextView
+            android:id="@+id/versionMsg"
+            style="@style/textview_color_back_gray_size17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_measure_20sp"
+            android:text="" />
+    </ScrollView>
+    <Button
+        android:id="@+id/btnVersion"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_90sp"
+        android:layout_alignParentBottom="true"
+        style="@style/textview_color_white_size17"
+        android:text="更 新"
+        android:background="@color/car_theme"
+        android:visibility="gone"/>
+</RelativeLayout>
