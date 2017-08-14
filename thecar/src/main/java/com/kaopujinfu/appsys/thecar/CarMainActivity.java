@@ -233,6 +233,9 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
                 }
                 if (position == 1) {
                     Intent intent = new Intent(CarMainActivity.this, VerionActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("versionEntity",versionEntity);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }
             }
