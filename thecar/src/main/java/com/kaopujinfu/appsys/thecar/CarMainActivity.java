@@ -3,8 +3,11 @@ package com.kaopujinfu.appsys.thecar;
 import android.app.ActivityGroup;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -44,6 +47,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.view.MyListView;
 import com.kaopujinfu.appsys.thecar.adapters.SimpleListAdapter;
 import com.kaopujinfu.appsys.thecar.applys.ApplyActivity;
 import com.kaopujinfu.appsys.thecar.bean.StatisticsBean;
+import com.kaopujinfu.appsys.thecar.bean.VersionBean;
 import com.kaopujinfu.appsys.thecar.loans.LoanFormActivity;
 import com.kaopujinfu.appsys.thecar.menu.VerionActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.MineActivity;
@@ -79,7 +83,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         setMenu();
         getData();
         deletVin();
-//        appVersion();
+        appVersion();
     }
 
     private void initCarMain() {
@@ -191,7 +195,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         list_slidingmenu = (MyListView) findViewById(R.id.list_slidingmenu);
         avatar_slidingmenu = (AvatarView) findViewById(R.id.avatar_slidingmenu);
         tel_slidingmenu = (TextView) findViewById(R.id.tel_slidingmenu);
-        ImageView slidingmenuIv= (ImageView) findViewById(R.id.slidingmenuIv);
+        ImageView slidingmenuIv = (ImageView) findViewById(R.id.slidingmenuIv);
         String o = SPUtils.get(CarMainActivity.this, "loginUser", "").toString();
         Loginbean user = Loginbean.getLoginbean(o);
         if (user != null) {
@@ -205,12 +209,12 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
             if (!urlPath.contains("http://")) {
                 urlPath = "http://" + urlPath;
             }
-            if(!GeneralUtils.isEmpty(user.getHead_img())){
+            if (!GeneralUtils.isEmpty(user.getHead_img())) {
                 //初始化加载中时显示的图片
-                HttpBank.getIntence(this).getHeadBg(avatar_slidingmenu,urlPath + user.getHead_img(),handler,R.drawable.avatar_head);
+                HttpBank.getIntence(this).getHeadBg(avatar_slidingmenu, urlPath + user.getHead_img(), handler, R.drawable.avatar_head);
             }
 //            if (!GeneralUtils.isEmpty(user.getCompany_logo())) {
-                //初始化加载中时显示的图片
+            //初始化加载中时显示的图片
 //                HttpBank.getIntence(this).getHeadBg(slidingmenuIv,urlPath + user.getCompany_logo(),handler,R.drawable.my_background);
 //            }
         } else {
@@ -339,7 +343,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
             textView.setTextSize(15);
             textView.setTextColor(context.getResources().getColor(R.color.white));
             textView.setBackgroundResource(R.drawable.button_circular5_car_theme);
-            textView.setPadding(40,30,40,30);
+            textView.setPadding(40, 30, 40, 30);
             Toast toast = new Toast(context);
             toast.setView(textView);
             toast.setDuration(Toast.LENGTH_SHORT);
@@ -350,30 +354,19 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         }
     }
 
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
         }
     };
+    VersionBean.VersionEntity versionEntity = null;
 
     /* 获取 版本更新 */
-    private void appVersion(){
-        HttpBank.getIntence(this).httpAppVersion(new CallBack() {
-            @Override
-            public void onSuccess(Object o) {
-                LogUtils.debug("版本更新："+o.toString());
-
-            }
-
-            @Override
-            public void onFailure(int errorNo, String strMsg) {
-
-            }
-        });
+    private void appVersion() {
         //查询是否有上传数据
         List<UploadBean> uploadBeens = FinalDb.create(this).findAllByWhere(UploadBean.class, "userid=\"" + IBase.USERID + "\"");
-        if(uploadBeens.size()>0){
+        if (uploadBeens.size() > 0) {
             DialogUtil.prompt(this, "上传列表中有文件等待上传，赶快去看看吧！", "稍后上传", "现在上传", new DialogButtonListener() {
                 @Override
                 public void ok() {
@@ -387,5 +380,49 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
                 }
             });
         }
+
+        HttpBank.getIntence(this).httpAppVersion(new CallBack() {
+            @Override
+            public void onSuccess(Object o) {
+                final VersionBean bean = VersionBean.getVersionBean(o.toString());
+                if (bean != null && bean.isSuccess()) {
+                    List<VersionBean.VersionEntity> entities = bean.getItems();
+                    if (entities.size() > 0) {
+                        versionEntity = entities.get(entities.size() - 1);
+                        PackageManager manager = CarMainActivity.this.getPackageManager();
+                        PackageInfo info = null;
+                        try {
+                            info = manager.getPackageInfo(CarMainActivity.this.getPackageName(), 0);
+                        } catch (PackageManager.NameNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        String version = info.versionName;
+                        int vernum = version.compareTo(versionEntity.getAppVersion());
+                        if (vernum < 0) {
+                            String verStr="版本更新：\n"+"当前版本："+version+"\n最新版本："+versionEntity.getAppVersion()+"\n更新内容：\n"+ versionEntity.getChangeLog();
+                            DialogUtil.prompt(CarMainActivity.this, verStr, "稍后更新", "立即更新", new DialogButtonListener() {
+                                @Override
+                                public void ok() {
+                                    Uri uri = Uri.parse("https://www.25pp.com/android/detail_7621405/");
+                                    Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                                    startActivity(it);
+                                }
+
+                                @Override
+                                public void cancel() {
+
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg) {
+
+            }
+        });
+
     }
 }
