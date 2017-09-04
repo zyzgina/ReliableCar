@@ -387,7 +387,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
                         int vernum = version.compareTo(versionEntity.getAppVersion());
                         if (vernum < 0) {
                             String verStr= versionEntity.getChangeLog();
-                            DialogUtil.versionDlogin(CarMainActivity.this, verStr, versionEntity.getAppVersion(), new DialogButtonListener() {
+                            DialogUtil.versionDlogin(CarMainActivity.this, verStr, "V"+versionEntity.getAppVersion(), new DialogButtonListener() {
                                 @Override
                                 public void ok() {
                                     Uri uri = Uri.parse("https://www.25pp.com/android/detail_7621405/");
