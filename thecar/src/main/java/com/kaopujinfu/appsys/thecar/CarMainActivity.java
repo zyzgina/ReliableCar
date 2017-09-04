@@ -370,6 +370,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
         HttpBank.getIntence(this).httpAppVersion(new CallBack() {
             @Override
             public void onSuccess(Object o) {
+                LogUtils.debug("版本更新:"+o.toString());
                 final VersionBean bean = VersionBean.getVersionBean(o.toString());
                 if (bean != null && bean.isSuccess()) {
                     List<VersionBean.VersionEntity> entities = bean.getItems();
@@ -385,7 +386,7 @@ public class CarMainActivity extends ActivityGroup implements View.OnClickListen
                         String version = info.versionName;
                         int vernum = version.compareTo(versionEntity.getAppVersion());
                         if (vernum < 0) {
-                            String verStr="版本更新：\n"+"当前版本："+version+"\n最新版本："+versionEntity.getAppVersion()+"\n更新内容：\n"+ versionEntity.getChangeLog();
+                            String verStr="当前版本："+version+"\n最新版本："+versionEntity.getAppVersion()+"\n\n"+ versionEntity.getChangeLog();
                             DialogUtil.prompt(CarMainActivity.this, verStr, "稍后更新", "立即更新", new DialogButtonListener() {
                                 @Override
                                 public void ok() {
