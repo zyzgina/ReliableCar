@@ -170,6 +170,63 @@ public class DialogUtil {
     }
 
     /**
+     * 提示对话框
+     *
+     * @param context
+     * @param info       提示信息
+     * @param vInfo 版本显示信息
+     * @param listener   确定/取消事件
+     */
+    public static void versionDlogin(Context context, String info,String vInfo, DialogButtonListener listener) {
+        if (dialog != null && dialog.isShowing()) {
+            return;
+        }
+        dialog = new Dialog(context, R.style.dialogFullHeight);
+        dialog.setContentView(getVersionView(context, listener, info, vInfo));
+        WindowManager m = ((Activity) context).getWindowManager();
+        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高用
+        WindowManager.LayoutParams p = dialog.getWindow().getAttributes(); // 获取对话框当前的参数值
+        p.width = (int) (d.getWidth() * 0.9); // 宽度设置为屏幕的0.95
+        dialog.getWindow().setAttributes(p);
+        dialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    /**
+     * 版本更新对话框
+     */
+    public static View getVersionView(Context context, final DialogButtonListener listener, String... strings) {
+        View view = View.inflate(context, R.layout.app_version, null);
+        TextView tv_info_prompt = (TextView) view.findViewById(R.id.tv_info_version);
+        tv_info_prompt.setText(strings[0]);
+        TextView tv_version = (TextView) view.findViewById(R.id.tv_version);
+        tv_version.setText(strings[1]);
+        TextView b_cancel_prompt = (TextView) view.findViewById(R.id.b_cancel_version);
+        TextView b_ok_prompt = (TextView) view.findViewById(R.id.b_ok_version);
+        b_ok_prompt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.ok();
+                }
+                dialog.dismiss();
+            }
+        });
+        b_cancel_prompt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.cancel();
+                }
+                dialog.dismiss();
+            }
+        });
+        return view;
+    }
+
+    /**
      * 获取验证码
      */
     public static void verificationCode(final Context context, String[] listMenu, final DialogItemListener listener) {
@@ -340,14 +397,14 @@ public class DialogUtil {
      * @param context
      * @param adapter
      */
-    public static void spinnerDilaog(final Context context, SpinnerListAdapter adapter,boolean isShow, final DialogItemListener listener) {
+    public static void spinnerDilaog(final Context context, SpinnerListAdapter adapter, boolean isShow, final DialogItemListener listener) {
         if (dialog != null && dialog.isShowing()) {
             return;
         }
         View view = View.inflate(context, R.layout.dialog_spinner_search, null);
         final EditText spinnerKey = (EditText) view.findViewById(R.id.spinnerKey);
-        View spinnerKeyView=view.findViewById(R.id.spinnerKeyView);
-        if(isShow){
+        View spinnerKeyView = view.findViewById(R.id.spinnerKeyView);
+        if (isShow) {
             spinnerKey.setVisibility(View.GONE);
             spinnerKeyView.setVisibility(View.GONE);
         }
@@ -556,7 +613,7 @@ public class DialogUtil {
      *
      * @param context
      */
-    public static void jumpPrompt(Context context, String title, String butText, int status,int bgColor) {
+    public static void jumpPrompt(Context context, String title, String butText, int status, int bgColor) {
         if (dialog != null && dialog.isShowing()) {
             return;
         }

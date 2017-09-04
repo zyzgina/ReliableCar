@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_dialog_below_4"
+    android:orientation="vertical">
+    <TextView
+        style="@style/textview_color_white_size19"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发现新版本"
+        android:textColor="@color/car_theme"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/common_measure_30sp"/>
+    <TextView
+        android:id="@+id/tv_version"
+        style="@style/textview_color_white_size19"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1.5.2"
+        android:textColor="@color/car_theme"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/common_measure_10sp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_info_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common_measure_20sp"
+            android:text="@string/app_name"
+            android:textColor="@color/back"
+            android:textSize="19sp" />
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_100sp"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_measure_10sp">
+
+        <TextView
+            android:id="@+id/b_cancel_version"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/common_measure_20sp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="下次再说"
+            android:textColor="@color/back" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/plain_gray" />
+
+        <TextView
+            android:id="@+id/b_ok_version"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="立即更新"
+            android:textColor="@color/back" />
+    </LinearLayout>
+</LinearLayout>
