@@ -187,7 +187,11 @@ public class IBaseUrl {
     /**
      * 绑定GPS---》GPS的绑定 action
      */
-    public static final String ACTION_ADDGPS = "BIND";
+    public static final String ACTION_ADDGPS = "BIND_DEV_CAR";
+    /**
+     * 绑定GPS---》GPS的LIST action
+     */
+    public static final String ACTION_LISTGPS = "LIST";
 
 
 }
