@@ -328,6 +328,16 @@ public class HttpBank {
     }
 
     /**
+     * 监管器绑定-》获取小圆盘列表
+     *
+     * @param callBack
+     */
+    public void getGpsAdd(String vinNo, String devCode, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxGpsAdd(vinNo, devCode);
+        IBaseMethod.post(context, IBaseUrl.GPS_URL, params, callBack);
+    }
+
+    /**
      * 版本更新提示
      * */
     public void httpAppVersion(CallBack callBack){
