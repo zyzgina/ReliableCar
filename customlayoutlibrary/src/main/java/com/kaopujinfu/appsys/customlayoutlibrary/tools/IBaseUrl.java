@@ -180,4 +180,14 @@ public class IBaseUrl {
      * */
     public static String STOP_MANUAL="STOP_MANUAL";
 
+    /**
+     * 绑定GPS--URL
+     * */
+    public static String GPS_URL="gps_dev";
+    /**
+     * 绑定GPS---》GPS的绑定 action
+     */
+    public static final String ACTION_ADDGPS = "BIND";
+
+
 }
