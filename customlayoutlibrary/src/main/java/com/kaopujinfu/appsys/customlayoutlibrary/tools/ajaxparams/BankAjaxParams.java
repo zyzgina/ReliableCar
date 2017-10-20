@@ -148,7 +148,6 @@ public class BankAjaxParams {
         params.put("devCode", devCode);
         return params;
     }
-
     /**
      * 获取经销商列表
      *
@@ -429,6 +428,18 @@ public class BankAjaxParams {
         params.put("comment",beizhu);
         return params;
     }
+
+    /**
+     * 监管器绑定-》小圆盘的绑定
+     */
+    public AjaxParams ajaxGpsAdd(String vinNo, String devCode) {
+        AjaxParams params = BANKUserIDSIDCompany();
+        params.put("action", IBaseUrl.ACTION_ADDGPS);
+        params.put("vinNo", vinNo);
+        params.put("devId", devCode);
+        return params;
+    }
+
     /**
      * 版本更新
      * */
