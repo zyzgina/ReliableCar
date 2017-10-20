@@ -103,6 +103,7 @@
         <activity android:name=".myselfs.cabinet.CabinetDetailsActivity"/>
         <activity android:name=".myselfs.cabinet.LockActivity"/>
         <activity android:name=".myselfs.gpscar.GpsActivity"/>
+        <activity android:name=".myselfs.gpscar.GpsListActivity"/>
 
         <service
             android:name=".service.BluetoothLeService"
