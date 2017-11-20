@@ -177,6 +177,7 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
             return;
         }
         Intent intent = new Intent(this, VINactivity.class);
+        intent.putExtra("taskCode",taskCode);
         startActivityForResult(intent, REQUECODE);
     }
 

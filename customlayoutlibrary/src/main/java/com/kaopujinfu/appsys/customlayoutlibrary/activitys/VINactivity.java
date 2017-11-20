@@ -48,6 +48,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogTxt;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
@@ -169,6 +170,11 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
     }
 
     private void initView() {
+        String taskCode=getIntent().getStringExtra("taskCode");
+        if(!GeneralUtils.isEmpty(taskCode)) {
+            entity=new TaskItemBean.TaskItemsEntity();
+            entity.setTaskCode(taskCode);
+        }
         mSurfaceView = (SurfaceView) findViewById(R.id.surfaceViwe);
         mRec = (RelativeLayout) findViewById(R.id.re_c);
         mBackcamera = (ImageButton) findViewById(R.id.back_camera);
