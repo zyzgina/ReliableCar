@@ -116,7 +116,7 @@ public class StatisActivity extends Activity {
 
             sDatas[0] = statisticsBean.getDocCount();
             sDatas[1] = statisticsBean.getDocRelease();
-            sDatas[2] = statisticsBean.getCarTotal() - statisticsBean.getDocCount() - statisticsBean.getDocRelease();
+            sDatas[2] = statisticsBean.getCarTotal() - statisticsBean.getDocCount();
             cDatas[0] = statisticsBean.getRfidScan();
             cDatas[1] = statisticsBean.getVinScan();
             if (statisticsBean.getCarCount() >= (statisticsBean.getRfidScan() + statisticsBean.getVinScan())) {
