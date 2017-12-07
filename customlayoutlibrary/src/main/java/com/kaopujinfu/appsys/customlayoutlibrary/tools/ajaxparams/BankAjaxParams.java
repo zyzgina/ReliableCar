@@ -430,13 +430,21 @@ public class BankAjaxParams {
     }
 
     /**
-     * 监管器绑定-》小圆盘的绑定
+     * GPS绑定-》GPS绑定
      */
     public AjaxParams ajaxGpsAdd(String vinNo, String devCode) {
         AjaxParams params = BANKUserIDSIDCompany();
         params.put("action", IBaseUrl.ACTION_ADDGPS);
         params.put("vinNo", vinNo);
         params.put("devId", devCode);
+        return params;
+    }
+    /**
+     * GPS绑定-》GPS LIST
+     */
+    public AjaxParams ajaxGpsListdd() {
+        AjaxParams params = BANKUserIDSIDCompany();
+        params.put("action", IBaseUrl.ACTION_LISTGPS);
         return params;
     }
 
