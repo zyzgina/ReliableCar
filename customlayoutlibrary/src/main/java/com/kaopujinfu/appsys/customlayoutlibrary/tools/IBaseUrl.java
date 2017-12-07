@@ -191,7 +191,7 @@ public class IBaseUrl {
     /**
      * 绑定GPS---》GPS的LIST action
      */
-    public static final String ACTION_LISTGPS = "LIST";
+    public static final String ACTION_LISTGPS = "APP_LIST";
 
 
 }
