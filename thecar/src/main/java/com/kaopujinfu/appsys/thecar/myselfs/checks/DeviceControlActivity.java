@@ -524,7 +524,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
             String path = data.getStringExtra(VideoRecordActivity.EXTRA_OUTPUT_FILENAME);
             //提交成功
             File file = new File(path);
-            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, tkCode + "_" + vinCode, "VIN码盘库", latitude + "", longitude + "");
+            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, tkCode + "_" + vinCode, "RFID盘库", latitude + "", longitude + "");
             FinalDb db = FinalDb.create(DeviceControlActivity.this, IBase.BASE_DATE, true);
             db.save(uploadBean);
             List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + entity.getTaskCode() + "\" and commit_status=0");
