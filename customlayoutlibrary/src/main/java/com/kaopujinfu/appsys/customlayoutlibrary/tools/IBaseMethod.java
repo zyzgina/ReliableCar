@@ -264,7 +264,7 @@ public class IBaseMethod {
                     if (code == 404) {
                         call.onFailure(code, "网络与服务不存在");
                         DialogUtil.jumpCorrectErr(context, "网络与服务不存在,请核实信息", "知道了", 2, context.getResources().getColor(android.R.color.holo_orange_light));
-                    }else
+                    } else
                         call.onSuccess(result);
                 }
             }
@@ -409,6 +409,8 @@ public class IBaseMethod {
             uploadBean.setQny_key("BIND_DEV/" + pathName);
         } else if (strs[1].contains("VIN")) {
             uploadBean.setQny_key("VIN_OCR/" + pathName);
+        } else if (strs[1].contains("RFID")) {
+            uploadBean.setQny_key("RFID_OCR/" + pathName);
         } else if (strs[1].contains("车辆绑标签")) {
             uploadBean.setQny_key("BIND_RFID/" + pathName);
         } else {
