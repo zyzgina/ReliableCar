@@ -134,7 +134,7 @@ public class UploadListAdapter extends BaseAdapter {
             view.setTag(R.id.uploadListLayout_item, i);
             views.add(view);
         }
-        LogTxt.getInstance().writeLog("获取views。size="+lists.size()+ "    "+views.size());
+        LogTxt.getInstance().writeLog("获取views。size=" + lists.size() + "    " + views.size());
         return view;
     }
 
@@ -323,7 +323,9 @@ public class UploadListAdapter extends BaseAdapter {
                         }
                         notifyDataSetChanged();
                         db.deleteByWhere(UploadBean.class, "loactionPath=\"" + uploadBean.getLoactionPath() + "\"");
-                        LogUtils.debug("文件不存在:" + lists.size() + "_size_" + views.remove(0));
+                        if (views.size() > 0)
+                            views.remove(0);
+                        LogUtils.debug("文件不存在:" + lists.size() + "_size_" + views.size());
                     }
                 }
 //                    LogUtils.debug(key + ",\r\n " + info + ",\r\n " + res);
