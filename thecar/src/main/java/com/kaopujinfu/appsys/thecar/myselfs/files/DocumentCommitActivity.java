@@ -14,6 +14,8 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.myselfs.bindings.AddBindingActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.bindings.BindingsActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.gpscar.GpsActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.gpscar.GpsListActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.AddLableActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.CarListActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.LableActivity;
@@ -31,7 +33,7 @@ import static com.kaopujinfu.appsys.thecar.R.id.new_documentCommit;
 public class DocumentCommitActivity extends BaseNoScoActivity {
     int success;
     String UploadPath;
-    private RelativeLayout commitShot, commitDocument, commitJianguan, commitBiaoqian, commitNewCar;
+    private RelativeLayout commitShot, commitDocument, commitJianguan, commitBiaoqian, commitNewCar,commitGPS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
         commitJianguan = (RelativeLayout) findViewById(R.id.commitJianguan);
         commitDocument = (RelativeLayout) findViewById(R.id.commitDocument);
         commitShot = (RelativeLayout) findViewById(R.id.commitShot);
+        commitGPS= (RelativeLayout) findViewById(R.id.commitGPS);
 
         if (success == IBase.CONSTANT_ZERO) {
             commitDocument.setVisibility(View.GONE);
@@ -79,7 +82,7 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
             nextList_documentCommit.setText("返回上传列表");
             new_documentCommit.setText("继续添加");
             txt_documentCommit.setText("照片采集成功");
-            toast_documentCommit.setText("你返回上传列表上传资料");
+            toast_documentCommit.setText("点击返回上传列表上传资料");
             sel_documentCommit.setText("或者查看详情进行操作");
         } else if (success == IBase.CONSTANT_THREE) {
             commitNewCar.setVisibility(View.GONE);
@@ -95,6 +98,14 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
             txt_documentCommit.setText("车辆绑标签成功");
             toast_documentCommit.setText("点击返回列表查看标签列表");
             sel_documentCommit.setText("或点击车辆绑标签继续操作");
+        } else if (success == IBase.CONSTANT_FIVE) {
+            commitGPS.setVisibility(View.GONE);
+            mTvTitle.setText("绑定GPS");
+            txt_documentCommit.setText("GPS绑定成功");
+            new_documentCommit.setText("新增绑定");
+            nextList_documentCommit.setText("返回列表");
+            toast_documentCommit.setText("点击返回列表查看GPS列表");
+            sel_documentCommit.setText("或点击新增绑定继续操作");
         }
     }
 
@@ -111,6 +122,8 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
                 intent.setClass(this, CarListActivity.class);
             } else if (success == IBase.CONSTANT_FOUR) {
                 intent.setClass(this, LableActivity.class);
+            } else if (success == IBase.CONSTANT_FIVE) {
+                intent.setClass(this, GpsListActivity.class);
             }
             startActivity(intent);
             finish();
@@ -127,6 +140,8 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
                 intent.setClass(this, NewCarActivity.class);
             } else if (success == IBase.CONSTANT_FOUR) {
                 intent.setClass(this, AddLableActivity.class);
+            }else if (success == IBase.CONSTANT_FIVE) {
+                intent.setClass(this, GpsActivity.class);
             }
             startActivity(intent);
             finish();
@@ -158,6 +173,11 @@ public class DocumentCommitActivity extends BaseNoScoActivity {
         } else if (view == commitShot) {
             //照片采集
             intent.setClass(this, PhotosDetailsActivity.class);
+        }else if (view == commitGPS) {
+            //GPS绑定
+            intent.setClass(this, GpsActivity.class);
+            intent.putExtra("isGPS", true);
+            IBaseMethod.showToast(this, "GPS绑定需要进行标签扫描操作", IBase.RETAIL_TWO);
         }
         startActivity(intent);
     }
