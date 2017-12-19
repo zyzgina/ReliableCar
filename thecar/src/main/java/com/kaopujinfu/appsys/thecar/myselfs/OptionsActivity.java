@@ -14,6 +14,7 @@ import com.kaopujinfu.appsys.thecar.myselfs.bindings.BindingsActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.cabinet.CabinetListActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.checks.ChecksActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentActivity;
+import com.kaopujinfu.appsys.thecar.myselfs.gpscar.GpsListActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.CarListActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.newcar.LableActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.photos.PhotosDetailsActivity;
@@ -82,6 +83,10 @@ public class OptionsActivity extends Activity {
             case IBase.CONSTANT_SEX:
                 /* 柜子列表 */
                 intent.setClass(OptionsActivity.this, CabinetListActivity.class);
+                break;
+            case IBase.CONSTANT_SEVEN:
+                /* 柜子列表 */
+                intent.setClass(OptionsActivity.this, GpsListActivity.class);
                 break;
         }
         startActivity(intent);

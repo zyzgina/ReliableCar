@@ -338,7 +338,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                 }
                 //跳转至视频录制，停止语音播放
                 if (b && isShowLz && isTwo) {
-                    isShowLz=false;
+                    isShowLz = false;
                     voiceUtils.stopSpeek();
                 }
                 //判断该页面是否销毁
@@ -484,6 +484,9 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                 CaptureConfiguration config = createCaptureConfiguration();
                 Intent intent = new Intent(DeviceControlActivity.this, VideoRecordActivity.class);
                 intent.putExtra(VideoRecordActivity.EXTRA_CAPTURE_CONFIGURATION, config);
+//                final String dateStamp = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(new Date());
+//                String pathname = "rfid_" + dateStamp + ".mp4";
+//                intent.putExtra(VideoRecordActivity.SAVED_OUTPUT_FILENAME, pathname);
                 startActivityForResult(intent, 101);
             }
 
@@ -520,7 +523,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            isShowLz=false;
+            isShowLz = false;
             String path = data.getStringExtra(VideoRecordActivity.EXTRA_OUTPUT_FILENAME);
             //提交成功
             File file = new File(path);

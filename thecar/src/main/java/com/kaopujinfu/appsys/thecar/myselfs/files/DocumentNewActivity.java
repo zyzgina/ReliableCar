@@ -1,6 +1,8 @@
 package com.kaopujinfu.appsys.thecar.myselfs.files;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.activitys.ContinuityCameraActiv
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.ScannerActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogCameraListener;
@@ -83,13 +86,25 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
             switch (msg.what) {
                 case IBase.CONSTANT_TEN:
                     isVerfiy = (boolean) msg.obj;
+                    if (!GeneralUtils.isEmpty(imagePath)) {
+                        if (isVerfiy) {
+                            Bitmap mBitmap = BitmapFactory.decodeFile(imagePath);
+                            imageTaskNew.setVisibility(View.VISIBLE);
+                            vinTaskNew.setImageBitmap(mBitmap);
+                            compyImage(imagePath);
+                        } else
+                            FileUtils.deleteFile(imagePath);
+                    }
                     break;
             }
         }
     };
     private double longitude = 0, latitude = 0;
     private MapUtils mapUtils;
-    private  boolean isDoument;
+    private boolean isDoument;
+    private LinearLayout imageTaskNew;
+    private ImageView vinTaskNew;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,11 +183,13 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                 }
             }
         });
-        isDoument = getIntent().getBooleanExtra("isDoument",false);
-        if(isDoument){
+        isDoument = getIntent().getBooleanExtra("isDoument", false);
+        if (isDoument) {
             Intent intent = new Intent(DocumentNewActivity.this, ScannerActivity.class);
             startActivityForResult(intent, IBase.RETAIL_THREE);
         }
+        imageTaskNew = (LinearLayout) findViewById(R.id.image_task_new);
+        vinTaskNew = (ImageView) findViewById(R.id.vin_task_new);
     }
 
     private GalleryFinal.OnHanlderResultCallback mOnHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
@@ -211,6 +228,8 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
         }
     }
 
+    private String imagePath;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -228,13 +247,13 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                 String number = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(number)) {
                     documentNum_new.setText(number);
-                }else{
-                    if(isDoument){
+                } else {
+                    if (isDoument) {
                         finish();
                     }
                 }
-            }else{
-                if(isDoument){
+            } else {
+                if (isDoument) {
                     finish();
                 }
             }
@@ -249,6 +268,7 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
                     documentVIN_new.setText(vin);
+                    imagePath = data.getStringExtra("imagePath");
                     HttpBank.getIntence(DocumentNewActivity.this).httpIsVinExit(vin, vinhandler);
                 }
             }
@@ -263,6 +283,8 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
         back();
     }
 
+    UploadBean uploadBean = null;
+
     private void commit() {
         final String vinNo = documentVIN_new.getText().toString();
         String rfidId = documentNum_new.getText().toString();
@@ -276,9 +298,14 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
             IBaseMethod.showToast(DocumentNewActivity.this, "请输入标签编号！", IBase.RETAIL_ZERO);
             return;
         }
+        String upKey = "";
+        if (!GeneralUtils.isEmpty(savePath)) {
+            uploadBean = IBaseMethod.saveUploadBean(new File(savePath), vinNo, "校验车辆_文档绑标签", latitude + "", longitude + "");
+            upKey = uploadBean.getQny_key();
+        }
         dialog.show();
         dialog.setLoadingTitle("正在提交文档……");
-        HttpBank.getIntence(this).newDocument(vinNo, rfidId, new CallBack() {
+        HttpBank.getIntence(this).newDocument(vinNo, rfidId, upKey, new CallBack() {
             @Override
             public void onSuccess(Object o) {
                 dialog.dismiss();
@@ -288,14 +315,19 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                     //保存上传的图片到本地
                     List<String> lists = mAdapter.getLists();
                     if (lists.size() > 0) {
-                        IBaseMethod.saveDateLoaction(db, lists, documentVIN_new.getText().toString(), "文档绑定",latitude+"",longitude+"");
+                        IBaseMethod.saveDateLoaction(db, lists, documentVIN_new.getText().toString(), "文档绑定", latitude + "", longitude + "");
                     }
                     //通知首页统计数据发改变
                     JumpEventBus jumpEventBus = new JumpEventBus();
                     jumpEventBus.setStatus(IBase.RETAIL_THREE);
                     EventBus.getDefault().post(jumpEventBus);
-                    if(isDoument){
+                    if (isDoument) {
                         RetailAplication.getInstance().exitAllActicity();
+                    }
+                    isCommit = true;
+                    if (!GeneralUtils.isEmpty(uploadBean)) {
+                        FinalDb db = FinalDb.create(DocumentNewActivity.this, IBase.BASE_DATE, true);
+                        db.save(uploadBean);
                     }
                     Intent intent = new Intent(DocumentNewActivity.this, DocumentCommitActivity.class);
                     intent.putExtra("success", IBase.CONSTANT_ZERO);
@@ -318,11 +350,45 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
         });
     }
 
+    private String savePath;
+
+    private void compyImage(final String strCaptureFilePath) {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                File upload = new File(strCaptureFilePath);
+                String uplod = FileUtils.getCarUploadPath() + IBase.VIN_DOC + "/" + System.currentTimeMillis();
+                String name = DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance()) + ".jpg";
+                File save = new File(uplod);
+                if (!save.exists()) {
+                    save.mkdirs();
+                }
+                save = new File(uplod, name);
+                if (upload.exists()) {
+                    savePath = save.getAbsolutePath();
+                    FileUtils.CopySdcardFile(upload.getAbsolutePath(), savePath);
+                    FileUtils.deleteFile(strCaptureFilePath);
+                }
+            }
+        }.start();
+    }
+
+    boolean isCommit = false;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!isCommit && !GeneralUtils.isEmpty(savePath)) {
+            FileUtils.deleteFile(savePath);
+        }
+    }
+
     private void back() {
         if (mAdapter.getCount() == 1) {
-            if(isDoument) {
+            if (isDoument) {
                 finish();
-            }else{
+            } else {
                 Intent intent = new Intent(DocumentNewActivity.this, DocumentActivity.class);
                 startActivity(intent);
                 finish();
@@ -334,9 +400,9 @@ public class DocumentNewActivity extends BaseNoScoActivity implements View.OnCli
                     @Override
                     public void ok() {
                         mAdapter.exit();
-                        if(isDoument) {
+                        if (isDoument) {
                             finish();
-                        }else{
+                        } else {
                             Intent intent = new Intent(DocumentNewActivity.this, DocumentActivity.class);
                             startActivity(intent);
                             finish();

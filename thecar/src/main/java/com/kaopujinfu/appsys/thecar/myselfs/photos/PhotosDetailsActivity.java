@@ -1,6 +1,8 @@
 package com.kaopujinfu.appsys.thecar.myselfs.photos;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -20,6 +23,7 @@ import android.widget.ScrollView;
 import com.kaopujinfu.appsys.customlayoutlibrary.RetailAplication;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.BaseNoScoActivity;
 import com.kaopujinfu.appsys.customlayoutlibrary.activitys.VINactivity;
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.LoactionListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
@@ -36,6 +40,8 @@ import com.kaopujinfu.appsys.customlayoutlibrary.view.MyGridView;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.PhotosGridAdapter;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
+
+import net.tsz.afinal.FinalDb;
 
 import java.io.File;
 import java.util.Calendar;
@@ -57,6 +63,8 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
     private boolean isVin = true;
     private double longitude = 0, latitude = 0;
     private MapUtils mapUtils;
+    private LinearLayout imageTaskNew;
+    private ImageView vinTaskNew;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,7 +76,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
         mapUtils.startLocation(new LoactionListener() {
             @Override
             public void getOnLoactionListener(double longitude, double latitude) {
-                LogUtils.debug("===="+longitude+"   "+latitude);
+                LogUtils.debug("====" + longitude + "   " + latitude);
                 PhotosDetailsActivity.this.longitude = longitude;
                 PhotosDetailsActivity.this.latitude = latitude;
                 mapUtils.stopLocation();
@@ -145,6 +153,8 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
                 startActivityForResult(intent, IBase.RETAIL_TEN);
             }
         });
+        imageTaskNew = (LinearLayout) findViewById(R.id.image_task_new);
+        vinTaskNew = (ImageView) findViewById(R.id.vin_task_new);
     }
 
     @Override
@@ -192,6 +202,8 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
                 });
     }
 
+    private String imagePath;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -209,6 +221,7 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
                     documentVIN_new.setText(vin);
+                    imagePath = data.getStringExtra("imagePath");
                     HttpBank.getIntence(PhotosDetailsActivity.this).httpIsVinExit(vin, vinhandler);
                 }
             }
@@ -223,6 +236,16 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             switch (msg.what) {
                 case IBase.CONSTANT_TEN:
                     isVerfiy = (boolean) msg.obj;
+                    if (!GeneralUtils.isEmpty(imagePath)) {
+                        if (isVerfiy) {
+                            Bitmap mBitmap = BitmapFactory.decodeFile(imagePath);
+                            imageTaskNew.setVisibility(View.VISIBLE);
+                            vinTaskNew.setImageBitmap(mBitmap);
+                            compyImage(imagePath);
+                        } else {
+                            FileUtils.deleteFile(imagePath);
+                        }
+                    }
                     break;
             }
         }
@@ -234,6 +257,14 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
             vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
             return;
         }
+        LogUtils.debug("savePath=" + savePath);
+        if (!GeneralUtils.isEmpty(savePath)) {
+            LogUtils.debug("进入了？");
+            isCommit = true;
+            UploadBean uploadBean = IBaseMethod.saveUploadBean(new File(savePath), vinCo, "校验车辆_照片采集", latitude + "", longitude + "");
+            FinalDb db = FinalDb.create(PhotosDetailsActivity.this, IBase.BASE_DATE, true);
+            db.save(uploadBean);
+        }
         RetailAplication.getInstance().exitAllActicity();
         //保存图片
         adapter.saveDateList(vinCo, longitude + "", latitude + "");
@@ -242,6 +273,40 @@ public class PhotosDetailsActivity extends BaseNoScoActivity implements View.OnC
         intent.putExtra("UploadPath", file.getAbsolutePath());
         startActivity(intent);
         finish();
+    }
+
+    private String savePath;
+
+    private void compyImage(final String strCaptureFilePath) {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                File upload = new File(strCaptureFilePath);
+                String uplod = FileUtils.getCarUploadPath() + IBase.VIN_PHOTO + "/" + System.currentTimeMillis();
+                String name = DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance()) + ".jpg";
+                File save = new File(uplod);
+                if (!save.exists()) {
+                    save.mkdirs();
+                }
+                save = new File(uplod, name);
+                if (upload.exists()) {
+                    savePath = save.getAbsolutePath();
+                    FileUtils.CopySdcardFile(upload.getAbsolutePath(), savePath);
+                    FileUtils.deleteFile(strCaptureFilePath);
+                }
+            }
+        }.start();
+    }
+
+    boolean isCommit = false;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!isCommit && !GeneralUtils.isEmpty(savePath)) {
+            FileUtils.deleteFile(savePath);
+        }
     }
 
     private TextWatcher textWatcher = new TextWatcher() {

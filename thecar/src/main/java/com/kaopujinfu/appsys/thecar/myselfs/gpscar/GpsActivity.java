@@ -1,4 +1,4 @@
-package com.kaopujinfu.appsys.thecar.myselfs.newcar;
+package com.kaopujinfu.appsys.thecar.myselfs.gpscar;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -44,6 +44,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.CaptureConfiguration;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.PredefinedCaptureConfigurations;
 import com.kaopujinfu.appsys.thecar.R;
+import com.kaopujinfu.appsys.thecar.myselfs.bindings.BindingsActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
 
 import net.tsz.afinal.FinalDb;
@@ -52,10 +53,10 @@ import java.io.File;
 import java.util.Calendar;
 
 /**
- * 车辆标签绑定
+ * GPS新增绑定
  * Created by 左丽姬 on 2017/5/17.
  */
-public class AddLableActivity extends BaseActivity implements View.OnClickListener {
+public class GpsActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView documentVINScan, documentScan;
     private EditText documentNum_new, documentVIN_new;
@@ -82,10 +83,9 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             }
         }
     };
-
     private double longitude = 0, latitude = 0;
     private MapUtils mapUtils;
-    private boolean isLable;
+    private boolean isGPS;
     private LinearLayout imageTaskNew;
     private ImageView vinTaskNew;
 
@@ -99,14 +99,14 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         mapUtils.startLocation(new LoactionListener() {
             @Override
             public void getOnLoactionListener(double longitude, double latitude) {
-                AddLableActivity.this.longitude = longitude;
-                AddLableActivity.this.latitude = latitude;
+                GpsActivity.this.longitude = longitude;
+                GpsActivity.this.latitude = latitude;
                 mapUtils.stopLocation();
             }
         });
         //判断是否有相机权限
-        if (!PermissionsUntils.checkCameraPermissions(AddLableActivity.this)) {
-            PermissionsUntils.requesetCameraPermissions(AddLableActivity.this);
+        if (!PermissionsUntils.checkCameraPermissions(GpsActivity.this)) {
+            PermissionsUntils.requesetCameraPermissions(GpsActivity.this);
         }
     }
 
@@ -118,7 +118,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
     public void initView() {
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
         header.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
-        mTvTitle.setText("车辆标签绑定");
+        mTvTitle.setText("GPS绑定");
         top_btn.setText("提交");
         top_meun.setVisibility(View.GONE);
         top_btn.setVisibility(View.VISIBLE);
@@ -126,29 +126,26 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         mtop_back.setOnClickListener(this);
 
         TextView txt_documentNum_new = (TextView) findViewById(R.id.txt_documentNum_new);
-        txt_documentNum_new.setText("标签编号");
+        txt_documentNum_new.setText("设备编号");
         String vinCode = SPUtils.get(this, IBase.USERID + "vinCode", "").toString();
         documentVIN_new = (EditText) findViewById(R.id.documentVIN_new);
         if (!GeneralUtils.isEmpty(vinCode)) {
             documentVIN_new.setText(vinCode);
-            HttpBank.getIntence(AddLableActivity.this).httpIsVinExit(vinCode, vinhandler);
+            HttpBank.getIntence(GpsActivity.this).httpIsVinExit(vinCode, vinhandler);
         }
         documentVIN_new.addTextChangedListener(textWatcher);
         vinVerfiydocumentVIN = (LinearLayout) findViewById(R.id.vinVerfiydocumentVIN);
         documentNum_new = (EditText) findViewById(R.id.documentNum_new);
-        documentNum_new.setHint("请输入标签编号");
+        documentNum_new.setHint("请输入设备编号");
         documentVINScan = (ImageView) findViewById(R.id.documentVINScan_new);
         documentScan = (ImageView) findViewById(R.id.documentScan_new);
         documentVINScan.setOnClickListener(this);
         documentScan.setOnClickListener(this);
-
-        isLable = getIntent().getBooleanExtra("isLable", false);
-        if (isLable) {
-            Intent intent = new Intent(AddLableActivity.this, ScannerActivity.class);
+        isGPS = getIntent().getBooleanExtra("isGPS", false);
+        if (isGPS) {
+            Intent intent = new Intent(GpsActivity.this, ScannerActivity.class);
             startActivityForResult(intent, IBase.RETAIL_THREE);
         }
-        imageTaskNew = (LinearLayout) findViewById(R.id.image_task_new);
-        vinTaskNew = (ImageView) findViewById(R.id.vin_task_new);
     }
 
     @Override
@@ -162,14 +159,14 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             dialog.show();
             dialog.setLoadingTitle("正在进入VIN扫描...");
             vinVerfiydocumentVIN.setVisibility(View.GONE);
-            Intent intent = new Intent(AddLableActivity.this, VINactivity.class);
+            Intent intent = new Intent(GpsActivity.this, VINactivity.class);
             intent.putExtra("isScanner", true);
             startActivityForResult(intent, IBase.RETAIL_ELEVEN);
         } else if (i == R.id.documentScan_new) {
-            Intent intent = new Intent(AddLableActivity.this, ScannerActivity.class);
+            Intent intent = new Intent(GpsActivity.this, ScannerActivity.class);
             startActivityForResult(intent, IBase.RETAIL_THREE);
         } else if (v == mtop_back) {
-            Intent intent = new Intent(AddLableActivity.this, LableActivity.class);
+            Intent intent = new Intent(GpsActivity.this, BindingsActivity.class);
             startActivity(intent);
             finish();
         }
@@ -178,7 +175,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
     UploadBean uploadBean = null;
 
     /**
-     * 绑定标签
+     * 绑定GPS
      */
     private void commitBinding() {
         String vinNo = documentVIN_new.getText().toString();
@@ -195,41 +192,41 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         }
         String upKey = "";
         if (!GeneralUtils.isEmpty(savePath)) {
-            uploadBean = IBaseMethod.saveUploadBean(new File(savePath), vinNo, "校验车辆_车辆绑标签", latitude + "", longitude + "");
+            uploadBean = IBaseMethod.saveUploadBean(new File(savePath), vinNo, "校验车辆_GPS绑定", latitude + "", longitude + "");
             upKey = uploadBean.getQny_key();
         }
-        LogUtils.debug("上传图片:" + upKey);
         dialog.show();
         dialog.setLoadingTitle("正在绑定……");
-        HttpBank.getIntence(this).httpLable(new CallBack() {
+        HttpBank.getIntence(this).getGpsAdd(vinNo, devCode, upKey, new CallBack() {
             @Override
             public void onSuccess(Object o) {
                 dialog.dismiss();
-                LogUtils.debug("绑定标签:" + o.toString());
+                LogUtils.debug("绑定GPS:" + o.toString());
                 Result result = Result.getMcJson(o.toString());
                 if (result != null && result.isSuccess()) {
                     isCommit = true;
                     if (!GeneralUtils.isEmpty(uploadBean)) {
-                        FinalDb db = FinalDb.create(AddLableActivity.this, IBase.BASE_DATE, true);
+                        FinalDb db = FinalDb.create(GpsActivity.this, IBase.BASE_DATE, true);
                         db.save(uploadBean);
                     }
                     showDialog();
                 } else {
                     if (result != null)
-                        IBaseMethod.showToast(AddLableActivity.this, result.getComment(), IBase.RETAIL_ZERO);
+                        IBaseMethod.showToast(GpsActivity.this, result.getComment(), IBase.RETAIL_ZERO);
                     else
-                        IBaseMethod.showToast(AddLableActivity.this, "网络出错", IBase.RETAIL_ZERO);
+                        IBaseMethod.showToast(GpsActivity.this, "网络出错", IBase.RETAIL_ZERO);
                 }
             }
 
             @Override
             public void onFailure(int errorNo, String strMsg) {
                 dialog.dismiss();
+                LogUtils.debug("====" + strMsg);
                 if (errorNo == IBase.CONSTANT_ONE) {
-                    IBaseMethod.showNetToast(AddLableActivity.this);
+                    IBaseMethod.showNetToast(GpsActivity.this);
                 }
             }
-        }, vinNo, devCode, upKey);
+        });
     }
 
     private String imagePath;
@@ -241,12 +238,15 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             // 标签编号
             if (data != null) {
                 String number = data.getStringExtra("result");
-                documentNum_new.setText(number);
-                if (GeneralUtils.isEmpty(number) && isLable) {
-                    finish();
+                if (!GeneralUtils.isEmpty(number)) {
+                    documentNum_new.setText(number);
+                } else {
+                    if (isGPS) {
+                        finish();
+                    }
                 }
             } else {
-                if (isLable) {
+                if (isGPS) {
                     finish();
                 }
             }
@@ -263,7 +263,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
                 if (!GeneralUtils.isEmpty(vin)) {
                     documentVIN_new.setText(vin);
                     imagePath = data.getStringExtra("imagePath");
-                    HttpBank.getIntence(AddLableActivity.this).httpIsVinExit(vin, vinhandler);
+                    HttpBank.getIntence(GpsActivity.this).httpIsVinExit(vin, vinhandler);
                 }
             }
         }
@@ -271,16 +271,16 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
         if (resultCode == RESULT_OK) {
             String path = data.getStringExtra(VideoRecordActivity.EXTRA_OUTPUT_FILENAME);
             LogUtils.debug("上传视频的路径:" + path);
-            if (isLable) {
+            if (isGPS) {
                 RetailAplication.getInstance().exitAllActicity();
             }
             //提交成功
             File file = new File(path);
-            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "车辆绑标签", latitude + "", longitude + "");
-            FinalDb db = FinalDb.create(AddLableActivity.this, IBase.BASE_DATE, true);
+            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "GPS绑定", latitude + "", longitude + "");
+            FinalDb db = FinalDb.create(GpsActivity.this, IBase.BASE_DATE, true);
             db.save(uploadBean);
             Intent intent = new Intent(this, DocumentCommitActivity.class);
-            intent.putExtra("success", IBase.CONSTANT_FOUR);
+            intent.putExtra("success", IBase.CONSTANT_FIVE);
             startActivity(intent);
             finish();
         }
@@ -295,7 +295,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
             public void run() {
                 super.run();
                 File upload = new File(strCaptureFilePath);
-                String uplod = FileUtils.getCarUploadPath() + IBase.VIN_RFID + "/" + System.currentTimeMillis();
+                String uplod = FileUtils.getCarUploadPath() + IBase.VIN_GPS + "/" + System.currentTimeMillis();
                 String name = DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance()) + ".jpg";
                 File save = new File(uplod);
                 if (!save.exists()) {
@@ -345,7 +345,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
                 mDialog.cancel();
                 final CaptureConfiguration config = createCaptureConfiguration();
 //                String fileName = "";
-                final Intent intent = new Intent(AddLableActivity.this, VideoRecordActivity.class);
+                final Intent intent = new Intent(GpsActivity.this, VideoRecordActivity.class);
                 intent.putExtra(VideoRecordActivity.EXTRA_CAPTURE_CONFIGURATION, config);
 //                intent.putExtra(VideoRecordActivity.EXTRA_OUTPUT_FILENAME, filename);
                 startActivityForResult(intent, 101);
@@ -397,7 +397,7 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
                 if (vin.length() == 17) {
                     if (VINutils.checkVIN(vin)) {
                         vinVerfiydocumentVIN.setVisibility(View.GONE);
-                        HttpBank.getIntence(AddLableActivity.this).httpIsVinExit(vin, vinhandler);
+                        HttpBank.getIntence(GpsActivity.this).httpIsVinExit(vin, vinhandler);
                     } else {
                         vinVerfiydocumentVIN.setVisibility(View.VISIBLE);
                     }
@@ -414,10 +414,10 @@ public class AddLableActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (isLable) {
+        if (isGPS) {
             finish();
         } else {
-            Intent intent = new Intent(AddLableActivity.this, LableActivity.class);
+            Intent intent = new Intent(GpsActivity.this, GpsListActivity.class);
             startActivity(intent);
             finish();
         }

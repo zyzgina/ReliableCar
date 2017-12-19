@@ -2,12 +2,15 @@ package com.kaopujinfu.appsys.thecar.myselfs.bindings;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,6 +36,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.PermissionsUntils;
@@ -49,6 +53,7 @@ import net.tsz.afinal.FinalDb;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.util.Calendar;
 
 /**
  * 新增绑定
@@ -68,6 +73,15 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
             switch (msg.what) {
                 case IBase.CONSTANT_TEN:
                     isVerfiy = (boolean) msg.obj;
+                    if (!GeneralUtils.isEmpty(imagePath)) {
+                        if (isVerfiy) {
+                            Bitmap mBitmap = BitmapFactory.decodeFile(imagePath);
+                            imageTaskNew.setVisibility(View.VISIBLE);
+                            vinTaskNew.setImageBitmap(mBitmap);
+                            compyImage(imagePath);
+                        } else
+                            FileUtils.deleteFile(imagePath);
+                    }
                     break;
             }
         }
@@ -75,6 +89,9 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
     private double longitude = 0, latitude = 0;
     private MapUtils mapUtils;
     private boolean isBind;
+    private LinearLayout imageTaskNew;
+    private ImageView vinTaskNew;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,11 +144,13 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
         documentScan = (ImageView) findViewById(R.id.documentScan_new);
         documentVINScan.setOnClickListener(this);
         documentScan.setOnClickListener(this);
-        isBind = getIntent().getBooleanExtra("isBind",false);
-        if(isBind){
+        isBind = getIntent().getBooleanExtra("isBind", false);
+        if (isBind) {
             Intent intent = new Intent(AddBindingActivity.this, ScannerActivity.class);
             startActivityForResult(intent, IBase.RETAIL_THREE);
         }
+        imageTaskNew = (LinearLayout) findViewById(R.id.image_task_new);
+        vinTaskNew = (ImageView) findViewById(R.id.vin_task_new);
     }
 
     @Override
@@ -158,6 +177,8 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    UploadBean uploadBean = null;
+
     /**
      * 绑定小圆盘
      */
@@ -174,9 +195,14 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
             IBaseMethod.showToast(this, "请输入标签编号！", IBase.RETAIL_ZERO);
             return;
         }
+        String upKey = "";
+        if (!GeneralUtils.isEmpty(savePath)) {
+            uploadBean = IBaseMethod.saveUploadBean(new File(savePath), vinNo, "校验车辆_监管器绑定", latitude + "", longitude + "");
+            upKey = uploadBean.getQny_key();
+        }
         dialog.show();
         dialog.setLoadingTitle("正在绑定……");
-        HttpBank.getIntence(this).getBindingAdd(vinNo, devCode, new CallBack() {
+        HttpBank.getIntence(this).getBindingAdd(vinNo, devCode, upKey, new CallBack() {
             @Override
             public void onSuccess(Object o) {
                 dialog.dismiss();
@@ -187,7 +213,11 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
                     JumpEventBus jumpEventBus = new JumpEventBus();
                     jumpEventBus.setStatus(IBase.RETAIL_THREE);
                     EventBus.getDefault().post(jumpEventBus);
-
+                    isCommit = true;
+                    if (!GeneralUtils.isEmpty(uploadBean)) {
+                        FinalDb db = FinalDb.create(AddBindingActivity.this, IBase.BASE_DATE, true);
+                        db.save(uploadBean);
+                    }
                     showDialog();
                 } else {
                     if (result != null)
@@ -208,6 +238,8 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
         });
     }
 
+    private String imagePath;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -222,13 +254,13 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
                     } else {
                         DialogUtil.jumpCorrectErr(this, "扫入无效设备号", "继 续", 0, getResources().getColor(android.R.color.holo_red_light));
                     }
-                }else{
-                    if (isBind){
+                } else {
+                    if (isBind) {
                         finish();
                     }
                 }
-            }else{
-                if (isBind){
+            } else {
+                if (isBind) {
                     finish();
                 }
             }
@@ -244,6 +276,7 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
                     documentVIN_new.setText(vin);
+                    imagePath = data.getStringExtra("imagePath");
                     HttpBank.getIntence(AddBindingActivity.this).httpIsVinExit(vin, vinhandler);
                 }
             }
@@ -252,12 +285,12 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
         if (resultCode == RESULT_OK) {
             String path = data.getStringExtra(VideoRecordActivity.EXTRA_OUTPUT_FILENAME);
             LogUtils.debug("上传视频的路径:" + path);
-            if(isBind){
+            if (isBind) {
                 RetailAplication.getInstance().exitAllActicity();
             }
             //提交成功
             File file = new File(path);
-            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "监管器绑定",latitude+"",longitude+"");
+            UploadBean uploadBean = IBaseMethod.saveUploadBean(file, documentVIN_new.getText().toString(), "监管器绑定", latitude + "", longitude + "");
             FinalDb db = FinalDb.create(AddBindingActivity.this, IBase.BASE_DATE, true);
             db.save(uploadBean);
             Intent intent = new Intent(this, DocumentCommitActivity.class);
@@ -266,6 +299,40 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
             finish();
         }
 
+    }
+
+    private String savePath;
+
+    private void compyImage(final String strCaptureFilePath) {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                File upload = new File(strCaptureFilePath);
+                String uplod = FileUtils.getCarUploadPath() + IBase.VIN_BIND + "/" + System.currentTimeMillis();
+                String name = DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance()) + ".jpg";
+                File save = new File(uplod);
+                if (!save.exists()) {
+                    save.mkdirs();
+                }
+                save = new File(uplod, name);
+                if (upload.exists()) {
+                    savePath = save.getAbsolutePath();
+                    FileUtils.CopySdcardFile(upload.getAbsolutePath(), savePath);
+                    FileUtils.deleteFile(strCaptureFilePath);
+                }
+            }
+        }.start();
+    }
+
+    boolean isCommit = false;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!isCommit && !GeneralUtils.isEmpty(savePath)) {
+            FileUtils.deleteFile(savePath);
+        }
     }
 
     /**
@@ -361,9 +428,9 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(isBind) {
+        if (isBind) {
             finish();
-        }else{
+        } else {
             Intent intent = new Intent(AddBindingActivity.this, BindingsActivity.class);
             startActivity(intent);
             finish();

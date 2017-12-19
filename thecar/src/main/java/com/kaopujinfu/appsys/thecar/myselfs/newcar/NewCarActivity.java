@@ -2,10 +2,13 @@ package com.kaopujinfu.appsys.thecar.myselfs.newcar;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
@@ -27,20 +30,24 @@ import com.kaopujinfu.appsys.customlayoutlibrary.adpater.BrandAdapter;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.BrandBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.DistributorGpsBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.bean.Result;
+import com.kaopujinfu.appsys.customlayoutlibrary.bean.UploadBean;
 import com.kaopujinfu.appsys.customlayoutlibrary.eventbus.JumpEventBus;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogButtonListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.listener.DialogItemListener;
+import com.kaopujinfu.appsys.customlayoutlibrary.listener.LoactionListener;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.CallBack;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.ajaxparams.HttpBank;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.FileUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VINutils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.IMMListenerRelativeLayout;
+import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.thecar.R;
 import com.kaopujinfu.appsys.thecar.adapters.ColorsAdapter;
 import com.kaopujinfu.appsys.thecar.bean.QueryVinBean;
@@ -50,6 +57,7 @@ import net.tsz.afinal.FinalDb;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,7 +73,7 @@ import static com.kaopujinfu.appsys.customlayoutlibrary.utils.SPUtils.get;
 
 public class NewCarActivity extends BaseActivity implements View.OnClickListener {
     private TextView mDistributor, priceNewCar, goDateNewCar, caleDateNewCar, calePriceBuyNewCar, colorCar_new;
-    private EditText mBrandNewCar, mSubBrandNewCar, mModuleNewCar, priceBuyNewCar, mileageNewCar, licenseplatenumberCar,markCar,myCodenumberCar, parkinglotCar;
+    private EditText mBrandNewCar, mSubBrandNewCar, mModuleNewCar, priceBuyNewCar, mileageNewCar, licenseplatenumberCar, markCar, myCodenumberCar, parkinglotCar;
     private ImageView mDistributorNewImage, mBrandNewCarImage, goDateCarImage, colorCarImage;
     private DistributorGpsBean.GpsEntity gpsEntity;
     private EditText mVinNew;
@@ -82,6 +90,10 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
 
     private LinearLayout extendLayout;
     private IMMListenerRelativeLayout newCarImml;
+    private LinearLayout imageNewcar;
+    private ImageView vinNewcar;
+    private MapUtils mapUtils;
+    private double longitude, latitude;
 
 
     @Override
@@ -89,6 +101,17 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newcar);
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
+        mapUtils = new MapUtils(this);
+        mapUtils.initOnceLocation();
+        mapUtils.startLocation(new LoactionListener() {
+            @Override
+            public void getOnLoactionListener(double longitude, double latitude) {
+                NewCarActivity.this.longitude = longitude;
+                NewCarActivity.this.latitude = latitude;
+                LogUtils.debug("longitude=" + longitude + " latitude=" + latitude);
+                mapUtils.stopLocation();
+            }
+        });
     }
 
     @Override
@@ -229,6 +252,8 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
             intent.putExtra("isScanner", true);
             startActivityForResult(intent, IBase.RETAIL_ELEVEN);
         }
+        imageNewcar = (LinearLayout) findViewById(R.id.image_newcar);
+        vinNewcar = (ImageView) findViewById(R.id.vin_newcar);
     }
 
     @Override
@@ -292,6 +317,11 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                 String vin = data.getStringExtra("result");
                 if (!GeneralUtils.isEmpty(vin)) {
                     mVinNew.setText(vin);
+                    String imagePath = data.getStringExtra("imagePath");
+                    Bitmap mBitmap = BitmapFactory.decodeFile(imagePath);
+                    imageNewcar.setVisibility(View.VISIBLE);
+                    vinNewcar.setImageBitmap(mBitmap);
+                    compyImage(imagePath);
                 } else {
                     if (isCar) {
                         finish();
@@ -306,6 +336,40 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     finish();
                 }
             }
+        }
+    }
+
+    private String savePath;
+
+    private void compyImage(final String strCaptureFilePath) {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                File upload = new File(strCaptureFilePath);
+                String uplod = FileUtils.getCarUploadPath() + IBase.VIN_CAR+"/" + System.currentTimeMillis();
+                String name = DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance()) + ".jpg";
+                File save = new File(uplod);
+                if (!save.exists()) {
+                    save.mkdirs();
+                }
+                save = new File(uplod, name);
+                if (upload.exists()) {
+                    savePath = save.getAbsolutePath();
+                    FileUtils.CopySdcardFile(upload.getAbsolutePath(), savePath);
+                    FileUtils.deleteFile(strCaptureFilePath);
+                }
+            }
+        }.start();
+    }
+
+    boolean isCommit = false;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!isCommit && !GeneralUtils.isEmpty(savePath)) {
+            FileUtils.deleteFile(savePath);
         }
     }
 
@@ -376,7 +440,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
     private void getVinMoble(final String vinCode) {
         dialog.setLoadingTitle("正在查询车辆...");
         dialog.show();
-        isCarExit=true;
+        isCarExit = true;
         HttpBank.getIntence(this).getVinBrand(vinCode, new CallBack() {
             @Override
             public void onSuccess(Object o) {
@@ -667,7 +731,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         timeSelector.setIsLoop(false);
         timeSelector.show();
     }
-
+    UploadBean uploadBean=null;
     /* 提交 */
     private void commitNewCar() {
         if (gpsEntity == null || GeneralUtils.isEmpty(gpsEntity.getDlr())) {
@@ -686,7 +750,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
         String mileage = mileageNewCar.getText().toString();
         String date = goDateNewCar.getText().toString();
         if (GeneralUtils.isEmpty(price)) {
-            price="0";
+            price = "0";
 //            IBaseMethod.showToast(this, "请输入车辆的价格", IBase.RETAIL_TWO);
 //            return;
         }
@@ -701,8 +765,8 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
 //            IBaseMethod.showToast(this, "请输入车位", IBase.RETAIL_TWO);
 //            return;
 //        }
-        String myCode=myCodenumberCar.getText().toString();
-        String mark=markCar.getText().toString();
+        String myCode = myCodenumberCar.getText().toString();
+        String mark = markCar.getText().toString();
         String isTwo = "";
         if (isTwoCar.isChecked()) {
             isTwo = "on";
@@ -714,6 +778,11 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
 //                IBaseMethod.showToast(this, "二手车必须填写车辆上牌时间", IBase.RETAIL_TWO);
 //                return;
 //            }
+        }
+        String upKey = "";
+        if (!GeneralUtils.isEmpty(savePath)) {
+            uploadBean = IBaseMethod.saveUploadBean(new File(savePath), vincode, "校验车辆_新建车辆", latitude + "", longitude + "");
+            upKey = uploadBean.getQny_key();
         }
         dialog.show();
         dialog.setLoadingTitle("正在提交...");
@@ -731,9 +800,14 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     JumpEventBus jumpEventBus = new JumpEventBus();
                     jumpEventBus.setStatus(IBase.RETAIL_THREE);
                     EventBus.getDefault().post(jumpEventBus);
-//
                     if (isCar) {
                         RetailAplication.getInstance().exitAllActicity();
+                    }
+                    isCommit = true;
+
+                    if (!GeneralUtils.isEmpty(uploadBean)) {
+                        FinalDb db = FinalDb.create(NewCarActivity.this, IBase.BASE_DATE, true);
+                        db.save(uploadBean);
                     }
                     Intent intent = new Intent(NewCarActivity.this, DocumentCommitActivity.class);
                     intent.putExtra("success", IBase.CONSTANT_THREE);
@@ -751,7 +825,7 @@ public class NewCarActivity extends BaseActivity implements View.OnClickListener
                     IBaseMethod.showNetToast(NewCarActivity.this);
                 }
             }
-        }, gpsEntity.getDlr(), vincode, isTwo, brand, subBrand, model, price, mileage, date, colorStr, licenseplatenumber, parkinglot,myCode,mark);
+        }, gpsEntity.getDlr(), vincode, isTwo, brand, subBrand, model, price, mileage, date, colorStr, licenseplatenumber, parkinglot, myCode, mark, upKey);
     }
 
 }
