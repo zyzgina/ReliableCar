@@ -304,25 +304,15 @@ public class AddBindingActivity extends BaseActivity implements View.OnClickList
     private String savePath;
 
     private void compyImage(final String strCaptureFilePath) {
-        new Thread() {
-            @Override
-            public void run() {
-                super.run();
-                File upload = new File(strCaptureFilePath);
-                String uplod = FileUtils.getCarUploadPath() + IBase.VIN_BIND + "/" + System.currentTimeMillis();
-                String name = DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance()) + ".jpg";
-                File save = new File(uplod);
-                if (!save.exists()) {
-                    save.mkdirs();
-                }
-                save = new File(uplod, name);
-                if (upload.exists()) {
-                    savePath = save.getAbsolutePath();
-                    FileUtils.CopySdcardFile(upload.getAbsolutePath(), savePath);
-                    FileUtils.deleteFile(strCaptureFilePath);
-                }
-            }
-        }.start();
+        String uplod = FileUtils.getCarUploadPath() + IBase.VIN_BIND + "/" + System.currentTimeMillis();
+        String name = DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance()) + ".jpg";
+        File save = new File(uplod);
+        if (!save.exists()) {
+            save.mkdirs();
+        }
+        save = new File(uplod, name);
+        IBaseMethod.compyImage(strCaptureFilePath,save.getAbsolutePath(),savePath);
+        savePath=save.getAbsolutePath();
     }
 
     boolean isCommit = false;
