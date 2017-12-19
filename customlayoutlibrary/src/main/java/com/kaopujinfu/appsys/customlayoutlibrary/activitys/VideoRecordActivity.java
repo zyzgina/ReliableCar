@@ -38,7 +38,7 @@ public class VideoRecordActivity extends Activity implements VideoRecorderListen
     public static final String EXTRA_ERROR_MESSAGE = "com.kaopujinfu.extraerrormessage";
     private static final String EXTRA_FRONTFACINGCAMERASELECTED = "com.kaopujinfu.extracamerafacing";
     private static final String SAVED_RECORDED_BOOLEAN = "com.kaopujinfu.savedrecordedboolean";
-    protected static final String SAVED_OUTPUT_FILENAME = "com.kaopujinfu.savedoutputfilename";
+    public static final String SAVED_OUTPUT_FILENAME = "com.kaopujinfu.savedoutputfilename";
 
     private VideoCaptureView mVideoCaptureView;
 
