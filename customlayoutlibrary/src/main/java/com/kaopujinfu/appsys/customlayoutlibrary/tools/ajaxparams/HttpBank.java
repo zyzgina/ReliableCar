@@ -135,8 +135,8 @@ public class HttpBank {
      * @param rfidId   标签编号
      * @param callBack
      */
-    public void newDocument(String vinNo, String rfidId, CallBack callBack) {
-        AjaxParams params = bankAjaxParams.ajaxNewDocument(vinNo, rfidId);
+    public void newDocument(String vinNo, String rfidId, String vinCompare, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxNewDocument(vinNo, rfidId, vinCompare);
         IBaseMethod.post(context, IBaseUrl.BOX_V5_CELL, params, callBack);
     }
 
@@ -155,8 +155,8 @@ public class HttpBank {
      *
      * @param callBack
      */
-    public void getBindingAdd(String vinNo, String devCode, CallBack callBack) {
-        AjaxParams params = bankAjaxParams.ajaxBindingAdd(vinNo, devCode);
+    public void getBindingAdd(String vinNo, String devCode, String upKey, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxBindingAdd(vinNo, devCode, upKey);
         IBaseMethod.post(context, IBaseUrl.BANK_RF_DEV, params, callBack);
     }
 
@@ -303,28 +303,31 @@ public class HttpBank {
 
     /**
      * 柜子列表
-     * */
-    public void httpCabinetLists(CallBack callBack){
-        AjaxParams params=bankAjaxParams.ajaxCabinetLists();
-        IBaseMethod.post(context,IBaseUrl.CABINET_APP_LISTS,params,callBack);
+     */
+    public void httpCabinetLists(CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxCabinetLists();
+        IBaseMethod.post(context, IBaseUrl.CABINET_APP_LISTS, params, callBack);
     }
+
     /**
      * 柜子详情
-     * */
-    public void httpCabinetDetails(String id,CallBack callBack){
-        AjaxParams params=bankAjaxParams.ajaxCabinetDetails(id);
-        IBaseMethod.post(context,IBaseUrl.CABINET_APP_LISTS,params,callBack);
+     */
+    public void httpCabinetDetails(String id, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxCabinetDetails(id);
+        IBaseMethod.post(context, IBaseUrl.CABINET_APP_LISTS, params, callBack);
     }
+
     /**
      * 柜子自行监管说明,柜子自行监管开锁,柜子自行监管停止
-     * */
-    public void httpCabinetLists(String action,String boxCode,String cellId,CallBack callBack){
-        AjaxParams params=bankAjaxParams.ajaxCabinetREGMANUAL(boxCode,cellId,action);
-        IBaseMethod.post(context,IBaseUrl.ACTION_CABINET_APP_LISTS,params,callBack);
+     */
+    public void httpCabinetLists(String action, String boxCode, String cellId, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxCabinetREGMANUAL(boxCode, cellId, action);
+        IBaseMethod.post(context, IBaseUrl.ACTION_CABINET_APP_LISTS, params, callBack);
     }
-    public void httpCabinetLists(String action,String boxCode,String cellId,String explain,CallBack callBack){
-        AjaxParams params=bankAjaxParams.ajaxCabinetREGMANUAL(boxCode,cellId,action,explain);
-        IBaseMethod.post(context,IBaseUrl.ACTION_CABINET_APP_LISTS,params,callBack);
+
+    public void httpCabinetLists(String action, String boxCode, String cellId, String explain, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxCabinetREGMANUAL(boxCode, cellId, action, explain);
+        IBaseMethod.post(context, IBaseUrl.ACTION_CABINET_APP_LISTS, params, callBack);
     }
 
     /**
@@ -332,10 +335,11 @@ public class HttpBank {
      *
      * @param callBack
      */
-    public void getGpsAdd(String vinNo, String devCode, CallBack callBack) {
-        AjaxParams params = bankAjaxParams.ajaxGpsAdd(vinNo, devCode);
+    public void getGpsAdd(String vinNo, String devCode,String vinCompare, CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxGpsAdd(vinNo, devCode,vinCompare);
         IBaseMethod.post(context, IBaseUrl.GPS_URL, params, callBack);
     }
+
     /**
      * Gps绑定-》GPS LIST
      */
@@ -346,10 +350,10 @@ public class HttpBank {
 
     /**
      * 版本更新提示
-     * */
-    public void httpAppVersion(CallBack callBack){
-        AjaxParams params=bankAjaxParams.ajaxAppVersion();
-        IBaseMethod.post(context,"app_version",params,callBack);
+     */
+    public void httpAppVersion(CallBack callBack) {
+        AjaxParams params = bankAjaxParams.ajaxAppVersion();
+        IBaseMethod.post(context, "app_version", params, callBack);
     }
 
     /**

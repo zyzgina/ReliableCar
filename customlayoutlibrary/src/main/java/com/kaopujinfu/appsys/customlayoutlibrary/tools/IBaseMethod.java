@@ -413,6 +413,8 @@ public class IBaseMethod {
             uploadBean.setQny_key("RFID_OCR/" + pathName);
         } else if (strs[1].contains("车辆绑标签")) {
             uploadBean.setQny_key("BIND_RFID/" + pathName);
+        } else if (strs[1].contains("校验车辆")) {
+            uploadBean.setQny_key(pathName);
         } else {
             uploadBean.setQny_key("PHOTO/" + chinaChangeEn(pathName));
             fileName = chinaChangeEn(fileName);

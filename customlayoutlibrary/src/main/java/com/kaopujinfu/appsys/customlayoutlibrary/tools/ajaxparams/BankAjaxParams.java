@@ -130,24 +130,27 @@ public class BankAjaxParams {
      * @param rfidId 标签编号
      * @return
      */
-    public AjaxParams ajaxNewDocument(String vinNo, String rfidId) {
+    public AjaxParams ajaxNewDocument(String vinNo, String rfidId, String vinCompare) {
         AjaxParams params = BANKUserIDSIDCompany();
         params.put("action", "REG");
         params.put("vinNo", vinNo);
         params.put("rfidId", rfidId);
+        params.put("vinCompare", vinCompare);
         return params;
     }
 
     /**
      * 监管器绑定-》小圆盘的绑定
      */
-    public AjaxParams ajaxBindingAdd(String vinNo, String devCode) {
+    public AjaxParams ajaxBindingAdd(String vinNo, String devCode, String vinCompare) {
         AjaxParams params = BANKUserIDSIDCompany();
         params.put("action", IBaseUrl.ACTION_BANK_BINDING);
         params.put("vinNo", vinNo);
         params.put("devCode", devCode);
+        params.put("vinCompare", vinCompare);
         return params;
     }
+
     /**
      * 获取经销商列表
      *
@@ -297,13 +300,17 @@ public class BankAjaxParams {
             //车位
             ajaxParams.put("carParkNo", strings[11]);
         }
-        if(strings.length>12){
+        if (strings.length > 12) {
             //车辆自编号
             ajaxParams.put("carNumber", strings[12]);
         }
-        if(strings.length>13){
+        if (strings.length > 13) {
             //备注信息
-            ajaxParams.put("comment",strings[13]);
+            ajaxParams.put("comment", strings[13]);
+        }
+        if (strings.length > 14) {
+            //上传图片
+            ajaxParams.put("vinCompare", strings[14]);
         }
         return ajaxParams;
     }
@@ -328,6 +335,7 @@ public class BankAjaxParams {
         params.put("action", IBaseUrl.ACTION_BINDRFID);
         params.put("vinNo", strs[0]);
         params.put("rfidId", strs[1]);
+        params.put("vinCompare", strs[2]);
         return params;
     }
 
@@ -420,25 +428,28 @@ public class BankAjaxParams {
         params.put("cellId", cellId);
         return params;
     }
+
     /**
      * 柜子自行监管说明,柜子自行监管开锁,柜子自行监管停止
      */
-    public AjaxParams ajaxCabinetREGMANUAL(String boxCode, String cellId, String action,String beizhu) {
-        AjaxParams params = ajaxCabinetREGMANUAL(boxCode,cellId,action);
-        params.put("comment",beizhu);
+    public AjaxParams ajaxCabinetREGMANUAL(String boxCode, String cellId, String action, String beizhu) {
+        AjaxParams params = ajaxCabinetREGMANUAL(boxCode, cellId, action);
+        params.put("comment", beizhu);
         return params;
     }
 
     /**
      * GPS绑定-》GPS绑定
      */
-    public AjaxParams ajaxGpsAdd(String vinNo, String devCode) {
+    public AjaxParams ajaxGpsAdd(String vinNo, String devCode, String vinCompare) {
         AjaxParams params = BANKUserIDSIDCompany();
         params.put("action", IBaseUrl.ACTION_ADDGPS);
         params.put("vinNo", vinNo);
         params.put("devId", devCode);
+        params.put("vinCompare", vinCompare);
         return params;
     }
+
     /**
      * GPS绑定-》GPS LIST
      */
@@ -450,8 +461,8 @@ public class BankAjaxParams {
 
     /**
      * 版本更新
-     * */
-    public AjaxParams ajaxAppVersion(){
+     */
+    public AjaxParams ajaxAppVersion() {
         AjaxParams params = BANKUserIDSID();
         params.put("action", "APP_VERSION_LIST");
         params.put("appType", "Android");
