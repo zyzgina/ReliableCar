@@ -96,4 +96,12 @@ public class IBase {
 
     /** 下拉刷新等待的时间 */
     public static final int TIME_REFERSH=10;
+
+    /* 新建车辆vin码扫描图片 */
+    public static final String VIN_CAR="VINCAR";
+    public static final String VIN_BIND="VINBIND";
+    public static final String VIN_DOC="VINDOC";
+    public static final String VIN_RFID="VINRFID";
+    public static final String VIN_PHOTO="VINPHOTO";
+    public static final String VIN_GPS="VINGPS";
 }
