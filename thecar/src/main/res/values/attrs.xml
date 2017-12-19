@@ -8,6 +8,7 @@
         <item>照片采集</item>
         <item>盘库</item>
         <item>柜体列表</item>
+        <item>GPS绑定</item>
     </array>
     <array name="photos">
         <item>外观全景图</item>

@@ -44,6 +44,26 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/image_task_new"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_200sp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_1sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <ImageView
+            android:id="@+id/vin_task_new"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
     <View
         android:id="@+id/view_code_documentNum_new"
         android:layout_width="match_parent"
@@ -88,6 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="标签编号" />
+
         <EditText
             android:id="@+id/documentNum_new"
             style="@style/textview_color_gray_size17"

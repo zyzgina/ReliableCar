@@ -223,7 +223,6 @@
                     android:layout_width="@dimen/sp50"
                     android:layout_height="@dimen/sp50"
                     android:layout_centerHorizontal="true"
-                    android:layout_margin="@dimen/common_measure_10sp"
                     android:src="@drawable/my_icon_shot" />
 
                 <TextView
@@ -232,6 +231,27 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/image5"
                     android:text="照片采集" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/commitGPS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/common_measure_10sp"
+                android:onClick="jumpIntent">
+
+                <ImageView
+                    android:id="@+id/image6"
+                    android:layout_width="@dimen/sp50"
+                    android:layout_height="@dimen/sp50"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_gps" />
+
+                <TextView
+                    style="@style/textview_color_back_gray_size15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image6"
+                    android:text="GPS绑定" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

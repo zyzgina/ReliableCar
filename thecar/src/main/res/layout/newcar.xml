@@ -80,6 +80,27 @@
             android:src="@drawable/ic_vin_gray" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/image_newcar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_measure_200sp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_measure_1sp"
+            android:layout_marginLeft="@dimen/common_measure_20sp"
+            android:background="@color/plain_gray" />
+
+        <ImageView
+            android:id="@+id/vin_newcar"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_measure_1sp"
@@ -297,6 +318,7 @@
             android:layout_marginLeft="@dimen/common_measure_20sp"
             android:background="@color/plain_gray" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -557,6 +579,7 @@
             android:layout_marginLeft="@dimen/common_measure_20sp"
             android:background="@color/plain_gray" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -568,8 +591,8 @@
             style="@style/textview_color_back_gray_size17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="备注信息"
-            android:layout_gravity="top"/>
+            android:layout_gravity="top"
+            android:text="备注信息" />
 
         <EditText
             android:id="@+id/markCar"
@@ -581,17 +604,17 @@
             android:background="@color/trans"
             android:gravity="right|top"
             android:hint="请输入"
+            android:lines="4"
             android:paddingRight="@dimen/common_measure_100sp"
-            android:textColorHint="@color/gray"
-            android:lines="4"/>
+            android:textColorHint="@color/gray" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_measure_1sp"
+        android:layout_marginBottom="@dimen/common_measure_20sp"
         android:layout_marginLeft="@dimen/common_measure_20sp"
-        android:background="@color/plain_gray"
-        android:layout_marginBottom="@dimen/common_measure_20sp"/>
+        android:background="@color/plain_gray" />
 
     <include layout="@layout/item_extendlayout" />
 </LinearLayout>
