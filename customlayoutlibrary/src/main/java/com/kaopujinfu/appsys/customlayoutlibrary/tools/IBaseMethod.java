@@ -428,7 +428,26 @@ public class IBaseMethod {
         }
         return uploadBean;
     }
-
+    /** 保存图片*/
+    public static void compyImage(final String strCaptureFilePath,final String savePath,final String oldPath) {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                File upload = new File(strCaptureFilePath);
+                if (upload.exists()) {
+                    if (!GeneralUtils.isEmpty(oldPath)) {
+                        File mFiles=new File(oldPath);
+                        String delPath=oldPath.replace(mFiles.getName(),"");
+                        delPath=delPath.substring(0,delPath.length()-1);
+                        FileUtils.delFolder(delPath);
+                    }
+                    FileUtils.CopySdcardFile(upload.getAbsolutePath(), savePath);
+                    FileUtils.deleteFile(strCaptureFilePath);
+                }
+            }
+        }.start();
+    }
     /**
      * 照片采集中文转英文
      */
