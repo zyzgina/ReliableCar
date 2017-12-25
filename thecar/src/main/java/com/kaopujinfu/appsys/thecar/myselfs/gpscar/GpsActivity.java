@@ -44,7 +44,6 @@ import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.CaptureConfiguration;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.utils.videocapture.PredefinedCaptureConfigurations;
 import com.kaopujinfu.appsys.thecar.R;
-import com.kaopujinfu.appsys.thecar.myselfs.bindings.BindingsActivity;
 import com.kaopujinfu.appsys.thecar.myselfs.files.DocumentCommitActivity;
 
 import net.tsz.afinal.FinalDb;
@@ -166,9 +165,7 @@ public class GpsActivity extends BaseActivity implements View.OnClickListener {
             Intent intent = new Intent(GpsActivity.this, ScannerActivity.class);
             startActivityForResult(intent, IBase.RETAIL_THREE);
         } else if (v == mtop_back) {
-            Intent intent = new Intent(GpsActivity.this, BindingsActivity.class);
-            startActivity(intent);
-            finish();
+            onBackPressed();
         }
     }
 
@@ -297,8 +294,8 @@ public class GpsActivity extends BaseActivity implements View.OnClickListener {
             save.mkdirs();
         }
         save = new File(uplod, name);
-        IBaseMethod.compyImage(strCaptureFilePath,save.getAbsolutePath(),savePath);
-        savePath=save.getAbsolutePath();
+        IBaseMethod.compyImage(strCaptureFilePath, save.getAbsolutePath(), savePath);
+        savePath = save.getAbsolutePath();
     }
 
     boolean isCommit = false;
