@@ -27,6 +27,7 @@ import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBase;
 import com.kaopujinfu.appsys.customlayoutlibrary.tools.IBaseMethod;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DateUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.DialogUtil;
+import com.kaopujinfu.appsys.customlayoutlibrary.utils.GeneralUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.LogUtils;
 import com.kaopujinfu.appsys.customlayoutlibrary.utils.VibratorUtil;
 import com.kaopujinfu.appsys.customlayoutlibrary.view.MapUtils;
@@ -65,7 +66,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
     private ChecksdetailsAdapter checksdetailsAdapter;
     private TwinklingRefreshLayout mRefreshLayout;
     private FinalDb db;
-    private String taskCode;
+    private String taskCode, dlrShortName;
     private double longitude, latitude;
     private MapUtils mapUtils;
     private VoiceUtils voiceUtils;
@@ -101,6 +102,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
         mTvTitle.setText("RFID盘库");
         db = FinalDb.create(this, IBase.BASE_DATE, true);
         taskCode = getIntent().getStringExtra("taskCode");
+        dlrShortName = getIntent().getStringExtra("dlrShortName");
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
         header.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
         dialog.dismiss();
@@ -119,7 +121,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
 
         List<TaskItemBean.TaskItemsEntity> lists = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + taskCode + "\" ");
         if (lists.size() > 0) {
-            mBusiness.setText("经销商：" + lists.get(0).getDistributor());
+            mBusiness.setText("经销商：" + dlrShortName);
             mCompany.setText("金融公司：" + lists.get(0).getFinance());
         }
 
@@ -129,6 +131,7 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
         mCommitrippleTelView.setColor(getResources().getColor(R.color.green));
         mStart = (TextView) findViewById(R.id.start_devicecontrol);
         mCar = (ImageView) findViewById(R.id.car_devicecontrol);
+
         mStart.setText("扫描中...");
         mRippleTelView.startRippleAnimation();
         dHandler.sendEmptyMessage(IBase.CONSTANT_ZERO);
@@ -266,12 +269,14 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
                                     } else {
                                         content = "该车已盘库";
                                     }
-                                }
-                                integerList.add(nofinish.size());
-                                if (nofinish.size() == 0 && num < integerList.size() && integerList.get(num) == 0) {
+                                } else {
+                                    content = "全部完成辛苦了";
                                     if (entity.getAllowVideo() == 1) {
                                         showVideo();
                                     }
+                                }
+                                integerList.add(nofinish.size());
+                                if (nofinish.size() == 0 && num < integerList.size() && integerList.get(num) == 0) {
                                     voiceUtils.startSpeek("全部完成辛苦了", new VoiceUtils.SpeekEndListener() {
                                         @Override
                                         public void setSpeekEndListener(boolean b) {
@@ -309,47 +314,50 @@ public class DeviceControlActivity extends BaseNoScoActivity implements View.OnC
     private boolean isTwo = true;//防止两次进入播报全部完成辛苦了
 
     private void goSpeek(String content, final int value, final int size) {
-        voiceUtils.startSpeek(content, new VoiceUtils.SpeekEndListener() {
-            @Override
-            public void setSpeekEndListener(boolean b) {
-                if (b && value != 0 && size == 0) {
+        if (GeneralUtils.isEmpty(content)) {
+            num++;
+        } else
+            voiceUtils.startSpeek(content, new VoiceUtils.SpeekEndListener() {
+                @Override
+                public void setSpeekEndListener(boolean b) {
+                    if (b && value != 0 && size == 0) {
 //                    LogUtils.debug("进入了=====全部完成");
-                    voiceUtils.stopSpeek();
-                    if (isTwo) {
-//                        LogUtils.debug("进入全部完成播报语音");
-                        isTwo = false;
-                        goSpeek("全部完成辛苦了", 1, 0);
-                    } else {
-                        //判断是否进入了外部监听
-//                        LogUtils.debug("监听全部完成辛苦了播报");
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        voiceUtils.releaseSpeek();
-                        if (entity == null) {
-                            finish();
-                        }
-                        if (entity != null && entity.getAllowVideo() == 0) {
-                            finish();
+                        voiceUtils.stopSpeek();
+                        if (isTwo) {
+                            LogUtils.debug("进入全部完成播报语音");
+                            isTwo = false;
+                            goSpeek("全部完成辛苦了", 1, 0);
+                        } else {
+                            //判断是否进入了外部监听
+                            LogUtils.debug("监听全部完成辛苦了播报");
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            voiceUtils.releaseSpeek();
+                            if (entity == null) {
+                                finish();
+                            }
+                            if (entity != null && entity.getAllowVideo() == 0) {
+                                finish();
+                            }
                         }
                     }
+                    //跳转至视频录制，停止语音播放
+                    if (b && isShowLz && isTwo) {
+                        isShowLz = false;
+                        voiceUtils.stopSpeek();
+                    }
+                    //判断该页面是否销毁
+                    if (b && isExit && size != 0) {
+                        voiceUtils.releaseSpeek();
+                    }
+                    if (b) {
+                        num++;
+                    }
                 }
-                //跳转至视频录制，停止语音播放
-                if (b && isShowLz && isTwo) {
-                    isShowLz = false;
-                    voiceUtils.stopSpeek();
-                }
-                //判断该页面是否销毁
-                if (b && isExit && size != 0) {
-                    voiceUtils.releaseSpeek();
-                }
-                if (b) {
-                    num++;
-                }
-            }
-        });
+            });
     }
 
     /**

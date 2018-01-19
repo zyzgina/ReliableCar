@@ -50,7 +50,7 @@ public class BluetoothActivity extends Activity implements View.OnClickListener 
     private TextView msg_bluetooth;
     private String bluetoothAddr;
     private String mName;
-    String taskCode;
+    String taskCode,dlrShortName;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -158,6 +158,7 @@ public class BluetoothActivity extends Activity implements View.OnClickListener 
 
     public void initView() {
         taskCode = getIntent().getStringExtra("taskCode");
+        dlrShortName = getIntent().getStringExtra("dlrShortName");
         mScanningbluetooth = (Button) findViewById(R.id.scanning_bluetooth);
         mScanningBlebluetooth = (Button) findViewById(R.id.scanningble_bluetooth);
         mListsbluetooth = (MyListView) findViewById(R.id.lists_bluetooth);
@@ -236,6 +237,7 @@ public class BluetoothActivity extends Activity implements View.OnClickListener 
         intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_NAME, name);
         intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_ADDRESS, addr);
         intent.putExtra("taskCode", taskCode);
+        intent.putExtra("dlrShortName", dlrShortName);
         startActivity(intent);
         finish();
     }

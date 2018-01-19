@@ -59,7 +59,6 @@ public class LableActivity extends BaseNoScoActivity implements View.OnClickList
         mTvTitle.setText("车辆标签");
         top_meun.setVisibility(View.GONE);
         top_btn.setText("选择");
-        top_btn.setVisibility(View.VISIBLE);
         top_btn.setOnClickListener(this);
 
         addBindings = (RelativeLayout) findViewById(R.id.newTaskLayout);

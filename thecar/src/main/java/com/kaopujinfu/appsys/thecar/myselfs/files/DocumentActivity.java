@@ -51,7 +51,6 @@ public class DocumentActivity extends BaseNoScoActivity implements View.OnClickL
     public void initView() {
         dialog.dismiss();
         top_meun.setVisibility(View.GONE);
-        top_btn.setVisibility(View.VISIBLE);
         header.setBackgroundColor(getResources().getColor(R.color.car_theme));
         header.setPadding(0, IBaseMethod.setPaing(this), 0, 0);
         mTvTitle.setText("文档收录");

@@ -194,6 +194,7 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
         if (flag) {
             Intent intent = new Intent(this, BluetoothActivity.class);
             intent.putExtra("taskCode", taskCode);
+            intent.putExtra("dlrShortName", item.getDlrShortName());
             startActivityForResult(intent, REQUECODE);
         } else {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
