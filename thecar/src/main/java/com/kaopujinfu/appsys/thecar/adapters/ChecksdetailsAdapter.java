@@ -66,11 +66,13 @@ public class ChecksdetailsAdapter extends BaseAdapter {
         if (GeneralUtils.isEmpty(entity.getCarBrand()))
             strs = "未知品牌";
         hodler.mCompanyname.setText(strs);
+        hodler.mDrl.setText(entity.getDistributor());
+        hodler.mDrl.setVisibility(View.VISIBLE);
 
         if (!GeneralUtils.isEmpty(entity.getVinNo()))
             hodler.mVincode.setText(entity.getVinNo());
         if (!GeneralUtils.isEmpty(entity.getCheckTime())) {
-            hodler.mDate.setText("盘库时间 " + entity.getCheckTime());
+            hodler.mDate.setText("盘库时间: " + entity.getCheckTime());
             hodler.mDate.setVisibility(View.VISIBLE);
             if (entity.getCommit_status() == 2) {
                 if (IBase.RFIDCODE.equals(entity.getCheckMethod())) {

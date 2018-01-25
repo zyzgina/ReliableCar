@@ -14,7 +14,7 @@ import com.kaopujinfu.appsys.thecar.R;
  */
 
 public class ChecksDetailHodler {
-    public TextView mCompanyname, mNum, mStatus, mDate, mVincode;
+    public TextView mCompanyname, mNum, mStatus, mDate, mVincode,mDrl;
     public ImageView mIcon;
     public View mView;
     public LinearLayout mpk;
@@ -26,6 +26,7 @@ public class ChecksDetailHodler {
         mDate = (TextView) view.findViewById(R.id.date_item_checkslists);
         mView = view.findViewById(R.id.view_item_checkslists);
         mVincode = (TextView) view.findViewById(R.id.vincode_item_checkslists);
+        mDrl = (TextView) view.findViewById(R.id.drl_item_checkslists);
         mIcon = (ImageView) view.findViewById(R.id.icon_item_checkslists);
         mpk = (LinearLayout) view.findViewById(R.id.pk_item_checkslists);
     }
