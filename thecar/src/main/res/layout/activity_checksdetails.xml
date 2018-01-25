@@ -121,8 +121,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/sp45"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:layout_alignParentStart="true">
 
         <Button
             android:id="@+id/vinChecksdetails"
@@ -143,6 +144,15 @@
             android:background="@color/red_orange"
             android:onClick="checkRFIDar"
             android:text="RFID盘库" />
+        <Button
+            android:id="@+id/zongChecksdetails"
+            style="@style/textview_color_white_size17"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:onClick="checkZongcCar"
+            android:text="条形码盘库" />
         <Button
             android:id="@+id/videoChecksdetails"
             style="@style/textview_color_white_size17"
