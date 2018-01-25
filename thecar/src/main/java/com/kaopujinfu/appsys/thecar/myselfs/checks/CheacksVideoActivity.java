@@ -40,13 +40,14 @@ public class CheacksVideoActivity extends BaseNoScoActivity {
     private String taskCode;
     private TextView yes_checksdetails, vinnum_checksdetails, rfidnum_checksdetails, no_checksdetails;
     private TaskListBean.TaskListItem item;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checksdetails);
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
         //请求语音权限
-        if(!PermissionsUntils.checkRecordPermissions(this)){
+        if (!PermissionsUntils.checkRecordPermissions(this)) {
             PermissionsUntils.requesetRecordPermissions(this);
         }
     }
@@ -62,11 +63,13 @@ public class CheacksVideoActivity extends BaseNoScoActivity {
         top_meun.setVisibility(View.GONE);
         dialog.dismiss();
 
-        Button vinChecksdetails= (Button) findViewById(R.id.vinChecksdetails);
+        Button vinChecksdetails = (Button) findViewById(R.id.vinChecksdetails);
         vinChecksdetails.setVisibility(View.GONE);
-        Button rfidChecksdetails= (Button) findViewById(R.id.rfidChecksdetails);
+        Button rfidChecksdetails = (Button) findViewById(R.id.rfidChecksdetails);
         rfidChecksdetails.setVisibility(View.GONE);
-        Button videoChecksdetails= (Button) findViewById(R.id.videoChecksdetails);
+        Button zongChecksdetails = (Button) findViewById(R.id.zongChecksdetails);
+        zongChecksdetails.setVisibility(View.GONE);
+        Button videoChecksdetails = (Button) findViewById(R.id.videoChecksdetails);
         videoChecksdetails.setVisibility(View.VISIBLE);
 
         yes_checksdetails = (TextView) findViewById(R.id.yes_checksdetails);
@@ -101,11 +104,11 @@ public class CheacksVideoActivity extends BaseNoScoActivity {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 super.onRefresh(refreshLayout);
-                if(isRefresh){
-                    page=1;
-                    isRefresh=false;
+                if (isRefresh) {
+                    page = 1;
+                    isRefresh = false;
                     getDate();
-                }else{
+                } else {
                     refreshLayout.finishRefreshing();
                 }
 
@@ -117,6 +120,7 @@ public class CheacksVideoActivity extends BaseNoScoActivity {
             }
         });
     }
+
     /**
      * 获取数据
      */
@@ -133,7 +137,7 @@ public class CheacksVideoActivity extends BaseNoScoActivity {
                     mRefreshLayout.finishRefreshing();
                 }
                 if (bean != null && bean.getItems() != null && bean.getItems().size() > 0) {
-                    detailsAdapter.addItemList(bean.getItems(),1);
+                    detailsAdapter.addItemList(bean.getItems(), 1);
                     mNodate.setVisibility(View.GONE);
                     mLists.setVisibility(View.VISIBLE);
                 } else {
@@ -154,16 +158,16 @@ public class CheacksVideoActivity extends BaseNoScoActivity {
 
     /**
      * 视频盘库
-     * */
-    public void checkVideo(View view){
+     */
+    public void checkVideo(View view) {
         Intent i = new Intent(CheacksVideoActivity.this, VideoActivity.class);
         i.putExtra(ConstantApp.ACTION_KEY_CHANNEL_NAME, "23");
         i.putExtra(ConstantApp.ACTION_KEY_CHANNEL_KEY, "");
         i.putExtra(ConstantApp.ACTION_KEY_ENCRYPTION_KEY, "");
-        i.putExtra(ConstantApp.ACTION_KEY_ENCRYPTION_MODE,"AES-128-XTS");
-        i.putExtra(ConstantApp.ACTION_KEY_CHANNEL_UID,6);
-        WorkerThread.appId="363c3de5a41041fba59c73c4729b62dd";
-        WorkerThread.recordKey="";
+        i.putExtra(ConstantApp.ACTION_KEY_ENCRYPTION_MODE, "AES-128-XTS");
+        i.putExtra(ConstantApp.ACTION_KEY_CHANNEL_UID, 6);
+        WorkerThread.appId = "363c3de5a41041fba59c73c4729b62dd";
+        WorkerThread.recordKey = "";
         startActivity(i);
     }
 
