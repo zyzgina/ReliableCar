@@ -65,7 +65,7 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
         setContentView(R.layout.activity_checksdetails);
         IBaseMethod.setBarStyle(this, getResources().getColor(R.color.car_theme));
         //请求语音权限
-        if(!PermissionsUntils.checkRecordPermissions(this)){
+        if (!PermissionsUntils.checkRecordPermissions(this)) {
             PermissionsUntils.requesetRecordPermissions(this);
         }
     }
@@ -177,7 +177,7 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
             return;
         }
         Intent intent = new Intent(this, VINactivity.class);
-        intent.putExtra("taskCode",taskCode);
+        intent.putExtra("taskCode", taskCode);
         startActivityForResult(intent, REQUECODE);
     }
 
@@ -200,6 +200,21 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, IBase.RETAIL_BLUETOOTH_OPEN);
         }
+    }
+
+    /**
+     * 条形码盘库
+     */
+    public void checkZongcCar(View view) {
+        List<TaskItemBean.TaskItemsEntity> nofinish = db.findAllByWhere(TaskItemBean.TaskItemsEntity.class, "taskCode=\"" + taskCode + "\" and commit_status=0");
+        if (nofinish.size() == 0) {
+            IBaseMethod.showToast(this, "该车库盘库已完成", IBase.RETAIL_TWO);
+            return;
+        }
+        Intent intent = new Intent(this, ZongActivity.class);
+        intent.putExtra("taskCode", taskCode);
+        startActivityForResult(intent, REQUECODE);
+        startActivity(intent);
     }
 
     /**
