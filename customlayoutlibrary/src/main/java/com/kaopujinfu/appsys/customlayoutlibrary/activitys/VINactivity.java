@@ -676,8 +676,11 @@ public class VINactivity extends Activity implements SurfaceHolder.Callback, Cam
                 if (getIntent().getBooleanExtra("isScanner", false)) {
                     mRemind.setVisibility(View.VISIBLE);
                     toats_vin.setVisibility(View.GONE);
+                    //保存图片
+                    String imagePath=savePicture(tmpbitmap,"S");
                     Intent intent = new Intent();
                     intent.putExtra("result", recogResult);
+                    intent.putExtra("imagePath", imagePath);
                     setResult(IBase.RETAIL_ELEVEN, intent);
                     finish();
                 } else {

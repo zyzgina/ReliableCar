@@ -331,7 +331,7 @@ public class TaskItemBean implements Serializable {
             /* 判断该车是否已经盘库 */
             if (bean != null && bean.getItems() != null) {
                 for (TaskItemsEntity entity : bean.getItems()) {
-                    entity.setDistributor(distributor);
+//                    entity.setDistributor(distributor);
                     entity.setFinance(finance);
                     if (GeneralUtils.isEmpty(entity.getCheckTime())) {
                         entity.setCommit_status(0);
