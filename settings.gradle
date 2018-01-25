@@ -1,1 +1,1 @@
-include ':app', ':customlayoutlibrary', ':thecar'
+include ':app', ':customlayoutlibrary', ':thecar', ':capturealibrary'

@@ -36,6 +36,7 @@ import com.kaopujinfu.appsys.thecar.bean.TaskListBean;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
+import com.loansys.capturealibrary.activity.CaptureActivity;
 
 import net.tsz.afinal.FinalDb;
 
@@ -211,7 +212,7 @@ public class ChecksDetailsActivity extends BaseNoScoActivity implements View.OnC
             IBaseMethod.showToast(this, "该车库盘库已完成", IBase.RETAIL_TWO);
             return;
         }
-        Intent intent = new Intent(this, ZongActivity.class);
+        Intent intent = new Intent(this, CaptureActivity.class);
         intent.putExtra("taskCode", taskCode);
         startActivityForResult(intent, REQUECODE);
         startActivity(intent);
