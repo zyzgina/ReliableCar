@@ -8,7 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/common_measure_20sp">
+        android:paddingBottom="@dimen/common_measure_10sp"
+        android:paddingLeft="@dimen/common_measure_20sp"
+        android:paddingRight="@dimen/common_measure_20sp"
+        android:paddingTop="@dimen/common_measure_20sp">
 
         <TextView
             android:id="@+id/companyname_item_checkslsits"
@@ -84,11 +87,21 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/drl_item_checkslists"
+        style="@style/textview_color_gray_singleLine_size17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/common_measure_10sp"
+        android:paddingLeft="@dimen/common_measure_20sp"
+        android:text=""
+        android:visibility="gone" />
+
+    <TextView
         android:id="@+id/date_item_checkslists"
         style="@style/textview_color_gray_singleLine_size17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/common_measure_20sp"
+        android:paddingBottom="@dimen/common_measure_10sp"
         android:paddingLeft="@dimen/common_measure_20sp"
         android:text="盘库时间：2107-02-12" />
 
@@ -96,6 +109,7 @@
         android:id="@+id/view_item_checkslists"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="@dimen/common_measure_10sp"
         android:background="@color/plain_gray"
         android:paddingLeft="@dimen/common_measure_20sp"
         android:visibility="visible" />
