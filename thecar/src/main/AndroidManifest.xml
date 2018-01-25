@@ -73,7 +73,7 @@
             android:name=".myselfs.files.DocumentNewActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".myselfs.files.DocumentCommitActivity" />
-        <activity android:name=".myselfs.checks.ZongActivity"/>
+        <activity android:name="com.loansys.capturealibrary.activity.CaptureActivity"/>
         <activity
             android:name=".myselfs.bindings.AddBindingActivity"
             android:screenOrientation="portrait" />
